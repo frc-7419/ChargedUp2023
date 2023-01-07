@@ -11,35 +11,12 @@ import frc.robot.subsystems.led.SetLEDColor;
 import frc.robot.subsystems.limelight.LimelightSubsystem;
 import frc.robot.subsystems.loader.LoaderSubsystem;
 import frc.robot.subsystems.loader.RunLoader;
-import frc.robot.subsystems.shooter.GetToTargetVelocity;
-import frc.robot.subsystems.shooter.GetToTargetVelocityArbitraryFeedforward;
-import frc.robot.subsystems.shooter.ShooterSubsystem;
-import frc.robot.subsystems.turret.AlignTurretDefault;
-import frc.robot.subsystems.turret.TurretSubsystem;
 
 public class OneBallAuto extends ParallelCommandGroup {
 
-    public OneBallAuto(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem, ShooterSubsystem shooterSubsystem, LimelightSubsystem limelightSubsystem, FeederSubsystem feederSubsystem, LoaderSubsystem loaderSubsystem, LEDSubsystem ledSubsystem, TurretSubsystem turretSubsystem) {
+    public OneBallAuto(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem, LimelightSubsystem limelightSubsystem, FeederSubsystem feederSubsystem, LoaderSubsystem loaderSubsystem, LEDSubsystem ledSubsystem) {
         addCommands(
-            sequence(
-                // new GetToTargetVelocityArbitraryFeedforward(shooterSubsystem, 9850, 6150, 0.0485, 0.0495).withTimeout(2),
-                parallel(new AlignTurretDefault(turretSubsystem, limelightSubsystem), new GetToTargetVelocity(shooterSubsystem, 37, 30))
-                    .withTimeout(0.75), // gttv while aligning turret
-                    
-                // parallel(new RunLoader(loaderSubsystem, 1.0), new GetToTargetVelocityArbitraryFeedforward(shooterSubsystem, 9850, 6150, 0.0485, 0.0495)).withTimeout(2.5),
-
-                // shoot preload
-                parallel(
-                    new AlignTurretDefault(turretSubsystem, limelightSubsystem),
-                    new GetToTargetVelocity(shooterSubsystem, 37, 30),
-                    new RunFeeder(feederSubsystem, 1),
-                    new RunLoader(loaderSubsystem, 1)
-                ).withTimeout(1.5), // tune time
-
-                new StraightWithMotionMagic(driveBaseSubsystem, -80.88)
-            )
         );
-        addCommands(new SetLEDColor(ledSubsystem, limelightSubsystem, driveBaseSubsystem));
     }
     
 }
