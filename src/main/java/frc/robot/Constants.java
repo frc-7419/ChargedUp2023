@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -47,9 +46,9 @@ public final class Constants {
     public static class RobotConstants {
         public static final double TalonFXTicksPerRotation = 2048;
 
-        public static final double RotationsPerMeter = 1/(2*Math.PI*0.0508);
-
         public static final double trackWidth = 0.69; // meters
+
+        public static final double kWheelRadius = 1/2 * 4 * 0.0254; // meters
     }
 
     public static class PowerConstants {
