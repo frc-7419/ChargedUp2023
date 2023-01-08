@@ -24,7 +24,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import java.util.Optional;
 
-public class VisionSubsystemTwo extends SubsystemBase {
+public class PoseEstimatorVisionSubsystem extends SubsystemBase {
   private PhotonCamera cam1;
   private PhotonCamera cam2;
   private List<PhotonTrackedTarget> camTargets;
@@ -38,7 +38,7 @@ public class VisionSubsystemTwo extends SubsystemBase {
   AprilTagFieldLayout aprilTagFieldLayout = new ApriltagFieldLayout(AprilTagFieldLayout.loadFromResource(AprilTagFields.k2022RapidReact.m_resourceFile)); //update with chargedup field when merged to photonvision + wpilib and avaialble
   
   
-  public VisionSubsystemTwo() {
+  public PoseEstimatorVisionSubsystem() {
     cam1 = new PhotonCamera("teri_ma");
       Transform3d robotToCam1 = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
 
