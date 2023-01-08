@@ -34,14 +34,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     rightLeader = new TalonFX(Constants.CanIds.rightFalcon1.id);
     rightFollower = new TalonFX(Constants.CanIds.rightFalcon2.id);
     factoryResetAll();
-
-    rightLeader.setInverted(true);
-    rightLeader.setSensorPhase(false);
-    rightFollower.setInverted(true);
-    rightFollower.setSensorPhase(false);
-
-    leftLeader.setInverted(false);
-    leftFollower.setInverted(false);
+    setAllDefaultInversions();
 
     leftFollower.follow(leftLeader);
     rightFollower.follow(rightLeader);
@@ -58,15 +51,13 @@ public class DriveBaseSubsystem extends SubsystemBase {
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
 
-    double leftDistance = leftLeader.getSelectedSensorVelocity(0) * 2 * Math.PI
-        * Constants.RobotConstants.kWheelRadius / Constants.RobotConstants.TalonFXTicksPerRotation * Constants.RobotConstants.timeStep;
-    double rightDistance = rightLeader.getSelectedSensorVelocity(0) * 2 * Math.PI
-        * Constants.RobotConstants.kWheelRadius / Constants.RobotConstants.TalonFXTicksPerRotation * Constants.RobotConstants.timeStep;
+    double leftDistance = getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
+    double rightDistance = getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
 
     poseEst = new DrivetrainPoseEstimator(leftDistance, rightDistance);
   }
 
-   public enum TurnDirection {
+  public enum TurnDirection {
     LEFT,
     RIGHT,
   }
@@ -88,12 +79,12 @@ public class DriveBaseSubsystem extends SubsystemBase {
     return rightFollower;
   }
 
-  public void setLeftVoltage(double voltage) { 
+  public void setLeftVoltage(double voltage) {
     leftLeader.set(ControlMode.PercentOutput, voltage / 11);
     leftFollower.set(ControlMode.PercentOutput, voltage / 11);
   }
 
-  public void setRightVoltage(double voltage) { 
+  public void setRightVoltage(double voltage) {
     rightLeader.set(ControlMode.PercentOutput, voltage / 11);
     rightFollower.set(ControlMode.PercentOutput, voltage / 11);
   }
@@ -138,11 +129,19 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
 
   public double getLeftVelocity() {
-    return leftLeader.getSelectedSensorVelocity();
+    return leftLeader.getSelectedSensorVelocity(0);
   }
 
   public double getRightVelocity() {
-    return rightLeader.getSelectedSensorVelocity();
+    return rightLeader.getSelectedSensorVelocity(0);
+  }
+
+  public double getLeftVelocityInMeters() {
+    return leftLeader.getSelectedSensorVelocity(0)*Constants.RobotConstants.kWheelCircumference/Constants.RobotConstants.TalonFXTicksPerRotation;
+  }
+
+  public double getRightVelocityInMeters() {
+    return rightLeader.getSelectedSensorVelocity(0)*Constants.RobotConstants.kWheelCircumference/Constants.RobotConstants.TalonFXTicksPerRotation;
   }
 
   public void setAllDefaultInversions() {
@@ -158,21 +157,20 @@ public class DriveBaseSubsystem extends SubsystemBase {
     leftLeader.configFactoryDefault();
     leftFollower.configFactoryDefault();
   }
+
   public void drive(double xSpeed, double rot) {
     // Convert our fwd/rev and rotate commands to wheel speed commands
     DifferentialDriveWheelSpeeds speeds = kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed, 0, rot));
 
     // Calculate the feedback (PID) portion of our motor command, based on desired
     // wheel speed
-    double leftDistance = leftLeader.getSelectedSensorVelocity(0) * 2 * Math.PI
-        * Constants.RobotConstants.kWheelRadius / Constants.RobotConstants.TalonFXTicksPerRotation;
-    double rightDistance = rightLeader.getSelectedSensorVelocity(0) * 2 * Math.PI
-        * Constants.RobotConstants.kWheelRadius / Constants.RobotConstants.TalonFXTicksPerRotation;
-        
+    double leftDistance = getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
+    double rightDistance = getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
+
     double leftOutput = leftPIDController.calculate(leftDistance,
         speeds.leftMetersPerSecond);
     double rightOutput = rightPIDController.calculate(rightDistance,
-        speeds.leftMetersPerSecond);
+        speeds.rightMetersPerSecond);
 
     // Calculate the feedforward (F) portion of our motor command, based on desired
     // wheel speed
@@ -183,7 +181,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     setLeftVoltage(leftOutput + leftFeedforward);
     setRightVoltage(rightOutput + rightFeedforward);
     // Update the pose estimator with the most recent sensor readings.
-    poseEst.update(leftLeader.getSelectedSensorPosition(), rightLeader.getSelectedSensorPosition());
+    poseEst.update(leftDistance, rightDistance);
   }
 
   /**
@@ -198,7 +196,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public void resetOdometry(Pose2d pose) {
     leftLeader.setSelectedSensorPosition(0);
     rightLeader.setSelectedSensorPosition(0);
-    poseEst.resetToPose(pose, leftLeader.getSelectedSensorPosition(), rightLeader.getSelectedSensorPosition());
+    poseEst.resetToPose(pose, 0, 0);
   }
 
   /** @return The current best-guess at drivetrain Pose on the field. */
@@ -210,5 +208,4 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public void periodic() {
   }
 
-  
 }
