@@ -8,13 +8,10 @@ import frc.robot.subsystems.feeder.RunFeeder;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.led.LEDSubsystem;
 import frc.robot.subsystems.led.SetLEDColor;
-import frc.robot.subsystems.limelight.LimelightSubsystem;
-import frc.robot.subsystems.loader.LoaderSubsystem;
-import frc.robot.subsystems.loader.RunLoader;
 
 public class OneBallAuto extends ParallelCommandGroup {
 
-    public OneBallAuto(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem, LimelightSubsystem limelightSubsystem, FeederSubsystem feederSubsystem, LoaderSubsystem loaderSubsystem, LEDSubsystem ledSubsystem) {
+    public OneBallAuto(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem,LEDSubsystem ledSubsystem) {
         addCommands(
         );
     }
