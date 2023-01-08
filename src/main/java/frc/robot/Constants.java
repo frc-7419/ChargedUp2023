@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -12,6 +11,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import org.photonvision.SimVisionTarget;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -49,6 +49,8 @@ public final class Constants {
     public static final Transform3d kCameraToRobot = new Transform3d(
             new Translation3d(-0.25, 0, -.25), // in meters
             new Rotation3d());
+
+    public static final int kGyroPin = 0;
 
     public static class VisionConstants {
         public static final String name1 = "teri_ma";

@@ -29,7 +29,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 public class DrivetrainPoseEstimator {
     // Sensors used as part of the Pose Estimation
     private final AnalogGyro gyro = new AnalogGyro(Constants.kGyroPin);
-    private PhotonCamera cam = new PhotonCamera(Constants.name1);
+    private PhotonCamera cam = new PhotonCamera(Constants.VisionConstants.name1);
     // Note - drivetrain encoders are also used. The Drivetrain class must pass us
     // the relevant readings.
 
@@ -71,7 +71,7 @@ public class DrivetrainPoseEstimator {
         if (res.hasTargets()) {
             double imageCaptureTime = res.getTimestampSeconds();
             Transform3d camToTargetTrans = res.getBestTarget().getBestCameraToTarget();
-            Pose2d camPose = Constants.kFarTargetPose.transformBy(camToTargetTrans.inverse());
+            Pose2d camPose = Constants.kFarTargetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where the target is on the field physically and gets the camera pose by transformation
             m_poseEstimator.addVisionMeasurement(
                     camPose.transformBy(Constants.kCameraToRobot).toPose2d(), imageCaptureTime);
         }
