@@ -1,6 +1,5 @@
 package frc.robot;
 
-import com.team7419.joystick.DoubleButton;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 

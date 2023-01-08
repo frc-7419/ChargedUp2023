@@ -8,6 +8,7 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -71,7 +72,7 @@ public class DrivetrainPoseEstimator {
         if (res.hasTargets()) {
             double imageCaptureTime = res.getTimestampSeconds();
             Transform3d camToTargetTrans = res.getBestTarget().getBestCameraToTarget();
-            Pose2d camPose = Constants.kFarTargetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where the target is on the field physically and gets the camera pose by transformation
+            Pose3d camPose = Constants.kFarTargetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where the target is on the field physically and gets the camera pose by transformation
             m_poseEstimator.addVisionMeasurement(
                     camPose.transformBy(Constants.kCameraToRobot).toPose2d(), imageCaptureTime);
         }

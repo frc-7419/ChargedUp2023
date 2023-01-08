@@ -6,20 +6,20 @@ package frc.robot.subsystems.led;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.limelight.LimelightSubsystem;
+import frc.robot.subsystems.vision.VisionSubsystem;
 
 public class SetLEDColor extends CommandBase {
   private LEDSubsystem ledSubsystem;
-  private LimelightSubsystem limelightSubsystem;
+  private VisionSubsystem visionSubsystem;
   private DriveBaseSubsystem driveBaseSubsystem;
 
   private int rainbowFirstPixelHue = 0;
 
   private double limelightTolerance = 7.5;
 
-  public SetLEDColor(LEDSubsystem ledSubsystem, LimelightSubsystem limelightSubsystem, DriveBaseSubsystem driveBaseSubsystem) {
+  public SetLEDColor(LEDSubsystem ledSubsystem, VisionSubsystem visionSubsystem, DriveBaseSubsystem driveBaseSubsystem) {
     this.ledSubsystem = ledSubsystem;
-    this.limelightSubsystem = limelightSubsystem;
+    this.visionSubsystem = visionSubsystem;
     this.driveBaseSubsystem = driveBaseSubsystem;
     addRequirements(ledSubsystem);
   }
@@ -33,29 +33,7 @@ public class SetLEDColor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // ledSubsystem.rainbowLED(rainbowFirstPixelHue);
-    // ledSubsystem.startLed();
-    // rainbowFirstPixelHue += 3;
-    // rainbowFirstPixelHue %= 180;
-    if (limelightSubsystem.getTv() == 1.0 && Math.abs(limelightSubsystem.getTx()) <= limelightTolerance) {
-      // green
-      ledSubsystem.setLEDColor(0, 0, 255);
-      // ledSubsystem.startLed();
-    }
-    else if (limelightSubsystem.getTv() == 1.0 && Math.abs(limelightSubsystem.getTx()) > limelightTolerance) {
-      // yellow-ish white
-      ledSubsystem.setLEDColor(255, 100, 150);
-      // ledSubsystem.startLed();
-    }
-    else {
-      // red
-      ledSubsystem.setLEDColor(255, 0, 0);
-      // ledSubsystem.startLed();
-    }
-    // int value = (int)(getAverageVelocity()/9000)*150+ 100;
-    // ledSubsystem.rainbowLED1(rainbowFirstPixelHue, value);
-    // rainbowFirstPixelHue += 3;
-    // rainbowFirstPixelHue %= 180;
+    // ledSubsystem.setLEDColor(255, 0, 0);
   }
 
   // Called once the command ends or is interrupted.

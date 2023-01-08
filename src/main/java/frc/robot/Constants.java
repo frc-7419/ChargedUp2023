@@ -52,6 +52,24 @@ public final class Constants {
 
     public static final int kGyroPin = 0;
 
+
+
+    // IMPORTANT: This block of code is from 2020 game and is for testing purposes only, we will update them to the 2023 season game
+    public static final double targetWidth = Units.inchesToMeters(41.30) - Units.inchesToMeters(6.70); // meters
+    public static final double targetHeight = Units.inchesToMeters(98.19) - Units.inchesToMeters(81.19); // meters
+    public static final double kFarTgtXPos = Units.feetToMeters(54);
+    public static final double kFarTgtYPos = Units.feetToMeters(27 / 2) - Units.inchesToMeters(43.75)
+            - Units.inchesToMeters(48.0 / 2.0);
+    public static final double kFarTgtZPos = (Units.inchesToMeters(98.19) - targetHeight) / 2 + targetHeight;
+
+    public static final Pose3d kFarTargetPose = new Pose3d(
+            new Translation3d(kFarTgtXPos, kFarTgtYPos, kFarTgtZPos),
+            new Rotation3d(0.0, 0.0, Units.degreesToRadians(180)));
+
+    public static final SimVisionTarget kFarTarget = new SimVisionTarget(kFarTargetPose, targetWidth, targetHeight, 42);
+    public static final DifferentialDriveKinematics kDtKinematics =
+            new DifferentialDriveKinematics(RobotConstants.kTrackWidth);
+
     public static class VisionConstants {
         public static final String name1 = "teri_ma";
         public static final String name2 = "teri_paapa";
