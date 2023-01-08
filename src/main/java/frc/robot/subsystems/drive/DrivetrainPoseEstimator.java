@@ -17,6 +17,7 @@ import frc.robot.Constants;
 
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
 
 /**
  * Performs estimation of the drivetrain's current position on the field, using a vision system,
@@ -64,7 +65,7 @@ public class DrivetrainPoseEstimator {
     public void update(double leftDist, double rightDist) {
         m_poseEstimator.update(gyro.getRotation2d(), leftDist, rightDist);
 
-        var res = cam.getLatestResult();
+        PhotonPipelineResult res = cam.getLatestResult();
         if (res.hasTargets()) {
             var imageCaptureTime = res.getTimestampSeconds();
             var camToTargetTrans = res.getBestTarget().getBestCameraToTarget();
