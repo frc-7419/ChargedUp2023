@@ -8,6 +8,7 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.numbers.N5;
@@ -18,6 +19,7 @@ import frc.robot.Constants;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 /**
  * Performs estimation of the drivetrain's current position on the field, using a vision system,
@@ -27,7 +29,7 @@ import org.photonvision.targeting.PhotonPipelineResult;
 public class DrivetrainPoseEstimator {
     // Sensors used as part of the Pose Estimation
     private final AnalogGyro gyro = new AnalogGyro(Constants.kGyroPin);
-    private PhotonCamera cam = new PhotonCamera(Constants.kCamName);
+    private PhotonCamera cam = new PhotonCamera(Constants.name1);
     // Note - drivetrain encoders are also used. The Drivetrain class must pass us
     // the relevant readings.
 
@@ -67,9 +69,9 @@ public class DrivetrainPoseEstimator {
 
         PhotonPipelineResult res = cam.getLatestResult();
         if (res.hasTargets()) {
-            var imageCaptureTime = res.getTimestampSeconds();
-            var camToTargetTrans = res.getBestTarget().getBestCameraToTarget();
-            var camPose = Constants.kFarTargetPose.transformBy(camToTargetTrans.inverse());
+            double imageCaptureTime = res.getTimestampSeconds();
+            Transform3d camToTargetTrans = res.getBestTarget().getBestCameraToTarget();
+            Pose2d camPose = Constants.kFarTargetPose.transformBy(camToTargetTrans.inverse());
             m_poseEstimator.addVisionMeasurement(
                     camPose.transformBy(Constants.kCameraToRobot).toPose2d(), imageCaptureTime);
         }
