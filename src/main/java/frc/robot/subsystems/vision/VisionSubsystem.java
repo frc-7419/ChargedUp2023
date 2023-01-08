@@ -16,8 +16,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionSubsystem extends SubsystemBase {
-  // set up a new instance of NetworkTables (the api/library used to read values
-  // from limelight)
+  
   private PhotonCamera cam1;
   private PhotonCamera cam2;
   private List<PhotonTrackedTarget> camTargets;
@@ -35,10 +34,8 @@ public class VisionSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     PhotonPipelineResult[] results = { cam1.getLatestResult(), cam2.getLatestResult() };
-    boolean[] hasTargets = new boolean[results.length];
-    for (int i = 0; i < results.length; i++) {
-      hasTargets[i] = results[i].hasTargets();
-    }
+    boolean[] hasTargets = {results[0].hasTargets(), results[1].hasTargets()};
+    
     SmartDashboard.putBoolean("Cam 1 Targets", hasTargets[0]);
     SmartDashboard.putBoolean("Cam 2 Targets", hasTargets[1]);
 
@@ -54,9 +51,11 @@ public class VisionSubsystem extends SubsystemBase {
   public List<PhotonTrackedTarget> addTargets(PhotonPipelineResult[] results) {
     cam1Targets = results[0].getTargets();
     cam2Targets = results[1].getTargets();
-    for (PhotonTrackedTarget target : camTargets) {
+    for (PhotonTrackedTarget target : cam1Targets) {
       camTargets.add(target);
-      
+    }
+    for (PhotonTrackedTarget target : cam2Targets) {
+      camTargets.add(target);
     }
     return camTargets;
   }
