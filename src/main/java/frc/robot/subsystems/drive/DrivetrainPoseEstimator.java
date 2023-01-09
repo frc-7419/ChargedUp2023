@@ -20,7 +20,6 @@ import frc.robot.Constants;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
 
 /**
  * Performs estimation of the drivetrain's current position on the field, using a vision system,
@@ -48,7 +47,7 @@ public class DrivetrainPoseEstimator {
 
     private final DifferentialDrivePoseEstimator m_poseEstimator;
 
-    public DrivetrainPoseEstimator(double leftDist, double rightDist) {
+    public DrivetrainPoseEstimator() {
         m_poseEstimator =
                 new DifferentialDrivePoseEstimator(
                         Constants.kDtKinematics,

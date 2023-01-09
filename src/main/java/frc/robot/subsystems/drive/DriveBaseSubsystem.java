@@ -51,10 +51,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
 
-    double leftDistance = getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
-    double rightDistance = getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
-
-    poseEst = new DrivetrainPoseEstimator(leftDistance, rightDistance);
+    poseEst = new DrivetrainPoseEstimator();
   }
 
   public enum TurnDirection {
@@ -137,11 +134,11 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
 
   public double getLeftVelocityInMeters() {
-    return leftLeader.getSelectedSensorVelocity(0)*Constants.RobotConstants.kWheelCircumference/Constants.RobotConstants.TalonFXTicksPerRotation;
+    return getLeftVelocity()*Constants.RobotConstants.kWheelCircumference/Constants.RobotConstants.TalonFXTicksPerRotation;
   }
 
   public double getRightVelocityInMeters() {
-    return rightLeader.getSelectedSensorVelocity(0)*Constants.RobotConstants.kWheelCircumference/Constants.RobotConstants.TalonFXTicksPerRotation;
+    return getRightVelocity()*Constants.RobotConstants.kWheelCircumference/Constants.RobotConstants.TalonFXTicksPerRotation;
   }
 
   public void setAllDefaultInversions() {
