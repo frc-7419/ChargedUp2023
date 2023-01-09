@@ -77,7 +77,13 @@ public final class Constants {
         public static final double kCameraHeight = 1.07; // meters
         public static final double mountingAngle = 42;
         public static final double focalLength = 2.9272781257541;
-
+        public static final double camPitch = 0; // radians - ARBITRARY
+        public static final double maxLEDRange = 20; // meters - ARBITRARY
+        public static final double minTargetArea = 10; // square pixels - ARBITRARY
+        public static final double trackingSpeed = 90; //fps
+        public static final int camResWidth = 320; // pixels
+        public static final int camResHeight = 240; // pixels
+        
     }
 
     public static class RobotConstants {
