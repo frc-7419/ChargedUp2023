@@ -51,7 +51,7 @@ public class PoseEstimatorVisionSubsystem extends SubsystemBase {
 
   
   public PoseEstimatorVisionSubsystem() {
-    simVisionSystem = new SimVisionSystem("photonvision", camDiagFOV, camPitch, new Transform2d(), camHeightOffGround, maxLEDRange, camResolutionWidth, camResolutionHeight, minTargetArea);
+    simVisionSystem = new SimVisionSystem("photonvision", camDiagFOV, new Transform3d(), camHeightOffGround, camResolutionWidth, camResolutionHeight, minTargetArea);
 
     cam1 = new PhotonCamera("teri_ma");
     Transform3d robotToCam1 = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
