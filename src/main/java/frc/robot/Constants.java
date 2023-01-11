@@ -71,8 +71,8 @@ public final class Constants {
             new DifferentialDriveKinematics(RobotConstants.kTrackWidth);
 
     public static class VisionConstants {
-        public static final String name1 = "teri_ma";
-        public static final String name2 = "teri_paapa";
+        public static final String name1 = "terima";
+        public static final String name2 = "teripaapa";
         public static final double kTargetHeight = 2.6416; // meters
         public static final double kCameraHeight = 1.07; // meters
         public static final double mountingAngle = 42;
