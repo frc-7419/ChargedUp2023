@@ -10,8 +10,10 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.gyro.GyroSubsystem;
 
 public class DriveBaseSubsystem extends SubsystemBase {
   private TalonFX leftLeader;
@@ -27,7 +29,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   PIDController leftPIDController = new PIDController(8.5, 0, 0);
   PIDController rightPIDController = new PIDController(8.5, 0, 0);
 
-  public DriveBaseSubsystem() {
+  public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
 
     leftLeader = new TalonFX(Constants.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(Constants.CanIds.leftFalcon2.id);
@@ -51,7 +53,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
 
-    poseEst = new DrivetrainPoseEstimator();
+    poseEst = new DrivetrainPoseEstimator(gyroSubsystem);
   }
 
   public enum TurnDirection {
@@ -203,6 +205,10 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    double leftDistance = getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
+    double rightDistance = getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
+    SmartDashboard.putNumber("left distance", leftDistance);
+    SmartDashboard.putNumber("right distance", rightDistance);
   }
 
 }

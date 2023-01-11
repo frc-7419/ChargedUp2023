@@ -1,6 +1,8 @@
 package frc.robot.subsystems.gyro;
 
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,7 +26,9 @@ public class GyroSubsystem extends SubsystemBase {
     public double getGyroAngle() {
         return ahrs.getAngle();
     }
-
+    public Rotation2d getRotation2d(){
+        return ahrs.getRotation2d();
+    }
     @Override
     public void periodic() {
         // SmartDashboard.putNumber("robot pitch", ahrs.getPitch());
