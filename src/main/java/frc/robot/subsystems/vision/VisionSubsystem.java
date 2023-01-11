@@ -28,35 +28,40 @@ public class VisionSubsystem extends SubsystemBase {
 
   public VisionSubsystem() {
     cam1 = new PhotonCamera("teri_ma");
-    cam2 = new PhotonCamera("teri_paapa");
+    // cam2 = new PhotonCamera("teri_paapa");
   }
 
   @Override
   public void periodic() {
-    PhotonPipelineResult[] results = { cam1.getLatestResult(), cam2.getLatestResult() };
-    boolean[] hasTargets = {results[0].hasTargets(), results[1].hasTargets()};
+    // PhotonPipelineResult[] results = { cam1.getLatestResult(), cam2.getLatestResult() };
+    // boolean[] hasTargets = {results[0].hasTargets(), results[1].hasTargets()};
     
+    PhotonPipelineResult[] results = { cam1.getLatestResult()};
+    boolean[] hasTargets = {results[0].hasTargets()};
     SmartDashboard.putBoolean("Cam 1 Targets", hasTargets[0]);
-    SmartDashboard.putBoolean("Cam 2 Targets", hasTargets[1]);
+
+
+    // SmartDashboard.putBoolean("Cam 2 Targets", true);
 
     camTargets = addTargets(results);
     
-    if (hasTargets[0] || hasTargets[1]) {
+    if (hasTargets[0]) {
       val1 = setValues(results[0]);
-      val2 = setValues(results[1]);
-      bestVal = (val1.get("area") > val2.get("area")) ? val1 : val2;
+      // val2 = setValues(results[1]);
+      // bestVal = (val1.get("area") > val2.get("area")) ? val1 : val2;
+      bestVal = val1;
     }
   }
 
   public List<PhotonTrackedTarget> addTargets(PhotonPipelineResult[] results) {
     cam1Targets = results[0].getTargets();
-    cam2Targets = results[1].getTargets();
+    // cam2Targets = results[1].getTargets();
     for (PhotonTrackedTarget target : cam1Targets) {
       camTargets.add(target);
     }
-    for (PhotonTrackedTarget target : cam2Targets) {
-      camTargets.add(target);
-    }
+    // for (PhotonTrackedTarget target : cam2Targets) {
+    //   camTargets.add(target);
+    // }
     return camTargets;
   }
   
