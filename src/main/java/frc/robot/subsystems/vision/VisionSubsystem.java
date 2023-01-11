@@ -27,7 +27,7 @@ public class VisionSubsystem extends SubsystemBase {
   private Map<String, Double> val2;
 
   public VisionSubsystem() {
-    cam1 = new PhotonCamera("teri_ma");
+    cam1 = new PhotonCamera("7419");
     // cam2 = new PhotonCamera("teri_paapa");
   }
 
