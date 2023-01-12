@@ -10,6 +10,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.TimesliceRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,19 +22,21 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private TalonFX leftFollower;
   private TalonFX rightLeader;
   private TalonFX rightFollower;
-
+  
   final DrivetrainPoseEstimator poseEst;
-
+  
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.RobotConstants.kTrackWidth);
-
+  
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
   PIDController leftPIDController = new PIDController(8.5, 0, 0);
   PIDController rightPIDController = new PIDController(8.5, 0, 0);
-
+  
   private double ld = 0;
   private double rd = 0;
-  public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
+  private double previousTimeStamp = 0;
 
+  public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
+    
     leftLeader = new TalonFX(Constants.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(Constants.CanIds.leftFalcon2.id);
     rightLeader = new TalonFX(Constants.CanIds.rightFalcon1.id);
@@ -204,18 +208,18 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public Pose2d getCtrlsPoseEstimate() {
     return poseEst.getPoseEst();
   }
-
   @Override
   public void periodic() {
-    double leftDistance = getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
-    double rightDistance = getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
+    double currentTime = Timer.getFPGATimestamp();
+    double leftDistance = getLeftVelocityInMeters() * (currentTime - previousTimeStamp);
+    double rightDistance = getRightVelocityInMeters() * (currentTime - previousTimeStamp);
     ld+=leftDistance;
     rd+=rightDistance;
     SmartDashboard.putNumber("cumulative left distance", ld);
     SmartDashboard.putNumber("cumulative right distance", rd);
-    
     SmartDashboard.putNumber("time step left distance", leftDistance);
     SmartDashboard.putNumber("time step right distance", rightDistance);
+    previousTimeStamp = currentTime;
   }
 
 }
