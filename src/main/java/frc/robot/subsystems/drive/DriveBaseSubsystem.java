@@ -29,6 +29,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
   PIDController leftPIDController = new PIDController(8.5, 0, 0);
   PIDController rightPIDController = new PIDController(8.5, 0, 0);
 
+  private double ld = 0;
+  private double rd = 0;
   public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
 
     leftLeader = new TalonFX(Constants.CanIds.leftFalcon1.id);
@@ -205,10 +207,14 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    double leftDistance = getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
-    double rightDistance = getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
-    SmartDashboard.putNumber("left distance", leftDistance);
-    SmartDashboard.putNumber("right distance", rightDistance);
+    SmartDashboard.putNumber("left velocity", getLeftVelocity());
+    SmartDashboard.putNumber("right velocity", getRightVelocity());
+    // SmartDashboard.putNumber("left velocity", getLeftVelocityInMeters());
+    // SmartDashboard.putNumber("right velocity", getRightVelocityInMeters());
+    ld+=getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
+    rd+=getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
+    SmartDashboard.putNumber("left distance", ld);
+    SmartDashboard.putNumber("right distance", rd);
   }
 
 }

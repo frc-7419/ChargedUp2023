@@ -34,7 +34,7 @@ public class DrivetrainPoseEstimator {
     // Sensors used as part of the Pose Estimation
     // private final AnalogGyro gyro = new AnalogGyro(0);
     private GyroSubsystem gyroSubsystem;
-    private PhotonCamera cam = new PhotonCamera("7419");
+    // private PhotonCamera cam = new PhotonCamera("terima");
     // Note - drivetrain encoders are also used. The Drivetrain class must pass us
     // the relevant readings.
 
@@ -70,21 +70,21 @@ public class DrivetrainPoseEstimator {
      */
     public void update(double leftDist, double rightDist) {
         m_poseEstimator.update(gyroSubsystem.getRotation2d(), leftDist, rightDist);
-        PhotonPipelineResult res = cam.getLatestResult();
-        if (res.hasTargets()) {
-            double imageCaptureTime = res.getTimestampSeconds();
-            Transform3d camToTargetTrans = res.getBestTarget().getBestCameraToTarget();
-            Pose3d camPose = Constants.kFarTargetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where
-                                                                                               // the target is on the
-                                                                                               // field physically and
-                                                                                               // gets the camera pose
-                                                                                               // by transformation
-            m_poseEstimator.addVisionMeasurement(
-                    camPose.transformBy(Constants.kCameraToRobot).toPose2d(), imageCaptureTime);
-            SmartDashboard.putNumber("pose x", m_poseEstimator.getEstimatedPosition().getX());
-            SmartDashboard.putNumber("pose y", m_poseEstimator.getEstimatedPosition().getY());
-            SmartDashboard.putNumber("pose theta", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
-        }
+        // PhotonPipelineResult res = cam.getLatestResult();
+        // if (res.hasTargets()) {
+        //     double imageCaptureTime = res.getTimestampSeconds();
+        //     Transform3d camToTargetTrans = res.getBestTarget().getBestCameraToTarget();
+        //     Pose3d camPose = Constants.kFarTargetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where
+        //                                                                                        // the target is on the
+        //                                                                                        // field physically and
+        //                                                                                        // gets the camera pose
+        //                                                                                        // by transformation
+        //     m_poseEstimator.addVisionMeasurement(
+        //             camPose.transformBy(Constants.kCameraToRobot).toPose2d(), imageCaptureTime);
+        //     SmartDashboard.putNumber("pose x", m_poseEstimator.getEstimatedPosition().getX());
+        //     SmartDashboard.putNumber("pose y", m_poseEstimator.getEstimatedPosition().getY());
+        //     SmartDashboard.putNumber("pose theta", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+        // }
     }
 
     /**
