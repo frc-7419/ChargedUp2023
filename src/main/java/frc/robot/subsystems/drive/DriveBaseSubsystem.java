@@ -170,8 +170,14 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
     // Calculate the feedback (PID) portion of our motor command, based on desired
     // wheel speed
-    double leftDistance = getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
-    double rightDistance = getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
+
+    currentTimeStamp = Timer.getFPGATimestamp();
+
+    double leftDistance = getLeftVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
+    double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
+
+    ld+=leftDistance;
+    rd+=rightDistance;
 
     double leftOutput = leftPIDController.calculate(leftDistance,
         speeds.leftMetersPerSecond);
@@ -187,7 +193,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
     setLeftVoltage(leftOutput + leftFeedforward);
     setRightVoltage(rightOutput + rightFeedforward);
     // Update the pose estimator with the most recent sensor readings.
-    poseEst.update(leftDistance, rightDistance);
+    // poseEst.update(leftDistance, rightDistance);
+    poseEst.update(ld, rd);
   }
 
   /**
@@ -220,6 +227,15 @@ public class DriveBaseSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("cumulative right distance", rd);
     SmartDashboard.putNumber("time step left distance", leftDistance);
     SmartDashboard.putNumber("time step right distance", rightDistance);
+
+    SmartDashboard.putNumber("x", getCtrlsPoseEstimate().getX());
+    SmartDashboard.putNumber("y", getCtrlsPoseEstimate().getY());
+    SmartDashboard.putNumber("z", getCtrlsPoseEstimate().getRotation().getDegrees());
+    double dx = 0, dy = 0;
+    dx += getCtrlsPoseEstimate().getX();
+    dy += getCtrlsPoseEstimate().getY();
+    SmartDashboard.putNumber("dx", dx);
+    SmartDashboard.putNumber("dy", dy);
     previousTimeStamp = currentTimeStamp;
   }
 
