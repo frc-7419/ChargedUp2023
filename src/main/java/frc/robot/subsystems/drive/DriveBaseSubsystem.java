@@ -207,14 +207,15 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("left velocity", getLeftVelocity());
-    SmartDashboard.putNumber("right velocity", getRightVelocity());
-    // SmartDashboard.putNumber("left velocity", getLeftVelocityInMeters());
-    // SmartDashboard.putNumber("right velocity", getRightVelocityInMeters());
-    ld+=getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
-    rd+=getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
-    SmartDashboard.putNumber("left distance", ld);
-    SmartDashboard.putNumber("right distance", rd);
+    double leftDistance = getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
+    double rightDistance = getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
+    ld+=leftDistance;
+    rd+=rightDistance;
+    SmartDashboard.putNumber("cumulative left distance", ld);
+    SmartDashboard.putNumber("cumulative right distance", rd);
+    
+    SmartDashboard.putNumber("time step left distance", leftDistance);
+    SmartDashboard.putNumber("time step right distance", rightDistance);
   }
 
 }
