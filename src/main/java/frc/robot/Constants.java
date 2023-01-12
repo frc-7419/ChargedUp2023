@@ -91,7 +91,7 @@ public final class Constants {
 
         public static final double kTrackWidth = 0.6858; // meters
 
-        public static final double kWheelRadius = 2*0.0254; // meters
+        public static final double kWheelRadius = 3*0.0254; // inches TO centimeters conversion
         public static final double kWheelCircumference = 2 * Math.PI * Constants.RobotConstants.kWheelRadius;
 
         public static final double timeStep = 0.02;

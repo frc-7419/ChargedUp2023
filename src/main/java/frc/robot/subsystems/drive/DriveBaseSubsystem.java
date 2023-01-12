@@ -34,6 +34,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private double ld = 0;
   private double rd = 0;
   private double previousTimeStamp = 0;
+  private double currentTimeStamp;
 
   public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
     
@@ -210,16 +211,16 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    double currentTime = Timer.getFPGATimestamp();
-    double leftDistance = getLeftVelocityInMeters() * (currentTime - previousTimeStamp);
-    double rightDistance = getRightVelocityInMeters() * (currentTime - previousTimeStamp);
+    currentTimeStamp = Timer.getFPGATimestamp();
+    double leftDistance = getLeftVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
+    double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
     ld+=leftDistance;
     rd+=rightDistance;
     SmartDashboard.putNumber("cumulative left distance", ld);
     SmartDashboard.putNumber("cumulative right distance", rd);
     SmartDashboard.putNumber("time step left distance", leftDistance);
     SmartDashboard.putNumber("time step right distance", rightDistance);
-    previousTimeStamp = currentTime;
+    previousTimeStamp = currentTimeStamp;
   }
 
 }
