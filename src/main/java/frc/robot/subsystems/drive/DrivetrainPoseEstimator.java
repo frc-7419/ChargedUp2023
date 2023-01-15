@@ -5,10 +5,12 @@
 package frc.robot.subsystems.drive;
 
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -16,8 +18,12 @@ import edu.wpi.first.math.numbers.N5;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.gyro.GyroSubsystem;
+
+import java.util.Collections;
+import java.util.List;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
@@ -34,10 +40,15 @@ public class DrivetrainPoseEstimator {
     // Sensors used as part of the Pose Estimation
     // private final AnalogGyro gyro = new AnalogGyro(0);
     private GyroSubsystem gyroSubsystem;
-    // private PhotonCamera cam = new PhotonCamera("terima");
+    private PhotonCamera cam;
+    private DriveBaseSubsystem driveBaseSubsystem;
+    private PhotonPipelineResult result;
+    private double resultTimeStamp;
+    private double previousTimeStamp;
+    private int fiducialId;
     // Note - drivetrain encoders are also used. The Drivetrain class must pass us
     // the relevant readings.
-
+    private List<Pose3d> targetPoses;
     // Kalman Filter Configuration. These can be "tuned-to-taste" based on how much
     // you trust your
     // various sensors. Smaller numbers will cause the filter to "trust" the
@@ -53,12 +64,19 @@ public class DrivetrainPoseEstimator {
 
     public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
         this.gyroSubsystem = gyroSubsystem;
+        cam = new PhotonCamera("terima");
+        targetPoses = Collections.unmodifiableList(List.of(
+            new Pose3d(1, 1, 1, new Rotation3d(0,0,Units.degreesToRadians(180))), 
+            new Pose3d(1, 2, 1, new Rotation3d(0,0,Units.degreesToRadians(180.0))) 
+        ));
         m_poseEstimator = new DifferentialDrivePoseEstimator(
                 Constants.kDtKinematics,
                 gyroSubsystem.getRotation2d(),
                 0, // Assume zero encoder counts at start
                 0,
-                new Pose2d()); // Default - start at origin. This will get reset by the autonomous init
+                new Pose2d(),
+                localMeasurementStdDevs,
+                visionMeasurementStdDevs); 
     }
 
     /**
@@ -70,21 +88,28 @@ public class DrivetrainPoseEstimator {
      */
     public void update(double leftDist, double rightDist) {
         m_poseEstimator.update(gyroSubsystem.getRotation2d(), leftDist, rightDist);
-        // PhotonPipelineResult res = cam.getLatestResult();
-        // if (res.hasTargets()) {
-        //     double imageCaptureTime = res.getTimestampSeconds();
-        //     Transform3d camToTargetTrans = res.getBestTarget().getBestCameraToTarget();
-        //     Pose3d camPose = Constants.kFarTargetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where
-        //                                                                                        // the target is on the
-        //                                                                                        // field physically and
-        //                                                                                        // gets the camera pose
-        //                                                                                        // by transformation
-        //     m_poseEstimator.addVisionMeasurement(
-        //             camPose.transformBy(Constants.kCameraToRobot).toPose2d(), imageCaptureTime);
-        //     SmartDashboard.putNumber("pose x", m_poseEstimator.getEstimatedPosition().getX());
-        //     SmartDashboard.putNumber("pose y", m_poseEstimator.getEstimatedPosition().getY());
-        //     SmartDashboard.putNumber("pose theta", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
-        // }
+        result = cam.getLatestResult();
+        resultTimeStamp = result.getTimestampSeconds();
+        if (result.hasTargets() && resultTimeStamp != previousTimeStamp) {
+            previousTimeStamp = resultTimeStamp;
+            var target = result.getBestTarget();
+            var fiducialId = target.getFiducialId();
+            if (target.getPoseAmbiguity() <= .2) {
+                var targetPose = targetPoses.get(fiducialId);
+
+                Transform3d camToTargetTrans = target.getBestCameraToTarget();
+                Pose3d camPose = targetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where
+                                                                                                // the target is on the
+                                                                                                // field physically and
+                                                                                                // gets the camera pose
+                                                                                                // by transformation
+                m_poseEstimator.addVisionMeasurement(
+                        camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
+                SmartDashboard.putNumber("pose x", m_poseEstimator.getEstimatedPosition().getX());
+                SmartDashboard.putNumber("pose y", m_poseEstimator.getEstimatedPosition().getY());
+                SmartDashboard.putNumber("pose theta", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+            }
+        }
     }
 
     /**

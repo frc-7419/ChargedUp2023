@@ -12,6 +12,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.TimesliceRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -37,7 +38,6 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private double currentTimeStamp;
 
   public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
-    
     leftLeader = new TalonFX(Constants.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(Constants.CanIds.leftFalcon2.id);
     rightLeader = new TalonFX(Constants.CanIds.rightFalcon1.id);
