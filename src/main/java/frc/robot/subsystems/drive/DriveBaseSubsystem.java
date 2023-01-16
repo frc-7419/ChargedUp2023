@@ -194,7 +194,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     setRightVoltage(rightOutput + rightFeedforward);
     // Update the pose estimator with the most recent sensor readings.
     // poseEst.update(leftDistance, rightDistance);
-    poseEst.update(ld, rd);
+    // poseEst.update(ld, rd);
   }
 
   /**
@@ -231,11 +231,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("x", getCtrlsPoseEstimate().getX());
     SmartDashboard.putNumber("y", getCtrlsPoseEstimate().getY());
     SmartDashboard.putNumber("z", getCtrlsPoseEstimate().getRotation().getDegrees());
-    double dx = 0, dy = 0;
-    dx += getCtrlsPoseEstimate().getX();
-    dy += getCtrlsPoseEstimate().getY();
-    SmartDashboard.putNumber("dx", dx);
-    SmartDashboard.putNumber("dy", dy);
+    poseEst.update(ld, rd);
     previousTimeStamp = currentTimeStamp;
   }
 
