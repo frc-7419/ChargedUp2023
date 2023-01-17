@@ -104,25 +104,25 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
             if (target.getPoseAmbiguity() <= .2) {
                 Pose3d targetPose = poses.get(fiducialId);
                 SmartDashboard.putNumber("target fiducial id", fiducialId);
-                SmartDashboard.putNumber("target x", targetPose.getTranslation().getX());
-                SmartDashboard.putNumber("target y", targetPose.getTranslation().getY());
-                SmartDashboard.putNumber("target z", targetPose.getTranslation().getZ());
+//                 SmartDashboard.putNumber("target x", targetPose.getTranslation().getX());
+//                 SmartDashboard.putNumber("target y", targetPose.getTranslation().getY());
+//                 SmartDashboard.putNumber("target z", targetPose.getTranslation().getZ());
                 Transform3d camToTargetTrans = target.getBestCameraToTarget();
-                SmartDashboard.putNumber("cam to target vector x", camToTargetTrans.getTranslation().getX());
-                SmartDashboard.putNumber("cam to target vector y", camToTargetTrans.getTranslation().getY());
-                SmartDashboard.putNumber("cam to target vector z", camToTargetTrans.getTranslation().getZ());
+                SmartDashboard.putNumber("Cam to Target X", camToTargetTrans.getTranslation().getX());
+                SmartDashboard.putNumber("Cam to Target Y", camToTargetTrans.getTranslation().getY());
+                SmartDashboard.putNumber("Cam to Target Z", camToTargetTrans.getTranslation().getZ());
                 Pose3d camPose = targetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where
                                                                                                 // the target is on the
                                                                                                 // field physically and
                                                                                                 // gets the camera pose
-                SmartDashboard.putNumber("cam pose x", camPose.getX());        
-                SmartDashboard.putNumber("cam pose y", camPose.getY()); 
-                SmartDashboard.putNumber("cam pose z", camPose.getZ());                                                                         // by transformation
+//                 SmartDashboard.putNumber("cam pose x", camPose.getX());        
+//                 SmartDashboard.putNumber("cam pose y", camPose.getY()); 
+//                 SmartDashboard.putNumber("cam pose z", camPose.getZ());                                                                         // by transformation
                 m_poseEstimator.addVisionMeasurement(
                         camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
-                SmartDashboard.putNumber("pose x", getPoseEst().getX());
-                SmartDashboard.putNumber("pose y", getPoseEst().getY());
-                SmartDashboard.putNumber("pose theta", getPoseEst().getRotation().getDegrees());
+                SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEst().getX());
+                SmartDashboard.putNumber("Vision+Odo Y Pos", getPoseEst().getY());
+                SmartDashboard.putNumber("Vision+Odo Theta", getPoseEst().getRotation().getDegrees());
             }
         }
     }
