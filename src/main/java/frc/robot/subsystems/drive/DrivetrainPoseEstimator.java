@@ -122,7 +122,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
                         camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
                 SmartDashboard.putNumber("pose x", getPoseEst().getX());
                 SmartDashboard.putNumber("pose y", getPoseEst().getY());
-                SmartDashboard.putNumber("pose theta", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+                SmartDashboard.putNumber("pose theta", getPoseEst().getRotation().getDegrees());
             }
         }
     }
