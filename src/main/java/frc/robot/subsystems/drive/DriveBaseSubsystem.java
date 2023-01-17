@@ -223,14 +223,14 @@ public class DriveBaseSubsystem extends SubsystemBase {
     double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
     ld+=leftDistance;
     rd+=rightDistance;
-    SmartDashboard.putNumber("cumulative left distance", ld);
-    SmartDashboard.putNumber("cumulative right distance", rd);
-    SmartDashboard.putNumber("time step left distance", leftDistance);
-    SmartDashboard.putNumber("time step right distance", rightDistance);
+//     SmartDashboard.putNumber("cumulative left distance", ld);
+//     SmartDashboard.putNumber("cumulative right distance", rd);
+//     SmartDashboard.putNumber("time step left distance", leftDistance);
+//     SmartDashboard.putNumber("time step right distance", rightDistance);
 
-    SmartDashboard.putNumber("x", getCtrlsPoseEstimate().getX());
-    SmartDashboard.putNumber("y", getCtrlsPoseEstimate().getY());
-    SmartDashboard.putNumber("z", getCtrlsPoseEstimate().getRotation().getDegrees());
+    SmartDashboard.putNumber("Odo X Pos", getCtrlsPoseEstimate().getX());
+    SmartDashboard.putNumber("Odo Y Pos", getCtrlsPoseEstimate().getY());
+    SmartDashboard.putNumber("Odo Theta", getCtrlsPoseEstimate().getRotation().getDegrees());
     poseEst.update(ld, rd);
     previousTimeStamp = currentTimeStamp;
   }
