@@ -73,7 +73,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
         //     new Pose3d(1, 1, 1, new Rotation3d(0,0,Units.degreesToRadians(180))), 
         //     new Pose3d(1, 2, 1, new Rotation3d(0,0,Units.degreesToRadians(180.0))) 
         // ));
-        poses.put(5,  new Pose3d(1, 1, 1, new Rotation3d(0,0,Units.degreesToRadians(180))));
+        poses.put(5,  new Pose3d(1, 6, 1, new Rotation3d(0,0,Units.degreesToRadians(180))));
         poses.put(8,  new Pose3d(1, 2, 1, new Rotation3d(0,0,Units.degreesToRadians(180))));
         poses.put(7, new Pose3d(1, 3, 1, new Rotation3d(0,0,Units.degreesToRadians(180))) );
         m_poseEstimator = new DifferentialDrivePoseEstimator(
@@ -104,6 +104,9 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
             if (target.getPoseAmbiguity() <= .2) {
                 Pose3d targetPose = poses.get(fiducialId);
                 SmartDashboard.putNumber("target fiducial id", fiducialId);
+                SmartDashboard.putNumber("target x", targetPose.getTranslation().getX());
+                SmartDashboard.putNumber("target y", targetPose.getTranslation().getY());
+                SmartDashboard.putNumber("target z", targetPose.getTranslation().getZ());
                 Transform3d camToTargetTrans = target.getBestCameraToTarget();
                 SmartDashboard.putNumber("cam to target vector x", camToTargetTrans.getTranslation().getX());
                 SmartDashboard.putNumber("cam to target vector y", camToTargetTrans.getTranslation().getY());
@@ -117,8 +120,8 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
                 SmartDashboard.putNumber("cam pose z", camPose.getZ());                                                                         // by transformation
                 m_poseEstimator.addVisionMeasurement(
                         camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
-                SmartDashboard.putNumber("pose x", m_poseEstimator.getEstimatedPosition().getX());
-                SmartDashboard.putNumber("pose y", m_poseEstimator.getEstimatedPosition().getY());
+                SmartDashboard.putNumber("pose x", getPoseEst().getX());
+                SmartDashboard.putNumber("pose y", getPoseEst().getY());
                 SmartDashboard.putNumber("pose theta", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
             }
         }
