@@ -196,7 +196,38 @@ public class DriveBaseSubsystem extends SubsystemBase {
     // poseEst.update(leftDistance, rightDistance);
     // poseEst.update(ld, rd);
   }
+  public void driveWithChassisSpeeds(ChassisSpeeds chassisSpeeds) {
+    // Convert our fwd/rev and rotate commands to wheel speed commands
+    DifferentialDriveWheelSpeeds speeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
+    // Calculate the feedback (PID) portion of our motor command, based on desired
+    // wheel speed
+
+    currentTimeStamp = Timer.getFPGATimestamp();
+
+    double leftDistance = getLeftVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
+    double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
+
+    ld+=leftDistance;
+    rd+=rightDistance;
+
+    double leftOutput = leftPIDController.calculate(leftDistance,
+        speeds.leftMetersPerSecond);
+    double rightOutput = rightPIDController.calculate(rightDistance,
+        speeds.rightMetersPerSecond);
+
+    // Calculate the feedforward (F) portion of our motor command, based on desired
+    // wheel speed
+    var leftFeedforward = feedforward.calculate(speeds.leftMetersPerSecond);
+    var rightFeedforward = feedforward.calculate(speeds.rightMetersPerSecond);
+
+    // Update the motor controllers with our new motor commands
+    setLeftVoltage(leftOutput + leftFeedforward);
+    setRightVoltage(rightOutput + rightFeedforward);
+    // Update the pose estimator with the most recent sensor readings.
+    // poseEst.update(leftDistance, rightDistance);
+    // poseEst.update(ld, rd);
+  }
   /**
    * Force the pose estimator and all sensors to a particular pose. This is useful
    * for indicating to
@@ -222,6 +253,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public Pose2d getCtrlsPoseEstimate() {
     return poseEst.getPoseEst();
   }
+
   @Override
   public void periodic() {
     currentTimeStamp = Timer.getFPGATimestamp();
