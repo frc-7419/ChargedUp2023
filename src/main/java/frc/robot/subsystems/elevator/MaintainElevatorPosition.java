@@ -18,6 +18,7 @@ public class MaintainElevatorPosition extends CommandBase {
   private double ff;
 
   private PIDController pidController;
+
   public MaintainElevatorPosition(ElevatorSubsystem elevatorSubsystem, double pos, double kp, double ff) {
     this.elevatorSubsystem = elevatorSubsystem;
     this.pos = pos;
@@ -28,9 +29,6 @@ public class MaintainElevatorPosition extends CommandBase {
 
   @Override
   public void initialize() {
-    // kp = SmartDashboard.getNumber("elevatorkP", 0.0001);
-    // pos = SmartDashboard.getNumber("elevatorSetpoint", -170000);
-    // ff = SmartDashboard.getNumber("elevatorFf", 0);
 
     pidController = new PIDController(kp, 0, 0);
     pidController.setSetpoint(pos);

@@ -17,7 +17,8 @@ public class SetLEDColor extends CommandBase {
 
   private double limelightTolerance = 7.5;
 
-  public SetLEDColor(LEDSubsystem ledSubsystem, VisionSubsystem visionSubsystem, DriveBaseSubsystem driveBaseSubsystem) {
+  public SetLEDColor(LEDSubsystem ledSubsystem, VisionSubsystem visionSubsystem,
+      DriveBaseSubsystem driveBaseSubsystem) {
     this.ledSubsystem = ledSubsystem;
     this.visionSubsystem = visionSubsystem;
     this.driveBaseSubsystem = driveBaseSubsystem;
@@ -33,16 +34,12 @@ public class SetLEDColor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // ledSubsystem.setLEDColor(255, 0, 0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // purple
-    ledSubsystem.setLEDColor(255, 255, 0);
-    // ledSubsystem.setLED1Color(255, 255, 0);
-    // ledSubsystem.stopLed();
+    ledSubsystem.setLEDColor(255, 255, 0); // Purple
   }
 
   // Returns true when the command should end.

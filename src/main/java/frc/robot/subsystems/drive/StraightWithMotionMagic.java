@@ -45,9 +45,6 @@ public class StraightWithMotionMagic extends CommandBase {
         driveBaseSubsystem.setAllDefaultInversions();
         driveBaseSubsystem.coast();
 
-        // driveBaseSubsystem.getLeftMast().setSelectedSensorPosition(0);
-        // driveBaseSubsystem.getRightMast().setSelectedSensorPosition(0);
-
         // because sample code
         driveBaseSubsystem.getLeftMast().configMotionCruiseVelocity(15000, 0);
         driveBaseSubsystem.getLeftMast().configMotionAcceleration(6000, 0);
@@ -77,13 +74,6 @@ public class StraightWithMotionMagic extends CommandBase {
     @Override
     public void execute() {
 
-        // SmartDashboard.putBoolean("MM Running", true);
-
-        // SmartDashboard.putNumber("LM Position",
-        // driveBaseSubsystem.getLeftMast().getSelectedSensorPosition(0));
-        // SmartDashboard.putNumber("RM Position",
-        // driveBaseSubsystem.getRightMast().getSelectedSensorPosition(0));
-
         double leftMastOutput = driveBaseSubsystem.getLeftMast().getMotorOutputPercent();
         double rightMastOutput = driveBaseSubsystem.getRightMast().getMotorOutputPercent();
         SmartDashboard.putNumber("LM Out", leftMastOutput);
@@ -93,15 +83,11 @@ public class StraightWithMotionMagic extends CommandBase {
         double rightSetpoint = UnitConversions.inchesToTicks(setpoint, 3, 10.71, 2048);
         driveBaseSubsystem.getLeftMast().set(ControlMode.MotionMagic, leftSetpoint);
         driveBaseSubsystem.getRightMast().set(ControlMode.MotionMagic, rightSetpoint);
-        // SmartDashboard.putNumber("LM Error",
-        // driveBaseSubsystem.getLeftMast().getClosedLoopError());
-        // SmartDashboard.putNumber("RM Error",
-        // driveBaseSubsystem.getRightMast().getClosedLoopError());
+
         if (System.currentTimeMillis() - startTime > 1000) {
             started = true;
         }
 
-        // SmartDashboard.putBoolean("started", started);
     }
 
     @Override
@@ -118,6 +104,5 @@ public class StraightWithMotionMagic extends CommandBase {
     public void end(boolean interrupted) {
         driveBaseSubsystem.stop();
         driveBaseSubsystem.coast();
-        // SmartDashboard.putBoolean("MM Running", false);
     }
 }

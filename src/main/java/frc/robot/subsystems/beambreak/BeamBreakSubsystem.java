@@ -9,32 +9,29 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
 public class BeamBreakSubsystem extends SubsystemBase {
   private DigitalInput beamBreakReceiver;
   private int detections = 0;
   private Long startTime;
-  // int vs. Integer
+
   /** Creates a new BeamBreakSubsystem. */
-  public BeamBreakSubsystem() { 
+  public BeamBreakSubsystem() {
     beamBreakReceiver = new DigitalInput(2);
     startTime = System.currentTimeMillis();
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("beamBreak: ", beamBreakReceiver.get());
     long endTime = System.currentTimeMillis();
 
     if (detections >= 0 && detections <= 2) {
       if (getBeamBreakActivated()) {
         detections++;
-      }
-      else {
+      } else {
         detections--;
       }
 
-      if (endTime-startTime == 10000){
+      if (endTime - startTime == 10000) {
         startTime = endTime;
         detections = 0;
       }

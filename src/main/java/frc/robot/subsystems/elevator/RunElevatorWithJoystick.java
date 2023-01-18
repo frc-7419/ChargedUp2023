@@ -7,7 +7,6 @@ package frc.robot.subsystems.elevator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-
 public class RunElevatorWithJoystick extends CommandBase {
   private ElevatorSubsystem elevatorSubsystem;
   private XboxController joystick;
@@ -31,11 +30,12 @@ public class RunElevatorWithJoystick extends CommandBase {
     } else {
       elevatorSubsystem.setPower(0);
       elevatorSubsystem.brake();
-    }  
+    }
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   @Override
   public boolean isFinished() {
