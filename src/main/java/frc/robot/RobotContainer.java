@@ -15,6 +15,7 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import frc.robot.subsystems.autos.MobilityAuto;
+import frc.robot.subsystems.autos.PathTest;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -37,7 +38,7 @@ public class RobotContainer {
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
   // private final SmartShoot smartShoot = new SmartShoot(shooterSubsystem, feederSubsystem, loaderSubsystem, visionSubsystem, beamBreakSubsystem);
   // auto
-  private final SamplePath samplePath = new SamplePath(driveBaseSubsystem);
+  private final PathTest pathTest = new PathTest(driveBaseSubsystem);
   // private SendableChooser<Command> autonChooser = new SendableChooser<>();
   private final GetToTarget getToTarget = new GetToTarget(driveBaseSubsystem, gyroSubsystem);
 
@@ -61,7 +62,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     //return new WaitCommand(5);
     // return new OneBallAuto(driveBaseSubsystem, gyroSubsystem);
-    return samplePath;
+    return pathTest;
   }
 
   public void setDefaultCommands() {

@@ -106,7 +106,22 @@ public final class Constants {
         // intake
         public static final double intakeMultiplier = 1.0;
     }
-
+    public static class DriveConstants {
+        public static final double gearRatio = (50/14)*(48/16);
+        public static final double wheelDiameter = Units.inchesToMeters(6);
+        public static final double wheelCircumference = Math.PI*wheelDiameter;
+        public static final double unitsPerMeter = ((2048*gearRatio)/wheelCircumference);
+        public static final double trackWidth = 0.80525; // Units.inchesToMeters(21.8685); 
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = 0.7;
+        public static final double ks = 0.6265;
+        public static final double kv = 2.3797;
+        public static final double ka = 0.42136;
+        public static final DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(trackWidth);
+        public static final double kPDriveVelocity = 3.0996;
+        public static final double maxVelocity = Units.inchesToMeters(13*12);
+        public static final double maxAcceleration = Units.inchesToMeters(7*12);
+    }
     public static class PIDConstants {
         // drive
         public static final double DriveBaseMotionMagickP = 0.5;
