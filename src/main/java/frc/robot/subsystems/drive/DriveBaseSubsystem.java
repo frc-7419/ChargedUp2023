@@ -10,8 +10,11 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.gyro.GyroSubsystem;
 
 public class DriveBaseSubsystem extends SubsystemBase {
   private TalonFX leftLeader;
@@ -27,8 +30,12 @@ public class DriveBaseSubsystem extends SubsystemBase {
   PIDController leftPIDController = new PIDController(8.5, 0, 0);
   PIDController rightPIDController = new PIDController(8.5, 0, 0);
 
-  public DriveBaseSubsystem() {
+  private double ld = 0;
+  private double rd = 0;
+  private double previousTimeStamp = 0;
+  private double currentTimeStamp;
 
+  public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
     leftLeader = new TalonFX(Constants.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(Constants.CanIds.leftFalcon2.id);
     rightLeader = new TalonFX(Constants.CanIds.rightFalcon1.id);
@@ -51,10 +58,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
 
-    double leftDistance = getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
-    double rightDistance = getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
-
-    poseEst = new DrivetrainPoseEstimator(leftDistance, rightDistance);
+    poseEst = new DrivetrainPoseEstimator(gyroSubsystem);
   }
 
   public enum TurnDirection {
@@ -137,11 +141,13 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
 
   public double getLeftVelocityInMeters() {
-    return leftLeader.getSelectedSensorVelocity(0)*Constants.RobotConstants.kWheelCircumference/Constants.RobotConstants.TalonFXTicksPerRotation;
+    return getLeftVelocity() * Constants.RobotConstants.kWheelCircumference
+        / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
 
   public double getRightVelocityInMeters() {
-    return rightLeader.getSelectedSensorVelocity(0)*Constants.RobotConstants.kWheelCircumference/Constants.RobotConstants.TalonFXTicksPerRotation;
+    return getRightVelocity() * Constants.RobotConstants.kWheelCircumference
+        / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
 
   public void setAllDefaultInversions() {
@@ -162,26 +168,35 @@ public class DriveBaseSubsystem extends SubsystemBase {
     // Convert our fwd/rev and rotate commands to wheel speed commands
     DifferentialDriveWheelSpeeds speeds = kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed, 0, rot));
 
-    // Calculate the feedback (PID) portion of our motor command, based on desired
-    // wheel speed
-    double leftDistance = getLeftVelocityInMeters() * Constants.RobotConstants.timeStep;
-    double rightDistance = getRightVelocityInMeters() * Constants.RobotConstants.timeStep;
+    currentTimeStamp = Timer.getFPGATimestamp();
+
+    double leftDistance = getLeftVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
+    double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
+
+    ld += leftDistance;
+    rd += rightDistance;
 
     double leftOutput = leftPIDController.calculate(leftDistance,
         speeds.leftMetersPerSecond);
     double rightOutput = rightPIDController.calculate(rightDistance,
         speeds.rightMetersPerSecond);
 
-    // Calculate the feedforward (F) portion of our motor command, based on desired
-    // wheel speed
     var leftFeedforward = feedforward.calculate(speeds.leftMetersPerSecond);
     var rightFeedforward = feedforward.calculate(speeds.rightMetersPerSecond);
 
-    // Update the motor controllers with our new motor commands
     setLeftVoltage(leftOutput + leftFeedforward);
     setRightVoltage(rightOutput + rightFeedforward);
     // Update the pose estimator with the most recent sensor readings.
-    poseEst.update(leftDistance, rightDistance);
+    // poseEst.update(leftDistance, rightDistance);
+    // poseEst.update(ld, rd);
+  }
+
+  public double getDist() {
+    return poseEst.getInfo()[0];
+  }
+
+  public double getAngle() {
+    return poseEst.getInfo()[1];
   }
 
   /**
@@ -206,6 +221,20 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    currentTimeStamp = Timer.getFPGATimestamp();
+    double leftDistance = getLeftVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
+    double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
+    ld += leftDistance;
+    rd += rightDistance;
+
+    SmartDashboard.putNumber("Odo X Pos", getCtrlsPoseEstimate().getX());
+    SmartDashboard.putNumber("Odo Y Pos", getCtrlsPoseEstimate().getY());
+    SmartDashboard.putNumber("Odo Theta", getCtrlsPoseEstimate().getRotation().getDegrees());
+
+    SmartDashboard.putNumber("Dist to Target", getDist());
+    SmartDashboard.putNumber("Angle to Target", getAngle());
+    poseEst.update(ld, rd);
+    previousTimeStamp = currentTimeStamp;
   }
 
 }
