@@ -4,6 +4,7 @@ import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -13,9 +14,12 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
+import frc.robot.subsystems.autos.OneBallAuto;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
+import frc.robot.subsystems.drive.GetToTarget;
+import frc.robot.subsystems.drive.StraightWithMotionMagic;
 // import frc.robot.subsystems.elevator.ElevatorSubsystem;
 // import frc.robot.subsystems.elevator.MaintainElevatorPosition;
 // import frc.robot.subsystems.elevator.RunElevatorWithJoystick;
@@ -38,7 +42,7 @@ public class RobotContainer{
   // auto
 
   // private SendableChooser<Command> autonChooser = new SendableChooser<>();
-
+  private final GetToTarget getToTarget = new GetToTarget(driveBaseSubsystem, gyroSubsystem);
   public RobotContainer() {
     configureButtonBindings();
     configureAutoSelector();
@@ -46,6 +50,8 @@ public class RobotContainer{
 
   private void configureButtonBindings() {
     // align turret
+    new JoystickButton(joystick1, Button.kRightBumper.value)
+    .onTrue(getToTarget);
   }
 
   // private void smartDashboardBindings() {}
@@ -58,6 +64,7 @@ public class RobotContainer{
 
   public Command getAutonomousCommand() {
     return new WaitCommand(5);
+    // return new OneBallAuto(driveBaseSubsystem, gyroSubsystem);
   }
   public void setDefaultCommands() {
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);

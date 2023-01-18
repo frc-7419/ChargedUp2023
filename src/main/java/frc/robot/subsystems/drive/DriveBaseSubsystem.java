@@ -206,6 +206,12 @@ public class DriveBaseSubsystem extends SubsystemBase {
    *
    * @param pose
    */
+  public double getDist() {
+    return poseEst.getInfo()[0];
+  }
+  public double getAngle() {
+    return poseEst.getInfo()[1];
+  }
   public void resetOdometry(Pose2d pose) {
     leftLeader.setSelectedSensorPosition(0);
     rightLeader.setSelectedSensorPosition(0);
@@ -231,6 +237,9 @@ public class DriveBaseSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Odo X Pos", getCtrlsPoseEstimate().getX());
     SmartDashboard.putNumber("Odo Y Pos", getCtrlsPoseEstimate().getY());
     SmartDashboard.putNumber("Odo Theta", getCtrlsPoseEstimate().getRotation().getDegrees());
+
+    SmartDashboard.putNumber("Dist to Target", getDist());
+    SmartDashboard.putNumber("Angle to Target", getAngle());
     poseEst.update(ld, rd);
     previousTimeStamp = currentTimeStamp;
   }

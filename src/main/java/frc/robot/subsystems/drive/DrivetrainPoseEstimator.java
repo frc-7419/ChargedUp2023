@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
@@ -73,9 +74,10 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
         //     new Pose3d(1, 1, 1, new Rotation3d(0,0,Units.degreesToRadians(180))), 
         //     new Pose3d(1, 2, 1, new Rotation3d(0,0,Units.degreesToRadians(180.0))) 
         // ));
-        poses.put(5,  new Pose3d(1, 6, 1, new Rotation3d(0,0,Units.degreesToRadians(180))));
+        poses.put(5,  new Pose3d(1, 1.071626, 0.462788, new Rotation3d(0,0,Units.degreesToRadians(180))));
         poses.put(8,  new Pose3d(1, 2, 1, new Rotation3d(0,0,Units.degreesToRadians(180))));
         poses.put(7, new Pose3d(1, 3, 1, new Rotation3d(0,0,Units.degreesToRadians(180))) );
+        poses.put(4, new Pose3d(1, 3, 1, new Rotation3d(0,0,Units.degreesToRadians(180))) );
         m_poseEstimator = new DifferentialDrivePoseEstimator(
                 Constants.kDtKinematics,
                 gyroSubsystem.getRotation2d(),
@@ -125,6 +127,15 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
                 SmartDashboard.putNumber("Vision+Odo Theta", getPoseEst().getRotation().getDegrees());
             }
         }
+    }
+    public double[] getInfo() {
+        PhotonPipelineResult result = cam.getLatestResult();
+        double[] info = new double[2];
+        if(result.hasTargets()) {
+            info[0] = PhotonUtils.calculateDistanceToTargetMeters(Constants.VisionConstants.kCameraHeight, Constants.VisionConstants.kTargetHeight, Units.degreesToRadians(Constants.VisionConstants.camPitch), Units.degreesToRadians(result.getBestTarget().getPitch()));
+            info[1] = result.getBestTarget().getYaw();
+        }
+        return info;
     }
     @Override
     public void periodic(){

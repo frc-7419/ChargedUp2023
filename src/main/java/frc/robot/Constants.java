@@ -73,8 +73,10 @@ public final class Constants {
     public static class VisionConstants {
         public static final String name1 = "terima";
         public static final String name2 = "teripaapa";
-        public static final double kTargetHeight = 2.6416; // meters
-        public static final double kCameraHeight = 1.07; // meters
+        // public static final double kTargetHeight = 2.6416; // meters
+        public static final double kTargetHeight = 1.071626; // meters
+        // public static final double kCameraHeight = 1.07; // meters
+        public static final double kCameraHeight = 0.5334; // meters
         public static final double mountingAngle = 42;
         public static final double focalLength = 2.9272781257541;
         public static final double camPitch = 0; // radians - ARBITRARY

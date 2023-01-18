@@ -11,8 +11,9 @@ import frc.robot.subsystems.led.SetLEDColor;
 
 public class OneBallAuto extends ParallelCommandGroup {
 
-    public OneBallAuto(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem,LEDSubsystem ledSubsystem) {
+    public OneBallAuto(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem) {
         addCommands(
+            new StraightWithMotionMagic(driveBaseSubsystem, 5)
         );
     }
     
