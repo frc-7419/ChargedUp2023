@@ -16,7 +16,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionSubsystem extends SubsystemBase {
-  
+
   private PhotonCamera cam1;
   private PhotonCamera cam2;
   private List<PhotonTrackedTarget> camTargets;
@@ -31,25 +31,26 @@ public class VisionSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // PhotonPipelineResult[] results = { cam1.getLatestResult(), cam2.getLatestResult() };
+    // PhotonPipelineResult[] results = { cam1.getLatestResult(),
+    // cam2.getLatestResult() };
     // boolean[] hasTargets = {results[0].hasTargets(), results[1].hasTargets()};
 
-    PhotonPipelineResult[] results = { cam1.getLatestResult()};
-    boolean[] hasTargets = {results[0].hasTargets()};
-    
+    PhotonPipelineResult[] results = { cam1.getLatestResult() };
+    boolean[] hasTargets = { results[0].hasTargets() };
+
     SmartDashboard.putBoolean("Cam 1 Targets", hasTargets[0]);
     // SmartDashboard.putBoolean("Cam 2 Targets", hasTargets[1]);
 
     camTargets = results[0].getTargets();
     // camTargets = addTargets(results);
-    
+
     if (hasTargets[0]) {
       val1 = setValues(results[0]);
-      
+
       // val2 = setValues(results[1]);
       // bestVal = (val1.get("area") > val2.get("area")) ? val1 : val2;
-       bestVal = val1;
-       SmartDashboard.putNumber("Yaw", getYaw());
+      bestVal = val1;
+      SmartDashboard.putNumber("Yaw", getYaw());
       SmartDashboard.putNumber("Skew", getSkew());
       SmartDashboard.putNumber("Area", getArea());
       SmartDashboard.putNumber("Pitch", getPitch());
@@ -57,17 +58,17 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   // public List<PhotonTrackedTarget> addTargets(PhotonPipelineResult[] results) {
-  //   camTargets = new List<PhotonTrackedTarget>();
-  //   // cam2Targets = results[1].getTargets();
-  //   for (PhotonTrackedTarget target : cam1Targets) {
-  //     camTargets.add(target);
-  //   }
-  //   // for (PhotonTrackedTarget target : cam2Targets) {
-  //   //   camTargets.add(target);
-  //   // }
-  //   return camTargets;
+  // camTargets = new List<PhotonTrackedTarget>();
+  // // cam2Targets = results[1].getTargets();
+  // for (PhotonTrackedTarget target : cam1Targets) {
+  // camTargets.add(target);
   // }
-  
+  // // for (PhotonTrackedTarget target : cam2Targets) {
+  // // camTargets.add(target);
+  // // }
+  // return camTargets;
+  // }
+
   public Map<String, Double> setValues(PhotonPipelineResult results) {
     Map<String, Double> values = new HashMap<String, Double>();
     values.put("yaw", results.getBestTarget().getYaw());
@@ -78,14 +79,17 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double getYaw() {
-      return bestVal.get("yaw");
+    return bestVal.get("yaw");
   }
+
   public double getPitch() {
     return bestVal.get("pitch");
   }
+
   public double getArea() {
     return bestVal.get("area");
   }
+
   public double getSkew() {
     return bestVal.get("skew");
   }

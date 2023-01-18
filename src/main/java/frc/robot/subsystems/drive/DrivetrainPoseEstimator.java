@@ -40,9 +40,8 @@ import org.photonvision.targeting.PhotonTrackedTarget;
  * filter. This in turn creates a best-guess at a Pose2d of where our drivetrain
  * is currently at.
  */
-public class DrivetrainPoseEstimator extends SubsystemBase{
+public class DrivetrainPoseEstimator extends SubsystemBase {
     // Sensors used as part of the Pose Estimation
-    // private final AnalogGyro gyro = new AnalogGyro(0);
     private GyroSubsystem gyroSubsystem;
     private PhotonCamera cam;
     private DriveBaseSubsystem driveBaseSubsystem;
@@ -50,9 +49,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
     private double resultTimeStamp;
     private double previousTimeStamp;
     private int fiducialId;
-    // Note - drivetrain encoders are also used. The Drivetrain class must pass us
-    // the relevant readings.
-    // private List<Pose3d> targetPoses;
+
     private Map<Integer, Pose3d> poses = new HashMap<Integer, Pose3d>();
     // Kalman Filter Configuration. These can be "tuned-to-taste" based on how much
     // you trust your
@@ -70,14 +67,10 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
     public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
         this.gyroSubsystem = gyroSubsystem;
         cam = new PhotonCamera("terima");
-        // targetPoses = Collections.unmodifiableList(List.of(
-        //     new Pose3d(1, 1, 1, new Rotation3d(0,0,Units.degreesToRadians(180))), 
-        //     new Pose3d(1, 2, 1, new Rotation3d(0,0,Units.degreesToRadians(180.0))) 
-        // ));
-        poses.put(5,  new Pose3d(1, 1.071626, 0.462788, new Rotation3d(0,0,Units.degreesToRadians(180))));
-        poses.put(8,  new Pose3d(1, 2, 1, new Rotation3d(0,0,Units.degreesToRadians(180))));
-        poses.put(7, new Pose3d(1, 3, 1, new Rotation3d(0,0,Units.degreesToRadians(180))) );
-        poses.put(4, new Pose3d(1, 3, 1, new Rotation3d(0,0,Units.degreesToRadians(180))) );
+        poses.put(5, new Pose3d(1, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
+        poses.put(8, new Pose3d(1, 2, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
+        poses.put(7, new Pose3d(1, 3, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
+        poses.put(4, new Pose3d(1, 3, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
         m_poseEstimator = new DifferentialDrivePoseEstimator(
                 Constants.kDtKinematics,
                 gyroSubsystem.getRotation2d(),
@@ -85,7 +78,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
                 0,
                 new Pose2d(),
                 localMeasurementStdDevs,
-                visionMeasurementStdDevs); 
+                visionMeasurementStdDevs);
     }
 
     /**
@@ -105,21 +98,10 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
             int fiducialId = target.getFiducialId();
             if (target.getPoseAmbiguity() <= .2) {
                 Pose3d targetPose = poses.get(fiducialId);
-                SmartDashboard.putNumber("target fiducial id", fiducialId);
-//                 SmartDashboard.putNumber("target x", targetPose.getTranslation().getX());
-//                 SmartDashboard.putNumber("target y", targetPose.getTranslation().getY());
-//                 SmartDashboard.putNumber("target z", targetPose.getTranslation().getZ());
                 Transform3d camToTargetTrans = target.getBestCameraToTarget();
-                SmartDashboard.putNumber("Cam to Target X", camToTargetTrans.getTranslation().getX());
-                SmartDashboard.putNumber("Cam to Target Y", camToTargetTrans.getTranslation().getY());
-                SmartDashboard.putNumber("Cam to Target Z", camToTargetTrans.getTranslation().getZ());
-                Pose3d camPose = targetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where
-                                                                                                // the target is on the
-                                                                                                // field physically and
-                                                                                                // gets the camera pose
-//                 SmartDashboard.putNumber("cam pose x", camPose.getX());        
-//                 SmartDashboard.putNumber("cam pose y", camPose.getY()); 
-//                 SmartDashboard.putNumber("cam pose z", camPose.getZ());                                                                         // by transformation
+                Pose3d camPose = targetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where the target
+                                                                                     // is on the field physically and
+                                                                                     // gets the camera pose
                 m_poseEstimator.addVisionMeasurement(
                         camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
                 SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEst().getX());
@@ -128,19 +110,23 @@ public class DrivetrainPoseEstimator extends SubsystemBase{
             }
         }
     }
+
     public double[] getInfo() {
         PhotonPipelineResult result = cam.getLatestResult();
         double[] info = new double[2];
-        if(result.hasTargets()) {
-            info[0] = PhotonUtils.calculateDistanceToTargetMeters(Constants.VisionConstants.kCameraHeight, Constants.VisionConstants.kTargetHeight, Units.degreesToRadians(Constants.VisionConstants.camPitch), Units.degreesToRadians(result.getBestTarget().getPitch()));
+        if (result.hasTargets()) {
+            info[0] = PhotonUtils.calculateDistanceToTargetMeters(Constants.VisionConstants.kCameraHeight,
+                    Constants.VisionConstants.kTargetHeight, Units.degreesToRadians(Constants.VisionConstants.camPitch),
+                    Units.degreesToRadians(result.getBestTarget().getPitch()));
             info[1] = result.getBestTarget().getYaw();
         }
         return info;
     }
+
     @Override
-    public void periodic(){
-        // update(double leftDist, double rightDist)
+    public void periodic() {
     }
+
     /**
      * Force the pose estimator to a particular pose. This is useful for indicating
      * to the software

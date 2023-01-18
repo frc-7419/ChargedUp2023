@@ -11,8 +11,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.TimesliceRobot;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,15 +21,15 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private TalonFX leftFollower;
   private TalonFX rightLeader;
   private TalonFX rightFollower;
-  
+
   final DrivetrainPoseEstimator poseEst;
-  
+
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.RobotConstants.kTrackWidth);
-  
+
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
   PIDController leftPIDController = new PIDController(8.5, 0, 0);
   PIDController rightPIDController = new PIDController(8.5, 0, 0);
-  
+
   private double ld = 0;
   private double rd = 0;
   private double previousTimeStamp = 0;
@@ -143,11 +141,13 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
 
   public double getLeftVelocityInMeters() {
-    return getLeftVelocity()*Constants.RobotConstants.kWheelCircumference/Constants.RobotConstants.TalonFXTicksPerRotation;
+    return getLeftVelocity() * Constants.RobotConstants.kWheelCircumference
+        / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
 
   public double getRightVelocityInMeters() {
-    return getRightVelocity()*Constants.RobotConstants.kWheelCircumference/Constants.RobotConstants.TalonFXTicksPerRotation;
+    return getRightVelocity() * Constants.RobotConstants.kWheelCircumference
+        / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
 
   public void setAllDefaultInversions() {
@@ -168,28 +168,22 @@ public class DriveBaseSubsystem extends SubsystemBase {
     // Convert our fwd/rev and rotate commands to wheel speed commands
     DifferentialDriveWheelSpeeds speeds = kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed, 0, rot));
 
-    // Calculate the feedback (PID) portion of our motor command, based on desired
-    // wheel speed
-
     currentTimeStamp = Timer.getFPGATimestamp();
 
     double leftDistance = getLeftVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
     double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
 
-    ld+=leftDistance;
-    rd+=rightDistance;
+    ld += leftDistance;
+    rd += rightDistance;
 
     double leftOutput = leftPIDController.calculate(leftDistance,
         speeds.leftMetersPerSecond);
     double rightOutput = rightPIDController.calculate(rightDistance,
         speeds.rightMetersPerSecond);
 
-    // Calculate the feedforward (F) portion of our motor command, based on desired
-    // wheel speed
     var leftFeedforward = feedforward.calculate(speeds.leftMetersPerSecond);
     var rightFeedforward = feedforward.calculate(speeds.rightMetersPerSecond);
 
-    // Update the motor controllers with our new motor commands
     setLeftVoltage(leftOutput + leftFeedforward);
     setRightVoltage(rightOutput + rightFeedforward);
     // Update the pose estimator with the most recent sensor readings.
@@ -200,34 +194,31 @@ public class DriveBaseSubsystem extends SubsystemBase {
     // Convert our fwd/rev and rotate commands to wheel speed commands
     DifferentialDriveWheelSpeeds speeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
-    // Calculate the feedback (PID) portion of our motor command, based on desired
-    // wheel speed
-
     currentTimeStamp = Timer.getFPGATimestamp();
 
     double leftDistance = getLeftVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
     double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
 
-    ld+=leftDistance;
-    rd+=rightDistance;
+    ld += leftDistance;
+    rd += rightDistance;
 
     double leftOutput = leftPIDController.calculate(leftDistance,
         speeds.leftMetersPerSecond);
     double rightOutput = rightPIDController.calculate(rightDistance,
         speeds.rightMetersPerSecond);
 
-    // Calculate the feedforward (F) portion of our motor command, based on desired
-    // wheel speed
     var leftFeedforward = feedforward.calculate(speeds.leftMetersPerSecond);
     var rightFeedforward = feedforward.calculate(speeds.rightMetersPerSecond);
 
-    // Update the motor controllers with our new motor commands
     setLeftVoltage(leftOutput + leftFeedforward);
     setRightVoltage(rightOutput + rightFeedforward);
     // Update the pose estimator with the most recent sensor readings.
     // poseEst.update(leftDistance, rightDistance);
     // poseEst.update(ld, rd);
   }
+
+   
+
   /**
    * Force the pose estimator and all sensors to a particular pose. This is useful
    * for indicating to
@@ -237,12 +228,6 @@ public class DriveBaseSubsystem extends SubsystemBase {
    *
    * @param pose
    */
-  public double getDist() {
-    return poseEst.getInfo()[0];
-  }
-  public double getAngle() {
-    return poseEst.getInfo()[1];
-  }
   public void resetOdometry(Pose2d pose) {
     leftLeader.setSelectedSensorPosition(0);
     rightLeader.setSelectedSensorPosition(0);
@@ -253,18 +238,20 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public Pose2d getCtrlsPoseEstimate() {
     return poseEst.getPoseEst();
   }
-
+  public double getDist() {
+    return poseEst.getInfo()[0];
+    
+  }
+  public double getAngle() {
+    return poseEst.getInfo()[1];
+  }
   @Override
   public void periodic() {
     currentTimeStamp = Timer.getFPGATimestamp();
     double leftDistance = getLeftVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
     double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
-    ld+=leftDistance;
-    rd+=rightDistance;
-//     SmartDashboard.putNumber("cumulative left distance", ld);
-//     SmartDashboard.putNumber("cumulative right distance", rd);
-//     SmartDashboard.putNumber("time step left distance", leftDistance);
-//     SmartDashboard.putNumber("time step right distance", rightDistance);
+    ld += leftDistance;
+    rd += rightDistance;
 
     SmartDashboard.putNumber("Odo X Pos", getCtrlsPoseEstimate().getX());
     SmartDashboard.putNumber("Odo Y Pos", getCtrlsPoseEstimate().getY());

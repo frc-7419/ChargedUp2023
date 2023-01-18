@@ -18,6 +18,7 @@ public class SetElevatorPosition extends CommandBase {
   private double ff;
 
   private PIDController pidController;
+
   public SetElevatorPosition(ElevatorSubsystem elevatorSubsystem, double pos, double kp, double ff) {
     this.elevatorSubsystem = elevatorSubsystem;
     this.pos = pos;

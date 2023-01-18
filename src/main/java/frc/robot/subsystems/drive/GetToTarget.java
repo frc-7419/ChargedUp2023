@@ -18,8 +18,9 @@ public class GetToTarget extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new StraightWithMotionMagic(driveBaseSubsystem, Units.metersToInches(1))
-      //  new TurnWithGyroClosedLoop(driveBaseSubsystem, gyroSubsystem, -driveBaseSubsystem.getAngle(), 2, 0.0001, 0, 0)
+        new StraightWithMotionMagic(driveBaseSubsystem, Units.metersToInches(1))
+    // new TurnWithGyroClosedLoop(driveBaseSubsystem, gyroSubsystem,
+    // -driveBaseSubsystem.getAngle(), 2, 0.0001, 0, 0)
     );
   }
 }

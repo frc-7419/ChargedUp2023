@@ -22,7 +22,7 @@ public class CompressorSubsystem extends SubsystemBase {
     current = compressor.getCurrent();
   }
 
-  public void start() { 
+  public void start() {
     compressor.enableDigital();
   }
 
@@ -31,8 +31,10 @@ public class CompressorSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+  }
 
   @Override
-  public void simulationPeriodic() {}
+  public void simulationPeriodic() {
+  }
 }

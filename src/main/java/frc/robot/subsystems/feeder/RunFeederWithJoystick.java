@@ -20,17 +20,17 @@ public class RunFeederWithJoystick extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(joystick.getLeftBumper()) {
+    if (joystick.getLeftBumper()) {
       feederSubsystem.setVoltage(-Constants.PowerConstants.FeederVoltage);
     } else if (joystick.getRightBumper()) {
       feederSubsystem.setVoltage(Constants.PowerConstants.FeederVoltage);
-    }
-    else {
+    } else {
       feederSubsystem.setVoltage(0);
     }
   }
@@ -40,7 +40,7 @@ public class RunFeederWithJoystick extends CommandBase {
   public void end(boolean interrupted) {
     feederSubsystem.setVoltage(0);
   }
-  
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

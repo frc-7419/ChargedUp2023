@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 
 public class TurnWithGyroClosedLoop extends CommandBase {
-  
+
   private DriveBaseSubsystem driveBaseSubsystem;
   private GyroSubsystem gyroSubsystem;
   private double target;
@@ -19,11 +19,13 @@ public class TurnWithGyroClosedLoop extends CommandBase {
 
   /**
    * LEFT IS POSITIVE
+   * 
    * @param driveBaseSubsystem
    * @param gyro
    * @param angle
    */
-  public TurnWithGyroClosedLoop(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem, double target, double tolerance, double kP, double kI, double kD) {
+  public TurnWithGyroClosedLoop(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem, double target,
+      double tolerance, double kP, double kI, double kD) {
     this.driveBaseSubsystem = driveBaseSubsystem;
     this.gyroSubsystem = gyroSubsystem;
     this.target = target;
@@ -39,8 +41,8 @@ public class TurnWithGyroClosedLoop extends CommandBase {
     initAngle = gyroSubsystem.getGyroAngle();
     pidController = new PIDController(kP, kI, kD);
     pidController.setSetpoint(initAngle + target);
-    pidController.setTolerance(tolerance); 
-  } 
+    pidController.setTolerance(tolerance);
+  }
 
   @Override
   public void execute() {
