@@ -8,6 +8,8 @@
 package frc.robot;
 
 import com.ctre.phoenix.led.RainbowAnimation;
+import com.pathplanner.lib.server.PathPlannerServer;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
@@ -27,6 +29,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
+    PathPlannerServer.startServer(5811);
   }
 
   @Override
