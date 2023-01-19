@@ -120,7 +120,7 @@ public final class Constants {
         public static final DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(trackWidth);
         public static final double kPDriveVelocity = 3.0996;
         public static final double maxVelocity = Units.feetToMeters(15);
-        public static final double maxAcceleration = Units.feetToMeters(0.3);
+        public static final double maxAcceleration = Units.feetToMeters(0.1);
     }
     public static class PIDConstants {
         // drive

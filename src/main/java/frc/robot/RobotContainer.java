@@ -60,9 +60,9 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    //return new WaitCommand(5);
+    return new WaitCommand(5);
     // return new OneBallAuto(driveBaseSubsystem, gyroSubsystem);
-    return pathTest;
+    // return pathTest;
   }
 
   public void setDefaultCommands() {
