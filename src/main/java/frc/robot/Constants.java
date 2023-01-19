@@ -114,6 +114,7 @@ public final class Constants {
         public static final double trackWidth = 0.80525; // Units.inchesToMeters(21.8685); 
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
+        //all of this needs to be updated
         public static final double ks = 0.6265;
         public static final double kv = 2.3797;
         public static final double ka = 0.42136;
