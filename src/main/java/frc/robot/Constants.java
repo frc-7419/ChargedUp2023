@@ -114,13 +114,13 @@ public final class Constants {
         public static final double trackWidth = Units.inchesToMeters(23); 
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
-        public static final double ks = 0.6265;
-        public static final double kv = 2.3797;
-        public static final double ka = 0.42136;
+        public static final double ks = 0.075829;
+        public static final double kv = 2.4732;
+        public static final double ka = 0.25441;
         public static final DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(trackWidth);
-        public static final double kPDriveVelocity = 3.0996;
+        public static final double kPDriveVelocity = 0.37841;
         public static final double maxVelocity = Units.feetToMeters(15);
-        public static final double maxAcceleration = Units.feetToMeters(0.1);
+        public static final double maxAcceleration = Units.feetToMeters(2.1922);
     }
     public static class PIDConstants {
         // drive

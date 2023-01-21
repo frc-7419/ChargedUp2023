@@ -41,6 +41,7 @@ public class SamplePath extends RamseteCommand {
     @Override
     public void end(boolean interrupted) {
         drivetrain.stop();
+        drivetrain.resetOdometry(new Pose2d());
         super.end(interrupted);
     }
 }
