@@ -1,6 +1,11 @@
 {
   "SysId": {
     "Analysis Type": "Drivetrain",
+    "Analyzer": {
+      "window": {
+        "visible": false
+      }
+    },
     "NetworkTables Settings": {
       "serverTeam": "9419"
     },
