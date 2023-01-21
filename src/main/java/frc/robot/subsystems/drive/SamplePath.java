@@ -7,7 +7,7 @@ import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
-
+import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.Constants.DriveConstants;;
 
 public class SamplePath extends RamseteCommand {
@@ -41,7 +41,7 @@ public class SamplePath extends RamseteCommand {
     @Override
     public void end(boolean interrupted) {
         drivetrain.stop();
-        drivetrain.resetOdometry(new Pose2d());
+        drivetrain.resetOdometry(trajectory.getInitialPose());
         super.end(interrupted);
     }
 }
