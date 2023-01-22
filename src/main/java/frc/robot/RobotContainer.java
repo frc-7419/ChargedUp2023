@@ -49,8 +49,10 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(joystick1, Button.kRightBumper.value)
-        .onTrue(getToTarget);
+    if (!(Math.abs(joystick1.getLeftY()) > 0.2 || Math.abs(joystick1.getRightY()) > 0.2)) {
+      new JoystickButton(joystick1, Button.kRightBumper.value)
+          .onTrue(pathTest);
+    }
   }
 
   private void smartDashboardBindings() {
@@ -60,9 +62,9 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    // return new WaitCommand(5);
+    return new WaitCommand(5);
     // return new OneBallAuto(driveBaseSubsystem, gyroSubsystem);
-    return pathTest;
+    // return pathTest;
   }
 
   public void setDefaultCommands() {

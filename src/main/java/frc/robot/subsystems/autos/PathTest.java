@@ -20,7 +20,10 @@ public class PathTest extends SequentialCommandGroup {
         List<PathPoint> waypoints = new ArrayList<PathPoint>();
         waypoints.add(new PathPoint(new Translation2d(6.91, 2.68), Rotation2d.fromDegrees(180)));
         waypoints.add(new PathPoint(new Translation2d(6.32, 1.53), Rotation2d.fromDegrees(90)));
-        waypoints.add(new PathPoint(new Translation2d(5.09, 2.9), Rotation2d.fromDegrees(180)));
+        waypoints.add(new PathPoint(new Translation2d(3.59, 0.63), Rotation2d.fromDegrees(180)));
+        // the last way point ^ needs to be the start of the pathplanning path - note from kaival keshav braden and robot
+        // waypoints.add(new PathPoint(new Translation2d(6.11, 0.71), Rotation2d.fromDegrees(90)));
+        // waypoints.add(new PathPoint(new Translation2d(6.18, 0.78), Rotation2d.fromDegrees(180)));
         addCommands(
         //    new SamplePath(driveBaseSubsystem, PathPlanner.loadPath("Mid", new PathConstraints(Constants.DriveConstants.maxVelocity, Constants.DriveConstants.maxAcceleration)))
         new SamplePath(driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),

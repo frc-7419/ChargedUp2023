@@ -34,14 +34,14 @@ public class SamplePath extends RamseteCommand {
     }
     @Override
     public void initialize() {
-        drivetrain.resetOdometry(trajectory.getInitialPose());
+        // drivetrain.resetOdometry(trajectory.getInitialPose());
         super.initialize();
     }
 
     @Override
     public void end(boolean interrupted) {
         drivetrain.stop();
-        drivetrain.resetOdometry(trajectory.getInitialPose());
+        // drivetrain.resetOdometry(trajectory.getInitialPose());
         super.end(interrupted);
     }
 }
