@@ -25,10 +25,10 @@ public class ToPortal extends SequentialCommandGroup {
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
     waypoints.add(new PathPoint(new Translation2d(driveBaseSubsystem.getCtrlsPoseEstimate().getX(), driveBaseSubsystem.getCtrlsPoseEstimate().getY()), Rotation2d.fromDegrees(driveBaseSubsystem.getCtrlsPoseEstimate().getRotation().getDegrees())));
     if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-      waypoints.add(new PathPoint(new Translation2d(10.34, 6.72), Rotation2d.fromDegrees(0)));
+      waypoints.add(new PathPoint(new Translation2d(Constants.WaypointConstants.kBlueX, Constants.WaypointConstants.kBlueY), Rotation2d.fromDegrees(Constants.WaypointConstants.kHeadingBlue))); 
     }
     else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-      waypoints.add(new PathPoint(new Translation2d(6.87, 6.57), Rotation2d.fromDegrees(180))); 
+      waypoints.add(new PathPoint(new Translation2d(Constants.WaypointConstants.kRedX, Constants.WaypointConstants.kRedY), Rotation2d.fromDegrees(Constants.WaypointConstants.kHeadingRed))); 
     }
     addCommands(
         new SamplePath(driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),

@@ -9,6 +9,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import org.photonvision.SimVisionTarget;
 
@@ -83,6 +84,17 @@ public final class Constants {
         public static final int camResWidth = 320; // pixels
         public static final int camResHeight = 240; // pixels
 
+    }
+
+    public static class WaypointConstants {
+        public static final Translation2d kStartPose = new Translation2d(0, 0);
+        // single substation and portal initial location constants
+        public static final double kBlueX = 10.34;
+        public static final double kBlueY = 6.72;
+        public static final double kRedX = 6.87;
+        public static final double kRedY = 6.57;
+        public static final double kHeadingBlue = 0; //degrees
+        public static final double kHeadingRed = 180; //degrees
     }
 
     public static class RobotConstants {
