@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.SamplePath;
 
@@ -25,10 +26,10 @@ public class ToPortal extends SequentialCommandGroup {
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
     waypoints.add(new PathPoint(new Translation2d(driveBaseSubsystem.getCtrlsPoseEstimate().getX(), driveBaseSubsystem.getCtrlsPoseEstimate().getY()), Rotation2d.fromDegrees(driveBaseSubsystem.getCtrlsPoseEstimate().getRotation().getDegrees())));
     if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-      waypoints.add(new PathPoint(new Translation2d(Constants.WaypointConstants.kBlueX, Constants.WaypointConstants.kBlueY), Rotation2d.fromDegrees(Constants.WaypointConstants.kHeadingBlue))); 
+      waypoints.add(Constants.WaypointConstants.kBluePoint); 
     }
     else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-      waypoints.add(new PathPoint(new Translation2d(Constants.WaypointConstants.kRedX, Constants.WaypointConstants.kRedY), Rotation2d.fromDegrees(Constants.WaypointConstants.kHeadingRed))); 
+      waypoints.add(Constants.WaypointConstants.kRedPoint); 
     }
     addCommands(
         new SamplePath(driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
