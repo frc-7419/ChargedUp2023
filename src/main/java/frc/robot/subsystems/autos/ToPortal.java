@@ -6,7 +6,9 @@ package frc.robot.subsystems.autos;
 
 import java.sql.Driver;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
@@ -24,16 +26,19 @@ import frc.robot.subsystems.drive.SamplePath;
 public class ToPortal extends SequentialCommandGroup {
   public ToPortal(DriveBaseSubsystem driveBaseSubsystem) {
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
-    waypoints.add(new PathPoint(new Translation2d(driveBaseSubsystem.getCtrlsPoseEstimate().getX(), driveBaseSubsystem.getCtrlsPoseEstimate().getY()), Rotation2d.fromDegrees(driveBaseSubsystem.getCtrlsPoseEstimate().getRotation().getDegrees())));
+    String teamColor = "";
+    waypoints.add(new PathPoint(new Translation2d(driveBaseSubsystem.getCtrlsPoseEstimate().getX(), driveBaseSubsystem.getCtrlsPoseEstimate().getY()), driveBaseSubsystem.getCtrlsPoseEstimate().getRotation()));
     if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
       waypoints.add(Constants.WaypointConstants.kBluePoint); 
+      teamColor = "BluePortal";
     }
     else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
       waypoints.add(Constants.WaypointConstants.kRedPoint); 
+      teamColor = "RedPortal";
     }
     addCommands(
         new SamplePath(driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
-        new SamplePath(driveBaseSubsystem, PathPlanner.loadPath((DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? "BluePortal" : "RedPortal", PathPlanner.getConstraintsFromPath((DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? "BluePortal" : "RedPortal")))
-      );
+        new SamplePath(driveBaseSubsystem, PathPlanner.loadPath(teamColor, PathPlanner.getConstraintsFromPath(teamColor))
+    ));
   }
 }

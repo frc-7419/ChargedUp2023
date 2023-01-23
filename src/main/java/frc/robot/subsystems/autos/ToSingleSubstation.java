@@ -24,16 +24,19 @@ import frc.robot.subsystems.drive.SamplePath;
 public class ToSingleSubstation extends SequentialCommandGroup {
   public ToSingleSubstation(DriveBaseSubsystem driveBaseSubsystem) {
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
-    waypoints.add(new PathPoint(new Translation2d(driveBaseSubsystem.getCtrlsPoseEstimate().getX(), driveBaseSubsystem.getCtrlsPoseEstimate().getY()), Rotation2d.fromDegrees(driveBaseSubsystem.getCtrlsPoseEstimate().getRotation().getDegrees())));
+    String teamColor = "";
+    waypoints.add(new PathPoint(new Translation2d(driveBaseSubsystem.getCtrlsPoseEstimate().getX(), driveBaseSubsystem.getCtrlsPoseEstimate().getY()), driveBaseSubsystem.getCtrlsPoseEstimate().getRotation()));
     if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-      waypoints.add(Constants.WaypointConstants.kBluePoint); 
+      waypoints.add(Constants.WaypointConstants.kBluePoint);
+      teamColor = "BlueSingleSubstation";
     }
     else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
       waypoints.add(Constants.WaypointConstants.kRedPoint); 
+      teamColor = "RedSingleSubstation";
     }
     addCommands(
         new SamplePath(driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
-        new SamplePath(driveBaseSubsystem, PathPlanner.loadPath((DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? "BlueSingleSubstation" : "RedSingleSubstation", PathPlanner.getConstraintsFromPath((DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? "BlueSingleSubstation" : "RedSingleSubstation")))
-      );
+        new SamplePath(driveBaseSubsystem, PathPlanner.loadPath(teamColor, PathPlanner.getConstraintsFromPath(teamColor))
+      ));
   }
 }
