@@ -23,7 +23,7 @@ public class PathTest extends SequentialCommandGroup {
         addCommands(
         //    new SamplePath(driveBaseSubsystem, PathPlanner.loadPath("Mid", new PathConstraints(Constants.DriveConstants.maxVelocity, Constants.DriveConstants.maxAcceleration)))
         new SamplePath(driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
-        new SamplePath(driveBaseSubsystem, PathPlanner.loadPath("Mid", PathPlanner.getConstraintsFromPath("Mid")))
+        new SamplePath(driveBaseSubsystem, PathPlanner.loadPath("BlueMid", PathPlanner.getConstraintsFromPath("BlueMid")))
         );
         
     }
