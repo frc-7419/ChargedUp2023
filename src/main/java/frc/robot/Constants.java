@@ -119,10 +119,10 @@ public final class Constants {
         public static final double ElevatorKf = -0.20459;
 
         // smort balance
-        public static final double BalanceKp = 0.0001;
+        public static final double BalanceKp = 0.04;
         public static final double BalanceKi = 0;
-        public static final double BalanceKd = 0;
-        public static final double BalanceKTolerance = 1;
+        public static final double BalanceKd = 0.03;
+        public static final double BalanceKTolerance = 10;
     }
 
 };

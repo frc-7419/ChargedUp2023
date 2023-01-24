@@ -26,13 +26,14 @@ public class SmortBalance extends PIDCommand {
         output -> {
           // Use the output here
           // driveBaseSubsystem.setAllPower(output);
-          driveBaseSubsystem.setLeftPower(output);
-          driveBaseSubsystem.setRightPower(-output);
+          driveBaseSubsystem.setLeftPower(-output);
+          driveBaseSubsystem.setRightPower(output);
         });
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gyroSubsystem, driveBaseSubsystem);
     // Configure additional PID options by calling `getController` here.
     getController().setTolerance(BalanceKTolerance);
+    getController().enableContinuousInput(-180, 180);
   }
 
   // Returns true when the command should end.
