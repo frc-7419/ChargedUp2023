@@ -21,6 +21,7 @@ import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GetToTarget;
 import frc.robot.subsystems.drive.StraightWithMotionMagic;
 import frc.robot.subsystems.gyro.GyroSubsystem;
+import frc.robot.subsystems.gyro.PigeonSubsystem;
 import frc.robot.subsystems.vision.VisionSubsystem;
 
 public class RobotContainer {
@@ -31,6 +32,7 @@ public class RobotContainer {
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
   private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
+  private final PigeonSubsystem pigeonSubsystem = new PigeonSubsystem();
 
   // Commands
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
