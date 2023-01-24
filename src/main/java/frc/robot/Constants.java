@@ -37,7 +37,7 @@ public final class Constants {
         armSpark2(12),
         rightElevatorFalcon(50),
         leftElevatorFalcon(51),
-        pigeon(69), //PLACEHOLDER
+        pigeon(0),
         ;
 
         public final int id;
