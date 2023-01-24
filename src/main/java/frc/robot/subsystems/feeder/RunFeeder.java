@@ -10,17 +10,18 @@ public class RunFeeder extends CommandBase {
   /** Creates a new RunFeeder. */
   private FeederSubsystem feederSubsystem;
   private double power;
-  
+
   public RunFeeder(FeederSubsystem feederSubsystem, double power) {
     this.feederSubsystem = feederSubsystem;
     this.power = power;
-    addRequirements(feederSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(feederSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

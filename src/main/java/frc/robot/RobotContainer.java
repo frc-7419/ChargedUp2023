@@ -4,58 +4,61 @@ import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
+import frc.robot.subsystems.autos.MobilityAuto;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.elevator.ElevatorSubsystem;
-import frc.robot.subsystems.elevator.MaintainElevatorPosition;
-import frc.robot.subsystems.elevator.RunElevatorWithJoystick;
+import frc.robot.subsystems.drive.GetToTarget;
+import frc.robot.subsystems.drive.StraightWithMotionMagic;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.vision.VisionSubsystem;
 
 public class RobotContainer {
   private final XboxController joystick1 = new XboxController(0);
   private final XboxController joystick2 = new XboxController(1);
-  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
+
+  // Subsystems
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
-  private final VisionSubsystem visionSubsystem = new VisionSubsystem();
-  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
   private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
 
-
+  // Commands
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
-  // private final SmartShoot smartShoot = new SmartShoot(shooterSubsystem, feederSubsystem, loaderSubsystem, visionSubsystem, beamBreakSubsystem);
-  // auto
 
-  private SendableChooser<Command> autonChooser = new SendableChooser<>();
+  // Autonomous
+
+  // private SendableChooser<Command> autonChooser = new SendableChooser<>();
+  private final GetToTarget getToTarget = new GetToTarget(driveBaseSubsystem, gyroSubsystem);
 
   public RobotContainer() {
     configureButtonBindings();
+    smartDashboardBindings();
     configureAutoSelector();
   }
 
   private void configureButtonBindings() {
-    // align turret
+    new JoystickButton(joystick1, Button.kRightBumper.value)
+        .onTrue(getToTarget);
   }
 
-  // private void smartDashboardBindings() {}
+  private void smartDashboardBindings() {
+  }
 
   private void configureAutoSelector() {
-    // autonChooser.setDefaultOption("two ball", mttdTwoBall);
-    // autonChooser.addOption("three ball", mttdThreeBall);
-    SmartDashboard.putData(autonChooser);
   }
 
   public Command getAutonomousCommand() {
-    return autonChooser.getSelected();
+    return new WaitCommand(5);
   }
 
   public void setDefaultCommands() {

@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CanIds;
 
-
 public class ElevatorSubsystem extends SubsystemBase {
   private TalonFX elevatorLeft;
   private TalonFX elevatorRight;
@@ -24,7 +23,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorRight = new TalonFX(CanIds.rightElevatorFalcon.id);
 
     elevatorRight.follow(elevatorLeft);
-    
+
     elevatorLeft.setInverted(true);
     elevatorRight.setInverted(InvertType.OpposeMaster);
 
@@ -70,7 +69,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public TalonFX getElevatorLeft() {
     return elevatorLeft;
   }
-  
+
   public TalonFX getElevatorRight() {
     return elevatorRight;
   }

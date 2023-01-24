@@ -9,11 +9,11 @@ import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.led.LEDSubsystem;
 import frc.robot.subsystems.led.SetLEDColor;
 
-public class OneBallAuto extends ParallelCommandGroup {
+public class MobilityAuto extends ParallelCommandGroup {
 
-    public OneBallAuto(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem,LEDSubsystem ledSubsystem) {
+    public MobilityAuto(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem) {
         addCommands(
-        );
+                new StraightWithMotionMagic(driveBaseSubsystem, 5));
     }
-    
+
 }
