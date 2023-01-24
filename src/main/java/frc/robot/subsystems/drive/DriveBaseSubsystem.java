@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.gyro.GyroSubsystem;
+import frc.robot.subsystems.gyro.PigeonSubsystem;
 
 public class DriveBaseSubsystem extends SubsystemBase {
   private TalonFX leftLeader;
@@ -35,7 +36,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private double previousTimeStamp = 0;
   private double currentTimeStamp;
 
-  public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
+  public DriveBaseSubsystem(PigeonSubsystem pigeonSubsystem) {
     leftLeader = new TalonFX(Constants.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(Constants.CanIds.leftFalcon2.id);
     rightLeader = new TalonFX(Constants.CanIds.rightFalcon1.id);
@@ -58,7 +59,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
 
-    poseEst = new DrivetrainPoseEstimator(gyroSubsystem);
+    poseEst = new DrivetrainPoseEstimator(pigeonSubsystem);
   }
 
   public enum TurnDirection {

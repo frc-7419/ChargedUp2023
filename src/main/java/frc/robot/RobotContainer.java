@@ -29,10 +29,10 @@ public class RobotContainer {
   private final XboxController joystick2 = new XboxController(1);
 
   // Subsystems
-  private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
-  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
+  // private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
   private final PigeonSubsystem pigeonSubsystem = new PigeonSubsystem();
+  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(pigeonSubsystem);
 
   // Commands
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
@@ -40,7 +40,7 @@ public class RobotContainer {
   // Autonomous
 
   // private SendableChooser<Command> autonChooser = new SendableChooser<>();
-  private final GetToTarget getToTarget = new GetToTarget(driveBaseSubsystem, gyroSubsystem);
+  // private final GetToTarget getToTarget = new GetToTarget(driveBaseSubsystem, gyroSubsystem);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -49,8 +49,8 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(joystick1, Button.kRightBumper.value)
-        .onTrue(getToTarget);
+    // new JoystickButton(joystick1, Button.kRightBumper.value)
+    //     .onTrue(getToTarget);
   }
 
   private void smartDashboardBindings() {

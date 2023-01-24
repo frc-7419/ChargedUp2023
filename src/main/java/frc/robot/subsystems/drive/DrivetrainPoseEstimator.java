@@ -10,6 +10,7 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.gyro.GyroSubsystem;
+import frc.robot.subsystems.gyro.PigeonSubsystem;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,13 +44,11 @@ import org.photonvision.targeting.PhotonTrackedTarget;
  */
 public class DrivetrainPoseEstimator extends SubsystemBase {
     // Sensors used as part of the Pose Estimation
-    private GyroSubsystem gyroSubsystem;
+    private PigeonSubsystem pigeonSubsystem;
     private PhotonCamera cam;
-    private DriveBaseSubsystem driveBaseSubsystem;
     private PhotonPipelineResult result;
     private double resultTimeStamp;
     private double previousTimeStamp;
-    private int fiducialId;
 
     private Map<Integer, Pose3d> poses = new HashMap<Integer, Pose3d>();
     // Kalman Filter Configuration. These can be "tuned-to-taste" based on how much
@@ -64,8 +64,8 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
 
     private final DifferentialDrivePoseEstimator m_poseEstimator;
 
-    public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
-        this.gyroSubsystem = gyroSubsystem;
+    public DrivetrainPoseEstimator(PigeonSubsystem pigeonSubsystem) {
+        this.pigeonSubsystem = pigeonSubsystem;
         cam = new PhotonCamera("terima");
         poses.put(5, new Pose3d(1, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
         poses.put(8, new Pose3d(1, 2, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
@@ -73,7 +73,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
         poses.put(4, new Pose3d(1, 3, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
         m_poseEstimator = new DifferentialDrivePoseEstimator(
                 Constants.kDtKinematics,
-                gyroSubsystem.getRotation2d(),
+                getRotation2d(),
                 0, // Assume zero encoder counts at start
                 0,
                 new Pose2d(),
@@ -89,7 +89,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
      * @param rightDist      Distance (in m) the right wheel has traveled
      */
     public void update(double leftDist, double rightDist) {
-        m_poseEstimator.update(gyroSubsystem.getRotation2d(), leftDist, rightDist);
+        m_poseEstimator.update(getRotation2d(), leftDist, rightDist);
         result = cam.getLatestResult();
         resultTimeStamp = result.getTimestampSeconds();
         if (result.hasTargets() && resultTimeStamp != previousTimeStamp) {
@@ -110,7 +110,9 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
             }
         }
     }
-
+    public Rotation2d getRotation2d() {
+        return Rotation2d.fromDegrees(pigeonSubsystem.getGyroYaw());
+    }
     public double[] getInfo() {
         PhotonPipelineResult result = cam.getLatestResult();
         double[] info = new double[2];
@@ -135,7 +137,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
      * place it on the field at the start of the match).
      */
     public void resetToPose(Pose2d pose, double leftDist, double rightDist) {
-        m_poseEstimator.resetPosition(gyroSubsystem.getRotation2d(), leftDist, rightDist, pose);
+        m_poseEstimator.resetPosition(getRotation2d(), leftDist, rightDist, pose);
     }
 
     /** @return The current best-guess at drivetrain position on the field. */
