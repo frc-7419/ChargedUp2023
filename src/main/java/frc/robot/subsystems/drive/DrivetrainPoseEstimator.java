@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.gyro.GyroSubsystem;
-import frc.robot.subsystems.gyro.PigeonSubsystem;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,7 +43,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
  */
 public class DrivetrainPoseEstimator extends SubsystemBase {
     // Sensors used as part of the Pose Estimation
-    private PigeonSubsystem pigeonSubsystem;
+    private GyroSubsystem gyroSubsystem;
     private PhotonCamera cam;
     private PhotonPipelineResult result;
     private double resultTimeStamp;
@@ -64,8 +63,8 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
 
     private final DifferentialDrivePoseEstimator m_poseEstimator;
 
-    public DrivetrainPoseEstimator(PigeonSubsystem pigeonSubsystem) {
-        this.pigeonSubsystem = pigeonSubsystem;
+    public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
+        this.gyroSubsystem = gyroSubsystem;
         cam = new PhotonCamera("terima");
         poses.put(5, new Pose3d(1, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
         poses.put(8, new Pose3d(1, 2, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
@@ -111,7 +110,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
         }
     }
     public Rotation2d getRotation2d() {
-        return Rotation2d.fromDegrees(pigeonSubsystem.getGyroYaw());
+        return Rotation2d.fromDegrees(gyroSubsystem.getYaw());
     }
     public double[] getInfo() {
         PhotonPipelineResult result = cam.getLatestResult();
