@@ -10,6 +10,7 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
@@ -77,7 +78,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
         poses.put(8, new Pose3d(1.02743, 1.071626,0.462788,  new Rotation3d(0, 0, Units.degreesToRadians(180))));
         m_poseEstimator = new DifferentialDrivePoseEstimator(
                 Constants.kDtKinematics,
-                gyroSubsystem.getRotation2d(),
+                getRotation2d(),
                 0, // Assume zero encoder counts at start
                 0,
                 new Pose2d(),
@@ -92,8 +93,11 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
      * @param leftDist       Distance (in m) the left wheel has traveled
      * @param rightDist      Distance (in m) the right wheel has traveled
      */
+    public Rotation2d getRotation2d() {
+        return Rotation2d.fromDegrees(gyroSubsystem.getYaw());
+    }
     public void update(double leftDist, double rightDist) {
-        m_poseEstimator.update(gyroSubsystem.getRotation2d(), leftDist, rightDist);
+        m_poseEstimator.update(getRotation2d(), leftDist, rightDist);
         result = cam.getLatestResult();
         resultTimeStamp = result.getTimestampSeconds();
         if (result.hasTargets() && resultTimeStamp != previousTimeStamp) {
@@ -139,7 +143,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
      * place it on the field at the start of the match).
      */
     public void resetToPose(Pose2d pose, double leftDist, double rightDist) {
-        m_poseEstimator.resetPosition(gyroSubsystem.getRotation2d(), leftDist, rightDist, pose);
+        m_poseEstimator.resetPosition(getRotation2d(), leftDist, rightDist, pose);
     }
 
     /** @return The current best-guess at drivetrain position on the field. */
