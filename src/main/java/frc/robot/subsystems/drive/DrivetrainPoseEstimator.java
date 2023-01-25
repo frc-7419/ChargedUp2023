@@ -66,10 +66,14 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
     public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
         this.gyroSubsystem = gyroSubsystem;
         cam = new PhotonCamera("terima");
-        poses.put(5, new Pose3d(1, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-        poses.put(8, new Pose3d(1, 2, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-        poses.put(7, new Pose3d(1, 3, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-        poses.put(4, new Pose3d(1, 3, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
+        poses.put(1, new Pose3d(15.513558, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0))));
+        poses.put(2, new Pose3d(15.513558, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0))));
+        poses.put(3, new Pose3d(15.513558, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0))));
+        // poses.put(4, new Pose3d(16.178784, 6.749796, new Rotation3d(0, 0.695452, Units.degreesToRadians(0))));
+        // poses.put(5, new Pose3d(0.36195, 6.749796, new Rotation3d(0, 0.695452, Units.degreesToRadians(180))));
+        poses.put(6, new Pose3d(1.02743, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
+        poses.put(7, new Pose3d(1.02743, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
+        poses.put(8, new Pose3d(1.02743, 1.071626,0.462788,  new Rotation3d(0, 0, Units.degreesToRadians(180))));
         m_poseEstimator = new DifferentialDrivePoseEstimator(
                 Constants.kDtKinematics,
                 getRotation2d(),
