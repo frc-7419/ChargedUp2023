@@ -34,7 +34,7 @@ public class RobotContainer {
   private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
 
   // Commands
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.1, 0.2);
+  private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
   // private final SmartShoot smartShoot = new SmartShoot(shooterSubsystem, feederSubsystem, loaderSubsystem, visionSubsystem, beamBreakSubsystem);
   // auto
   private final PathTest pathTest = new PathTest(driveBaseSubsystem);
