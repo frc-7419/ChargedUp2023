@@ -25,6 +25,7 @@ public class SmartArm extends CommandBase {
   @Override
   public void initialize() {
     pidController.setSetpoint(setpoint);
+    pidController.setTolerance(0.15);
     armSubsystem.coastMain();
   }
 
@@ -45,6 +46,6 @@ public class SmartArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return pidController.atSetpoint();
   }
 }
