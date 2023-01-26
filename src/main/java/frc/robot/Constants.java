@@ -30,13 +30,9 @@ public final class Constants {
         rightFalcon1(2),
         leftFalcon2(4),
         rightFalcon2(3),
-        intakeSpark(32),
-        loaderVictor(16),
-        feederTalon(23),
-        armSpark1(11),
-        armSpark2(12),
-        rightElevatorFalcon(50),
-        leftElevatorFalcon(51),
+        armMain1(12),
+        armMain2(13),
+        armExtended(51),
         pigeon(0),
         ;
 
@@ -95,6 +91,8 @@ public final class Constants {
         public static final double kWheelCircumference = 2 * Math.PI * Constants.RobotConstants.kWheelRadius;
 
         public static final double timeStep = 0.02;
+
+        public static final double mainArmGearRatio = 100;
     }
 
     public static class PowerConstants {
@@ -107,7 +105,10 @@ public final class Constants {
         // intake
         public static final double intakeMultiplier = 1.0;
     }
-
+    public static class ArmConstants{
+        public static final double mainArmSetpoint1 = 45;
+        public static final double mainArmSetpoint2 = 60;
+    }
     public static class PIDConstants {
         // drive
         public static final double DriveBaseMotionMagickP = 0.5;
@@ -117,6 +118,11 @@ public final class Constants {
         // elevator
         public static final double ElevatorKp = 0.0035;
         public static final double ElevatorKf = -0.20459;
+
+        //arm
+        public static final double MainArmKp = 0.001;
+        public static final double MainArmKi = 0;
+        public static final double MainArmKd = 0;
     }
 
 };
