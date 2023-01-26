@@ -12,25 +12,29 @@ import static frc.robot.Constants.PIDConstants.*;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class SmortBalance extends PIDCommand {
-  /** Creates a new SmortBalance. */
-  public SmortBalance(GyroSubsystem gyroSubsystem, DriveBaseSubsystem driveBaseSubsystem) {
+public class SmartBalance extends PIDCommand {
+  /** Creates a new SmartBalance. */
+  public SmartBalance(GyroSubsystem gyroSubsystem, DriveBaseSubsystem driveBaseSubsystem) {
     super(
         // The controller that the command will use
         new PIDController(BalanceKp, BalanceKi, BalanceKd),
+
         // This should return the measurement
         gyroSubsystem::getYaw,
+
         // This should return the setpoint (can also be a constant)
         0,
+
         // This uses the output
         output -> {
           // Use the output here
-          // driveBaseSubsystem.setAllPower(output);
           driveBaseSubsystem.setLeftPower(-output);
           driveBaseSubsystem.setRightPower(output);
         });
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gyroSubsystem, driveBaseSubsystem);
+    
     // Configure additional PID options by calling `getController` here.
     getController().setTolerance(BalanceKTolerance);
     getController().enableContinuousInput(-180, 180);
