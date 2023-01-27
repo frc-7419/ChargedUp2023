@@ -106,12 +106,12 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
             int fiducialId = target.getFiducialId();
             if (target.getPoseAmbiguity() <= .2) {
                 Pose3d targetPose = poses.get(fiducialId);
-                Transform3d camToTargetTrans = target.getBestCameraToTarget();
-                Pose3d camPose = targetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where the target
-                                                                                     // is on the field physically and
-                                                                                     // gets the camera pose
-                m_poseEstimator.addVisionMeasurement(
-                        camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
+                // Transform3d camToTargetTrans = target.getBestCameraToTarget();
+                // Pose3d camPose = targetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where the target
+                //                                                                      // is on the field physically and
+                //                                                                      // gets the camera pose
+                // m_poseEstimator.addVisionMeasurement(
+                //         camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
                 SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEst().getX());
                 SmartDashboard.putNumber("Vision+Odo Y Pos", getPoseEst().getY());
                 SmartDashboard.putNumber("Vision+Odo Theta", getPoseEst().getRotation().getDegrees());
