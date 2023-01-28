@@ -16,6 +16,7 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import frc.robot.subsystems.autos.MobilityAuto;
+import frc.robot.subsystems.arm.ArmJoystick;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -38,8 +39,9 @@ public class RobotContainer {
 
   // Commands
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
-  private final SmartArm smartArm = new SmartArm(armSubsystem,ArmConstants.mainArmSetpoint1);
-
+  private final SmartArm smartArm1 = new SmartArm(armSubsystem,ArmConstants.mainArmSetpoint1);
+  private final SmartArm smartArm2 = new SmartArm(armSubsystem,ArmConstants.mainArmSetpoint2);
+  private final ArmJoystick armJoystick = new ArmJoystick(armSubsystem, joystick1);
   // Autonomous
 
   // private SendableChooser<Command> autonChooser = new SendableChooser<>();
@@ -52,8 +54,10 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    // new JoystickButton(joystick1, Button.kRightBumper.value)
-    //     .onTrue(getToTarget);
+    new JoystickButton(joystick1, Button.kA.value)
+        .whileTrue(smartArm1);
+    new JoystickButton(joystick1, Button.kB.value)
+        .whileTrue(smartArm2);
   }
 
   private void smartDashboardBindings() {
@@ -68,5 +72,6 @@ public class RobotContainer {
 
   public void setDefaultCommands() {
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);
+    armSubsystem.setDefaultCommand(armJoystick);
   }
 }
