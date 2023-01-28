@@ -61,21 +61,21 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
     // influence on the final pose estimate.
     Matrix<N5, N1> stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5), 0.05, 0.05);
     Matrix<N3, N1> localMeasurementStdDevs = VecBuilder.fill(0.02, 0.01, Units.degreesToRadians(1));
-    Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(0.02, 0.01, Units.degreesToRadians(1));
+    Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(0.001, 0.001, Units.degreesToRadians(1));
 
     private final DifferentialDrivePoseEstimator m_poseEstimator;
 
     public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
         this.gyroSubsystem = gyroSubsystem;
         cam = new PhotonCamera("terima");
-        poses.put(1, new Pose3d(15.513558, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0))));
-        poses.put(2, new Pose3d(15.513558, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0))));
-        poses.put(3, new Pose3d(15.513558, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0))));
-        // poses.put(4, new Pose3d(16.178784, 6.749796, new Rotation3d(0, 0.695452, Units.degreesToRadians(0))));
-        // poses.put(5, new Pose3d(0.36195, 6.749796, new Rotation3d(0, 0.695452, Units.degreesToRadians(180))));
-        poses.put(6, new Pose3d(1.02743, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-        poses.put(7, new Pose3d(1.02743, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-        poses.put(8, new Pose3d(1.02743, 1.071626,0.462788,  new Rotation3d(0, 0, Units.degreesToRadians(180))));
+        poses.put(1, new Pose3d(15.513558, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
+        poses.put(2, new Pose3d(15.513558, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
+        poses.put(3, new Pose3d(15.513558, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
+        // poses.put(4, new Pose3d(16.178784, 6.749796, new Rotation3d(0, 0.695452, Units.degreesToRadians(180))));
+        // poses.put(5, new Pose3d(0.36195, 6.749796, new Rotation3d(0, 0.695452, Units.degreesToRadians(0))));
+        poses.put(6, new Pose3d(1.02743, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0))));
+        poses.put(7, new Pose3d(1.02743, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0))));
+        poses.put(8, new Pose3d(1.02743, 1.071626,0.462788,  new Rotation3d(0, 0, Units.degreesToRadians(0))));
         m_poseEstimator = new DifferentialDrivePoseEstimator(
                 Constants.kDtKinematics,
                 getRotation2d(),
@@ -106,12 +106,12 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
             int fiducialId = target.getFiducialId();
             if (target.getPoseAmbiguity() <= .2) {
                 Pose3d targetPose = poses.get(fiducialId);
-                // Transform3d camToTargetTrans = target.getBestCameraToTarget();
-                // Pose3d camPose = targetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where the target
-                //                                                                      // is on the field physically and
-                //                                                                      // gets the camera pose
-                // m_poseEstimator.addVisionMeasurement(
-                //         camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
+                Transform3d camToTargetTrans = target.getBestCameraToTarget();
+                Pose3d camPose = targetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where the target
+                                                                                     // is on the field physically and
+                                                                                     // gets the camera pose
+                m_poseEstimator.addVisionMeasurement(
+                        camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
                 SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEst().getX());
                 SmartDashboard.putNumber("Vision+Odo Y Pos", getPoseEst().getY());
                 SmartDashboard.putNumber("Vision+Odo Theta", getPoseEst().getRotation().getDegrees());
