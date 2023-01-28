@@ -18,7 +18,7 @@ public class ArmSubsystem extends SubsystemBase {
   private CANSparkMax mainMotor2;
   private TalonSRX extendedMotor;
   private boolean homed;
-  private double homePosition;
+  private double homePosition = 0;
   private DigitalInput magLimSwitch;
 
   public ArmSubsystem() {
@@ -43,7 +43,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public double getMainPosition() {
-    return mainMotor1.getEncoder().getPosition(); //remember to gearratio it
+    return mainMotor1.getEncoder().getPosition() - homePosition; //remember to gearratio it
   }
   
   public double getExtendedPosition() {
@@ -92,6 +92,7 @@ public class ArmSubsystem extends SubsystemBase {
       home();
       homed = true;
     }
+    SmartDashboard.putNumber("Arm Position", getMainPosition());
     SmartDashboard.putNumber("Home Pos", homePosition);
     SmartDashboard.putBoolean("Arm Homed", homed);
   }
