@@ -59,9 +59,9 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
     // component more than the others. This in turn means the particualr component
     // will have a stronger
     // influence on the final pose estimate.
-    Matrix<N5, N1> stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5), 0.05, 0.05);
-    Matrix<N3, N1> localMeasurementStdDevs = VecBuilder.fill(0.02, 0.01, Units.degreesToRadians(1));
-    Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(0.001, 0.001, Units.degreesToRadians(1));
+    Matrix<N5, N1> stateStdDevs = VecBuilder.fill(0.02, 0.02, Units.degreesToRadians(1), 0.02, 0.02);
+    Matrix<N3, N1> localMeasurementStdDevs = VecBuilder.fill(0.2, 0.2, Units.degreesToRadians(0.1));
+    Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(0.2, 0.2, Units.degreesToRadians(0.2));
 
     private final DifferentialDrivePoseEstimator m_poseEstimator;
 
