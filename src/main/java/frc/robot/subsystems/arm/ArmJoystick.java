@@ -20,7 +20,7 @@ public class ArmJoystick extends CommandBase {
   @Override
   public void execute() {
     armSubsystem.setMainPower(joystick.getRightY());
-    armSubsystem.setExtendedPower(joystick.getLeftY());
+    armSubsystem.setExtendedPower(0.5*joystick.getLeftY());
   }
 
   @Override
