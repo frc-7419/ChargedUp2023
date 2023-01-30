@@ -106,8 +106,8 @@ public final class Constants {
         public static final double intakeMultiplier = 1.0;
     }
     public static class ArmConstants{
-        public static final double mainArmSetpoint1 = 45;
-        public static final double mainArmSetpoint2 = 60;
+        public static final double mainArmSetpoint1 = 13000;
+        public static final double mainArmSetpoint2 = 18000;
     }
     public static class PIDConstants {
         // drive
