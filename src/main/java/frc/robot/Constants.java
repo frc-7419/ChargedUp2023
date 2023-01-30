@@ -34,6 +34,7 @@ public final class Constants {
         armMain2(13),
         armExtended(51),
         pigeon(0),
+        extendedPigeon(51),
         ;
 
         public final int id;

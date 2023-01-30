@@ -3,6 +3,7 @@ package frc.robot.subsystems.arm;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -20,6 +21,7 @@ public class ArmSubsystem extends SubsystemBase {
   private boolean homed;
   private double homePosition = 0;
   private DigitalInput magLimSwitch;
+  private PigeonIMU extendedGyro;
 
   public ArmSubsystem() {
     extendedMotor = new TalonSRX(CanIds.armExtended.id);
@@ -27,7 +29,9 @@ public class ArmSubsystem extends SubsystemBase {
     mainMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
     magLimSwitch = new DigitalInput(0); // port for now
     mainMotor1.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
+    extendedGyro = new PigeonIMU(extendedMotor);
   }
+
   public void setAllPower(double power) {
     setMainPower(power);
     setExtendedPower(power);
@@ -95,5 +99,10 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Arm Position", getMainPosition());
     SmartDashboard.putNumber("Home Pos", homePosition);
     SmartDashboard.putBoolean("Arm Homed", homed);
+    double[] ypr = new double[3];
+    extendedGyro.getYawPitchRoll(ypr);
+    SmartDashboard.putNumber("Extended Yaw", ypr[0]);
+    SmartDashboard.putNumber("Extended Pitch", ypr[1]);
+    SmartDashboard.putNumber("Extended Roll", ypr[2]);
   }
 }
