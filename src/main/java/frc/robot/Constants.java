@@ -31,7 +31,7 @@ public final class Constants {
         leftFalcon2(4),
         rightFalcon2(3),
         armMain1(12),
-        armMain2(13),
+        armMain2(14),
         armExtended(51),
         pigeon(0),
         extendedPigeon(51),
