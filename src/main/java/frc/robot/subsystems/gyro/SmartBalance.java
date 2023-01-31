@@ -20,7 +20,7 @@ public class SmartBalance extends PIDCommand {
         new PIDController(BalanceKp, BalanceKi, BalanceKd),
 
         // This should return the measurement
-        gyroSubsystem::getYaw,
+        gyroSubsystem::getPitch,
 
         // This should return the setpoint (can also be a constant)
         0,
@@ -28,8 +28,7 @@ public class SmartBalance extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          driveBaseSubsystem.setLeftPower(-output);
-          driveBaseSubsystem.setRightPower(output);
+          driveBaseSubsystem.setAllPower(output);
         });
 
     // Use addRequirements() here to declare subsystem dependencies.
