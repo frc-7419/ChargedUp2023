@@ -24,6 +24,7 @@ import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.vision.VisionSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.arm.SmartArm;
+import frc.robot.subsystems.arm.SmartExtendedArm;
 import frc.robot.subsystems.arm.SmartHome;
 import frc.robot.subsystems.drive.GetToTarget;
 import frc.robot.subsystems.drive.StraightWithMotionMagic;
@@ -43,6 +44,7 @@ public class RobotContainer {
   private final SmartArm smartArm1 = new SmartArm(armSubsystem,ArmConstants.mainArmSetpoint1);
   private final SmartArm smartArm2 = new SmartArm(armSubsystem,ArmConstants.mainArmSetpoint2);
   private final SmartHome smartHome = new SmartHome(armSubsystem);
+  private final SmartExtendedArm smartExtendedArm = new SmartExtendedArm(armSubsystem, 0);
   private final ArmJoystick armJoystick = new ArmJoystick(armSubsystem, joystick1);
   // Autonomous
 
@@ -62,6 +64,8 @@ public class RobotContainer {
         .whileTrue(smartArm2);
     new JoystickButton(joystick1, Button.kY.value)
         .whileTrue(smartHome);
+    new JoystickButton(joystick1, Button.kRightBumper.value)
+        .whileTrue(smartExtendedArm);
   }
 
   private void smartDashboardBindings() {
