@@ -15,7 +15,6 @@ import frc.robot.subsystems.autos.PathTest;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.drive.GetToTarget;
 import frc.robot.subsystems.drive.SamplePath;
 import frc.robot.subsystems.drive.StraightWithMotionMagic;
 import frc.robot.subsystems.gyro.GyroSubsystem;
@@ -35,7 +34,7 @@ public class RobotContainer {
   // auto
   private final PathTest pathTest = new PathTest(driveBaseSubsystem);
   // private SendableChooser<Command> autonChooser = new SendableChooser<>();
-  private final GetToTarget getToTarget = new GetToTarget(driveBaseSubsystem, gyroSubsystem);
+  // private final GetToTarget getToTarget = new GetToTarget(driveBaseSubsystem, gyroSubsystem);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -44,10 +43,10 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    if (!(Math.abs(joystick1.getLeftY()) > 0.2 || Math.abs(joystick1.getRightY()) > 0.2)) {
+    // if (!(Math.abs(joystick1.getLeftY()) > 0.2 || Math.abs(joystick1.getRightY()) > 0.2)) {
       new JoystickButton(joystick1, Button.kRightBumper.value)
           .onTrue(pathTest);
-    }
+    // }
   }
 
   private void smartDashboardBindings() {

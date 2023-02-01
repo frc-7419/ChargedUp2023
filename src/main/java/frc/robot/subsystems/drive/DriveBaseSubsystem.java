@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -24,6 +25,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   final DrivetrainPoseEstimator poseEst;
   private final double kSaturationVoltage = 11.0;
+  
+  private Field2d field = new Field2d();
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.RobotConstants.kTrackWidth);
 
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
@@ -36,6 +39,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private double currentTimeStamp;
 
   public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
+    SmartDashboard.putData("Field", field);
     leftLeader = new TalonFX(Constants.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(Constants.CanIds.leftFalcon2.id);
     rightLeader = new TalonFX(Constants.CanIds.rightFalcon1.id);
@@ -233,6 +237,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Odo Y Pos", getCtrlsPoseEstimate().getY());
     SmartDashboard.putNumber("Odo Theta", getCtrlsPoseEstimate().getRotation().getDegrees());
 
+    field.setRobotPose(getCtrlsPoseEstimate());
     SmartDashboard.putNumber("Dist to Target", getDist());
     SmartDashboard.putNumber("Angle to Target", getAngle());
     poseEst.update(ld, rd);

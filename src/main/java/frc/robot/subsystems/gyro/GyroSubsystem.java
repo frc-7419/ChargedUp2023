@@ -1,41 +1,40 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 package frc.robot.subsystems.gyro;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix.sensors.Pigeon2;
+import static frc.robot.Constants.CanIds.*;
 
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class GyroSubsystem extends SubsystemBase {
+  private Pigeon2 gyro;
+  /** Creates a new PigeonSubsystem. */
+  public GyroSubsystem() {
+    this.gyro = new Pigeon2(pigeon.id);
+  }
 
-    private AHRS ahrs;
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("gyro yaw", getYaw());
+    SmartDashboard.putNumber("gyro pitch", getPitch());
+    SmartDashboard.putNumber("gyro roll", getRoll());
+  }
 
-    public GyroSubsystem() {
-        try {
-            /*
-             * Communicate w/navX-MXP via the MXP SPI Bus (use mini USB to USB A cable)
-             * Alternatively: I2C.Port.kMXP, SerialPort.Port.kMXP or S
-             * See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for
-             * details.
-             */
-            ahrs = new AHRS(SerialPort.Port.kMXP);
-        } catch (RuntimeException ex) {
-            DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
-        }
-    }
+  public double getYaw() {
+    return gyro.getYaw();
+  }
 
-    public double getGyroAngle() {
-        return ahrs.getAngle();
-    }
+  public double getPitch() {
+    return gyro.getPitch();
+  }
 
-    public Rotation2d getRotation2d() {
-        return ahrs.getRotation2d();
-    }
+  public double getRoll() {
+    return gyro.getRoll();
+  }
 
-    @Override
-    public void periodic() {
-        SmartDashboard.putNumber("robot pitch", ahrs.getPitch());
-    }
 }
