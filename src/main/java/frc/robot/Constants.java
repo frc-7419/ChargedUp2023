@@ -31,7 +31,7 @@ public final class Constants {
         leftFalcon2(4),
         rightFalcon2(3),
         armMain1(12),
-        armMain2(14),
+        armMain2(15),
         armExtended(51),
         pigeon(0),
         extendedPigeon(51),
@@ -121,7 +121,7 @@ public final class Constants {
         public static final double ElevatorKf = -0.20459;
 
         //arm
-        public static final double MainArmKp = 0.001;
+        public static final double MainArmKp = 1;
         public static final double MainArmKi = 0;
         public static final double MainArmKd = 0;
     }

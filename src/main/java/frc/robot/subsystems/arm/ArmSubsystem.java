@@ -27,9 +27,11 @@ public class ArmSubsystem extends SubsystemBase {
     extendedMotor = new TalonSRX(CanIds.armExtended.id);
     mainMotor1 = new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless);
     mainMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
+    mainMotor1.setInverted(false);
+    mainMotor2.setInverted(true);
     magLimSwitch = new DigitalInput(0); // port for now
     mainMotor1.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
-    extendedGyro = new PigeonIMU(extendedMotor);
+    extendedGyro = new PigeonIMU(0);
   }
 
   public void setAllPower(double power) {
@@ -52,6 +54,12 @@ public class ArmSubsystem extends SubsystemBase {
   
   public double getExtendedPosition() {
     return extendedMotor.getSelectedSensorPosition();
+  }
+
+  public double getExtendedAngle() {
+    double[] ypr = new double[3];
+    extendedGyro.getYawPitchRoll(ypr);
+    return ypr[2];
   }
   
   public void coast() {
@@ -99,6 +107,7 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Arm Position", getMainPosition());
     SmartDashboard.putNumber("Home Pos", homePosition);
     SmartDashboard.putBoolean("Arm Homed", homed);
+    SmartDashboard.putBoolean("Arm Cool?", !magLimSwitch.get());
     double[] ypr = new double[3];
     extendedGyro.getYawPitchRoll(ypr);
     SmartDashboard.putNumber("Extended Yaw", ypr[0]);
