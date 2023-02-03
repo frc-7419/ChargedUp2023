@@ -80,6 +80,7 @@ public final class Constants {
         public static final double kTargetHeight = 1.071626; // meters
         public static final double kCameraHeight = 0.5334; // meters
         public static final double mountingAngle = 42;
+        public static final double visionAmbiguityThreshold = 0.2;
         public static final double focalLength = 2.9272781257541;
         public static final double camPitch = 0; // radians - ARBITRARY
         public static final double maxLEDRange = 20; // meters - ARBITRARY
@@ -94,13 +95,14 @@ public final class Constants {
         public static final Translation2d kStartPose = new Translation2d(0, 0);
         // single substation and portal initial location constants
         
-        public static final double kBlueX = 10.34;
-        public static final double kBlueY = 6.72;
+        public static final double kBlueX = 12.58;
+        public static final double kBlueY = 0.91;
         public static final double kRedX = 6.87;
         public static final double kRedY = 6.57;
         public static final double kHeadingBlue = 0; //degrees
         public static final double kHeadingRed = 180; //degrees
-        public static final PathPoint kBluePoint = new PathPoint(new Translation2d(kBlueX, kBlueY), Rotation2d.fromDegrees(kHeadingBlue));
+        public static final PathPoint kBluePoint2 = new PathPoint(new Translation2d(kBlueX, kBlueY), Rotation2d.fromDegrees(kHeadingBlue));
+        public static final PathPoint kBluePoint1 = new PathPoint(new Translation2d(12.3, 0.85), Rotation2d.fromDegrees(kHeadingBlue));
         public static final PathPoint kRedPoint = new PathPoint(new Translation2d(kRedX, kRedY), Rotation2d.fromDegrees(kHeadingRed));
         public static final PathPoint kAlignWithRight = new PathPoint(new Translation2d(3.59, 0.63), Rotation2d.fromDegrees(180));
         public static final PathPoint kAlignWithLeft = new PathPoint(new Translation2d(3.59, 0.63), Rotation2d.fromDegrees(180));

@@ -12,6 +12,8 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import frc.robot.subsystems.autos.PathTest;
+import frc.robot.subsystems.autos.ToPortal;
+import frc.robot.subsystems.autos.WaypointOnly;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -27,12 +29,14 @@ public class RobotContainer {
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
   private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
-
+  
   // Commands
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
   // private final SmartShoot smartShoot = new SmartShoot(shooterSubsystem, feederSubsystem, loaderSubsystem, visionSubsystem, beamBreakSubsystem);
   // auto
   private final PathTest pathTest = new PathTest(driveBaseSubsystem);
+  private final ToPortal toPortal = new ToPortal(driveBaseSubsystem);
+  // private final WaypointOnly waypointOnly = new WaypointOnly(driveBaseSubsystem);
   // private SendableChooser<Command> autonChooser = new SendableChooser<>();
   // private final GetToTarget getToTarget = new GetToTarget(driveBaseSubsystem, gyroSubsystem);
 
@@ -45,7 +49,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // if (!(Math.abs(joystick1.getLeftY()) > 0.2 || Math.abs(joystick1.getRightY()) > 0.2)) {
       new JoystickButton(joystick1, Button.kRightBumper.value)
-          .onTrue(pathTest);
+          .onTrue(toPortal);
     // }
   }
 

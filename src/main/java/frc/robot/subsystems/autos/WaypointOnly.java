@@ -6,9 +6,7 @@ package frc.robot.subsystems.autos;
 
 import java.sql.Driver;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
@@ -23,24 +21,25 @@ import frc.robot.Constants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.SamplePath;
 
-public class ToPortal extends SequentialCommandGroup {
-  public ToPortal(DriveBaseSubsystem driveBaseSubsystem) {
+public class WaypointOnly extends SequentialCommandGroup {
+  public WaypointOnly(DriveBaseSubsystem driveBaseSubsystem) {
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
+    String teamColor = "";
     // waypoints.add(new PathPoint(new Translation2d(driveBaseSubsystem.getCtrlsPoseEstimate().getX(), driveBaseSubsystem.getCtrlsPoseEstimate().getY()), driveBaseSubsystem.getCtrlsPoseEstimate().getRotation()));
-    waypoints.add(new PathPoint(new Translation2d(10.83, 0.99), Rotation2d.fromDegrees(0))); 
-    waypoints.add(Constants.WaypointConstants.kBluePoint1); 
-    waypoints.add(Constants.WaypointConstants.kBluePoint2); 
+    waypoints.add(new PathPoint(new Translation2d(13, 2.748026), Rotation2d.fromDegrees(0)));
+    waypoints.add(new PathPoint(new Translation2d(14, 3.4), Rotation2d.fromDegrees(0)));
+    waypoints.add(new PathPoint(new Translation2d(10, 3.4), Rotation2d.fromDegrees(0)));
     // if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-    //   waypoints.add(Constants.WaypointConstants.kBluePoint); 
-    //   teamColor = "BluePortal";
+    //   waypoints.add(Constants.WaypointConstants.kBluePoint);
+    //   teamColor = "BlueSingleSubstation";
     // }
     // else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
     //   waypoints.add(Constants.WaypointConstants.kRedPoint); 
-    //   teamColor = "RedPortal";
+    //   teamColor = "RedSingleSubstation";
     // }
     addCommands(
-        new SamplePath(driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
-        new SamplePath(driveBaseSubsystem, PathPlanner.loadPath("BlueMid", PathPlanner.getConstraintsFromPath("BlueMid"))
-    ));
+        new SamplePath(driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(0.6, 0.4), waypoints))
+        // new SamplePath(driveBaseSubsystem, PathPlanner.loadPath(teamColor, PathPlanner.getConstraintsFromPath(teamColor))
+      );
   }
 }

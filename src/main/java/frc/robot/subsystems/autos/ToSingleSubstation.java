@@ -26,14 +26,14 @@ public class ToSingleSubstation extends SequentialCommandGroup {
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
     String teamColor = "";
     waypoints.add(new PathPoint(new Translation2d(driveBaseSubsystem.getCtrlsPoseEstimate().getX(), driveBaseSubsystem.getCtrlsPoseEstimate().getY()), driveBaseSubsystem.getCtrlsPoseEstimate().getRotation()));
-    if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-      waypoints.add(Constants.WaypointConstants.kBluePoint);
-      teamColor = "BlueSingleSubstation";
-    }
-    else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-      waypoints.add(Constants.WaypointConstants.kRedPoint); 
-      teamColor = "RedSingleSubstation";
-    }
+    // if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+    //   waypoints.add(Constants.WaypointConstants.kBluePoint);
+    //   teamColor = "BlueSingleSubstation";
+    // }
+    // else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+    //   waypoints.add(Constants.WaypointConstants.kRedPoint); 
+    //   teamColor = "RedSingleSubstation";
+    // }
     addCommands(
         new SamplePath(driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
         new SamplePath(driveBaseSubsystem, PathPlanner.loadPath(teamColor, PathPlanner.getConstraintsFromPath(teamColor))
