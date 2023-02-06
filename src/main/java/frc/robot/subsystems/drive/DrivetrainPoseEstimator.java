@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.VisionConstants;
+import frc.robot.Constants.AprilTagConstants;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 
 import java.util.Collections;
@@ -69,14 +70,14 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
     public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
         this.gyroSubsystem = gyroSubsystem;
         cam = new PhotonCamera("terima");
-        poses.put(1, new Pose3d(15.513558, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-        poses.put(2, new Pose3d(15.513558, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-        poses.put(3, new Pose3d(15.513558, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-        // poses.put(4, new Pose3d(16.178784, 6.749796, new Rotation3d(0, 0.695452, Units.degreesToRadians(180))));
-        // poses.put(5, new Pose3d(0.36195, 6.749796, new Rotation3d(0, 0.695452, Units.degreesToRadians(0))));
-        poses.put(6, new Pose3d(1.02743, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0))));
-        poses.put(7, new Pose3d(1.02743, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0))));
-        poses.put(8, new Pose3d(1.02743, 1.071626,0.462788,  new Rotation3d(0, 0, Units.degreesToRadians(0))));
+        poses.put(1, Constants.AprilTagConstants.kTargetOne);
+        poses.put(2, Constants.AprilTagConstants.kTargetTwo);
+        poses.put(3, Constants.AprilTagConstants.kTargetThree);
+        poses.put(4, Constants.AprilTagConstants.kTargetFour);
+        poses.put(5, Constants.AprilTagConstants.kTargetFive);
+        poses.put(6, Constants.AprilTagConstants.kTargetSix);
+        poses.put(7, Constants.AprilTagConstants.kTargetSeven);
+        poses.put(8, Constants.AprilTagConstants.kTargetEight);
         m_poseEstimator = new DifferentialDrivePoseEstimator(
                 Constants.kDtKinematics,
                 getRotation2d(),
