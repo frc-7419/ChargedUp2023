@@ -1,31 +1,33 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.paths.MoveToPortal;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 
 public class RobotContainer {
-  //joystick 2 unused currently - will be used moving forward
-  private final XboxController joystick1 = new XboxController(0);
-  private final XboxController joystick2 = new XboxController(1);
+  private final XboxController driverJoystick = new XboxController(0);
+
+  // TODO operatorJoystick is unused since we only need one joystick to test
+  private final XboxController operatorJoystick = new XboxController(1);
 
   // Subsystems
-  // private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
-  private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
 
   // Commands
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
+  private final ArcadeDrive arcadeDrive =
+      new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.6, 0.6);
 
-  // Autonomous
+  // Autonomous Commands
 
-  // private SendableChooser<Command> autonChooser = new SendableChooser<>();
-  // private final GetToTarget getToTarget = new GetToTarget(driveBaseSubsystem, gyroSubsystem);
+  // Path Planning Commands
+  private final MoveToPortal moveToPortal = new MoveToPortal(driveBaseSubsystem);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -34,18 +36,15 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    // new JoystickButton(joystick1, Button.kRightBumper.value)
-    //     .onTrue(getToTarget);
+    new JoystickButton(driverJoystick, Button.kRightBumper.value).onTrue(moveToPortal);
   }
 
-  private void smartDashboardBindings() {
-  }
+  private void smartDashboardBindings() {}
 
-  private void configureAutoSelector() {
-  }
+  private void configureAutoSelector() {}
 
-  //TODO implement later
   public Command getAutonomousCommand() {
+    // TODO placeholder until we get actual autonomous commands
     return new WaitCommand(5);
   }
 
