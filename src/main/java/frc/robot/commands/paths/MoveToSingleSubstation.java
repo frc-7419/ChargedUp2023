@@ -26,14 +26,16 @@ public class MoveToSingleSubstation extends SequentialCommandGroup {
     
     // TODO uncomment when we test other alliances
     
-    // if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-    //   waypoints.add(Constants.WaypointPositionConstants.kBlueMidWaypoint1);
-    //   teamColorWithPath = "BlueSingleSubstation";
-    // }
-    // else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-    //   waypoints.add(Constants.WaypointPositionConstants.kRedMidWaypoint1);
-    //   teamColorWithPath = "RedSingleSubstation";
-    // }
+    if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+      waypoints.add(Constants.WaypointPositionConstants.kBlueSubstationFirstWayPoint);
+      waypoints.add(Constants.WaypointPositionConstants.kBlueSubstationSecondWayPoint);
+      teamColorWithPath = "BlueSingleSubstation";
+    }
+    else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+      waypoints.add(Constants.WaypointPositionConstants.kRedSubstationFirstWayPoint);
+      waypoints.add(Constants.WaypointPositionConstants.kRedSubstationSecondWayPoint);
+      teamColorWithPath = "RedSingleSubstation";
+    }
 
     addCommands(
         new GenerateTrajectory(

@@ -62,6 +62,18 @@ public class DrivetrainPoseEstimator {
     this.gyroSubsystem = gyroSubsystem;
     cam = new PhotonCamera("terima");
 
+    /*
+    ________                    __        __       __           
+    |        \                  |  \      |  \     /  \          
+    \$$$$$$$$______    ______   \$$      | $$\   /  $$  ______  
+      | $$  /      \  /      \ |  \      | $$$\ /  $$$ |      \ 
+      | $$ |  $$$$$$\|  $$$$$$\| $$      | $$$$\  $$$$  \$$$$$$\
+      | $$ | $$    $$| $$   \$$| $$      | $$\$$ $$ $$ /      $$
+      | $$ | $$$$$$$$| $$      | $$      | $$ \$$$| $$|  $$$$$$$
+      | $$  \$$     \| $$      | $$      | $$  \$ | $$ \$$    $$
+        \$$   \$$$$$$$ \$$       \$$       \$$      \$$  \$$$$$$$                                                   
+     */
+
     poses.put(1, Constants.AprilTagPositionConstants.kAprilTagOnePose);
     poses.put(2, Constants.AprilTagPositionConstants.kAprilTagTwoPose);
     poses.put(3, Constants.AprilTagPositionConstants.kAprilTagThreePose);

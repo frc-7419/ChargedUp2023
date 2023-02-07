@@ -5,6 +5,19 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
+/*
+  ______   __                  __                                                          __                                     
+ /      \ |  \                |  \                                                        |  \                                    
+|  $$$$$$\| $$   __  __    __ | $$  ______         __   __   __   ______    _______       | $$____    ______    ______    ______  
+| $$__| $$| $$  /  \|  \  |  \| $$ |      \       |  \ |  \ |  \ |      \  /       \      | $$    \  /      \  /      \  /      \ 
+| $$    $$| $$_/  $$| $$  | $$| $$  \$$$$$$\      | $$ | $$ | $$  \$$$$$$\|  $$$$$$$      | $$$$$$$\|  $$$$$$\|  $$$$$$\|  $$$$$$\
+| $$$$$$$$| $$   $$ | $$  | $$| $$ /      $$      | $$ | $$ | $$ /      $$ \$$    \       | $$  | $$| $$    $$| $$   \$$| $$    $$
+| $$  | $$| $$$$$$\ | $$__/ $$| $$|  $$$$$$$      | $$_/ $$_/ $$|  $$$$$$$ _\$$$$$$\      | $$  | $$| $$$$$$$$| $$      | $$$$$$$$
+| $$  | $$| $$  \$$\ \$$    $$| $$ \$$    $$       \$$   $$   $$ \$$    $$|       $$      | $$  | $$ \$$     \| $$       \$$     \
+ \$$   \$$ \$$   \$$  \$$$$$$  \$$  \$$$$$$$        \$$$$$\$$$$   \$$$$$$$ \$$$$$$$        \$$   \$$  \$$$$$$$ \$$        \$$$$$$$                                                                                      
+ */
+
 import frc.robot.commands.paths.MoveToMid;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
