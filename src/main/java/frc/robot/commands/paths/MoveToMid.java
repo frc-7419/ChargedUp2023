@@ -7,8 +7,6 @@ package frc.robot.commands.paths;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPoint;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
@@ -17,24 +15,25 @@ import frc.robot.subsystems.drive.GenerateTrajectory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoveToPortal extends SequentialCommandGroup {
+public class MoveToMid extends SequentialCommandGroup {
 
   private String teamColor = "";
-  public MoveToPortal(DriveBaseSubsystem driveBaseSubsystem) {
+  public MoveToMid(DriveBaseSubsystem driveBaseSubsystem) {
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
-
-    waypoints.add(new PathPoint(new Translation2d(10.83, 0.99), Rotation2d.fromDegrees(0)));
 
     // TODO need to get waypoints for this
     
     if (Constants.RobotConstants.currentAlliance == DriverStation.Alliance.Blue) {
-      waypoints.add(Constants.WaypointPositionConstants.kBlueMoveToPortalFirstWayPoint);
-      waypoints.add(Constants.WaypointPositionConstants.kBlueMoveToPortalSecondWayPoint);
-      teamColor = "BluePortal";
+      waypoints.add(Constants.WaypointPositionConstants.kBlueMidFirstWayPoint);
+      waypoints.add(Constants.WaypointPositionConstants.kBlueMidSecondWayPoint);
+      waypoints.add(Constants.WaypointPositionConstants.kBlueMidThirdWayPoint);
+      teamColor = "BlueMid";
     }
     else if (Constants.RobotConstants.currentAlliance == DriverStation.Alliance.Red) {
-      waypoints.add(Constants.WaypointPositionConstants.kRedMoveToPortalSecondWayPoint);
-      teamColor = "RedPortal";
+      waypoints.add(Constants.WaypointPositionConstants.kRedMidFirstWayPoint);
+      waypoints.add(Constants.WaypointPositionConstants.kRedMidSecondWayPoint);
+      waypoints.add(Constants.WaypointPositionConstants.kRedMidThirdWayPoint);
+      teamColor = "RedMid";
     }
     
     addCommands(
@@ -42,6 +41,6 @@ public class MoveToPortal extends SequentialCommandGroup {
             driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
         new GenerateTrajectory(
             driveBaseSubsystem,
-            PathPlanner.loadPath("BlueMid", PathPlanner.getConstraintsFromPath("BlueMid"))));
+            PathPlanner.loadPath(teamColor, PathPlanner.getConstraintsFromPath(teamColor))));
   }
 }
