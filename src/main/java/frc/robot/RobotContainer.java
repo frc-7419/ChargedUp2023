@@ -31,11 +31,11 @@ import frc.robot.subsystems.drive.StraightWithMotionMagic;
 
 public class RobotContainer {
   private final XboxController joystick1 = new XboxController(0);
-  private final XboxController joystick2 = new XboxController(1);
+  // private final XboxController joystick2 = new XboxController(1);
 
   // Subsystems
   // private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
-  private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
+  // private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   // private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
 
