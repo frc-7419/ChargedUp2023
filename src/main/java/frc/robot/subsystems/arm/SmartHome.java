@@ -27,7 +27,7 @@ public class SmartHome extends CommandBase {
 
   @Override
   public void execute() {
-    armSubsystem.setMainPower(pidController.calculate(armSubsystem.getMainPosition()));
+    armSubsystem.setMainPower(pidController.calculate(armSubsystem.getMain2Position()));
     SmartDashboard.putNumber("arm error", pidController.getPositionError());
   }
 

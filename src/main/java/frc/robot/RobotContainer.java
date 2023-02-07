@@ -34,13 +34,13 @@ public class RobotContainer {
   private final XboxController joystick2 = new XboxController(1);
 
   // Subsystems
-  private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
+  // private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
-  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
+  // private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
 
   // Commands
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
+  // private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
   private final SmartArm smartArm1 = new SmartArm(armSubsystem,ArmConstants.mainArmSetpoint1);
   private final SmartArm smartArm2 = new SmartArm(armSubsystem,ArmConstants.mainArmSetpoint2);
   private final SmartHome smartHome = new SmartHome(armSubsystem);
@@ -79,7 +79,7 @@ public class RobotContainer {
   }
 
   public void setDefaultCommands() {
-    driveBaseSubsystem.setDefaultCommand(arcadeDrive);
+    // driveBaseSubsystem.setDefaultCommand(arcadeDrive);
     armSubsystem.setDefaultCommand(armJoystick);
   }
 }

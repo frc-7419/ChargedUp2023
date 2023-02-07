@@ -25,12 +25,12 @@ public class ArmSubsystem extends SubsystemBase {
 
   public ArmSubsystem() {
     extendedMotor = new TalonSRX(CanIds.armExtended.id);
-    mainMotor1 = new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless);
+    mainMotor1 = new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
     mainMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
     mainMotor1.setInverted(false);
     mainMotor2.setInverted(true);
     magLimSwitch = new DigitalInput(0); // port for now
-    mainMotor1.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
+    mainMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
     extendedGyro = new PigeonIMU(0);
   }
 
@@ -48,8 +48,12 @@ public class ArmSubsystem extends SubsystemBase {
     extendedMotor.set(ControlMode.PercentOutput, power);
   }
 
-  public double getMainPosition() {
-    return mainMotor1.getEncoder().getPosition() - homePosition; //remember to gearratio it
+  public double getMainPosition() { // THIS ENCODER DOESNT WORK
+    return mainMotor1.getEncoder().getPosition() - homePosition;
+  }
+
+  public double getMain2Position() { // THIS ENCODER DOES WORK
+    return mainMotor2.getEncoder().getPosition() - homePosition;
   }
   
   public double getExtendedPosition() {
@@ -105,6 +109,7 @@ public class ArmSubsystem extends SubsystemBase {
       homed = true;
     }
     SmartDashboard.putNumber("Arm Position", getMainPosition());
+    SmartDashboard.putNumber("Arm position (2)", getMain2Position());
     SmartDashboard.putNumber("Home Pos", homePosition);
     SmartDashboard.putBoolean("Arm Homed", homed);
     SmartDashboard.putBoolean("Arm Cool?", !magLimSwitch.get());

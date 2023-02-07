@@ -15,14 +15,13 @@ import static frc.robot.Constants.PIDConstants.*;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SmartExtendedArm extends PIDCommand {
-  /** Creates a new SmartBalance. */
   public SmartExtendedArm(ArmSubsystem armSubsystem, double setpoint) {
     super(
         // The controller that the command will use
         new PIDController(ExtendedArmKp, ExtendedArmKi, ExtendedArmKd),
 
         // This should return the measurement
-        armSubsystem::getExtendedPosition,
+        armSubsystem::getExtendedAngle,
 
         // This should return the setpoint (can also be a constant)
         setpoint,

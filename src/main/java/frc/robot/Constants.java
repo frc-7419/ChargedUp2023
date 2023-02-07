@@ -121,14 +121,14 @@ public final class Constants {
         public static final double ElevatorKf = -0.20459;
 
         //arm
-        public static final double MainArmKp = 1;
+        public static final double MainArmKp = 0.001;
         public static final double MainArmKi = 0;
         public static final double MainArmKd = 0;
 
         // extended arm
         public static final double ExtendedArmKp = 0.001;
-        public static final double ExtendedArmKi = 0;
-        public static final double ExtendedArmKd = 0;
+        public static final double ExtendedArmKi = 0.2;
+        public static final double ExtendedArmKd = 0.2;
         public static final double ExtendedArmKTolerance = 0;
 
     }
