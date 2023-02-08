@@ -5,7 +5,20 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.paths.MoveToPortal;
+
+/*
+  ______   __                  __                                                          __                                     
+ /      \ |  \                |  \                                                        |  \                                    
+|  $$$$$$\| $$   __  __    __ | $$  ______         __   __   __   ______    _______       | $$____    ______    ______    ______  
+| $$__| $$| $$  /  \|  \  |  \| $$ |      \       |  \ |  \ |  \ |      \  /       \      | $$    \  /      \  /      \  /      \ 
+| $$    $$| $$_/  $$| $$  | $$| $$  \$$$$$$\      | $$ | $$ | $$  \$$$$$$\|  $$$$$$$      | $$$$$$$\|  $$$$$$\|  $$$$$$\|  $$$$$$\
+| $$$$$$$$| $$   $$ | $$  | $$| $$ /      $$      | $$ | $$ | $$ /      $$ \$$    \       | $$  | $$| $$    $$| $$   \$$| $$    $$
+| $$  | $$| $$$$$$\ | $$__/ $$| $$|  $$$$$$$      | $$_/ $$_/ $$|  $$$$$$$ _\$$$$$$\      | $$  | $$| $$$$$$$$| $$      | $$$$$$$$
+| $$  | $$| $$  \$$\ \$$    $$| $$ \$$    $$       \$$   $$   $$ \$$    $$|       $$      | $$  | $$ \$$     \| $$       \$$     \
+ \$$   \$$ \$$   \$$  \$$$$$$  \$$  \$$$$$$$        \$$$$$\$$$$   \$$$$$$$ \$$$$$$$        \$$   \$$  \$$$$$$$ \$$        \$$$$$$$                                                                                      
+ */
+
+import frc.robot.commands.paths.MoveToMid;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.gyro.GyroSubsystem;
@@ -27,7 +40,7 @@ public class RobotContainer {
   // Autonomous Commands
 
   // Path Planning Commands
-  private final MoveToPortal moveToPortal = new MoveToPortal(driveBaseSubsystem);
+  private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
 
   public RobotContainer() {
     configureButtonBindings();

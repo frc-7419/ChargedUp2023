@@ -93,52 +93,202 @@ public final class Constants {
   public static class AprilTagPositionConstants {
     public static final Pose3d kAprilTagOnePose =
         new Pose3d(
-            15.513558, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180)));
+            15.513558, 
+            1.071626, 
+            0.462788, 
+            new Rotation3d(0, 0, Units.degreesToRadians(180)));
+
     public static final Pose3d kAprilTagTwoPose =
         new Pose3d(
-            15.513558, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180)));
+            15.513558, 
+            2.748026, 
+            0.462788, 
+            new Rotation3d(0, 0, Units.degreesToRadians(180)));
+
     public static final Pose3d kAprilTagThreePose =
         new Pose3d(
-            15.513558, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180)));
+            15.513558, 
+            3.738626, 
+            0.462788, 
+            new Rotation3d(0, 0, Units.degreesToRadians(180)));
+
     public static final Pose3d kAprilTagFourPose =
         new Pose3d(
             16.178784,
             6.749796,
             0.695452,
             new Rotation3d(0, 0.695452, Units.degreesToRadians(180)));
+
     public static final Pose3d kAprilTagFivePose =
         new Pose3d(
-            0.36195, 6.749796, 0.695452, new Rotation3d(0, 0.695452, Units.degreesToRadians(0)));
+            0.36195, 
+            6.749796, 
+            0.695452, 
+            new Rotation3d(0, 0.695452, Units.degreesToRadians(0)));
+
     public static final Pose3d kAprilTagSixPose =
-        new Pose3d(1.02743, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0)));
+        new Pose3d(1.02743, 
+        3.738626, 
+        0.462788, 
+        new Rotation3d(0, 0, Units.degreesToRadians(0)));
+
     public static final Pose3d kAprilTagSevenPose =
-        new Pose3d(1.02743, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0)));
+        new Pose3d(
+        1.02743, 
+        2.748026, 
+        0.462788, 
+        new Rotation3d(0, 0, Units.degreesToRadians(0)));
+
     public static final Pose3d kAprilTagEightPose =
-        new Pose3d(1.02743, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0)));
+        new Pose3d(
+        1.02743, 
+        1.071626, 
+        0.462788, 
+        new Rotation3d(0, 0, Units.degreesToRadians(0)));
   }
-
-
 
   public static class WaypointPositionConstants {
     public static final Translation2d kStartPose = new Translation2d(0, 0);
     // single substation and portal initial location constants
 
-    public static final double kBlueX = 12.58;
-    public static final double kBlueY = 0.91;
-    public static final double kRedX = 6.87;
-    public static final double kRedY = 6.57;
-    public static final double kHeadingBlue = 0; // degrees
-    public static final double kHeadingRed = 180; // degrees
-    public static final PathPoint kBlueMoveToPortalFirstWayPoint =
-        new PathPoint(new Translation2d(12.3, 0.85), Rotation2d.fromDegrees(kHeadingBlue));
-    public static final PathPoint kBlueMoveToPortalSecondWayPoint =
-        new PathPoint(new Translation2d(kBlueX, kBlueY), Rotation2d.fromDegrees(kHeadingBlue));
-    public static final PathPoint kRedMoveToPortalSecondWayPoint =
-        new PathPoint(new Translation2d(kRedX, kRedY), Rotation2d.fromDegrees(kHeadingRed));
-    public static final PathPoint kAlignWithRight =
-        new PathPoint(new Translation2d(3.59, 0.63), Rotation2d.fromDegrees(180));
-    public static final PathPoint kAlignWithLeft =
-        new PathPoint(new Translation2d(3.59, 0.63), Rotation2d.fromDegrees(180));
+    // red mid waypoints
+
+    public static final double kRedMidFirstWayPointX = 10.67;
+
+    public static final double kRedMidFirstWayPointY = 2.15;
+
+    public static final double kRedMidSecondWayPointX = 11.51;
+
+    public static final double kRedMidSecondWayPointY = 0.86;
+
+    public static final double kRedMidThirdWayPointX = 12.99;
+
+    public static final double kRedMidThirdWayPointY = 0.57;
+
+    // red single substation waypoints
+
+    public static final double kRedSubstationFirstWayPointX = 7.70;
+
+    public static final double kRedSubstationFirstWayPointY = 6.60;
+
+    public static final double kRedSubstationSecondWayPointX = 5.66;
+
+    public static final double kRedSubstationSecondWayPointY = 6.60;
+
+     // blue mid waypoints
+
+     public static final double kBlueMidFirstWayPointX = 6.07;
+
+     public static final double kBlueMidFirstWayPointY = 3.31;
+
+     public static final double kBlueMidSecondWayPointX = 5.49;
+
+     public static final double kBlueMidSecondWayPointY = 4.48;
+
+     public static final double kBlueMidThirdWayPointX = 3.91;
+
+     public static final double kBlueMidThirdWayPointY = 4.76;
+
+    // blue single substation waypoints
+
+    public static final double kBlueSubstationFirstWayPointX = 8.38;
+
+    public static final double kBlueSubstationFirstWayPointY = 6.41;
+
+    public static final double kBlueSubstationSecondWayPointX = 10.34;
+
+    public static final double kBlueSubstationSecondWayPointY = 6.72;
+
+     // waypoint angles
+
+     public static final double kHeadingFront = 0; // degrees
+
+     public static final double kHeadingPerpendicular = 90; // degrees
+
+     public static final double kHeadingPerpendicularReverse = -90; // degrees
+
+     public static final double kHeadingAvoidChargeStation = 135; // degrees
+
+     public static final double kHeadingAvoidChargeStationReverse = -45; // degrees
+
+     public static final double kHeadingReverse = 180; // degrees
+    
+
+    // constructing waypoints
+
+    // red waypoints
+
+    // red mid waypoints
+
+    public static final PathPoint kRedMidFirstWayPoint =
+        new PathPoint(
+            new Translation2d(kRedMidFirstWayPointX, 
+            kRedMidFirstWayPointY), 
+            Rotation2d.fromDegrees(kHeadingFront));
+
+    public static final PathPoint kRedMidSecondWayPoint =
+        new PathPoint(
+            new Translation2d(kRedMidSecondWayPointX, 
+            kRedMidSecondWayPointY), 
+            Rotation2d.fromDegrees(kHeadingPerpendicularReverse));
+
+    public static final PathPoint kRedMidThirdWayPoint =
+        new PathPoint(
+            new Translation2d(kRedMidThirdWayPointX, 
+            kRedMidThirdWayPointY), 
+            Rotation2d.fromDegrees(kHeadingFront));
+
+    // red single substation waypoints
+
+    public static final PathPoint kRedSubstationFirstWayPoint =
+        new PathPoint(
+            new Translation2d(kRedSubstationFirstWayPointX, 
+            kRedSubstationFirstWayPointY), 
+            Rotation2d.fromDegrees(kHeadingReverse));  
+
+    public static final PathPoint kRedSubstationSecondWayPoint =
+        new PathPoint(
+            new Translation2d(kRedSubstationSecondWayPointX, 
+            kRedSubstationSecondWayPointY), 
+            Rotation2d.fromDegrees(kHeadingReverse));  
+
+    // blue waypoints
+
+    // blue mid waypoints
+
+    public static final PathPoint kBlueMidFirstWayPoint =
+        new PathPoint(
+            new Translation2d(kBlueMidFirstWayPointX, 
+            kBlueMidFirstWayPointY), 
+            Rotation2d.fromDegrees(kHeadingPerpendicular));
+
+    public static final PathPoint kBlueMidSecondWayPoint =
+        new PathPoint(
+            new Translation2d(kBlueMidSecondWayPointX, 
+            kBlueMidSecondWayPointY), 
+            Rotation2d.fromDegrees(kHeadingAvoidChargeStation));  
+
+    public static final PathPoint kBlueMidThirdWayPoint =
+        new PathPoint(
+            new Translation2d(kBlueMidThirdWayPointX, 
+            kBlueMidThirdWayPointY), 
+            Rotation2d.fromDegrees(kHeadingReverse));   
+            
+    // blue single substation waypoints
+
+    public static final PathPoint kBlueSubstationFirstWayPoint =
+        new PathPoint(
+            new Translation2d(kBlueSubstationFirstWayPointX, 
+            kBlueSubstationFirstWayPointY), 
+            Rotation2d.fromDegrees(kHeadingFront));  
+
+    public static final PathPoint kBlueSubstationSecondWayPoint =
+        new PathPoint(
+            new Translation2d(kBlueSubstationSecondWayPointX, 
+            kBlueSubstationSecondWayPointY), 
+            Rotation2d.fromDegrees(kHeadingFront));  
+
+       
   }
 
   public static class RobotConstants {
