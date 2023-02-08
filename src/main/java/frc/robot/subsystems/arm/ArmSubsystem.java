@@ -41,7 +41,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void setMainPower(double power) {
     mainMotor1.set(power);
-    mainMotor2.set(power);
+    // mainMotor2.set(power);
   }
 
   public void setExtendedPower(double power) {

@@ -15,7 +15,9 @@ public class ArmJoystick extends CommandBase {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    armSubsystem.coastMain();
+  }
 
   @Override
   public void execute() {

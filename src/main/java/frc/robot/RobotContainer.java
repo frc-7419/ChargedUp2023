@@ -40,7 +40,7 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
 
   // Commands
-  // private final ArcadeDrive arcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
+  // private final ArcadeDrive arAcadeDrive = new ArcadeDrive(joystick1, driveBaseSubsystem, 0.6, 0.6);
   private final SmartArm smartArm1 = new SmartArm(armSubsystem,ArmConstants.mainArmSetpoint1);
   private final SmartArm smartArm2 = new SmartArm(armSubsystem,ArmConstants.mainArmSetpoint2);
   private final SmartHome smartHome = new SmartHome(armSubsystem);
@@ -48,8 +48,8 @@ public class RobotContainer {
   private final ArmJoystick armJoystick = new ArmJoystick(armSubsystem, joystick1);
   // Autonomous
 
+  // TODO implement autonomous chooser once autonomous routines are finalized
   // private SendableChooser<Command> autonChooser = new SendableChooser<>();
-  // private final GetToTarget getToTarget = new GetToTarget(driveBaseSubsystem, gyroSubsystem);
 
   public RobotContainer() {
     configureButtonBindings();
