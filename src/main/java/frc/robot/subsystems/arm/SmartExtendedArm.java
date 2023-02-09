@@ -18,15 +18,10 @@ public class SmartExtendedArm extends CommandBase {
 
     extendedArmPIDController =
         new PIDController(
-            PIDConstants.ExtendedArmKp, 
-            PIDConstants.ExtendedArmKi, 
-            PIDConstants.ExtendedArmKd);
+            PIDConstants.ExtendedArmKp, PIDConstants.ExtendedArmKi, PIDConstants.ExtendedArmKd);
 
     mainArmController =
-        new PIDController(
-        PIDConstants.MainArmKp, 
-        PIDConstants.MainArmKi, 
-        PIDConstants.MainArmKd);
+        new PIDController(PIDConstants.MainArmKp, PIDConstants.MainArmKi, PIDConstants.MainArmKd);
 
     this.armSubsystem = armSubsystem;
     this.setpoint = setpoint;

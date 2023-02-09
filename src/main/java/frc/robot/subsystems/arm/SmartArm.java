@@ -14,10 +14,7 @@ public class SmartArm extends CommandBase {
 
   public SmartArm(ArmSubsystem armSubsystem, double setpoint) {
     pidController =
-        new PIDController(
-        PIDConstants.MainArmKp,
-        PIDConstants.MainArmKi, 
-        PIDConstants.MainArmKd);
+        new PIDController(PIDConstants.MainArmKp, PIDConstants.MainArmKi, PIDConstants.MainArmKd);
     this.armSubsystem = armSubsystem;
     this.setpoint = setpoint;
     addRequirements(armSubsystem);
