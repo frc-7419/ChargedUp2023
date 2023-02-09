@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants;
+import frc.robot.commands.paths.MoveToMid;
 import frc.robot.subsystems.arm.MoveArmWithJoystick;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.SmartArm;
@@ -31,8 +32,8 @@ public class RobotContainer {
   // Commands
   private final ArcadeDrive arcadeDrive =
       new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.6, 0.6);
-  private final SmartArm smartArm1 = new SmartArm(armSubsystem, ArmConstants.mainArmSetpoint1);
-  private final SmartArm smartArm2 = new SmartArm(armSubsystem, ArmConstants.mainArmSetpoint2);
+  private final SmartArm smartArm1 = new SmartArm(armSubsystem, Constants.ArmConstants.mainArmSetpoint1);
+  private final SmartArm smartArm2 = new SmartArm(armSubsystem, Constants.ArmConstants.mainArmSetpoint2);
   private final SmartHome smartHome = new SmartHome(armSubsystem);
   private final SmartExtendedArm smartExtendedArm = new SmartExtendedArm(armSubsystem, 0);
   private final MoveArmWithJoystick moveArmWithJoystick = new MoveArmWithJoystick(armSubsystem, driverJoystick);

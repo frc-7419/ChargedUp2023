@@ -85,17 +85,13 @@ public class DrivetrainPoseEstimator {
 
     m_poseEstimator =
         new DifferentialDrivePoseEstimator(
-            Constants.kDtKinematics,
+            Constants.RobotConstants.kDtKinematics,
             getRotation2d(),
             0, // Assume zero encoder counts at start
             0,
             new Pose2d(),
             localMeasurementStdDevs,
             visionMeasurementStdDevs);
-  }
-
-  public Rotation2d getRotation2d() {
-    return Rotation2d.fromDegrees(gyroSubsystem.getYaw());
   }
 
   /**
@@ -122,7 +118,7 @@ public class DrivetrainPoseEstimator {
         // is on the field physically and
         // gets the camera pose
         m_poseEstimator.addVisionMeasurement(
-            camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
+            camPose.transformBy(Constants.RobotConstants.kCameraToRobot).toPose2d(), resultTimeStamp);
 
         // outputting everthing to smartdashboard for viewing
         SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEstimation().getX());
