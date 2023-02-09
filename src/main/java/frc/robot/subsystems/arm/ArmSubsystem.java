@@ -44,7 +44,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Sets power to both the main and extended arms.
-   * @param Power set to both main and extended arms.
+   * @param power set to both main and extended arms.
    */
   public void setAllPower(double power) {
     setMainPower(power);
@@ -53,7 +53,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Sets power to the motors on the main arm.
-   * @param Power set to motors on the main arm.
+   * @param power set to motors on the main arm.
    */
   public void setMainPower(double power) {
     mainArmMotor1.set(power);
@@ -62,7 +62,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Sets power to the motor on the extended arm.
-   * @param Power to motor on the extended arm.
+   * @param power to motor on the extended arm.
    */
   public void setExtendedPower(double power) {
     extendedArmMotor.set(ControlMode.PercentOutput, power);
@@ -85,9 +85,6 @@ public class ArmSubsystem extends SubsystemBase {
     return extendedArmMotor.getSelectedSensorPosition();
   }
 
-  /**
-   * @void Sets the homing position of the main arms.
-   */
   public void home() {
     homePosition = getMainPosition();
   }
@@ -111,49 +108,30 @@ public class ArmSubsystem extends SubsystemBase {
     return gyroInformation[2];
   }
 
-  /**
-   * @void Coasts both arms.
-   */
-
   public void coast() {
     coastMain();
     coastExtended();
   }
 
-  /**
-   * @void Coasts the main arm.
-   */
   public void coastMain() {
     mainArmMotor1.setIdleMode(IdleMode.kCoast);
     mainArmMotor2.setIdleMode(IdleMode.kCoast);
   }
 
-  /**
-   * @void Coasts the extended arm.
-   */
   public void coastExtended() {
     extendedArmMotor.setNeutralMode(NeutralMode.Coast);
   }
 
-  /**
-   * @void Brakes both arms.
-   */
   public void brake() {
     brakeMain();
     brakeExtended();
   }
 
-  /**
-   * @void Brakes the main arm.
-   */
   public void brakeMain() {
     mainArmMotor1.setIdleMode(IdleMode.kBrake);
     mainArmMotor2.setIdleMode(IdleMode.kBrake);
   }
 
-  /**
-   * @void Brakes the extended arm.
-   */
   public void brakeExtended() {
     extendedArmMotor.setNeutralMode(NeutralMode.Brake);
   }

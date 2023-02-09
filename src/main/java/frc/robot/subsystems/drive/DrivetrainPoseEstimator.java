@@ -76,7 +76,6 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
   /**
    * Perform all periodic pose estimation tasks.
    *
-   * @param actWheelSpeeds Current Speeds (in m/s) of the drivetrain wheels
    * @param leftDist Distance (in m) the left wheel has traveled
    * @param rightDist Distance (in m) the right wheel has traveled
    */
