@@ -23,6 +23,10 @@ public class ArmSubsystem extends SubsystemBase {
   private DigitalInput magneticLimitSwitch;
   private PigeonIMU extendedGyro;
 
+  /**
+   * Constructs the subsystem corresponding to the arm mechanism.
+   * @Subsystem consisting of extended arm and main arm. 
+   */
   public ArmSubsystem() {
     extendedArmMotor = new TalonSRX(CanIds.armExtended.id);
 
