@@ -6,13 +6,14 @@ package frc.robot.subsystems.beambreak;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class BeamBreakSubsystem extends SubsystemBase {
   private DigitalInput beamBreakReceiver;
 
   /** Creates a new BeamBreakSubsystem. */
   public BeamBreakSubsystem() {
-    beamBreakReceiver = new DigitalInput(2);
+    beamBreakReceiver = new DigitalInput(Constants.SensorIds.beambreak.id);
   }
 
   @Override

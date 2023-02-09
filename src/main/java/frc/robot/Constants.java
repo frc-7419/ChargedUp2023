@@ -13,24 +13,32 @@ import edu.wpi.first.math.util.Units;
 import org.photonvision.SimVisionTarget;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants
+ * should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
 
   public static enum CanIds {
-    // 2020 drive train ids
+    // Westcoast drivetrain CAN IDs
     leftFalcon1(5),
     rightFalcon1(2),
     leftFalcon2(4),
     rightFalcon2(3),
+
+    // Arm CAN IDs
     armMain1(12),
     armMain2(14),
     armExtended(51),
+
+    // Gyro CAN IDs
     pigeon(0),
     extendedPigeon(51),
     ;
@@ -42,37 +50,44 @@ public final class Constants {
     }
   }
 
-  public static enum DIOIds{
-    
+  public static enum SensorIds {
+
+    // Beambreak DIO IDs
+    beambreak(2),
+
+    // Limit switch DIO IDs
+    limitswitch(0),
+    ;
+
+    public final int id;
+
+    private SensorIds(int id) {
+      this.id = id;
+    }
   }
-  public static final Transform3d kCameraToRobot =
-      new Transform3d(
-          new Translation3d(-0.25, 0, -.25), // in meters
-          new Rotation3d());
+
+  public static final Transform3d kCameraToRobot = new Transform3d(
+      new Translation3d(-0.25, 0, -.25), // in meters
+      new Rotation3d());
 
   public static final int kGyroPin = 0;
 
   // IMPORTANT: This block of code is from 2020 game and is for testing purposes
   // only, we will update them to the 2023 season game
-  public static final double targetWidth =
-      Units.inchesToMeters(41.30) - Units.inchesToMeters(6.70); // meters
-  public static final double targetHeight =
-      Units.inchesToMeters(98.19) - Units.inchesToMeters(81.19); // meters
+  public static final double targetWidth = Units.inchesToMeters(41.30) - Units.inchesToMeters(6.70); // meters
+  public static final double targetHeight = Units.inchesToMeters(98.19) - Units.inchesToMeters(81.19); // meters
   public static final double kFarTgtXPos = Units.feetToMeters(54);
-  public static final double kFarTgtYPos =
-      Units.feetToMeters(27 / 2) - Units.inchesToMeters(43.75) - Units.inchesToMeters(48.0 / 2.0);
-  public static final double kFarTgtZPos =
-      (Units.inchesToMeters(98.19) - targetHeight) / 2 + targetHeight;
+  public static final double kFarTgtYPos = Units.feetToMeters(27 / 2) - Units.inchesToMeters(43.75)
+      - Units.inchesToMeters(48.0 / 2.0);
+  public static final double kFarTgtZPos = (Units.inchesToMeters(98.19) - targetHeight) / 2 + targetHeight;
 
-  public static final Pose3d kFarTargetPose =
-      new Pose3d(
-          new Translation3d(kFarTgtXPos, kFarTgtYPos, kFarTgtZPos),
-          new Rotation3d(0.0, 0.0, Units.degreesToRadians(180)));
+  public static final Pose3d kFarTargetPose = new Pose3d(
+      new Translation3d(kFarTgtXPos, kFarTgtYPos, kFarTgtZPos),
+      new Rotation3d(0.0, 0.0, Units.degreesToRadians(180)));
 
-  public static final SimVisionTarget kFarTarget =
-      new SimVisionTarget(kFarTargetPose, targetWidth, targetHeight, 42);
-  public static final DifferentialDriveKinematics kDtKinematics =
-      new DifferentialDriveKinematics(RobotConstants.kTrackWidth);
+  public static final SimVisionTarget kFarTarget = new SimVisionTarget(kFarTargetPose, targetWidth, targetHeight, 42);
+  public static final DifferentialDriveKinematics kDtKinematics = new DifferentialDriveKinematics(
+      RobotConstants.kTrackWidth);
 
   public static class VisionConstants {
     public static final String name1 = "terima";
@@ -95,8 +110,7 @@ public final class Constants {
     public static final double kTrackWidth = 0.6858; // meters
 
     public static final double kWheelRadius = 3 * 0.0254; // inches TO centimeters conversion
-    public static final double kWheelCircumference =
-        2 * Math.PI * Constants.RobotConstants.kWheelRadius;
+    public static final double kWheelCircumference = 2 * Math.PI * Constants.RobotConstants.kWheelRadius;
 
     public static final double timeStep = 0.02;
 
@@ -108,8 +122,7 @@ public final class Constants {
 
     public static final double DriveBaseStraight = .55;
     public static final double DriveBaseTurn = .35;
-    public static final double FeederVoltage = 11 * 0.9;
-    ;
+    public static final double FeederVoltage = 11 * 0.9;;
 
     // intake
     public static final double intakeMultiplier = 1.0;
@@ -141,5 +154,4 @@ public final class Constants {
     public static final double ExtendedArmKd = 0.2;
     public static final double ExtendedArmKTolerance = 0;
   }
-}
-;
+};
