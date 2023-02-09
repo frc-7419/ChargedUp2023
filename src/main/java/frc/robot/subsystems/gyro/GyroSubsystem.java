@@ -26,7 +26,7 @@ public class GyroSubsystem extends SubsystemBase {
   }
 
   /**
-   * Gyro yaw
+   * Returns gyro yaw
    * @return yaw
    */
   public double getYaw() {
@@ -34,7 +34,7 @@ public class GyroSubsystem extends SubsystemBase {
   }
 
   /**
-   * Gyro Pitch
+   * Returns gyro pitch
    * @return pitch
    */
   public double getPitch() {
@@ -42,7 +42,7 @@ public class GyroSubsystem extends SubsystemBase {
   }
 
   /**
-   * Gyro Roll
+   * Returns gyro roll
    * @return roll
    */
   public double getRoll() {
