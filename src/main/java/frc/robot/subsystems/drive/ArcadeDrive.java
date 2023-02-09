@@ -3,7 +3,9 @@ package frc.robot.subsystems.drive;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+/**
+ * Command to arcade drive the robot (left joystick --> straight, right joystick --> turn)
+ */
 public class ArcadeDrive extends CommandBase {
 
   private DriveBaseSubsystem driveBaseSubsystem;

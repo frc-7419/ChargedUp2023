@@ -27,15 +27,15 @@ public class GyroSubsystem extends SubsystemBase {
   }
 
   /**
-   * Returns gyro yaw
-   * @return yaw
+   * Returns the gyro's detected yaw value
+   * @return Yaw of the robot in degrees
    */
   public double getYaw() {
     return gyro.getYaw();
   }
 
   /**
-   * Returns gyro pitch
+   * Returns the gyro's detected pitch 
    * @return pitch
    */
   public double getPitch() {
