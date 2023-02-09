@@ -3,12 +3,12 @@ package frc.robot.subsystems.arm;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ArmJoystick extends CommandBase {
+public class moveArmWithJoystick extends CommandBase {
 
   private ArmSubsystem armSubsystem;
   private XboxController joystick;
 
-  public ArmJoystick(ArmSubsystem armSubsystem, XboxController joystick) {
+  public moveArmWithJoystick(ArmSubsystem armSubsystem, XboxController joystick) {
     this.armSubsystem = armSubsystem;
     this.joystick = joystick;
     addRequirements(armSubsystem);
