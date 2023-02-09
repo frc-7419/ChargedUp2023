@@ -15,65 +15,99 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private CANSparkMax mainMotor1;
-  private CANSparkMax mainMotor2;
-  private TalonSRX extendedMotor;
+  private CANSparkMax mainArmMotor1;
+  private CANSparkMax mainArmMotor2;
+  private TalonSRX extendedArmMotor;
   private boolean homed;
   private double homePosition = 0;
-  private DigitalInput magLimSwitch;
+  private DigitalInput magneticLimitSwitch;
   private PigeonIMU extendedGyro;
 
   public ArmSubsystem() {
-    extendedMotor = new TalonSRX(CanIds.armExtended.id);
+    extendedArmMotor = new TalonSRX(CanIds.armExtended.id);
 
-    mainMotor1 = new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
-    mainMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
+    mainArmMotor1 = new CANSparkMax(
+      CanIds.armMain1.id, 
+      MotorType.kBrushless); // ENCODER DOESNT WORK
+    mainArmMotor2 = new CANSparkMax(
+      CanIds.armMain2.id, 
+      MotorType.kBrushless);
 
-    mainMotor1.setInverted(false);
-    mainMotor2.setInverted(true);
+    mainArmMotor1.setInverted(false);
+    mainArmMotor2.setInverted(true);
 
-    magLimSwitch = new DigitalInput(0); // port for now
+    magneticLimitSwitch = new DigitalInput(0); // port for now
 
-    mainMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
+    mainArmMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
     extendedGyro = new PigeonIMU(0);
   }
 
+  /**
+   * 
+   * @param Power set to both main and extended arms.
+   */
   public void setAllPower(double power) {
     setMainPower(power);
     setExtendedPower(power);
   }
 
+  /**
+   * 
+   * @param Power set to motors on the main arm.
+   */
   public void setMainPower(double power) {
-    mainMotor1.set(power);
+    mainArmMotor1.set(power);
     // mainMotor2.set(power);
   }
 
+  /**
+   * 
+   * @param Power set to motor on the extended arm.
+   */
   public void setExtendedPower(double power) {
-    extendedMotor.set(ControlMode.PercentOutput, power);
+    extendedArmMotor.set(ControlMode.PercentOutput, power);
   }
 
-  // getting position of arms through encoder values
+  /**
+   * 
+   * @return Returns the position of the main arms.
+   */
 
   public double getMainPosition() { // THIS ENCODER DOES WORK
-    return mainMotor2.getEncoder().getPosition() - homePosition;
+    return mainArmMotor2.getEncoder().getPosition() - homePosition;
   }
 
+  /**
+   * 
+   * @return Returns the position of the extended arm.
+   */
   public double getExtendedPosition() {
-    return extendedMotor.getSelectedSensorPosition();
+    return extendedArmMotor.getSelectedSensorPosition();
   }
 
+  /**
+   * @void Sets the homing position of the main arms.
+   */
   public void home() {
     homePosition = getMainPosition();
   }
 
+  /**
+   * 
+   * @return Returns the home position of the main arms.
+   */
   public double getHomePosition() {
     return homePosition;
   }
 
+  /**
+   * 
+   * @return Returns the yaw (angle of the extended arm).
+   */
   public double getExtendedAngle() {
-    double[] ypr = new double[3];
-    extendedGyro.getYawPitchRoll(ypr);
-    return ypr[2];
+    double[] gyroInformation = new double[3];
+    extendedGyro.getYawPitchRoll(gyroInformation);
+    return gyroInformation[2];
   }
 
   public void coast() {
@@ -82,12 +116,12 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void coastMain() {
-    mainMotor1.setIdleMode(IdleMode.kCoast);
-    mainMotor2.setIdleMode(IdleMode.kCoast);
+    mainArmMotor1.setIdleMode(IdleMode.kCoast);
+    mainArmMotor2.setIdleMode(IdleMode.kCoast);
   }
 
   public void coastExtended() {
-    extendedMotor.setNeutralMode(NeutralMode.Coast);
+    extendedArmMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   public void brake() {
@@ -96,17 +130,17 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void brakeMain() {
-    mainMotor1.setIdleMode(IdleMode.kBrake);
-    mainMotor2.setIdleMode(IdleMode.kBrake);
+    mainArmMotor1.setIdleMode(IdleMode.kBrake);
+    mainArmMotor2.setIdleMode(IdleMode.kBrake);
   }
 
   public void brakeExtended() {
-    extendedMotor.setNeutralMode(NeutralMode.Brake);
+    extendedArmMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override
   public void periodic() {
-    if (!magLimSwitch.get() && !homed) {
+    if (!magneticLimitSwitch.get() && !homed) {
       home();
       homed = true;
     }
@@ -118,12 +152,12 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Home Pos", homePosition);
     SmartDashboard.putBoolean("Arm Homed", homed);
 
-    double[] ypr = new double[3];
-    extendedGyro.getYawPitchRoll(ypr);
+    double[] gyroInformation = new double[3];
+    extendedGyro.getYawPitchRoll(gyroInformation);
 
     // putting gyro values into smartdashboard
-    SmartDashboard.putNumber("Extended Yaw", ypr[0]);
-    SmartDashboard.putNumber("Extended Pitch", ypr[1]);
-    SmartDashboard.putNumber("Extended Roll", ypr[2]);
+    SmartDashboard.putNumber("Extended Yaw", gyroInformation[0]);
+    SmartDashboard.putNumber("Extended Pitch", gyroInformation[1]);
+    SmartDashboard.putNumber("Extended Roll", gyroInformation[2]);
   }
 }
