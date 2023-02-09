@@ -130,7 +130,7 @@ public class DrivetrainPoseEstimator {
   }
   /**
    * Gets the current rotation of the robot, using the gyroscope.
-   * @return Rotation of the robot, as a Rotation2d object
+   * @return Rotation of the robot, as a {@link Rotation2d} object
    */
   public Rotation2d getRotation2d() {
     return Rotation2d.fromDegrees(gyroSubsystem.getYaw());
