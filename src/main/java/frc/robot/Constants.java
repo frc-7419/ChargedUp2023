@@ -131,6 +131,8 @@ public final class Constants {
   public static class ArmConstants {
     public static final double mainArmSetpoint1 = 13000;
     public static final double mainArmSetpoint2 = 18000;
+    public static final double mainArmPowerCoefficient = 0.5;
+    public static final double extendedArmPowerCoefficient = 0.3;
   }
 
   public static class PIDConstants {
