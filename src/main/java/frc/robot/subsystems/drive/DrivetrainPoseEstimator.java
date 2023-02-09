@@ -103,11 +103,17 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
       }
     }
   }
-
+  /**
+   * Gets the current rotation of the robot, using the gyroscope.
+   * @return Rotation of the robot, as a Rotation2d object
+   */
   public Rotation2d getRotation2d() {
     return Rotation2d.fromDegrees(gyroSubsystem.getYaw());
   }
-
+  /**
+   * Gets the distance and angle (yaw) to the nearest AprilTag.
+   * @return Distance to nearest AprilTag target in index 0, yaw to nearest AprilTag target in index 1
+   */
   public double[] getInfo() {
     PhotonPipelineResult result = cam.getLatestResult();
     double[] info = new double[2];

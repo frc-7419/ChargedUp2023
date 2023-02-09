@@ -13,15 +13,13 @@ import frc.robot.subsystems.arm.SmartExtendedArm;
 import frc.robot.subsystems.arm.SmartHome;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.gyro.GyroSubsystem;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
   // private final XboxController operatorJoystick = new XboxController(1);
 
   // Subsystems
-  private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
-  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
+  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
 
   // Commands

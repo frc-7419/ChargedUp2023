@@ -35,7 +35,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private double previousTimeStamp = 0;
   private double currentTimeStamp;
 
-  public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
+  public DriveBaseSubsystem() {
     leftLeader = new TalonFX(Constants.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(Constants.CanIds.leftFalcon2.id);
     rightLeader = new TalonFX(Constants.CanIds.rightFalcon1.id);
@@ -59,7 +59,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
 
-    poseEst = new DrivetrainPoseEstimator(gyroSubsystem);
+    poseEst = new DrivetrainPoseEstimator(new GyroSubsystem());
   }
 
   public enum TurnDirection {
@@ -83,32 +83,50 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public TalonFX getRightFollow() {
     return rightFollower;
   }
-
+  /**
+   * Provides a specific voltage to the left side of the drivetrain.
+   * @param voltage voltage to set
+   */
   public void setLeftVoltage(double voltage) {
     leftLeader.set(ControlMode.PercentOutput, voltage / 11);
     leftFollower.set(ControlMode.PercentOutput, voltage / 11);
   }
-
+  /**
+   * Provides a specific voltage to the right side of the drivetrain.
+   * @param voltage voltage to set
+   */
   public void setRightVoltage(double voltage) {
     rightLeader.set(ControlMode.PercentOutput, voltage / 11);
     rightFollower.set(ControlMode.PercentOutput, voltage / 11);
   }
-
+  /**
+   * Provides a specific voltage to the drivetrain.
+   * @param voltage voltage to set
+   */
   public void setAllVoltage(double voltage) {
     setLeftVoltage(voltage);
     setRightVoltage(voltage);
   }
-
+  /**
+   * Sets the power of the left side of the drivetrain.
+   * @param power Power (-1 to 1) to set
+   */
   public void setLeftPower(double power) {
     leftLeader.set(ControlMode.PercentOutput, power);
     leftFollower.set(ControlMode.PercentOutput, power);
   }
-
+  /**
+   * Sets the power of the right side of the drivetrain.
+   * @param power Power (-1 to 1) to set
+   */
   public void setRightPower(double power) {
     rightLeader.set(ControlMode.PercentOutput, power);
     rightFollower.set(ControlMode.PercentOutput, power);
   }
-
+  /**
+   * Sets the power of the drivetrain.
+   * @param power Power (-1 to 1) to set
+   */
   public void setAllPower(double power) {
     setLeftPower(power);
     setRightPower(power);
@@ -117,7 +135,10 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public void stop() {
     setAllPower(0);
   }
-
+  /**
+   * Sets the Neutral Mode (used when the motor is not running) of the drivetrain.
+   * @param mode Neutral Mode (Coast or Brake) to set
+   */
   public void setAllMode(NeutralMode mode) {
     rightLeader.setNeutralMode(mode);
     rightFollower.setNeutralMode(mode);
@@ -132,21 +153,33 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public void coast() {
     setAllMode(NeutralMode.Coast);
   }
-
+  /**
+   * Gets the velocity of the left side of the drivetrain
+   * @return Velocity, in raw sensor units
+   */
   public double getLeftVelocity() {
     return leftLeader.getSelectedSensorVelocity(0);
   }
-
+  /**
+   * Gets the velocity of the right side of the drivetrain
+   * @return Velocity, in raw sensor units
+   */
   public double getRightVelocity() {
     return rightLeader.getSelectedSensorVelocity(0);
   }
-
+  /**
+   * Gets the velocity of the left side of the drivetrain
+   * @return Velocity, in meters per second
+   */
   public double getLeftVelocityInMeters() {
     return getLeftVelocity()
         * Constants.RobotConstants.kWheelCircumference
         / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
-
+  /**
+   * Gets the velocity of the right side of the drivetrain
+   * @return Velocity, in meters per second
+   */
   public double getRightVelocityInMeters() {
     return getRightVelocity()
         * Constants.RobotConstants.kWheelCircumference
@@ -166,7 +199,11 @@ public class DriveBaseSubsystem extends SubsystemBase {
     leftLeader.configFactoryDefault();
     leftFollower.configFactoryDefault();
   }
-
+  /**
+   * Arcade drives the robot using the given linear and rotational speeds.
+   * @param xSpeed Linear speed to drive at
+   * @param rot Rotational speed to drive at
+   */
   public void drive(double xSpeed, double rot) {
     // Convert our fwd/rev and rotate commands to wheel speed commands
     DifferentialDriveWheelSpeeds speeds =
@@ -188,15 +225,18 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
     setLeftVoltage(leftOutput + leftFeedforward);
     setRightVoltage(rightOutput + rightFeedforward);
-    // Update the pose estimator with the most recent sensor readings.
-    // poseEst.update(leftDistance, rightDistance);
-    // poseEst.update(ld, rd);
   }
-
+  /**
+   * Gets the distance to the nearest AprilTag target.
+   * @return Distance, in meters, to the nearest AprilTag
+   */
   public double getDist() {
     return poseEst.getInfo()[0];
   }
-
+  /**
+   * Gets the yaw to the nearest AprilTag target.
+   * @return Yaw, in degrees, to the nearest AprilTag
+   */
   public double getAngle() {
     return poseEst.getInfo()[1];
   }
