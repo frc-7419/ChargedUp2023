@@ -5,10 +5,13 @@
 package frc.robot;
 
 import com.pathplanner.lib.PathPoint;
+import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
@@ -270,16 +273,19 @@ public final class Constants {
   }
 
   public static class RobotConstants {
+    public static final Alliance currentAlliance = Robot.getAllianceColor();
+
     public static final double TalonFXTicksPerRotation = 2048;
 
     public static final double kTrackWidth = 0.6858; // meters
 
     public static final double kWheelRadius = 3 * 0.0254; // inches TO centimeters conversion
-    public static final double kWheelCircumference = 2 * Math.PI * Constants.RobotConstants.kWheelRadius;
+    public static final double kWheelCircumference = 2 * Math.PI * kWheelRadius;
 
     public static final double timeStep = 0.02;
 
     public static final double mainArmGearRatio = 100;
+
   public static final Transform3d kCameraToRobot =
       new Transform3d(
           new Translation3d(-0.25, 0, -.25), // in meters
@@ -307,7 +313,7 @@ public final class Constants {
   public static final SimVisionTarget kFarTarget =
       new SimVisionTarget(kFarTargetPose, targetWidth, targetHeight, 42);
   public static final DifferentialDriveKinematics kDtKinematics =
-      new DifferentialDriveKinematics(RobotConstants.kTrackWidth);
+      new DifferentialDriveKinematics(kTrackWidth);
   }
 
   public static class VisionConstants {
@@ -321,17 +327,6 @@ public final class Constants {
     public static final int cameraResolutionWidth = 320; // pixels
     public static final int cameraResolutionHeight = 240; // pixels
   }
-  
-  public static class PowerConstants {
-    // drive
-
-    public static final double DriveBaseStraight = .55;
-    public static final double DriveBaseTurn = .35;
-    public static final double FeederVoltage = 11 * 0.9;;
-
-    // intake
-    public static final double intakeMultiplier = 1.0;
-  }
 
   public static class ArmConstants {
     public static final double mainArmSetpoint1 = 13000;
@@ -340,6 +335,22 @@ public final class Constants {
     public static final double extendedArmPowerCoefficient = 0.3;
   }
 
+  public static class DriveConstants {
+    public static final double driveTrainGearRatio = (50 / 14) * (48 / 16);
+    public static final double wheelDiameter = Units.inchesToMeters(6);
+    public static final double wheelCircumference = Math.PI * wheelDiameter;
+    public static final double unitsPerMeter = ((2048 * driveTrainGearRatio) / wheelCircumference);
+    public static final double trackWidth = .68678;
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = 0.7;
+    public static final double ks = 0.39188;
+    public static final double kv = 2.5297;
+    public static final double ka = 0.21837;
+    public static final DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(trackWidth);
+    public static final double kPDriveVelocity = 0.37841;
+    public static final double maxVelocity = Units.feetToMeters(20);
+    public static final double maxAcceleration = Units.feetToMeters(3);
+  }
   public static class PIDConstants {
     // drive
     public static final double DriveBaseMotionMagickP = 0.5;
@@ -361,21 +372,7 @@ public final class Constants {
     public static final double ExtendedArmKd = 0.2;
     public static final double ExtendedArmKTolerance = 0;
   }
-  public static class DriveConstants {
-    public static final double driveTrainGearRatio = (50 / 14) * (48 / 16);
-    public static final double wheelDiameter = Units.inchesToMeters(6);
-    public static final double wheelCircumference = Math.PI * wheelDiameter;
-    public static final double unitsPerMeter = ((2048 * driveTrainGearRatio) / wheelCircumference);
-    public static final double trackWidth = .68678;
-    public static final double kRamseteB = 2;
-    public static final double kRamseteZeta = 0.7;
-    public static final double ks = 0.39188;
-    public static final double kv = 2.5297;
-    public static final double ka = 0.21837;
-    public static final DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(trackWidth);
-    public static final double kPDriveVelocity = 0.37841;
-    public static final double maxVelocity = Units.feetToMeters(20);
-    public static final double maxAcceleration = Units.feetToMeters(3);
-  }
+}
+;
 
-};
+

@@ -1,11 +1,15 @@
 package frc.robot;
 
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants;
+import frc.robot.commands.paths.MoveToMid;
 import frc.robot.subsystems.arm.MoveArmWithJoystick;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.SmartArm;
@@ -13,12 +17,13 @@ import frc.robot.subsystems.arm.SmartExtendedArm;
 import frc.robot.subsystems.arm.SmartHome;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
+import frc.robot.subsystems.gyro.GyroSubsystem;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
 
-  // TODO update once we need to use the operator joystick
-  // private final XboxController operatorJoystick = new XboxController(1);
+  // TODO operatorJoystick is unused since we only need one joystick to test
+  private final XboxController operatorJoystick = new XboxController(1);
 
   // Subsystems
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
@@ -27,15 +32,15 @@ public class RobotContainer {
   // Commands
   private final ArcadeDrive arcadeDrive =
       new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.6, 0.6);
-  private final SmartArm smartArm1 = new SmartArm(armSubsystem, ArmConstants.mainArmSetpoint1);
-  private final SmartArm smartArm2 = new SmartArm(armSubsystem, ArmConstants.mainArmSetpoint2);
+  private final SmartArm smartArm1 = new SmartArm(armSubsystem, Constants.ArmConstants.mainArmSetpoint1);
+  private final SmartArm smartArm2 = new SmartArm(armSubsystem, Constants.ArmConstants.mainArmSetpoint2);
   private final SmartHome smartHome = new SmartHome(armSubsystem);
   private final SmartExtendedArm smartExtendedArm = new SmartExtendedArm(armSubsystem, 0);
   private final MoveArmWithJoystick moveArmWithJoystick = new MoveArmWithJoystick(armSubsystem, driverJoystick);
   // Autonomous
 
-  // TODO implement autonomous chooser once autonomous routines are finalized
-  // private SendableChooser<Command> autonChooser = new SendableChooser<>();
+  // Path Planning Commands
+  private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
 
   public RobotContainer() {
     configureButtonBindings();

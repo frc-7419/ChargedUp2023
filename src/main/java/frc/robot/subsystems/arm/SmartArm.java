@@ -5,6 +5,7 @@ import static frc.robot.Constants.*;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 
 public class SmartArm extends CommandBase {
 
@@ -15,9 +16,9 @@ public class SmartArm extends CommandBase {
   public SmartArm(ArmSubsystem armSubsystem, double setpoint) {
     pidController =
         new PIDController(
-        PIDConstants.MainArmKp,
-        PIDConstants.MainArmKi, 
-        PIDConstants.MainArmKd);
+        Constants.PIDConstants.MainArmKp,
+        Constants.PIDConstants.MainArmKi, 
+        Constants.PIDConstants.MainArmKd);
         
     this.armSubsystem = armSubsystem;
     this.setpoint = setpoint;

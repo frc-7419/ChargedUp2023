@@ -6,7 +6,6 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants;
-import frc.robot.Constants.DriveConstants;
 
 public class GenerateTrajectory extends RamseteCommand {
   private final DriveBaseSubsystem drivetrain;
