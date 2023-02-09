@@ -42,6 +42,9 @@ public final class Constants {
     }
   }
 
+  public static enum DIOIds{
+    
+  }
   public static final Transform3d kCameraToRobot =
       new Transform3d(
           new Translation3d(-0.25, 0, -.25), // in meters

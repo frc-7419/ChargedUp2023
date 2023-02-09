@@ -9,13 +9,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BeamBreakSubsystem extends SubsystemBase {
   private DigitalInput beamBreakReceiver;
-  private int detections = 0;
-  private Long startTime;
 
   /** Creates a new BeamBreakSubsystem. */
   public BeamBreakSubsystem() {
     beamBreakReceiver = new DigitalInput(2);
-    startTime = System.currentTimeMillis();
   }
 
   @Override
