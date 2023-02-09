@@ -25,8 +25,8 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
 
   // Commands
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.6,
-  0.6);
+  private final ArcadeDrive arcadeDrive =
+      new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.6, 0.6);
   private final SmartArm smartArm1 = new SmartArm(armSubsystem, ArmConstants.mainArmSetpoint1);
   private final SmartArm smartArm2 = new SmartArm(armSubsystem, ArmConstants.mainArmSetpoint2);
   private final SmartHome smartHome = new SmartHome(armSubsystem);

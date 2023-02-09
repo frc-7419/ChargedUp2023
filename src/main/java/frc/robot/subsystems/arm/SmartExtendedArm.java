@@ -18,9 +18,7 @@ public class SmartExtendedArm extends CommandBase {
 
     extendedArmPIDController =
         new PIDController(
-            PIDConstants.ExtendedArmKp, 
-            PIDConstants.ExtendedArmKi, 
-            PIDConstants.ExtendedArmKd);
+            PIDConstants.ExtendedArmKp, PIDConstants.ExtendedArmKi, PIDConstants.ExtendedArmKd);
 
     mainArmController =
         new PIDController(

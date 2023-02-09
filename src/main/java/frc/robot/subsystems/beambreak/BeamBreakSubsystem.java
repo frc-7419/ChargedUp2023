@@ -9,37 +9,28 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BeamBreakSubsystem extends SubsystemBase {
   private DigitalInput beamBreakReceiver;
-  private int detections = 0;
-  private Long startTime;
 
   /** Creates a new BeamBreakSubsystem. */
   public BeamBreakSubsystem() {
     beamBreakReceiver = new DigitalInput(2);
-    startTime = System.currentTimeMillis();
   }
 
   @Override
-  public void periodic() {
-    long endTime = System.currentTimeMillis();
-
-    if (detections >= 0 && detections <= 2) {
-      if (getBeamBreakActivated()) {
-        detections++;
-      } else {
-        detections--;
-      }
-
-      if (endTime - startTime == 10000) {
-        startTime = endTime;
-        detections = 0;
-      }
-    }
+  public void periodic() { 
   }
 
+  /**
+   * Returns true if the beam break is open and false if the beam break is blocked.
+   * @return True if the beam break is open(unobstructed) and false if the beam break is blocked
+   */
   public boolean getBeamBreakActivated() {
-    return beamBreakReceiver.get(); // returns true if beam is activated
+    return beamBreakReceiver.get();
   }
 
+  /**
+   * Return DigitalInput beam break receiver sensor.
+   * @return DigitalInput beam break receiver sensor 
+   */
   public DigitalInput getBeamBreakReceiver() {
     return beamBreakReceiver;
   }
