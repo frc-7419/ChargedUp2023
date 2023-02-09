@@ -16,6 +16,8 @@ import frc.robot.subsystems.drive.DriveBaseSubsystem;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
+
+  // TODO update once we need to use the operator joystick
   // private final XboxController operatorJoystick = new XboxController(1);
 
   // Subsystems
@@ -48,8 +50,10 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Button.kRightBumper.value).whileTrue(smartExtendedArm);
   }
 
+  //TODO update once done with autonomous command
   private void smartDashboardBindings() {}
 
+  //TODO update once done with autonomous command
   private void configureAutoSelector() {}
 
   public Command getAutonomousCommand() {
