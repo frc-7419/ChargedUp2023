@@ -15,6 +15,7 @@ public class GyroSubsystem extends SubsystemBase {
   /** Creates a new PigeonSubsystem. */
   public GyroSubsystem() {
     this.gyro = new Pigeon2(pigeon.id);
+    gyro.setYaw(0);
   }
 
   @Override

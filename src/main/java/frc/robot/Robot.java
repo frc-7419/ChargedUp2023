@@ -7,16 +7,22 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.server.PathPlannerServer;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends TimedRobot {
 
   private RobotContainer robotContainer;
+  private static Alliance allianceColor;
 
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
+    PathPlannerServer.startServer(5811);
   }
 
   @Override
@@ -33,6 +39,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     robotContainer.getAutonomousCommand().schedule();
+    allianceColor = DriverStation.getAlliance();
+  }
+
+  public static Alliance getAllianceColor() {
+    return allianceColor;
   }
 
   @Override

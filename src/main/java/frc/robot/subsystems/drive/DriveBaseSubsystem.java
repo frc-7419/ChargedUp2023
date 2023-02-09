@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,21 +22,27 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private TalonFX rightLeader;
   private TalonFX rightFollower;
 
-  final DrivetrainPoseEstimator poseEst;
+  final DrivetrainPoseEstimator poseEstimation;
 
+  private Field2d field = new Field2d();
   DifferentialDriveKinematics kinematics =
+     
       new DifferentialDriveKinematics(Constants.RobotConstants.kTrackWidth);
 
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
   PIDController leftPIDController = new PIDController(8.5, 0, 0);
   PIDController rightPIDController = new PIDController(8.5, 0, 0);
 
-  private double ld = 0;
-  private double rd = 0;
+  private double leftDistance = 0;
+  private double rightDistance = 0;
   private double previousTimeStamp = 0;
   private double currentTimeStamp;
 
+  /**
+   * @param gyroSubsystem
+   */
   public DriveBaseSubsystem() {
+    SmartDashboard.putData("Field", field);
     leftLeader = new TalonFX(Constants.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(Constants.CanIds.leftFalcon2.id);
     rightLeader = new TalonFX(Constants.CanIds.rightFalcon1.id);
@@ -59,33 +66,43 @@ public class DriveBaseSubsystem extends SubsystemBase {
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
 
-    poseEst = new DrivetrainPoseEstimator(new GyroSubsystem());
+    poseEstimation = new DrivetrainPoseEstimator(new GyroSubsystem());
   }
 
   public enum TurnDirection {
     LEFT,
     RIGHT
   }
-
+  /**
+   * @return
+   */
   // accessors
   public TalonFX getLeftMast() {
     return leftLeader;
   }
-
+  /**
+   * @return
+   */
   public TalonFX getRightMast() {
     return rightLeader;
   }
-
+  /**
+   * @return
+   */
   public TalonFX getLeftFollow() {
     return leftFollower;
   }
-
+  /**
+   * @return
+   */
   public TalonFX getRightFollow() {
     return rightFollower;
   }
   /**
    * Provides a specific voltage to the left side of the drivetrain.
    * @param voltage voltage to set
+   */  /**
+   * @param voltage
    */
   public void setLeftVoltage(double voltage) {
     leftLeader.set(ControlMode.PercentOutput, voltage / 11);
@@ -94,6 +111,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
   /**
    * Provides a specific voltage to the right side of the drivetrain.
    * @param voltage voltage to set
+   */  /**
+   * @param voltage
    */
   public void setRightVoltage(double voltage) {
     rightLeader.set(ControlMode.PercentOutput, voltage / 11);
@@ -102,6 +121,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
   /**
    * Provides a specific voltage to the drivetrain.
    * @param voltage voltage to set
+   */  /**
+   * @param voltage
    */
   public void setAllVoltage(double voltage) {
     setLeftVoltage(voltage);
@@ -110,6 +131,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
   /**
    * Sets the power of the left side of the drivetrain.
    * @param power Power (-1 to 1) to set
+   */  /**
+   * @param power
    */
   public void setLeftPower(double power) {
     leftLeader.set(ControlMode.PercentOutput, power);
@@ -118,6 +141,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
   /**
    * Sets the power of the right side of the drivetrain.
    * @param power Power (-1 to 1) to set
+   */  /**
+   * @param power
    */
   public void setRightPower(double power) {
     rightLeader.set(ControlMode.PercentOutput, power);
@@ -126,6 +151,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
   /**
    * Sets the power of the drivetrain.
    * @param power Power (-1 to 1) to set
+   */  /**
+   * @param power
    */
   public void setAllPower(double power) {
     setLeftPower(power);
@@ -138,6 +165,9 @@ public class DriveBaseSubsystem extends SubsystemBase {
   /**
    * Sets the Neutral Mode (used when the motor is not running) of the drivetrain.
    * @param mode Neutral Mode (Coast or Brake) to set
+   */
+  /**
+   * @param mode
    */
   public void setAllMode(NeutralMode mode) {
     rightLeader.setNeutralMode(mode);
@@ -164,6 +194,10 @@ public class DriveBaseSubsystem extends SubsystemBase {
    * Gets the velocity of the right side of the drivetrain
    * @return Velocity, in raw sensor units
    */
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(getLeftVelocityInMeters(), getRightVelocityInMeters());
+  }
+
   public double getRightVelocity() {
     return rightLeader.getSelectedSensorVelocity(0);
   }
@@ -173,6 +207,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
    */
   public double getLeftVelocityInMeters() {
     return getLeftVelocity()
+       
         * Constants.RobotConstants.kWheelCircumference
         / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
@@ -182,6 +217,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
    */
   public double getRightVelocityInMeters() {
     return getRightVelocity()
+       
         * Constants.RobotConstants.kWheelCircumference
         / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
@@ -214,8 +250,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
     double leftDistance = getLeftVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
     double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
 
-    ld += leftDistance;
-    rd += rightDistance;
+    this.leftDistance += leftDistance;
+    this.rightDistance += rightDistance;
 
     double leftOutput = leftPIDController.calculate(leftDistance, speeds.leftMetersPerSecond);
     double rightOutput = rightPIDController.calculate(rightDistance, speeds.rightMetersPerSecond);
@@ -227,21 +263,6 @@ public class DriveBaseSubsystem extends SubsystemBase {
     setRightVoltage(rightOutput + rightFeedforward);
   }
   /**
-   * Gets the distance to the nearest AprilTag target.
-   * @return Distance, in meters, to the nearest AprilTag
-   */
-  public double getDist() {
-    return poseEst.getInfo()[0];
-  }
-  /**
-   * Gets the yaw to the nearest AprilTag target.
-   * @return Yaw, in degrees, to the nearest AprilTag
-   */
-  public double getAngle() {
-    return poseEst.getInfo()[1];
-  }
-
-  /**
    * Force the pose estimator and all sensors to a particular pose. This is useful for indicating to
    * the software when you have manually moved your robot in a particular position on the field (EX:
    * when you place it on the field at the start of the match).
@@ -251,14 +272,21 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public void resetOdometry(Pose2d pose) {
     leftLeader.setSelectedSensorPosition(0);
     rightLeader.setSelectedSensorPosition(0);
-    poseEst.resetToPose(pose, 0, 0);
+    poseEstimation.resetToPose(pose, 0, 0);
   }
-
   /**
    * @return The current best-guess at drivetrain Pose on the field.
    */
   public Pose2d getCtrlsPoseEstimate() {
-    return poseEst.getPoseEst();
+    return poseEstimation.getPoseEstimation();
+  }
+
+  public double getDist() {
+    return poseEstimation.getVisionInformation()[0];
+  }
+
+  public double getAngle() {
+    return poseEstimation.getVisionInformation()[1];
   }
 
   @Override
@@ -266,16 +294,25 @@ public class DriveBaseSubsystem extends SubsystemBase {
     currentTimeStamp = Timer.getFPGATimestamp();
     double leftDistance = getLeftVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
     double rightDistance = getRightVelocityInMeters() * (currentTimeStamp - previousTimeStamp);
-    ld += leftDistance;
-    rd += rightDistance;
+    this.leftDistance += leftDistance;
+    this.rightDistance += rightDistance;
 
     SmartDashboard.putNumber("Odo X Pos", getCtrlsPoseEstimate().getX());
     SmartDashboard.putNumber("Odo Y Pos", getCtrlsPoseEstimate().getY());
     SmartDashboard.putNumber("Odo Theta", getCtrlsPoseEstimate().getRotation().getDegrees());
 
+    field.setRobotPose(getCtrlsPoseEstimate());
     SmartDashboard.putNumber("Dist to Target", getDist());
     SmartDashboard.putNumber("Angle to Target", getAngle());
-    poseEst.update(ld, rd);
+    poseEstimation.update(this.leftDistance, this.rightDistance);
     previousTimeStamp = currentTimeStamp;
+  }
+
+  /**
+   * @param .
+   */
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    setLeftVoltage(leftVolts);
+    setRightVoltage(rightVolts);
   }
 }

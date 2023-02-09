@@ -57,14 +57,17 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
   public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
     this.gyroSubsystem = gyroSubsystem;
     cam = new PhotonCamera("terima");
-    poses.put(
-        5, new Pose3d(1, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-    poses.put(8, new Pose3d(1, 2, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-    poses.put(7, new Pose3d(1, 3, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
-    poses.put(4, new Pose3d(1, 3, 1, new Rotation3d(0, 0, Units.degreesToRadians(180))));
+    poses.put(1, Constants.AprilTagPositionConstants.kAprilTagOnePose);
+    poses.put(2, Constants.AprilTagPositionConstants.kAprilTagTwoPose);
+    poses.put(3, Constants.AprilTagPositionConstants.kAprilTagThreePose);
+    poses.put(4, Constants.AprilTagPositionConstants.kAprilTagFourPose);
+    poses.put(5, Constants.AprilTagPositionConstants.kAprilTagFivePose);
+    poses.put(6, Constants.AprilTagPositionConstants.kAprilTagSixPose);
+    poses.put(7, Constants.AprilTagPositionConstants.kAprilTagSevenPose);
+    poses.put(8, Constants.AprilTagPositionConstants.kAprilTagEightPose);
     m_poseEstimator =
         new DifferentialDrivePoseEstimator(
-            Constants.kDtKinematics,
+            Constants.RobotConstants.kDtKinematics,
             getRotation2d(),
             0, // Assume zero encoder counts at start
             0,
@@ -95,10 +98,10 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
         // is on the field physically and
         // gets the camera pose
         m_poseEstimator.addVisionMeasurement(
-            camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
-        SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEst().getX());
-        SmartDashboard.putNumber("Vision+Odo Y Pos", getPoseEst().getY());
-        SmartDashboard.putNumber("Vision+Odo Theta", getPoseEst().getRotation().getDegrees());
+            camPose.transformBy(Constants.RobotConstants.kCameraToRobot).toPose2d(), resultTimeStamp);
+        SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEstimation().getX());
+        SmartDashboard.putNumber("Vision+Odo Y Pos", getPoseEstimation().getY());
+        SmartDashboard.putNumber("Vision+Odo Theta", getPoseEstimation().getRotation().getDegrees());
       }
     }
   }
@@ -113,7 +116,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
    * Gets the distance and angle (yaw) to the nearest AprilTag.
    * @return Distance to nearest AprilTag target in index 0, yaw to nearest AprilTag target in index 1
    */
-  public double[] getInfo() {
+  public double[] getVisionInformation() {
     PhotonPipelineResult result = cam.getLatestResult();
     double[] info = new double[2];
     if (result.hasTargets()) {
@@ -121,15 +124,13 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
           PhotonUtils.calculateDistanceToTargetMeters(
               Constants.VisionConstants.kCameraHeight,
               Constants.VisionConstants.kTargetHeight,
-              Units.degreesToRadians(Constants.VisionConstants.camPitch),
+              Units.degreesToRadians(Constants.VisionConstants.kCameraPitch),
               Units.degreesToRadians(result.getBestTarget().getPitch()));
       info[1] = result.getBestTarget().getYaw();
     }
     return info;
   }
 
-  @Override
-  public void periodic() {}
 
   /**
    * Force the pose estimator to a particular pose. This is useful for indicating to the software
@@ -143,7 +144,7 @@ public class DrivetrainPoseEstimator extends SubsystemBase {
   /**
    * @return The current best-guess at drivetrain position on the field.
    */
-  public Pose2d getPoseEst() {
+  public Pose2d getPoseEstimation() {
     return m_poseEstimator.getEstimatedPosition();
   }
 }
