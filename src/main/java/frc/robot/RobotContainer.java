@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.subsystems.arm.moveArmWithJoystick;
+import frc.robot.subsystems.arm.MoveArmWithJoystick;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.SmartArm;
 import frc.robot.subsystems.arm.SmartExtendedArm;
@@ -31,7 +31,7 @@ public class RobotContainer {
   private final SmartArm smartArm2 = new SmartArm(armSubsystem, ArmConstants.mainArmSetpoint2);
   private final SmartHome smartHome = new SmartHome(armSubsystem);
   private final SmartExtendedArm smartExtendedArm = new SmartExtendedArm(armSubsystem, 0);
-  private final moveArmWithJoystick moveArmWithJoystick = new moveArmWithJoystick(armSubsystem, driverJoystick);
+  private final MoveArmWithJoystick moveArmWithJoystick = new MoveArmWithJoystick(armSubsystem, driverJoystick);
   // Autonomous
 
   // TODO implement autonomous chooser once autonomous routines are finalized

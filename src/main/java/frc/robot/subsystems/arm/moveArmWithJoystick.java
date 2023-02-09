@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
-public class moveArmWithJoystick extends CommandBase {
+public class MoveArmWithJoystick extends CommandBase {
 
   private ArmSubsystem armSubsystem;
   private XboxController joystick;
 
-  public moveArmWithJoystick(ArmSubsystem armSubsystem, XboxController joystick) {
+  public MoveArmWithJoystick(ArmSubsystem armSubsystem, XboxController joystick) {
     this.armSubsystem = armSubsystem;
     this.joystick = joystick;
     addRequirements(armSubsystem);
