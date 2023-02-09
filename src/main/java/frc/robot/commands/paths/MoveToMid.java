@@ -9,7 +9,8 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
+import frc.robot.Constants.WaypointPositionConstants;
+import frc.robot.Robot;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GenerateTrajectory;
 import java.util.ArrayList;
@@ -17,23 +18,21 @@ import java.util.List;
 
 public class MoveToMid extends SequentialCommandGroup {
 
-  private String teamColor = "";
+  private String pathAccordingToTeamColor = "";
   public MoveToMid(DriveBaseSubsystem driveBaseSubsystem) {
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
-
-    // TODO need to get waypoints for this
     
-    if (Constants.RobotConstants.currentAlliance == DriverStation.Alliance.Blue) {
-      waypoints.add(Constants.WaypointPositionConstants.kBlueMidFirstWayPoint);
-      waypoints.add(Constants.WaypointPositionConstants.kBlueMidSecondWayPoint);
-      waypoints.add(Constants.WaypointPositionConstants.kBlueMidThirdWayPoint);
-      teamColor = "BlueMid";
+    if (Robot.getAllianceColor().equals("Blue")) {
+      waypoints.add(WaypointPositionConstants.kBlueMidFirstWayPoint);
+      waypoints.add(WaypointPositionConstants.kBlueMidSecondWayPoint);
+      waypoints.add(WaypointPositionConstants.kBlueMidThirdWayPoint);
+      pathAccordingToTeamColor = "BlueMid";
     }
-    else if (Constants.RobotConstants.currentAlliance == DriverStation.Alliance.Red) {
-      waypoints.add(Constants.WaypointPositionConstants.kRedMidFirstWayPoint);
-      waypoints.add(Constants.WaypointPositionConstants.kRedMidSecondWayPoint);
-      waypoints.add(Constants.WaypointPositionConstants.kRedMidThirdWayPoint);
-      teamColor = "RedMid";
+    else {
+      waypoints.add(WaypointPositionConstants.kRedMidFirstWayPoint);
+      waypoints.add(WaypointPositionConstants.kRedMidSecondWayPoint);
+      waypoints.add(WaypointPositionConstants.kRedMidThirdWayPoint);
+      pathAccordingToTeamColor = "RedMid";
     }
     
     addCommands(
@@ -41,6 +40,6 @@ public class MoveToMid extends SequentialCommandGroup {
             driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
         new GenerateTrajectory(
             driveBaseSubsystem,
-            PathPlanner.loadPath(teamColor, PathPlanner.getConstraintsFromPath(teamColor))));
+            PathPlanner.loadPath(pathAccordingToTeamColor, PathPlanner.getConstraintsFromPath(pathAccordingToTeamColor))));
   }
 }
