@@ -14,7 +14,11 @@ public class ArcadeDrive extends CommandBase {
   // Limits *acceleration* not max speed; basically kD
   private final SlewRateLimiter speedLimiter = new SlewRateLimiter(100);
 
-  public ArcadeDrive(XboxController joystick, DriveBaseSubsystem driveBaseSubsystem, double kStraight, double kTurn) {
+  public ArcadeDrive(
+      XboxController joystick,
+      DriveBaseSubsystem driveBaseSubsystem,
+      double kStraight,
+      double kTurn) {
     this.joystick = joystick;
     this.driveBaseSubsystem = driveBaseSubsystem;
     this.kStraight = kStraight;
@@ -53,5 +57,4 @@ public class ArcadeDrive extends CommandBase {
   public void end(boolean interrupted) {
     driveBaseSubsystem.setAllPower(0);
   }
-
 }

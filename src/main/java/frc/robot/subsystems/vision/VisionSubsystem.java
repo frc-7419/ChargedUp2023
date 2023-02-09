@@ -4,26 +4,18 @@
 
 package frc.robot.subsystems.vision;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionSubsystem extends SubsystemBase {
 
   private PhotonCamera cam1;
-  private PhotonCamera cam2;
-  private List<PhotonTrackedTarget> camTargets;
   private Map<String, Double> bestVal;
   private Map<String, Double> val1;
-  private Map<String, Double> val2;
-
   public VisionSubsystem() {
     cam1 = new PhotonCamera("terima");
     // cam2 = new PhotonCamera("teri_paapa");
@@ -31,18 +23,17 @@ public class VisionSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    //TODO use when the second camera arrives
     // PhotonPipelineResult[] results = { cam1.getLatestResult(),
     // cam2.getLatestResult() };
     // boolean[] hasTargets = {results[0].hasTargets(), results[1].hasTargets()};
 
-    PhotonPipelineResult[] results = { cam1.getLatestResult() };
-    boolean[] hasTargets = { results[0].hasTargets() };
+    PhotonPipelineResult[] results = {cam1.getLatestResult()};
+    boolean[] hasTargets = {results[0].hasTargets()};
 
+    //TODO use when the second camera arrives
     SmartDashboard.putBoolean("Cam 1 Targets", hasTargets[0]);
-    // SmartDashboard.putBoolean("Cam 2 Targets", hasTargets[1]);
-
-    camTargets = results[0].getTargets();
-    // camTargets = addTargets(results);
+    results[0].getTargets();
 
     if (hasTargets[0]) {
       val1 = setValues(results[0]);
@@ -56,7 +47,7 @@ public class VisionSubsystem extends SubsystemBase {
       SmartDashboard.putNumber("Pitch", getPitch());
     }
   }
-
+  //TODO fix when second camera arrives
   // public List<PhotonTrackedTarget> addTargets(PhotonPipelineResult[] results) {
   // camTargets = new List<PhotonTrackedTarget>();
   // // cam2Targets = results[1].getTargets();
@@ -93,5 +84,4 @@ public class VisionSubsystem extends SubsystemBase {
   public double getSkew() {
     return bestVal.get("skew");
   }
-
 }

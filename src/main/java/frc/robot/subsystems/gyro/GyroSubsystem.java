@@ -4,9 +4,9 @@
 
 package frc.robot.subsystems.gyro;
 
-import com.ctre.phoenix.sensors.Pigeon2;
 import static frc.robot.Constants.CanIds.*;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -36,5 +36,4 @@ public class GyroSubsystem extends SubsystemBase {
   public double getRoll() {
     return gyro.getRoll();
   }
-
 }

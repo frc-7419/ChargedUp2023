@@ -3,7 +3,6 @@ package frc.robot.subsystems.drive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -15,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.gyro.GyroSubsystem;
+
 public class DriveBaseSubsystem extends SubsystemBase {
   private TalonFX leftLeader;
   private TalonFX leftFollower;
@@ -23,7 +23,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   final DrivetrainPoseEstimator poseEst;
 
-  DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.RobotConstants.kTrackWidth);
+  DifferentialDriveKinematics kinematics =
+      new DifferentialDriveKinematics(Constants.RobotConstants.kTrackWidth);
 
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
   PIDController leftPIDController = new PIDController(8.5, 0, 0);
@@ -39,6 +40,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     leftFollower = new TalonFX(Constants.CanIds.leftFalcon2.id);
     rightLeader = new TalonFX(Constants.CanIds.rightFalcon1.id);
     rightFollower = new TalonFX(Constants.CanIds.rightFalcon2.id);
+
     factoryResetAll();
     setAllDefaultInversions();
 
@@ -62,7 +64,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   public enum TurnDirection {
     LEFT,
-    RIGHT,
+    RIGHT
   }
 
   // accessors
@@ -140,12 +142,14 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
 
   public double getLeftVelocityInMeters() {
-    return getLeftVelocity() * Constants.RobotConstants.kWheelCircumference
+    return getLeftVelocity()
+        * Constants.RobotConstants.kWheelCircumference
         / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
 
   public double getRightVelocityInMeters() {
-    return getRightVelocity() * Constants.RobotConstants.kWheelCircumference
+    return getRightVelocity()
+        * Constants.RobotConstants.kWheelCircumference
         / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
 
@@ -165,7 +169,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   public void drive(double xSpeed, double rot) {
     // Convert our fwd/rev and rotate commands to wheel speed commands
-    DifferentialDriveWheelSpeeds speeds = kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed, 0, rot));
+    DifferentialDriveWheelSpeeds speeds =
+        kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed, 0, rot));
 
     currentTimeStamp = Timer.getFPGATimestamp();
 
@@ -175,10 +180,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
     ld += leftDistance;
     rd += rightDistance;
 
-    double leftOutput = leftPIDController.calculate(leftDistance,
-        speeds.leftMetersPerSecond);
-    double rightOutput = rightPIDController.calculate(rightDistance,
-        speeds.rightMetersPerSecond);
+    double leftOutput = leftPIDController.calculate(leftDistance, speeds.leftMetersPerSecond);
+    double rightOutput = rightPIDController.calculate(rightDistance, speeds.rightMetersPerSecond);
 
     var leftFeedforward = feedforward.calculate(speeds.leftMetersPerSecond);
     var rightFeedforward = feedforward.calculate(speeds.rightMetersPerSecond);
@@ -199,10 +202,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
 
   /**
-   * Force the pose estimator and all sensors to a particular pose. This is useful
-   * for indicating to
-   * the software when you have manually moved your robot in a particular position
-   * on the field (EX:
+   * Force the pose estimator and all sensors to a particular pose. This is useful for indicating to
+   * the software when you have manually moved your robot in a particular position on the field (EX:
    * when you place it on the field at the start of the match).
    *
    * @param pose
@@ -213,7 +214,9 @@ public class DriveBaseSubsystem extends SubsystemBase {
     poseEst.resetToPose(pose, 0, 0);
   }
 
-  /** @return The current best-guess at drivetrain Pose on the field. */
+  /**
+   * @return The current best-guess at drivetrain Pose on the field.
+   */
   public Pose2d getCtrlsPoseEstimate() {
     return poseEst.getPoseEst();
   }
@@ -235,5 +238,4 @@ public class DriveBaseSubsystem extends SubsystemBase {
     poseEst.update(ld, rd);
     previousTimeStamp = currentTimeStamp;
   }
-
 }

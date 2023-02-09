@@ -1,18 +1,20 @@
 package frc.robot.subsystems.arm;
 
+import static frc.robot.Constants.*;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import static frc.robot.Constants.*;
 
 public class SmartHome extends CommandBase {
-  
+
   private PIDController pidController;
   private ArmSubsystem armSubsystem;
   private double homePos;
 
   public SmartHome(ArmSubsystem armSubsystem) {
-    pidController = new PIDController(PIDConstants.MainArmKp, PIDConstants.MainArmKi, PIDConstants.MainArmKd);
+    pidController =
+        new PIDController(PIDConstants.MainArmKp, PIDConstants.MainArmKi, PIDConstants.MainArmKd);
     this.armSubsystem = armSubsystem;
     this.homePos = armSubsystem.getHomePosition();
     addRequirements(armSubsystem);
@@ -27,8 +29,8 @@ public class SmartHome extends CommandBase {
 
   @Override
   public void execute() {
-    armSubsystem.setMainPower(pidController.calculate(armSubsystem.getMain2Position()));
-    SmartDashboard.putNumber("arm error", pidController.getPositionError());
+    armSubsystem.setMainPower(pidController.calculate(armSubsystem.getMainPosition()));
+    SmartDashboard.putNumber("Arm Error", pidController.getPositionError());
   }
 
   @Override

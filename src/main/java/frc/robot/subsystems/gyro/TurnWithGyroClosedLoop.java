@@ -19,13 +19,19 @@ public class TurnWithGyroClosedLoop extends CommandBase {
 
   /**
    * LEFT IS POSITIVE
-   * 
+   *
    * @param driveBaseSubsystem
    * @param gyro
    * @param angle
    */
-  public TurnWithGyroClosedLoop(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem, double target,
-      double tolerance, double kP, double kI, double kD) {
+  public TurnWithGyroClosedLoop(
+      DriveBaseSubsystem driveBaseSubsystem,
+      GyroSubsystem gyroSubsystem,
+      double target,
+      double tolerance,
+      double kP,
+      double kI,
+      double kD) {
     this.driveBaseSubsystem = driveBaseSubsystem;
     this.gyroSubsystem = gyroSubsystem;
     this.target = target;

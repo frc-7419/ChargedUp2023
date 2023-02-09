@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ArmJoystick extends CommandBase {
-  
+
   private ArmSubsystem armSubsystem;
   private XboxController joystick;
 
@@ -21,8 +21,8 @@ public class ArmJoystick extends CommandBase {
 
   @Override
   public void execute() {
-    armSubsystem.setMainPower(0.3*joystick.getRightY());
-    armSubsystem.setExtendedPower(0.5*joystick.getLeftY());
+    armSubsystem.setMainPower(0.3 * joystick.getRightY());
+    armSubsystem.setExtendedPower(0.5 * joystick.getLeftY());
   }
 
   @Override
