@@ -43,7 +43,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /**
-   * 
+   * Sets power to both the main and extended arms.
    * @param Power set to both main and extended arms.
    */
   public void setAllPower(double power) {
@@ -52,7 +52,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /**
-   * 
+   * Sets power to the motors on the main arm.
    * @param Power set to motors on the main arm.
    */
   public void setMainPower(double power) {
@@ -61,16 +61,16 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /**
-   * 
-   * @param Power set to motor on the extended arm.
+   * Sets power to the motor on the extended arm.
+   * @param Power to motor on the extended arm.
    */
   public void setExtendedPower(double power) {
     extendedArmMotor.set(ControlMode.PercentOutput, power);
   }
 
   /**
-   * 
-   * @return Returns the position of the main arms.
+   * Returns the position of the main arm.
+   * @return The position of the main arm.
    */
 
   public double getMainPosition() { // THIS ENCODER DOES WORK
@@ -78,8 +78,8 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /**
-   * 
-   * @return Returns the position of the extended arm.
+   * Returns the current position of the extended arm.
+   * @return The position of the extended arm.
    */
   public double getExtendedPosition() {
     return extendedArmMotor.getSelectedSensorPosition();
@@ -93,8 +93,8 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /**
-   * 
-   * @return Returns the home position of the main arms.
+   * Returns the home position of the main arms.
+   * @return Home position of the main arms.
    */
   public double getHomePosition() {
     return homePosition;
@@ -102,7 +102,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * 
-   * @return Returns the yaw (angle of the extended arm).
+   * Returns the yaw of the extended arm utilizing the gyroscope on the arm.
+   * @return Yaw (angle of the extended arm).
    */
   public double getExtendedAngle() {
     double[] gyroInformation = new double[3];
