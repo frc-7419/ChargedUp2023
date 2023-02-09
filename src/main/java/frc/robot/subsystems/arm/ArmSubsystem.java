@@ -111,30 +111,49 @@ public class ArmSubsystem extends SubsystemBase {
     return gyroInformation[2];
   }
 
+  /**
+   * @void Coasts both arms.
+   */
+
   public void coast() {
     coastMain();
     coastExtended();
   }
 
+  /**
+   * @void Coasts the main arm.
+   */
   public void coastMain() {
     mainArmMotor1.setIdleMode(IdleMode.kCoast);
     mainArmMotor2.setIdleMode(IdleMode.kCoast);
   }
 
+  /**
+   * @void Coasts the extended arm.
+   */
   public void coastExtended() {
     extendedArmMotor.setNeutralMode(NeutralMode.Coast);
   }
 
+  /**
+   * @void Brakes both arms.
+   */
   public void brake() {
     brakeMain();
     brakeExtended();
   }
 
+  /**
+   * @void Brakes the main arm.
+   */
   public void brakeMain() {
     mainArmMotor1.setIdleMode(IdleMode.kBrake);
     mainArmMotor2.setIdleMode(IdleMode.kBrake);
   }
 
+  /**
+   * @void Brakes the extended arm.
+   */
   public void brakeExtended() {
     extendedArmMotor.setNeutralMode(NeutralMode.Brake);
   }
