@@ -2,7 +2,7 @@ package frc.robot.subsystems.arm;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.ArmConstants;
 
 public class MoveArmWithJoystick extends CommandBase {
 
@@ -22,8 +22,8 @@ public class MoveArmWithJoystick extends CommandBase {
 
   @Override
   public void execute() {
-    double mainPowerJoystick = Constants.ArmConstants.mainArmPowerCoefficient * joystick.getRightY();
-    double extendedPowerJoystick = Constants.ArmConstants.extendedArmPowerCoefficient * joystick.getLeftY();
+    double mainPowerJoystick = ArmConstants.mainArmPowerCoefficient * joystick.getRightY();
+    double extendedPowerJoystick = ArmConstants.extendedArmPowerCoefficient * joystick.getLeftY();
     armSubsystem.setMainPower(mainPowerJoystick);
     armSubsystem.setExtendedPower(extendedPowerJoystick);
   }
