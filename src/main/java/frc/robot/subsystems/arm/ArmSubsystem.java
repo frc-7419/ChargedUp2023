@@ -24,8 +24,7 @@ public class ArmSubsystem extends SubsystemBase {
   private PigeonIMU extendedGyro;
 
   /**
-   * Constructs the subsystem corresponding to the arm mechanism.
-   * @Subsystem consisting of extended arm and main arm. 
+   * Constructs the extended arm and main arm subsystem corresponding to the arm mechanism.
    */
   public ArmSubsystem() {
     extendedArmMotor = new TalonSRX(CanIds.armExtended.id);
