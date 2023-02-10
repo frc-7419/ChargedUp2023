@@ -196,14 +196,18 @@ public class DriveBaseSubsystem extends SubsystemBase {
         * Constants.RobotConstants.kWheelCircumference
         / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
-
+  /**
+   * Set all the drivetrain motors to the correct inversions
+   */
   public void setAllDefaultInversions() {
     rightLeader.setInverted(true);
     rightFollower.setInverted(true);
     leftLeader.setInverted(false);
     leftFollower.setInverted(false);
   }
-
+  /**
+   * Set all the drivetrain motors to factory default
+   */
   public void factoryResetAll() {
     rightLeader.configFactoryDefault();
     rightFollower.configFactoryDefault();
@@ -269,7 +273,9 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public double getAngle() {
     return poseEstimation.getVisionInformation()[1];
   }
-
+  /**
+   * Tne periodic function is used for odometry 
+   */
   @Override
   public void periodic() {
     currentTimeStamp = Timer.getFPGATimestamp();
