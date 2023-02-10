@@ -23,6 +23,9 @@ public class ArmSubsystem extends SubsystemBase {
   private DigitalInput magneticLimitSwitch;
   private PigeonIMU extendedGyro;
 
+  /**
+   * Constructs the extended arm and main arm subsystem corresponding to the arm mechanism.
+   */
   public ArmSubsystem() {
     extendedArmMotor = new TalonSRX(CanIds.armExtended.id);
 
@@ -32,14 +35,19 @@ public class ArmSubsystem extends SubsystemBase {
     mainArmMotor2 = new CANSparkMax(
       CanIds.armMain2.id, 
       MotorType.kBrushless);
+    
+    magneticLimitSwitch = new DigitalInput(0); // port for now
 
+    extendedGyro = new PigeonIMU(0);
+    configureMotorControllers();
+  }
+
+  /** Sets default inversions of left and right main motorcontrollers, and sets the conversion factor for motorcontroller encoder */
+  public void configureMotorControllers() {
     mainArmMotor1.setInverted(false);
     mainArmMotor2.setInverted(true);
 
-    magneticLimitSwitch = new DigitalInput(0); // port for now
-
     mainArmMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
-    extendedGyro = new PigeonIMU(0);
   }
 
   /**
@@ -70,37 +78,36 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Returns the position of the main arm.
-   * @return The position of the main arm.
+   * @return The position of the main arm, in units of rotations.
    */
-
   public double getMainPosition() { // THIS ENCODER DOES WORK
     return mainArmMotor2.getEncoder().getPosition() - homePosition;
   }
 
   /**
    * Returns the current position of the extended arm.
-   * @return The position of the extended arm.
+   * @return The position of the extended arm, in units of rotations.
    */
   public double getExtendedPosition() {
     return extendedArmMotor.getSelectedSensorPosition();
   }
 
+  /** Sets the home position variable to the current position of the main arm. */
   public void home() {
     homePosition = getMainPosition();
   }
 
   /**
    * Returns the home position of the main arms.
-   * @return Home position of the main arms.
+   * @return The home position of the main arms.
    */
   public double getHomePosition() {
     return homePosition;
   }
 
   /**
-   * 
-   * Returns the yaw of the extended arm utilizing the gyroscope on the arm.
-   * @return Yaw (angle of the extended arm).
+   * Returns the yaw of the extended arm as measured by the arm's gyro.
+   * @return The gyro's measured roll (angle of the extended arm).
    */
   public double getExtendedAngle() {
     double[] gyroInformation = new double[3];
@@ -108,30 +115,36 @@ public class ArmSubsystem extends SubsystemBase {
     return gyroInformation[2];
   }
 
-  public void coast() {
+  /** Sets all arm motors to coast mode */
+  public void coastAll() {
     coastMain();
     coastExtended();
   }
 
+  /** Sets both main arm motors to coast mode, allowing main arm to freely move */
   public void coastMain() {
     mainArmMotor1.setIdleMode(IdleMode.kCoast);
     mainArmMotor2.setIdleMode(IdleMode.kCoast);
   }
 
+  /** Sets extended arm motor to coast mode, allowing extended arm to freely move */
   public void coastExtended() {
     extendedArmMotor.setNeutralMode(NeutralMode.Coast);
   }
 
-  public void brake() {
+  /** Sets all arm motors to brake mode */
+  public void brakeAll() {
     brakeMain();
     brakeExtended();
   }
 
+  /** Sets both main arm motors to brake mode, stopping the main arm's movement */
   public void brakeMain() {
     mainArmMotor1.setIdleMode(IdleMode.kBrake);
     mainArmMotor2.setIdleMode(IdleMode.kBrake);
   }
 
+  /** Sets extended arm's motor to brake mode, stopping the extended arm's movement */
   public void brakeExtended() {
     extendedArmMotor.setNeutralMode(NeutralMode.Brake);
   }
