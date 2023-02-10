@@ -59,10 +59,10 @@ public class SmartExtendedArm extends CommandBase {
   @Override
   public void execute() {
     double armMainPosition = armSubsystem.getMainPosition();
-    double calculatedMainArmPower = mainArmController.calculate(armMainPosition) 
+    double calculatedMainArmPower = mainArmController.calculate(armMainPosition);
     armSubsystem.setMainPower(calculatedMainArmPower);
     double extendedArmAngle = armSubsystem.getExtendedAngle();
-    double calculatedExtendedArmPower = extendedArmPIDController.calculate(extendedArmAngle) 
+    double calculatedExtendedArmPower = extendedArmPIDController.calculate(extendedArmAngle);
     armSubsystem.setExtendedPower(calculatedExtendedArmPower);
 
     SmartDashboard.putNumber("Extended Arm Error", extendedArmPIDController.getPositionError());
@@ -75,6 +75,10 @@ public class SmartExtendedArm extends CommandBase {
     armSubsystem.brakeMain();
   }
 
+  /**
+   * When command is finished, return if set point error 
+   * of extendedArmPIDController is within acceptable bounds.
+   */
   @Override
   public boolean isFinished() {
     return extendedArmPIDController.atSetpoint();
