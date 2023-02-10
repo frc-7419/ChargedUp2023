@@ -85,17 +85,13 @@ public class DrivetrainPoseEstimator {
 
     m_poseEstimator =
         new DifferentialDrivePoseEstimator(
-            Constants.kDtKinematics,
+            Constants.DriveConstants.kDriveKinematics,
             getRotation2d(),
             0, // Assume zero encoder counts at start
             0,
             new Pose2d(),
             localMeasurementStdDevs,
             visionMeasurementStdDevs);
-  }
-
-  public Rotation2d getRotation2d() {
-    return Rotation2d.fromDegrees(gyroSubsystem.getYaw());
   }
 
   /**
@@ -122,7 +118,7 @@ public class DrivetrainPoseEstimator {
         // is on the field physically and
         // gets the camera pose
         m_poseEstimator.addVisionMeasurement(
-            camPose.transformBy(Constants.kCameraToRobot).toPose2d(), resultTimeStamp);
+            camPose.transformBy(Constants.RobotConstants.kCameraToRobot).toPose2d(), resultTimeStamp);
 
         // outputting everthing to smartdashboard for viewing
         SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEstimation().getX());
@@ -133,25 +129,31 @@ public class DrivetrainPoseEstimator {
     }
   }
   /**
-   * Return the vision information (distance and yaw) of the target
-   *
-   * @return
+   * Gets the current rotation of the robot, using the gyroscope.
+   * @return Rotation of the robot, as a {@link Rotation2d} object
+   */
+  public Rotation2d getRotation2d() {
+    return Rotation2d.fromDegrees(gyroSubsystem.getYaw());
+  }
+  /**
+   * Gets the distance and angle (yaw) to the nearest AprilTag.
+   * @return Distance to nearest AprilTag target in index 0, yaw to nearest AprilTag target in index 1
    */
   public double[] getVisionInformation() {
     PhotonPipelineResult result = cam.getLatestResult();
-    double[] visionInformation = new double[2];
-
+    double[] info = new double[2];
     if (result.hasTargets()) {
-      visionInformation[0] =
+      info[0] =
           PhotonUtils.calculateDistanceToTargetMeters(
               Constants.VisionConstants.kCameraHeight,
               Constants.VisionConstants.kTargetHeight,
               Units.degreesToRadians(Constants.VisionConstants.kCameraPitch),
               Units.degreesToRadians(result.getBestTarget().getPitch()));
-      visionInformation[1] = result.getBestTarget().getYaw();
+      info[1] = result.getBestTarget().getYaw();
     }
-    return visionInformation;
+    return info;
   }
+
 
   /**
    * Force the pose estimator to a particular pose. This is useful for indicating to the software

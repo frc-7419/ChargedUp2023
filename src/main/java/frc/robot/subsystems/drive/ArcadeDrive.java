@@ -3,7 +3,9 @@ package frc.robot.subsystems.drive;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+/**
+ * Command to arcade drive the robot (left joystick --> straight, right joystick --> turn)
+ */
 public class ArcadeDrive extends CommandBase {
 
   private DriveBaseSubsystem driveBaseSubsystem;
@@ -13,7 +15,13 @@ public class ArcadeDrive extends CommandBase {
 
   // Limits *acceleration* not max speed; basically kD
   private final SlewRateLimiter speedLimiter = new SlewRateLimiter(100);
-
+  /**
+   * Constructs the ArcadeDrive class
+   * @param joystick
+   * @param driveBaseSubsystem
+   * @param kStraight
+   * @param kTurn
+   */
   public ArcadeDrive(
       XboxController joystick,
       DriveBaseSubsystem driveBaseSubsystem,
@@ -25,14 +33,18 @@ public class ArcadeDrive extends CommandBase {
     this.kTurn = kTurn;
     addRequirements(driveBaseSubsystem);
   }
-
+  /**
+   * Initializes the arcadedrive to reset all motors to default values
+   */
   @Override
   public void initialize() {
     driveBaseSubsystem.factoryResetAll();
     driveBaseSubsystem.setAllDefaultInversions();
     driveBaseSubsystem.coast();
   }
-
+  /**
+   * In the execute method, move the joystick to make the robot move. 
+   */
   @Override
   public void execute() {
     double joystickInputPower = joystick.getLeftY() * kStraight;

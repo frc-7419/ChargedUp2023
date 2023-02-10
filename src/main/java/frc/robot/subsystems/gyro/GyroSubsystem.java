@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems.gyro;
 
 import static frc.robot.Constants.CanIds.*;
@@ -12,7 +8,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class GyroSubsystem extends SubsystemBase {
   private Pigeon2 gyro;
-  /** Creates a new PigeonSubsystem. */
+
+  /** Instatiates the pigeon and resets its yaw to 0 degrees.*/
   public GyroSubsystem() {
     this.gyro = new Pigeon2(pigeon.id);
     gyro.setYaw(0);
@@ -20,20 +17,31 @@ public class GyroSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     SmartDashboard.putNumber("gyro yaw", getYaw());
     SmartDashboard.putNumber("gyro pitch", getPitch());
     SmartDashboard.putNumber("gyro roll", getRoll());
   }
 
+  /**
+   * Returns gyro yaw, in degrees
+   * @return The pigeon's measured yaw in degrees
+   */
   public double getYaw() {
     return gyro.getYaw();
   }
 
+  /**
+   * Returns gyro pitch, in degrees
+   * @return The pigeon's measured pitch in degrees
+   */
   public double getPitch() {
     return gyro.getPitch();
   }
 
+  /**
+   * Returns gyro roll, in degrees
+   * @return The pigeon's measured roll in degrees
+   */
   public double getRoll() {
     return gyro.getRoll();
   }
