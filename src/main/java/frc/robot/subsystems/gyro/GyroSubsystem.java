@@ -14,7 +14,9 @@ public class GyroSubsystem extends SubsystemBase {
     this.gyro = new Pigeon2(pigeon.id);
     gyro.setYaw(0);
   }
-
+  /**
+   * Outputs gyro measurements to SmartDashboard
+   */
   @Override
   public void periodic() {
     SmartDashboard.putNumber("gyro yaw", getYaw());
