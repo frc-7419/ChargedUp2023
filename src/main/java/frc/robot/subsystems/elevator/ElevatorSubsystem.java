@@ -20,8 +20,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private RelativeEncoder encoder;
 
   public ElevatorSubsystem() {
-    elevatorMaster = new CANSparkMax(CanIds.leftElevatorFalcon.id, MotorType.kBrushless);
-    elevatorSlave = new CANSparkMax(CanIds.rightElevatorFalcon.id, MotorType.kBrushless);
+    elevatorMaster = new CANSparkMax(CanIds.leftElevatorMotor.id, MotorType.kBrushless);
+    elevatorSlave = new CANSparkMax(CanIds.rightElevatorMotor.id, MotorType.kBrushless);
     encoder = elevatorMaster.getEncoder();
 
     elevatorMaster.setInverted(true);

@@ -38,8 +38,9 @@ public final class Constants {
     feederTalon(23),
     armSpark1(11),
     armSpark2(12),
-    rightElevatorFalcon(50),
-    leftElevatorFalcon(51),
+    rightElevatorMotor(12
+    ),
+    leftElevatorMotor(13),
     pigeon(0);
 
     public final int id;
