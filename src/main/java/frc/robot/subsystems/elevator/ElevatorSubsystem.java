@@ -19,6 +19,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   private CANSparkMax elevatorSlave;
   private RelativeEncoder encoder;
 
+  /**
+   * Constructs an elevator subsystem
+   */
   public ElevatorSubsystem() {
     elevatorMaster = new CANSparkMax(CanIds.leftElevatorMotor.id, MotorType.kBrushless);
     elevatorSlave = new CANSparkMax(CanIds.rightElevatorMotor.id, MotorType.kBrushless);
@@ -34,22 +37,40 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Elevator Motor Output", getMotorOutputPercent());
   }
 
+  /**
+   * Sets the power of the motor
+   * @param power input power between -1 and 1
+   */
   public void setPower(double power) {
     elevatorMaster.set(power);
   }
 
+  /**
+   * Set brake mode
+   */
   public void brake() {
     elevatorMaster.setIdleMode(IdleMode.kBrake);
   }
 
+  /**
+   * Set coast mode
+   */
   public void coast() {
     elevatorMaster.setIdleMode(IdleMode.kCoast);
   }
 
+  /**
+   * Get elevator position
+   * @return position in rotations
+   */
   public double getElevatorPosition() {
     return encoder.getPosition();
   }
 
+  /**
+   * Get elevator output
+   * @return output between -1.0 and 1.0
+   */
   public double getMotorOutputPercent() {
     return elevatorMaster.getAppliedOutput();
   }
