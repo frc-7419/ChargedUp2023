@@ -16,11 +16,6 @@ import frc.robot.subsystems.drive.GenerateTrajectory;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Use path planner to move the robot from its current position to the single substation. Do note that the constants used
- * in the waypoints are created in such a way that the robot must be past the charge station in order to avoid hitting it accidentally/**
-
- */
 public class MoveToSingleSubstation extends SequentialCommandGroup {
   private String teamColorWithPath = "";
 

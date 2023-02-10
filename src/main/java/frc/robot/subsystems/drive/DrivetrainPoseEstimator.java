@@ -85,7 +85,7 @@ public class DrivetrainPoseEstimator {
 
     m_poseEstimator =
         new DifferentialDrivePoseEstimator(
-            Constants.DriveConstants.kDriveKinematics,
+            Constants.RobotConstants.kDtKinematics,
             getRotation2d(),
             0, // Assume zero encoder counts at start
             0,
