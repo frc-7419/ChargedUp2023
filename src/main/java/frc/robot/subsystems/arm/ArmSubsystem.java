@@ -1,7 +1,9 @@
 package frc.robot.subsystems.arm;
 
-import static frc.robot.Constants.*;
-
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.RobotConstants;
+import frc.robot.Constants.CanIds;
+import frc.robot.Constants.SensorIds;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -36,13 +38,16 @@ public class ArmSubsystem extends SubsystemBase {
       CanIds.armMain2.id, 
       MotorType.kBrushless);
     
-    magneticLimitSwitch = new DigitalInput(0); // port for now
+    magneticLimitSwitch = new DigitalInput(SensorIds.limitswitch.id); // port for now
 
-    extendedGyro = new PigeonIMU(0);
+    extendedGyro = new PigeonIMU(CanIds.extendedPigeon.id);
     configureMotorControllers();
   }
 
-  /** Sets default inversions of left and right main motorcontrollers, and sets the conversion factor for motorcontroller encoder */
+  /** 
+   * Sets default inversions of left and right main motorcontrollers, 
+   * and sets the conversion factor for motorcontroller encoder.
+   * */
   public void configureMotorControllers() {
     mainArmMotor1.setInverted(false);
     mainArmMotor2.setInverted(true);
@@ -149,8 +154,16 @@ public class ArmSubsystem extends SubsystemBase {
     extendedArmMotor.setNeutralMode(NeutralMode.Brake);
   }
 
+  /**
+   * Homes extended arm when magneticLimitSwitch is not detected and extended arm is not homed.
+   * Puts arm positions, home position, if arm is homed to smart dashboard
+   * Puts yaw, pitch, and roll of extended arm to smart dashboard
+   */
   @Override
   public void periodic() {
+    // when magneticLimitSwitch.get() returns true, it's detected
+    // when magneticLimitSwitch is not detected and extended arm is not homed, 
+    // home the extended arm and set variable homed to 0.
     if (!magneticLimitSwitch.get() && !homed) {
       home();
       homed = true;
