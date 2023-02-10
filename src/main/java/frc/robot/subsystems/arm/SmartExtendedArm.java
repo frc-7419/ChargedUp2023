@@ -6,6 +6,9 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+/**
+ * Returns the main and extended arm to a setpoint
+ */
 public class SmartExtendedArm extends CommandBase {
 
   private PIDController extendedArmPIDController;
@@ -14,6 +17,11 @@ public class SmartExtendedArm extends CommandBase {
   private double setpoint;
   private double mainArmSetPoint;
 
+  /**
+   * Construct the class with the parameters. Also sets a new PID controller for the main arm and the extended arm. 
+   * @param armSubsystem
+   * @param setpoint
+   */
   public SmartExtendedArm(ArmSubsystem armSubsystem, double setpoint) {
 
     extendedArmPIDController =
@@ -31,6 +39,9 @@ public class SmartExtendedArm extends CommandBase {
     addRequirements(armSubsystem);
   }
 
+  /**
+   * Sets the setpoints in for the PID controller, as well as a tolerance for the PID controller
+   */
   @Override
   public void initialize() {
     this.mainArmSetPoint = armSubsystem.getMainPosition();
@@ -41,12 +52,18 @@ public class SmartExtendedArm extends CommandBase {
     armSubsystem.coastExtended();
     armSubsystem.coastMain();
   }
-
+  /**
+   * The method uses the setpoints that were set in the initialize method as well as the PID controllers 
+   * to calculate how much power will be needed to run the arms to the set positions
+   */
   @Override
   public void execute() {
-    armSubsystem.setMainPower(mainArmController.calculate(armSubsystem.getMainPosition()));
-
-    armSubsystem.setExtendedPower(extendedArmPIDController.calculate(armSubsystem.getExtendedAngle()));
+    double armMainPosition = armSubsystem.getMainPosition();
+    double calculatedMainArmPower = mainArmController.calculate(armMainPosition) 
+    armSubsystem.setMainPower(calculatedMainArmPower);
+    double extendedArmAngle = armSubsystem.getExtendedAngle();
+    double calculatedExtendedArmPower = extendedArmPIDController.calculate(extendedArmAngle) 
+    armSubsystem.setExtendedPower(calculatedExtendedArmPower);
 
     SmartDashboard.putNumber("Extended Arm Error", extendedArmPIDController.getPositionError());
   }

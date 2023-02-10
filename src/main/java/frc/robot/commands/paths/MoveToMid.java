@@ -15,6 +15,9 @@ import frc.robot.subsystems.drive.GenerateTrajectory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Use path planner to move the robot from its current position to the middle waypoint 
+ */
 public class MoveToMid extends SequentialCommandGroup {
 
   private String teamColor = "";

@@ -10,7 +10,7 @@ public class SmartHome extends CommandBase {
 
   private PIDController pidController;
   private ArmSubsystem armSubsystem;
-  private double homePos;
+  private double initialMainArmPosition;
 
   public SmartHome(ArmSubsystem armSubsystem) {
     pidController =
@@ -20,20 +20,26 @@ public class SmartHome extends CommandBase {
           PIDConstants.MainArmKd);
           
     this.armSubsystem = armSubsystem;
-    this.homePos = armSubsystem.getHomePosition();
     addRequirements(armSubsystem);
   }
 
   @Override
   public void initialize() {
-    pidController.setSetpoint(homePos);
+    initialMainArmPosition = armSubsystem.getHomePosition();
+    pidController.setSetpoint(initialMainArmPosition);
     pidController.setTolerance(0.15);
     armSubsystem.coastMain();
   }
 
+  
+  /**
+   * Uses PID controller to set the arm to the original position (when first initialized)
+   */
   @Override
   public void execute() {
-    armSubsystem.setMainPower(pidController.calculate(armSubsystem.getMainPosition()));
+    double mainArmPosition = armSubsystem.getMainPosition();
+    double calculatedArmPower = pidController.calculate(mainArmPosition);
+    armSubsystem.setMainPower(calculatedArmPower);
     SmartDashboard.putNumber("Arm Error", pidController.getPositionError());
   }
 
