@@ -7,7 +7,6 @@ package frc.robot.commands.paths;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPoint;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
@@ -23,15 +22,14 @@ public class MoveToSingleSubstation extends SequentialCommandGroup {
 
     // TODO add waypoints for single substation
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
-    
+
     // TODO uncomment when we test other alliances
-    
+
     if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
       waypoints.add(Constants.WaypointPositionConstants.kBlueSubstationFirstWayPoint);
       waypoints.add(Constants.WaypointPositionConstants.kBlueSubstationSecondWayPoint);
       teamColorWithPath = "BlueSingleSubstation";
-    }
-    else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+    } else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
       waypoints.add(Constants.WaypointPositionConstants.kRedSubstationFirstWayPoint);
       waypoints.add(Constants.WaypointPositionConstants.kRedSubstationSecondWayPoint);
       teamColorWithPath = "RedSingleSubstation";

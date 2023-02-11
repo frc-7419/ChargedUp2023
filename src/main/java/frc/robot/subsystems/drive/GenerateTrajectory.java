@@ -17,8 +17,10 @@ public class GenerateTrajectory extends RamseteCommand {
     super(
         trajectory,
         drivetrain::getCtrlsPoseEstimate,
-        new RamseteController(Constants.DriveConstants.kRamseteB, Constants.DriveConstants.kRamseteZeta),
-        new SimpleMotorFeedforward(Constants.DriveConstants.ks, Constants.DriveConstants.kv, Constants.DriveConstants.ka),
+        new RamseteController(
+            Constants.DriveConstants.kRamseteB, Constants.DriveConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(
+            Constants.DriveConstants.ks, Constants.DriveConstants.kv, Constants.DriveConstants.ka),
         Constants.DriveConstants.driveKinematics,
         drivetrain::getWheelSpeeds,
         new PIDController(Constants.DriveConstants.kPDriveVelocity, 0, 0),

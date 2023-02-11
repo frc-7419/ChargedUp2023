@@ -17,11 +17,11 @@ public class BeamBreakSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() { 
-  }
+  public void periodic() {}
 
   /**
    * Returns true if the beam break is open and false if the beam break is blocked.
+   *
    * @return True if the beam break is open(unobstructed) and false if the beam break is blocked
    */
   public boolean getBeamBreakActivated() {
@@ -30,7 +30,8 @@ public class BeamBreakSubsystem extends SubsystemBase {
 
   /**
    * Return DigitalInput beam break receiver sensor.
-   * @return DigitalInput beam break receiver sensor 
+   *
+   * @return DigitalInput beam break receiver sensor
    */
   public DigitalInput getBeamBreakReceiver() {
     return beamBreakReceiver;

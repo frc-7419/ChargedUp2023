@@ -10,6 +10,7 @@ public class MoveArmWithJoystick extends CommandBase {
   private XboxController joystick;
   /**
    * Constructs the class with the parameters.
+   *
    * @param armSubsystem
    * @param joystick
    */
@@ -18,17 +19,13 @@ public class MoveArmWithJoystick extends CommandBase {
     this.joystick = joystick;
     addRequirements(armSubsystem);
   }
-  /**
-   * Sets the main arm to default to coast
-   */
+  /** Sets the main arm to default to coast */
   @Override
   public void initialize() {
     armSubsystem.coastMain();
   }
 
-  /**
-   * The execute allows us to control the robot using a joystick
-   */
+  /** The execute allows us to control the robot using a joystick */
   @Override
   public void execute() {
     double mainPowerJoystick = ArmConstants.mainArmPowerCoefficient * joystick.getRightY();
