@@ -16,7 +16,7 @@ import frc.robot.Constants.CanIds;
 
 public class ElevatorSubsystem extends SubsystemBase {
   private CANSparkMax elevatorMaster;
-  private CANSparkMax elevatorSlave;
+  private CANSparkMax elevatorFollower;
   private RelativeEncoder encoder;
 
   /**
@@ -24,11 +24,11 @@ public class ElevatorSubsystem extends SubsystemBase {
    */
   public ElevatorSubsystem() {
     elevatorMaster = new CANSparkMax(CanIds.leftElevatorMotor.id, MotorType.kBrushless);
-    elevatorSlave = new CANSparkMax(CanIds.rightElevatorMotor.id, MotorType.kBrushless);
+    elevatorFollower = new CANSparkMax(CanIds.rightElevatorMotor.id, MotorType.kBrushless);
     encoder = elevatorMaster.getEncoder();
 
     elevatorMaster.setInverted(true);
-    elevatorSlave.follow(elevatorMaster, true);
+    elevatorFollower.follow(elevatorMaster, true);
   }
 
   @Override
