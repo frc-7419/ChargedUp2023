@@ -338,6 +338,11 @@ public final class Constants {
     public static final double BalanceAngleKi = 0;
     public static final double BalanceAngleKd = 0;
     public static final double BalanceAngleKTolerance = 2;
+    public static final double BalanceSpeedKp = 0.005;
+    public static final double BalanceSpeedKi = 0;
+    public static final double BalanceSpeedKd = 0;
+    public static final double BalanceSpeed = 100; //desired robot speed in ticks/100 ms
+    public static final double BalanceSpeedKTolerance = 5;
   }
 }
 ;
