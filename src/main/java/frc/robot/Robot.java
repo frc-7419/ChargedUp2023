@@ -7,26 +7,21 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.led.RainbowAnimation;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.UsbCamera;
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import com.pathplanner.lib.server.PathPlannerServer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends TimedRobot {
 
   private RobotContainer robotContainer;
+  private static Alliance allianceColor;
 
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
+    PathPlannerServer.startServer(5811);
   }
 
   @Override
@@ -35,25 +30,26 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {
-  }
+  public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {
-  }
+  public void disabledPeriodic() {}
 
   @Override
   public void autonomousInit() {
     robotContainer.getAutonomousCommand().schedule();
+    allianceColor = DriverStation.getAlliance();
+  }
+
+  public static Alliance getAllianceColor() {
+    return allianceColor;
   }
 
   @Override
-  public void autonomousPeriodic() {
-  }
+  public void autonomousPeriodic() {}
 
   @Override
   public void teleopInit() {
-    // robotContainer.getAutonomousCommand().cancel();
     robotContainer.setDefaultCommands();
   }
 
@@ -68,6 +64,5 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void testPeriodic() {
-  }
+  public void testPeriodic() {}
 }
