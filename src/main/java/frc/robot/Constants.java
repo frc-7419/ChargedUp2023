@@ -332,6 +332,12 @@ public final class Constants {
     public static final double ExtendedArmKi = 0.2;
     public static final double ExtendedArmKd = 0.2;
     public static final double ExtendedArmKTolerance = 0;
+
+    // smart balance
+    public static final double BalanceAngleKp = 0.005;
+    public static final double BalanceAngleKi = 0;
+    public static final double BalanceAngleKd = 0;
+    public static final double BalanceAngleKTolerance = 2;
   }
 }
 ;

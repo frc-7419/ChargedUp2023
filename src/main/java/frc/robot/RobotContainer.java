@@ -24,6 +24,7 @@ public class RobotContainer {
   private final XboxController operatorJoystick = new XboxController(1);
 
   // Subsystems
+  // TODO will use when testing beambreak
   private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
@@ -43,6 +44,8 @@ public class RobotContainer {
   // Autonomous
 
   // Path Planning Commands
+
+  // TODO will use when testing path planning
   private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
 
   public RobotContainer() {
