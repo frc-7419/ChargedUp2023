@@ -15,20 +15,20 @@ import frc.robot.Constants.CanIds;
 
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private CANSparkMax elevatorMain;
-  private CANSparkMax elevatorFollow;
+  private CANSparkMax elevatorMaster;
+  private CANSparkMax elevatorSlave;
   private RelativeEncoder encoder;
 
   /**
    * Constructs an elevator subsystem
    */
   public ElevatorSubsystem() {
-    elevatorMain = new CANSparkMax(CanIds.leftElevatorMotor.id, MotorType.kBrushless);
-    elevatorFollow = new CANSparkMax(CanIds.rightElevatorMotor.id, MotorType.kBrushless);
-    encoder = elevatorMain.getEncoder();
+    elevatorMaster = new CANSparkMax(CanIds.leftElevatorMotor.id, MotorType.kBrushless);
+    elevatorSlave = new CANSparkMax(CanIds.rightElevatorMotor.id, MotorType.kBrushless);
+    encoder = elevatorMaster.getEncoder();
 
-    elevatorMain.setInverted(true);
-    elevatorFollow.follow(elevatorMain, true);
+    elevatorMaster.setInverted(true);
+    elevatorSlave.follow(elevatorMaster, true);
   }
 
   @Override
@@ -42,21 +42,21 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @param power input power between -1 and 1
    */
   public void setPower(double power) {
-    elevatorMain.set(power);
+    elevatorMaster.set(power);
   }
 
   /**
    * Set brake mode
    */
   public void brake() {
-    elevatorMain.setIdleMode(IdleMode.kBrake);
+    elevatorMaster.setIdleMode(IdleMode.kBrake);
   }
 
   /**
    * Set coast mode
    */
   public void coast() {
-    elevatorMain.setIdleMode(IdleMode.kCoast);
+    elevatorMaster.setIdleMode(IdleMode.kCoast);
   }
 
   /**
@@ -72,6 +72,6 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @return output between -1.0 and 1.0
    */
   public double getMotorOutputPercent() {
-    return elevatorMain.getAppliedOutput();
+    return elevatorMaster.getAppliedOutput();
   }
 }
