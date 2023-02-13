@@ -16,6 +16,7 @@ import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.SmartBalance;
+import frc.robot.subsystems.gyro.SmartBalanceNew;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -31,8 +32,8 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
 
   // Commands
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.6, 0.6);
-  private final SmartBalance smartBalance = new SmartBalance(gyroSubsystem, driveBaseSubsystem);
+  private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.2, 0.6);
+  private final SmartBalanceNew smartBalanceNew = new SmartBalanceNew(driveBaseSubsystem,gyroSubsystem);
   private final SmartArm smartArm1 =
       new SmartArm(armSubsystem, Constants.ArmConstants.mainArmSetpoint1);
   private final SmartArm smartArm2 =
@@ -46,7 +47,7 @@ public class RobotContainer {
   // Path Planning Commands
 
   // TODO will use when testing path planning
-  private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
+  // private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -55,7 +56,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(driverJoystick, Button.kX.value).whileTrue(smartBalance);
+    new JoystickButton(driverJoystick, Button.kX.value).whileTrue(smartBalanceNew);
     new JoystickButton(driverJoystick, Button.kA.value).whileTrue(smartArm1);
     new JoystickButton(driverJoystick, Button.kB.value).whileTrue(smartArm2);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartHome);

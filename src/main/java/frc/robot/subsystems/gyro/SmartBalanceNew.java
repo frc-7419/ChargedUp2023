@@ -15,7 +15,8 @@ public class SmartBalanceNew extends CommandBase {
   /** Creates a new SmartBalanceNew. */
   private DriveBaseSubsystem driveBaseSubsystem;
   private GyroSubsystem gyroSubsystem;
-  private PIDController angleController;
+  private PIDController yawAngleController;
+  private PIDController pitchAngleController;
   private PIDController speedController;
 
   public SmartBalanceNew(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem) {
@@ -29,7 +30,11 @@ public class SmartBalanceNew extends CommandBase {
    */
   @Override
   public void initialize() {
-    angleController = new PIDController(
+    yawAngleController = new PIDController(
+      PIDConstants.BalanceAngleKp, 
+      PIDConstants.BalanceAngleKi, 
+      PIDConstants.BalanceAngleKd);
+    pitchAngleController = new PIDController(
       PIDConstants.BalanceAngleKp, 
       PIDConstants.BalanceAngleKi, 
       PIDConstants.BalanceAngleKd);
@@ -37,9 +42,11 @@ public class SmartBalanceNew extends CommandBase {
       PIDConstants.BalanceSpeedKp, 
       PIDConstants.BalanceSpeedKi, 
       PIDConstants.BalanceSpeedKd);
-    angleController.setSetpoint(0);
+    yawAngleController.setSetpoint(0);
+    pitchAngleController.setSetpoint(0);
     speedController.setSetpoint(PIDConstants.BalanceSpeed);
-    angleController.setTolerance(PIDConstants.BalanceAngleKTolerance);
+    yawAngleController.setTolerance(PIDConstants.BalanceAngleKTolerance);
+    pitchAngleController.setTolerance(PIDConstants.BalanceAngleKTolerance);
     speedController.setTolerance(PIDConstants.BalanceSpeedKTolerance);
   }
 
@@ -49,16 +56,22 @@ public class SmartBalanceNew extends CommandBase {
    */
   @Override
   public void execute() {
-    double pitch = gyroSubsystem.getPitch();
-    double calculatedDirection = angleController.calculate(pitch);
+    double pitch = gyroSubsystem.getRoll();
+    double calculatedDirection = pitchAngleController.calculate(pitch);
 
-    double speed = driveBaseSubsystem.getLeftVelocity();
-    double calculatedSpeed = angleController.calculate(speed);
+    double yaw = gyroSubsystem.getYaw();
+    double calculatedYaw = yawAngleController.calculate(yaw);
+
+    double speed = driveBaseSubsystem.getLeftVelocityInMeters();
+    double calculatedSpeed = speedController.calculate(speed);
 
     double calculatedOutput = Math.copySign(calculatedSpeed, calculatedDirection);
-    
+  
     // Setting the power
-    driveBaseSubsystem.setAllPower(calculatedOutput);
+    double leftPower = -calculatedOutput-Math.copySign(PIDConstants.BalanceSpeedkF, calculatedDirection);
+    double rightPower = -calculatedOutput-Math.copySign(PIDConstants.BalanceSpeedkF, calculatedDirection);
+    driveBaseSubsystem.setLeftPower(leftPower);
+    driveBaseSubsystem.setRightPower(rightPower);
   }
 
   // Called once the command ends or is interrupted.
@@ -71,6 +84,6 @@ public class SmartBalanceNew extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return angleController.atSetpoint();
+    return pitchAngleController.atSetpoint();
   }
 }
