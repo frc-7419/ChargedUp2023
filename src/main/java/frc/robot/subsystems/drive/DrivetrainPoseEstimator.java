@@ -63,15 +63,15 @@ public class DrivetrainPoseEstimator {
     cam = new PhotonCamera("terima");
 
     /*
-    ________                    __        __       __           
-    |        \                  |  \      |  \     /  \          
-    \$$$$$$$$______    ______   \$$      | $$\   /  $$  ______  
-      | $$  /      \  /      \ |  \      | $$$\ /  $$$ |      \ 
+    ________                    __        __       __
+    |        \                  |  \      |  \     /  \
+    \$$$$$$$$______    ______   \$$      | $$\   /  $$  ______
+      | $$  /      \  /      \ |  \      | $$$\ /  $$$ |      \
       | $$ |  $$$$$$\|  $$$$$$\| $$      | $$$$\  $$$$  \$$$$$$\
       | $$ | $$    $$| $$   \$$| $$      | $$\$$ $$ $$ /      $$
       | $$ | $$$$$$$$| $$      | $$      | $$ \$$$| $$|  $$$$$$$
       | $$  \$$     \| $$      | $$      | $$  \$ | $$ \$$    $$
-        \$$   \$$$$$$$ \$$       \$$       \$$      \$$  \$$$$$$$                                                   
+        \$$   \$$$$$$$ \$$       \$$       \$$      \$$  \$$$$$$$
      */
 
     poses.put(1, Constants.AprilTagPositionConstants.kAprilTagOnePose);
@@ -118,7 +118,8 @@ public class DrivetrainPoseEstimator {
         // is on the field physically and
         // gets the camera pose
         m_poseEstimator.addVisionMeasurement(
-            camPose.transformBy(Constants.RobotConstants.kCameraToRobot).toPose2d(), resultTimeStamp);
+            camPose.transformBy(Constants.RobotConstants.kCameraToRobot).toPose2d(),
+            resultTimeStamp);
 
         // outputting everthing to smartdashboard for viewing
         SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEstimation().getX());
@@ -130,6 +131,7 @@ public class DrivetrainPoseEstimator {
   }
   /**
    * Gets the current rotation of the robot, using the gyroscope.
+   *
    * @return Rotation of the robot, as a {@link Rotation2d} object
    */
   public Rotation2d getRotation2d() {
@@ -137,7 +139,9 @@ public class DrivetrainPoseEstimator {
   }
   /**
    * Gets the distance and angle (yaw) to the nearest AprilTag.
-   * @return Distance to nearest AprilTag target in index 0, yaw to nearest AprilTag target in index 1
+   *
+   * @return Distance to nearest AprilTag target in index 0, yaw to nearest AprilTag target in index
+   *     1
    */
   public double[] getVisionInformation() {
     PhotonPipelineResult result = cam.getLatestResult();
@@ -153,7 +157,6 @@ public class DrivetrainPoseEstimator {
     }
     return info;
   }
-
 
   /**
    * Force the pose estimator to a particular pose. This is useful for indicating to the software

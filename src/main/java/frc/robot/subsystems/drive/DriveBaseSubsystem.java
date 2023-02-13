@@ -26,7 +26,6 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   private Field2d field = new Field2d();
   DifferentialDriveKinematics kinematics =
-     
       new DifferentialDriveKinematics(Constants.RobotConstants.kTrackWidth);
 
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
@@ -74,17 +73,21 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public TalonFX getLeftMast() {
     return leftLeader;
   }
+
   public TalonFX getRightMast() {
     return rightLeader;
   }
+
   public TalonFX getLeftFollow() {
     return leftFollower;
   }
+
   public TalonFX getRightFollow() {
     return rightFollower;
   }
   /**
    * Provides a specific voltage to the left side of the drivetrain.
+   *
    * @param voltage voltage to set
    */
   public void setLeftVoltage(double voltage) {
@@ -93,6 +96,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Provides a specific voltage to the right side of the drivetrain.
+   *
    * @param voltage voltage to set
    */
   public void setRightVoltage(double voltage) {
@@ -101,6 +105,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Provides a specific voltage to the drivetrain.
+   *
    * @param voltage voltage to set
    */
   public void setAllVoltage(double voltage) {
@@ -109,6 +114,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Sets the power of the left side of the drivetrain.
+   *
    * @param power Power (-1 to 1) to set
    */
   public void setLeftPower(double power) {
@@ -117,6 +123,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Sets the power of the right side of the drivetrain.
+   *
    * @param power Power (-1 to 1) to set
    */
   public void setRightPower(double power) {
@@ -125,20 +132,20 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Sets the power of the drivetrain.
+   *
    * @param power Power (-1 to 1) to set
    */
   public void setAllPower(double power) {
     setLeftPower(power);
     setRightPower(power);
   }
-  /**
-   * Stops the drivetrain (sets all motors to 0 power)
-   */
+  /** Stops the drivetrain (sets all motors to 0 power) */
   public void stop() {
     setAllPower(0);
   }
   /**
    * Sets the Neutral Mode (used when the motor is not running) of the drivetrain.
+   *
    * @param mode Neutral Mode (Coast or Brake) to set
    */
   public void setAllMode(NeutralMode mode) {
@@ -157,6 +164,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Gets the velocity of the left side of the drivetrain
+   *
    * @return Velocity, in raw sensor units
    */
   public double getLeftVelocity() {
@@ -164,13 +172,16 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Gets the wheels speeds of both sides of the drivetrain
-   * @return The speed of the wheels on the left and right side of the drivetrain, as a {@link DifferentialDriveWheelSpeeds} object
+   *
+   * @return The speed of the wheels on the left and right side of the drivetrain, as a {@link
+   *     DifferentialDriveWheelSpeeds} object
    */
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(getLeftVelocityInMeters(), getRightVelocityInMeters());
   }
   /**
    * Gets the velocity of the right side of the drivetrain
+   *
    * @return Velocity, in raw sensor units
    */
   public double getRightVelocity() {
@@ -178,36 +189,32 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Gets the velocity of the left side of the drivetrain
+   *
    * @return Velocity, in meters per second
    */
   public double getLeftVelocityInMeters() {
     return getLeftVelocity()
-       
         * Constants.RobotConstants.kWheelCircumference
         / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
   /**
    * Gets the velocity of the right side of the drivetrain
+   *
    * @return Velocity, in meters per second
    */
   public double getRightVelocityInMeters() {
     return getRightVelocity()
-       
         * Constants.RobotConstants.kWheelCircumference
         / Constants.RobotConstants.TalonFXTicksPerRotation;
   }
-  /**
-   * Set all the drivetrain motors to the correct inversions
-   */
+  /** Set all the drivetrain motors to the correct inversions */
   public void setAllDefaultInversions() {
     rightLeader.setInverted(true);
     rightFollower.setInverted(true);
     leftLeader.setInverted(false);
     leftFollower.setInverted(false);
   }
-  /**
-   * Set all the drivetrain motors to factory default
-   */
+  /** Set all the drivetrain motors to factory default */
   public void factoryResetAll() {
     rightLeader.configFactoryDefault();
     rightFollower.configFactoryDefault();
@@ -216,6 +223,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Arcade drives the robot using the given linear and rotational speeds.
+   *
    * @param xSpeed Linear speed to drive at
    * @param rot Rotational speed to drive at
    */
@@ -261,6 +269,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Gets the distance to the nearest AprilTag target
+   *
    * @return Distance to the nearest AprilTag, in meters
    */
   public double getDist() {
@@ -268,14 +277,13 @@ public class DriveBaseSubsystem extends SubsystemBase {
   }
   /**
    * Gets the yaw angle to the nearest AprilTag target
+   *
    * @return Yaw to the nearest AprilTag, in degrees
    */
   public double getAngle() {
     return poseEstimation.getVisionInformation()[1];
   }
-  /**
-   * Tne periodic function is used for odometry 
-   */
+  /** Tne periodic function is used for odometry */
   @Override
   public void periodic() {
     currentTimeStamp = Timer.getFPGATimestamp();
@@ -297,6 +305,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   /**
    * Tank drives the robot using the provided left and right voltages
+   *
    * @param leftVolts Voltage to supply to the left side of the drivetrain
    * @param rightVolts Voltage to supply to the right side of the drivetrain
    */

@@ -18,24 +18,24 @@ import java.util.List;
 public class MoveToMid extends SequentialCommandGroup {
 
   private String teamColor = "";
+
   public MoveToMid(DriveBaseSubsystem driveBaseSubsystem) {
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
 
     // TODO need to get waypoints for this
-    
+
     if (Constants.RobotConstants.currentAlliance == DriverStation.Alliance.Blue) {
       waypoints.add(Constants.WaypointPositionConstants.kBlueMidFirstWayPoint);
       waypoints.add(Constants.WaypointPositionConstants.kBlueMidSecondWayPoint);
       waypoints.add(Constants.WaypointPositionConstants.kBlueMidThirdWayPoint);
       teamColor = "BlueMid";
-    }
-    else if (Constants.RobotConstants.currentAlliance == DriverStation.Alliance.Red) {
+    } else if (Constants.RobotConstants.currentAlliance == DriverStation.Alliance.Red) {
       waypoints.add(Constants.WaypointPositionConstants.kRedMidFirstWayPoint);
       waypoints.add(Constants.WaypointPositionConstants.kRedMidSecondWayPoint);
       waypoints.add(Constants.WaypointPositionConstants.kRedMidThirdWayPoint);
       teamColor = "RedMid";
     }
-    
+
     addCommands(
         new GenerateTrajectory(
             driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
