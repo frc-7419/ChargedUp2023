@@ -312,8 +312,7 @@ public final class Constants {
 
   public static final SimVisionTarget kFarTarget =
       new SimVisionTarget(kFarTargetPose, targetWidth, targetHeight, 42);
-  public static final DifferentialDriveKinematics kDtKinematics =
-      new DifferentialDriveKinematics(kTrackWidth);
+  
   }
 
   public static class VisionConstants {
@@ -350,6 +349,8 @@ public final class Constants {
     public static final double kPDriveVelocity = 0.37841;
     public static final double maxVelocity = Units.feetToMeters(20);
     public static final double maxAcceleration = Units.feetToMeters(3);
+    public static final DifferentialDriveKinematics kDriveKinematics =
+      new DifferentialDriveKinematics(trackWidth);
   }
   public static class PIDConstants {
     // drive
