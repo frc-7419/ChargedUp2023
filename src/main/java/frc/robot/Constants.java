@@ -336,7 +336,7 @@ public final class Constants {
   }
 
   public static class DriveConstants {
-    public static final double driveTrainGearRatio = (50 / 14) * (48 / 16);
+    public static final double driveTrainGearRatio = (double) (50.0 / 14) * (48.0 / 16);
     public static final double wheelDiameter = Units.inchesToMeters(6);
     public static final double wheelCircumference = Math.PI * wheelDiameter;
     public static final double unitsPerMeter = ((2048 * driveTrainGearRatio) / wheelCircumference);
