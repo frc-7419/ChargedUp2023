@@ -295,6 +295,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Odo X Pos", getCtrlsPoseEstimate().getX());
     SmartDashboard.putNumber("Odo Y Pos", getCtrlsPoseEstimate().getY());
     SmartDashboard.putNumber("Odo Theta", getCtrlsPoseEstimate().getRotation().getDegrees());
+    SmartDashboard.putNumber("left velocity", getLeftVelocityInMeters());
 
     field.setRobotPose(getCtrlsPoseEstimate());
     SmartDashboard.putNumber("Dist to Target", getDist());

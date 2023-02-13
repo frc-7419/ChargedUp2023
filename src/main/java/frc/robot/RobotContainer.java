@@ -5,14 +5,16 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.paths.MoveToMid;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.MoveArmWithJoystick;
 import frc.robot.subsystems.arm.SmartArm;
 import frc.robot.subsystems.arm.SmartExtendedArm;
 import frc.robot.subsystems.arm.SmartHome;
+import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
+import frc.robot.subsystems.gyro.GyroSubsystem;
+import frc.robot.subsystems.gyro.SmartBalanceNew;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -21,12 +23,17 @@ public class RobotContainer {
   private final XboxController operatorJoystick = new XboxController(1);
 
   // Subsystems
+  // TODO will use when testing beambreak
+  private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
+  private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
 
   // Commands
   private final ArcadeDrive arcadeDrive =
-      new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.6, 0.6);
+      new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.2, 0.6);
+  private final SmartBalanceNew smartBalanceNew =
+      new SmartBalanceNew(driveBaseSubsystem, gyroSubsystem);
   private final SmartArm smartArm1 =
       new SmartArm(armSubsystem, Constants.ArmConstants.mainArmSetpoint1);
   private final SmartArm smartArm2 =
@@ -38,7 +45,9 @@ public class RobotContainer {
   // Autonomous
 
   // Path Planning Commands
-  private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
+
+  // TODO will use when testing path planning
+  // private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -47,6 +56,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    new JoystickButton(driverJoystick, Button.kX.value).whileTrue(smartBalanceNew);
     new JoystickButton(driverJoystick, Button.kA.value).whileTrue(smartArm1);
     new JoystickButton(driverJoystick, Button.kB.value).whileTrue(smartArm2);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartHome);
