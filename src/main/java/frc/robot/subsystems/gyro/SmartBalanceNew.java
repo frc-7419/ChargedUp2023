@@ -4,16 +4,15 @@
 
 package frc.robot.subsystems.gyro;
 
-import frc.robot.Constants.PIDConstants;
-
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.PIDConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 
 public class SmartBalanceNew extends CommandBase {
   /** Creates a new SmartBalanceNew. */
   private DriveBaseSubsystem driveBaseSubsystem;
+
   private GyroSubsystem gyroSubsystem;
   private PIDController yawAngleController;
   private PIDController pitchAngleController;
@@ -25,23 +24,18 @@ public class SmartBalanceNew extends CommandBase {
     addRequirements(driveBaseSubsystem, gyroSubsystem);
   }
 
-  /**
-   * Initialize the angle and speed PID controllers
-   */
+  /** Initialize the angle and speed PID controllers */
   @Override
   public void initialize() {
-    yawAngleController = new PIDController(
-      PIDConstants.BalanceAngleKp, 
-      PIDConstants.BalanceAngleKi, 
-      PIDConstants.BalanceAngleKd);
-    pitchAngleController = new PIDController(
-      PIDConstants.BalanceAngleKp, 
-      PIDConstants.BalanceAngleKi, 
-      PIDConstants.BalanceAngleKd);
-    speedController = new PIDController(
-      PIDConstants.BalanceSpeedKp, 
-      PIDConstants.BalanceSpeedKi, 
-      PIDConstants.BalanceSpeedKd);
+    yawAngleController =
+        new PIDController(
+            PIDConstants.BalanceAngleKp, PIDConstants.BalanceAngleKi, PIDConstants.BalanceAngleKd);
+    pitchAngleController =
+        new PIDController(
+            PIDConstants.BalanceAngleKp, PIDConstants.BalanceAngleKi, PIDConstants.BalanceAngleKd);
+    speedController =
+        new PIDController(
+            PIDConstants.BalanceSpeedKp, PIDConstants.BalanceSpeedKi, PIDConstants.BalanceSpeedKd);
     yawAngleController.setSetpoint(0);
     pitchAngleController.setSetpoint(0);
     speedController.setSetpoint(PIDConstants.BalanceSpeed);
@@ -51,8 +45,8 @@ public class SmartBalanceNew extends CommandBase {
   }
 
   /**
-   * Calculate the PID output based on the encoder velocity reading and the gyroscope pitch measurements.
-   * Set the drivetrain power based on PID output
+   * Calculate the PID output based on the encoder velocity reading and the gyroscope pitch
+   * measurements. Set the drivetrain power based on PID output
    */
   @Override
   public void execute() {
@@ -60,16 +54,20 @@ public class SmartBalanceNew extends CommandBase {
     double calculatedDirection = pitchAngleController.calculate(pitch);
 
     double yaw = gyroSubsystem.getYaw();
+    // TODO: will use during testing
     double calculatedYaw = yawAngleController.calculate(yaw);
 
     double speed = driveBaseSubsystem.getLeftVelocityInMeters();
-    double calculatedSpeed = speedController.calculate(speed);
+    double calculatedPower = speedController.calculate(speed);
 
-    double calculatedOutput = Math.copySign(calculatedSpeed, calculatedDirection);
-  
+    double calculatedOutput = Math.copySign(calculatedPower, calculatedDirection);
+
     // Setting the power
-    double leftPower = -calculatedOutput-Math.copySign(PIDConstants.BalanceSpeedkF, calculatedDirection);
-    double rightPower = -calculatedOutput-Math.copySign(PIDConstants.BalanceSpeedkF, calculatedDirection);
+    double leftPower =
+        -calculatedOutput - Math.copySign(PIDConstants.BalanceSpeedkF, calculatedDirection);
+    double rightPower =
+        -calculatedOutput - Math.copySign(PIDConstants.BalanceSpeedkF, calculatedDirection);
+
     driveBaseSubsystem.setLeftPower(leftPower);
     driveBaseSubsystem.setRightPower(rightPower);
   }

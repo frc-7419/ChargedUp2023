@@ -341,7 +341,7 @@ public final class Constants {
     public static final double BalanceSpeedKp = 0.1;
     public static final double BalanceSpeedKi = 0.0001;
     public static final double BalanceSpeedKd = 0;
-    public static final double BalanceSpeed = 0.35; //desired robot speed in meter/s
+    public static final double BalanceSpeed = 0.35; // desired robot speed in meter/s
     public static final double BalanceSpeedKTolerance = 0.005;
     public static final double BalanceSpeedkF = 0;
   }

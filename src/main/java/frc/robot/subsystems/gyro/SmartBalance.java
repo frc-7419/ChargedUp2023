@@ -4,10 +4,11 @@
 
 package frc.robot.subsystems.gyro;
 
+import static frc.robot.Constants.PIDConstants;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import static frc.robot.Constants.PIDConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,7 +18,8 @@ public class SmartBalance extends PIDCommand {
   public SmartBalance(GyroSubsystem gyroSubsystem, DriveBaseSubsystem driveBaseSubsystem) {
     super(
         // The controller that the command will use
-        new PIDController(PIDConstants.BalanceAngleKp, PIDConstants.BalanceAngleKi, PIDConstants.BalanceAngleKd),
+        new PIDController(
+            PIDConstants.BalanceAngleKp, PIDConstants.BalanceAngleKi, PIDConstants.BalanceAngleKd),
 
         // This should return the measurement
         gyroSubsystem::getPitch,
@@ -33,7 +35,7 @@ public class SmartBalance extends PIDCommand {
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gyroSubsystem, driveBaseSubsystem);
-    
+
     // Configure additional PID options by calling `getController` here.
     getController().setTolerance(PIDConstants.BalanceAngleKTolerance);
     getController().enableContinuousInput(-180, 180);
