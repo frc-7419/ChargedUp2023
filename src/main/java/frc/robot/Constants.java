@@ -27,7 +27,7 @@ import org.photonvision.SimVisionTarget;
 public final class Constants {
 
   public static enum CanIds {
-    // 2020 drive train ids
+    // Drivetrain CAN IDs
     leftFalcon1(5),
     rightFalcon1(2),
     leftFalcon2(4),
@@ -38,6 +38,9 @@ public final class Constants {
     armMain2(14),
     armExtended(51),
 
+    // Elevator CAN IDs
+    rightElevatorMotor(12),
+    leftElevatorMotor(13),
     // Gyro CAN IDs
     pigeon(0),
     extendedPigeon(51),
