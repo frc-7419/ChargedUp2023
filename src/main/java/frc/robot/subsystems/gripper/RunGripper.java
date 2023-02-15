@@ -7,16 +7,15 @@ package frc.robot.subsystems.gripper;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.WristConstants.GripperState;
 
-
 public class RunGripper extends CommandBase {
-  
+
   /** Creates a new RunGripper. */
   private GripperState mode;
+
   private GripperSubsystem gripperSubsystem;
   private double power;
 
   /**
-   * 
    * @param gripperSubsystem for controlling the power of the gripper.
    * @param mode to determine what mode the gripper should be in (intake or scoring).
    * @param power the power set to the gripper.
@@ -36,10 +35,9 @@ public class RunGripper extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(mode == GripperState.INTAKE) {
+    if (mode == GripperState.INTAKE) {
       gripperSubsystem.setPower(power);
-    }
-    else if(mode == GripperState.SCORE) {
+    } else if (mode == GripperState.SCORE) {
       gripperSubsystem.setPower(-power);
     }
   }

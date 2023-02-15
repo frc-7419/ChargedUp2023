@@ -18,10 +18,15 @@ public class SmartExtendedArm extends CommandBase {
 
     extendedArmPIDController =
         new PIDController(
-            PIDConstants.ExtendedArmKp, PIDConstants.ExtendedArmKi, PIDConstants.ExtendedArmKd);
+            PIDConstants.ExtendedArmKp, 
+            PIDConstants.ExtendedArmKi, 
+            PIDConstants.ExtendedArmKd);
 
     mainArmController =
-        new PIDController(PIDConstants.MainArmKp, PIDConstants.MainArmKi, PIDConstants.MainArmKd);
+        new PIDController(
+        PIDConstants.MainArmKp, 
+        PIDConstants.MainArmKi, 
+        PIDConstants.MainArmKd);
 
     this.armSubsystem = armSubsystem;
     this.setpoint = setpoint;
@@ -41,7 +46,8 @@ public class SmartExtendedArm extends CommandBase {
 
   @Override
   public void execute() {
-    armSubsystem.setMainPower(mainArmController.calculate(armSubsystem.getMainPosition()));
+    armSubsystem.setMainPower(
+      mainArmController.calculate(armSubsystem.getMainPosition()));
 
     armSubsystem.setExtendedPower(
         extendedArmPIDController.calculate(armSubsystem.getExtendedAngle()));

@@ -18,27 +18,40 @@ import frc.robot.subsystems.gripper.RunGripper;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScorePiece extends SequentialCommandGroup {
   /** Creates a new ScorePiece. */
-  public ScorePiece(ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem, GripperSubsystem gripperSubsystem) {
+
+  /**
+   * This command will score a game piece.
+   *
+   * @param elevatorSubsystem for controlling position of the elevator.
+   * @param armSubsystem for controlling position of the arms.
+   * @param gripperSubsystem for controlling orientation of the gripper.
+   */
+
+  public ScorePiece(
+      ElevatorSubsystem elevatorSubsystem,
+      ArmSubsystem armSubsystem,
+      GripperSubsystem gripperSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-       // once we implement set points for elevator, this will reset the position of the elevator to its lowest point
-      // new SetElevatorPosition(elevatorSubsystem, ElevatorConstants.scoreSetpoint),
+        // once we implement set points for elevator, this will reset the position of the elevator
+        // to its lowest point
+        // new SetElevatorPosition(elevatorSubsystem, ElevatorConstants.scoreSetpoint),
 
-      new SmartArm(armSubsystem, ArmConstants.scoreSetpoint),
+        new SmartArm(armSubsystem, ArmConstants.scoreSetpoint),
 
-      // setting position of wrist for intaking orientation
-      // new SetWristPosition(wristSubsystem, WristConstants.scoreSetpoint)
+        // setting position of wrist for intaking orientation
+        // new SetWristPosition(wristSubsystem, WristConstants.scoreSetpoint)
 
-      // running gripper
-      new RunGripper(gripperSubsystem, GripperState.SCORE, 1),
+        // running gripper
+        new RunGripper(gripperSubsystem, GripperState.SCORE, 1),
 
-      // bringing arms back
-      new SmartArm(armSubsystem, ArmConstants.resetSetpoint)
+        // bringing arms back
+        new SmartArm(armSubsystem, ArmConstants.resetSetpoint)
 
-      // resetting position of wrist for intaking orientation
-      // new SetWristPosition(wristSubsystem, WristConstants.resetSetpoint)
+        // resetting position of wrist for intaking orientation
+        // new SetWristPosition(wristSubsystem, WristConstants.resetSetpoint)
 
-    );
+        );
   }
 }

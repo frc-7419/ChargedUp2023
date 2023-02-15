@@ -305,11 +305,13 @@ public final class Constants {
     public static final double scoreSetpoint = 0;
     public static final double resetSetpoint = 0;
   }
+
   public static class ElevatorConstants {
 
     // setpoints for scoring (arbitrary values until we get elevator to tune)
     public static final double scoreSetpoint = 0;
   }
+
   public static class WristConstants {
 
     // setpoints for intaking and scoring (arbitrary values until we get gripper to tune)
@@ -317,11 +319,10 @@ public final class Constants {
     public static final double scoreSetpoint = 0;
     public static final double resetSetpoint = 0;
 
-
     // for controlling the state of the gripper
     public static enum GripperState {
-        INTAKE,
-        SCORE
+      INTAKE,
+      SCORE
     }
   }
 

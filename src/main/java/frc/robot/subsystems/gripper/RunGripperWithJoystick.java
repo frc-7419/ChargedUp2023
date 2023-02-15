@@ -27,7 +27,7 @@ public class RunGripperWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(joystick.getXButton()){
+    if (joystick.getXButton()) {
       gripperSubsystem.setPower(0.5);
     } else {
       gripperSubsystem.setPower(0);

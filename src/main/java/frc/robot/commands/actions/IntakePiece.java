@@ -20,33 +20,38 @@ public class IntakePiece extends SequentialCommandGroup {
   /** Creates a new IntakePiece. */
 
   /**
-   * This command will intake a game piece
+   * This command will intake a game piece.
+   *
    * @param elevatorSubsystem for controlling position of the elevator.
    * @param armSubsystem for controlling position of the arms.
    * @param gripperSubsystem for controlling orientation of the gripper.
    */
-  public IntakePiece(ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem, GripperSubsystem gripperSubsystem) {
+  public IntakePiece(
+      ElevatorSubsystem elevatorSubsystem,
+      ArmSubsystem armSubsystem,
+      GripperSubsystem gripperSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
 
-      // once we implement set points for elevator, this will reset the position of the elevator to its lowest point
-      // new SetElevatorPosition(elevatorSubsystem, elevatorSubsystem.getHomePosition()),
+        // once we implement set points for elevator, this will reset the position of the elevator
+        // to its lowest point
+        // new SetElevatorPosition(elevatorSubsystem, elevatorSubsystem.getHomePosition()),
 
-      new SmartArm(armSubsystem, ArmConstants.intakeSetpoint),
+        new SmartArm(armSubsystem, ArmConstants.intakeSetpoint),
 
-      // setting position of wrist for intaking orientation
-      // new SetWristPosition(wristSubsystem, WristConstants.intakeSetpoint)
+        // setting position of wrist for intaking orientation
+        // new SetWristPosition(wristSubsystem, WristConstants.intakeSetpoint)
 
-      // running gripper
-      new RunGripper(gripperSubsystem, GripperState.INTAKE, 1),
+        // running gripper
+        new RunGripper(gripperSubsystem, GripperState.INTAKE, 1),
 
-      // bringing arms back
-      new SmartArm(armSubsystem, ArmConstants.resetSetpoint)
+        // bringing arms back
+        new SmartArm(armSubsystem, ArmConstants.resetSetpoint)
 
-      // resetting position of wrist for intaking orientation
-      // new SetWristPosition(wristSubsystem, WristConstants.resetSetpoint)
+        // resetting position of wrist for intaking orientation
+        // new SetWristPosition(wristSubsystem, WristConstants.resetSetpoint)
 
-    );
+        );
   }
 }

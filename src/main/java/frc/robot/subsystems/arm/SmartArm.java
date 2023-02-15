@@ -38,9 +38,11 @@ public class SmartArm extends CommandBase {
    */
   @Override
   public void execute() {
+    
     double mainArmPosition = armSubsystem.getMainPosition();
     double calculatedMainArmPower = pidController.calculate(mainArmPosition);
     armSubsystem.setMainPower(calculatedMainArmPower);
+
     SmartDashboard.putNumber("Arm Error", pidController.getPositionError());
   }
 
