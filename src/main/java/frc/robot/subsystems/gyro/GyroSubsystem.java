@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class GyroSubsystem extends SubsystemBase {
   private Pigeon2 gyro;
 
-  /** Instatiates the pigeon and resets its yaw to 0 degrees.*/
+  /** Instatiates the pigeon and resets its yaw to 0 degrees. */
   public GyroSubsystem() {
     this.gyro = new Pigeon2(pigeon.id);
     gyro.setYaw(0);
@@ -24,6 +24,7 @@ public class GyroSubsystem extends SubsystemBase {
 
   /**
    * Returns gyro yaw, in degrees
+   *
    * @return The pigeon's measured yaw in degrees
    */
   public double getYaw() {
@@ -32,6 +33,7 @@ public class GyroSubsystem extends SubsystemBase {
 
   /**
    * Returns gyro pitch, in degrees
+   *
    * @return The pigeon's measured pitch in degrees
    */
   public double getPitch() {
@@ -40,6 +42,7 @@ public class GyroSubsystem extends SubsystemBase {
 
   /**
    * Returns gyro roll, in degrees
+   *
    * @return The pigeon's measured roll in degrees
    */
   public double getRoll() {

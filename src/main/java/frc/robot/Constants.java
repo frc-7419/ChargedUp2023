@@ -5,19 +5,15 @@
 package frc.robot;
 
 import com.pathplanner.lib.PathPoint;
-import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-
 import org.photonvision.SimVisionTarget;
 
 /**
@@ -31,7 +27,7 @@ import org.photonvision.SimVisionTarget;
 public final class Constants {
 
   public static enum CanIds {
-    // 2020 drive train ids
+    // Drivetrain CAN IDs
     leftFalcon1(5),
     rightFalcon1(2),
     leftFalcon2(4),
@@ -43,7 +39,11 @@ public final class Constants {
     armExtended(51),
 
     // Gripper CAN IDs
-    gripperSpark(0), // change later
+    gripperSpark(69), // change later
+
+    // Elevator CAN IDs
+    rightElevatorMotor(12),
+    leftElevatorMotor(13),
 
     // Gyro CAN IDs
     pigeon(0),
@@ -73,28 +73,18 @@ public final class Constants {
     }
   }
 
-
   public static class AprilTagPositionConstants {
     public static final Pose3d kAprilTagOnePose =
         new Pose3d(
-            15.513558, 
-            1.071626, 
-            0.462788, 
-            new Rotation3d(0, 0, Units.degreesToRadians(180)));
+            15.513558, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180)));
 
     public static final Pose3d kAprilTagTwoPose =
         new Pose3d(
-            15.513558, 
-            2.748026, 
-            0.462788, 
-            new Rotation3d(0, 0, Units.degreesToRadians(180)));
+            15.513558, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180)));
 
     public static final Pose3d kAprilTagThreePose =
         new Pose3d(
-            15.513558, 
-            3.738626, 
-            0.462788, 
-            new Rotation3d(0, 0, Units.degreesToRadians(180)));
+            15.513558, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(180)));
 
     public static final Pose3d kAprilTagFourPose =
         new Pose3d(
@@ -105,30 +95,16 @@ public final class Constants {
 
     public static final Pose3d kAprilTagFivePose =
         new Pose3d(
-            0.36195, 
-            6.749796, 
-            0.695452, 
-            new Rotation3d(0, 0.695452, Units.degreesToRadians(0)));
+            0.36195, 6.749796, 0.695452, new Rotation3d(0, 0.695452, Units.degreesToRadians(0)));
 
     public static final Pose3d kAprilTagSixPose =
-        new Pose3d(1.02743, 
-        3.738626, 
-        0.462788, 
-        new Rotation3d(0, 0, Units.degreesToRadians(0)));
+        new Pose3d(1.02743, 3.738626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0)));
 
     public static final Pose3d kAprilTagSevenPose =
-        new Pose3d(
-        1.02743, 
-        2.748026, 
-        0.462788, 
-        new Rotation3d(0, 0, Units.degreesToRadians(0)));
+        new Pose3d(1.02743, 2.748026, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0)));
 
     public static final Pose3d kAprilTagEightPose =
-        new Pose3d(
-        1.02743, 
-        1.071626, 
-        0.462788, 
-        new Rotation3d(0, 0, Units.degreesToRadians(0)));
+        new Pose3d(1.02743, 1.071626, 0.462788, new Rotation3d(0, 0, Units.degreesToRadians(0)));
   }
 
   public static class WaypointPositionConstants {
@@ -159,19 +135,19 @@ public final class Constants {
 
     public static final double kRedSubstationSecondWayPointY = 6.60;
 
-     // blue mid waypoints
+    // blue mid waypoints
 
-     public static final double kBlueMidFirstWayPointX = 6.07;
+    public static final double kBlueMidFirstWayPointX = 6.07;
 
-     public static final double kBlueMidFirstWayPointY = 3.31;
+    public static final double kBlueMidFirstWayPointY = 3.31;
 
-     public static final double kBlueMidSecondWayPointX = 5.49;
+    public static final double kBlueMidSecondWayPointX = 5.49;
 
-     public static final double kBlueMidSecondWayPointY = 4.48;
+    public static final double kBlueMidSecondWayPointY = 4.48;
 
-     public static final double kBlueMidThirdWayPointX = 3.91;
+    public static final double kBlueMidThirdWayPointX = 3.91;
 
-     public static final double kBlueMidThirdWayPointY = 4.76;
+    public static final double kBlueMidThirdWayPointY = 4.76;
 
     // blue single substation waypoints
 
@@ -183,20 +159,19 @@ public final class Constants {
 
     public static final double kBlueSubstationSecondWayPointY = 6.72;
 
-     // waypoint angles
+    // waypoint angles
 
-     public static final double kHeadingFront = 0; // degrees
+    public static final double kHeadingFront = 0; // degrees
 
-     public static final double kHeadingPerpendicular = 90; // degrees
+    public static final double kHeadingPerpendicular = 90; // degrees
 
-     public static final double kHeadingPerpendicularReverse = -90; // degrees
+    public static final double kHeadingPerpendicularReverse = -90; // degrees
 
-     public static final double kHeadingAvoidChargeStation = 135; // degrees
+    public static final double kHeadingAvoidChargeStation = 135; // degrees
 
-     public static final double kHeadingAvoidChargeStationReverse = -45; // degrees
+    public static final double kHeadingAvoidChargeStationReverse = -45; // degrees
 
-     public static final double kHeadingReverse = 180; // degrees
-    
+    public static final double kHeadingReverse = 180; // degrees
 
     // constructing waypoints
 
@@ -206,35 +181,30 @@ public final class Constants {
 
     public static final PathPoint kRedMidFirstWayPoint =
         new PathPoint(
-            new Translation2d(kRedMidFirstWayPointX, 
-            kRedMidFirstWayPointY), 
+            new Translation2d(kRedMidFirstWayPointX, kRedMidFirstWayPointY),
             Rotation2d.fromDegrees(kHeadingFront));
 
     public static final PathPoint kRedMidSecondWayPoint =
         new PathPoint(
-            new Translation2d(kRedMidSecondWayPointX, 
-            kRedMidSecondWayPointY), 
+            new Translation2d(kRedMidSecondWayPointX, kRedMidSecondWayPointY),
             Rotation2d.fromDegrees(kHeadingPerpendicularReverse));
 
     public static final PathPoint kRedMidThirdWayPoint =
         new PathPoint(
-            new Translation2d(kRedMidThirdWayPointX, 
-            kRedMidThirdWayPointY), 
+            new Translation2d(kRedMidThirdWayPointX, kRedMidThirdWayPointY),
             Rotation2d.fromDegrees(kHeadingFront));
 
     // red single substation waypoints
 
     public static final PathPoint kRedSubstationFirstWayPoint =
         new PathPoint(
-            new Translation2d(kRedSubstationFirstWayPointX, 
-            kRedSubstationFirstWayPointY), 
-            Rotation2d.fromDegrees(kHeadingReverse));  
+            new Translation2d(kRedSubstationFirstWayPointX, kRedSubstationFirstWayPointY),
+            Rotation2d.fromDegrees(kHeadingReverse));
 
     public static final PathPoint kRedSubstationSecondWayPoint =
         new PathPoint(
-            new Translation2d(kRedSubstationSecondWayPointX, 
-            kRedSubstationSecondWayPointY), 
-            Rotation2d.fromDegrees(kHeadingReverse));  
+            new Translation2d(kRedSubstationSecondWayPointX, kRedSubstationSecondWayPointY),
+            Rotation2d.fromDegrees(kHeadingReverse));
 
     // blue waypoints
 
@@ -242,37 +212,30 @@ public final class Constants {
 
     public static final PathPoint kBlueMidFirstWayPoint =
         new PathPoint(
-            new Translation2d(kBlueMidFirstWayPointX, 
-            kBlueMidFirstWayPointY), 
+            new Translation2d(kBlueMidFirstWayPointX, kBlueMidFirstWayPointY),
             Rotation2d.fromDegrees(kHeadingPerpendicular));
 
     public static final PathPoint kBlueMidSecondWayPoint =
         new PathPoint(
-            new Translation2d(kBlueMidSecondWayPointX, 
-            kBlueMidSecondWayPointY), 
-            Rotation2d.fromDegrees(kHeadingAvoidChargeStation));  
+            new Translation2d(kBlueMidSecondWayPointX, kBlueMidSecondWayPointY),
+            Rotation2d.fromDegrees(kHeadingAvoidChargeStation));
 
     public static final PathPoint kBlueMidThirdWayPoint =
         new PathPoint(
-            new Translation2d(kBlueMidThirdWayPointX, 
-            kBlueMidThirdWayPointY), 
-            Rotation2d.fromDegrees(kHeadingReverse));   
-            
+            new Translation2d(kBlueMidThirdWayPointX, kBlueMidThirdWayPointY),
+            Rotation2d.fromDegrees(kHeadingReverse));
+
     // blue single substation waypoints
 
     public static final PathPoint kBlueSubstationFirstWayPoint =
         new PathPoint(
-            new Translation2d(kBlueSubstationFirstWayPointX, 
-            kBlueSubstationFirstWayPointY), 
-            Rotation2d.fromDegrees(kHeadingFront));  
+            new Translation2d(kBlueSubstationFirstWayPointX, kBlueSubstationFirstWayPointY),
+            Rotation2d.fromDegrees(kHeadingFront));
 
     public static final PathPoint kBlueSubstationSecondWayPoint =
         new PathPoint(
-            new Translation2d(kBlueSubstationSecondWayPointX, 
-            kBlueSubstationSecondWayPointY), 
-            Rotation2d.fromDegrees(kHeadingFront));  
-
-       
+            new Translation2d(kBlueSubstationSecondWayPointX, kBlueSubstationSecondWayPointY),
+            Rotation2d.fromDegrees(kHeadingFront));
   }
 
   public static class RobotConstants {
@@ -289,33 +252,32 @@ public final class Constants {
 
     public static final double mainArmGearRatio = 100;
 
-  public static final Transform3d kCameraToRobot =
-      new Transform3d(
-          new Translation3d(-0.25, 0, -.25), // in meters
-          new Rotation3d());
+    public static final Transform3d kCameraToRobot =
+        new Transform3d(
+            new Translation3d(-0.25, 0, -.25), // in meters
+            new Rotation3d());
 
-  public static final int kGyroPin = 0;
+    public static final int kGyroPin = 0;
 
-  // IMPORTANT: This block of code is from 2020 game and is for testing purposes
-  // only, we will update them to the 2023 season game
-  public static final double targetWidth =
-      Units.inchesToMeters(41.30) - Units.inchesToMeters(6.70); // meters
-  public static final double targetHeight =
-      Units.inchesToMeters(98.19) - Units.inchesToMeters(81.19); // meters
-  public static final double kFarTgtXPos = Units.feetToMeters(54);
-  public static final double kFarTgtYPos =
-      Units.feetToMeters(27 / 2) - Units.inchesToMeters(43.75) - Units.inchesToMeters(48.0 / 2.0);
-  public static final double kFarTgtZPos =
-      (Units.inchesToMeters(98.19) - targetHeight) / 2 + targetHeight;
+    // IMPORTANT: This block of code is from 2020 game and is for testing purposes
+    // only, we will update them to the 2023 season game
+    public static final double targetWidth =
+        Units.inchesToMeters(41.30) - Units.inchesToMeters(6.70); // meters
+    public static final double targetHeight =
+        Units.inchesToMeters(98.19) - Units.inchesToMeters(81.19); // meters
+    public static final double kFarTgtXPos = Units.feetToMeters(54);
+    public static final double kFarTgtYPos =
+        Units.feetToMeters(27 / 2) - Units.inchesToMeters(43.75) - Units.inchesToMeters(48.0 / 2.0);
+    public static final double kFarTgtZPos =
+        (Units.inchesToMeters(98.19) - targetHeight) / 2 + targetHeight;
 
-  public static final Pose3d kFarTargetPose =
-      new Pose3d(
-          new Translation3d(kFarTgtXPos, kFarTgtYPos, kFarTgtZPos),
-          new Rotation3d(0.0, 0.0, Units.degreesToRadians(180)));
+    public static final Pose3d kFarTargetPose =
+        new Pose3d(
+            new Translation3d(kFarTgtXPos, kFarTgtYPos, kFarTgtZPos),
+            new Rotation3d(0.0, 0.0, Units.degreesToRadians(180)));
 
-  public static final SimVisionTarget kFarTarget =
-      new SimVisionTarget(kFarTargetPose, targetWidth, targetHeight, 42);
-  
+    public static final SimVisionTarget kFarTarget =
+        new SimVisionTarget(kFarTargetPose, targetWidth, targetHeight, 42);
   }
 
   public static class VisionConstants {
@@ -338,7 +300,7 @@ public final class Constants {
   }
 
   public static class DriveConstants {
-    public static final double driveTrainGearRatio = (50 / 14) * (48 / 16);
+    public static final double driveTrainGearRatio = (double) (50.0 / 14) * (48.0 / 16);
     public static final double wheelDiameter = Units.inchesToMeters(6);
     public static final double wheelCircumference = Math.PI * wheelDiameter;
     public static final double unitsPerMeter = ((2048 * driveTrainGearRatio) / wheelCircumference);
@@ -348,13 +310,15 @@ public final class Constants {
     public static final double ks = 0.39188;
     public static final double kv = 2.5297;
     public static final double ka = 0.21837;
-    public static final DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(trackWidth);
+    public static final DifferentialDriveKinematics driveKinematics =
+        new DifferentialDriveKinematics(trackWidth);
     public static final double kPDriveVelocity = 0.37841;
     public static final double maxVelocity = Units.feetToMeters(20);
     public static final double maxAcceleration = Units.feetToMeters(3);
     public static final DifferentialDriveKinematics kDriveKinematics =
-      new DifferentialDriveKinematics(trackWidth);
+        new DifferentialDriveKinematics(trackWidth);
   }
+
   public static class PIDConstants {
     // drive
     public static final double DriveBaseMotionMagickP = 0.5;
@@ -375,8 +339,18 @@ public final class Constants {
     public static final double ExtendedArmKi = 0.2;
     public static final double ExtendedArmKd = 0.2;
     public static final double ExtendedArmKTolerance = 0;
+
+    // smart balance
+    public static final double BalanceAngleKp = 0.01;
+    public static final double BalanceAngleKi = 0;
+    public static final double BalanceAngleKd = 0;
+    public static final double BalanceAngleKTolerance = 2;
+    public static final double BalanceSpeedKp = 0.1;
+    public static final double BalanceSpeedKi = 0.0001;
+    public static final double BalanceSpeedKd = 0;
+    public static final double BalanceSpeed = 0.35; // desired robot speed in meter/s
+    public static final double BalanceSpeedKTolerance = 0.005;
+    public static final double BalanceSpeedkF = 0;
   }
 }
 ;
-
-

@@ -1,11 +1,10 @@
 package com.team7419.math;
 
-/**
- * 
- */
+/** */
 public class UnitConversions {
   /**
    * Rounds a double value to a specified amount of decimal places.
+   *
    * @param number Double to round
    * @param n Number of decimal places to round to (positive = more precise)
    * @return The rounded result
@@ -16,6 +15,7 @@ public class UnitConversions {
   }
   /**
    * Converts rotations per minute to radians per second
+   *
    * @param rpm Rotational speed, in rotations per minute, to convert
    * @return Converted rotational speed, expressed in radians per second
    */
@@ -24,6 +24,7 @@ public class UnitConversions {
   }
   /**
    * Converts linear speed in meters per second to rotational speed in rotations per minute
+   *
    * @param mps Linear speed, in meters per second, to convert
    * @param radius Radius of the rotating mechanism
    * @return Converted rotational speed, expressed in rotations per minute
@@ -33,6 +34,7 @@ public class UnitConversions {
   }
   /**
    * Converts rotational speed in rotations per minute to linear speed in meters per second
+   *
    * @param rpm Rotational speed, in rotations per minute, to convert
    * @param radius Radius of the rotating mechanism
    * @return Converted linear speed, expressed in meters per second
@@ -42,6 +44,7 @@ public class UnitConversions {
   }
   /**
    * Converts linear speed in meters per second to raw sensor velocity (ticks per second)
+   *
    * @param mps Linear speed, in meters per second, to convert
    * @param ticksPerRotation Number of ticks counted by the sensor when the mechanism rotates once
    * @param radius Radius of the rotating mechanism
@@ -52,6 +55,7 @@ public class UnitConversions {
   }
   /**
    * Converts a length in inches to meters
+   *
    * @param inches Length, in inches, to convert
    * @return Converted length, expressed in meters
    */
@@ -60,6 +64,7 @@ public class UnitConversions {
   }
   /**
    * Converts a length in meters to inches
+   *
    * @param meters Length, in meters, to convert
    * @return Converted length, expressed in inches
    */
@@ -68,6 +73,7 @@ public class UnitConversions {
   }
   /**
    * Converts rotational speed in raw sensor units to rotations per minute
+   *
    * @param rawVelocity Rotational speed, in raw sensor units, to convert
    * @param ticksPerRotation Number of ticks counted by the sensor when the mechanism rotates once
    * @return Converted rotational speed, expressed in raw sensor velocity
@@ -77,6 +83,7 @@ public class UnitConversions {
   }
   /**
    * Converts rotational speed in raw sensor units to linear speed in meters per second
+   *
    * @param rawSensorVelocity Rotational speed, in raw sensor units, to convert
    * @param ticksPerRotation Number of ticks counted by the sensor when the mechanism rotates once
    * @param radius Radius of the rotating mechanism
@@ -88,6 +95,7 @@ public class UnitConversions {
   }
   /**
    * Converts rotational speed in rotations per minute to raw sensor units
+   *
    * @param rpm Rotational speed, in rotations per minute, to convert
    * @param ticksPerRotation Number of ticks counted by the sensor when the mechanism rotates once
    * @return Converted rotational speed, expressed in raw sensor velocity
@@ -97,6 +105,7 @@ public class UnitConversions {
   }
   /**
    * Converts a length in inches to encoder ticks
+   *
    * @param inches Length, in inches, to convert
    * @param radius Radius of the rotating mechanism
    * @param gearRatioMultiplier Gear ratio of the mechanism (driver to driven)
@@ -109,6 +118,7 @@ public class UnitConversions {
   }
   /**
    * Converts a length in encoder ticks to inches
+   *
    * @param ticks Length, in sensor ticks, to convert
    * @param radius RAdius of the rotating mechanism
    * @param gearRatioMultiplier Gear ratio of the mechanism (driver to driven)
@@ -121,6 +131,7 @@ public class UnitConversions {
   }
   /**
    * Converts an angle in degrees to length in inches
+   *
    * @param theta Angle, in degrees, to convert
    * @param radius Radius of the rotating mechanism
    * @return Converted length, expressed in inches

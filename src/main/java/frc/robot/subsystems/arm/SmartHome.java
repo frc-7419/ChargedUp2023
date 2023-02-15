@@ -14,11 +14,8 @@ public class SmartHome extends CommandBase {
 
   public SmartHome(ArmSubsystem armSubsystem) {
     pidController =
-        new PIDController(
-          PIDConstants.MainArmKp, 
-          PIDConstants.MainArmKi, 
-          PIDConstants.MainArmKd);
-          
+        new PIDController(PIDConstants.MainArmKp, PIDConstants.MainArmKi, PIDConstants.MainArmKd);
+
     this.armSubsystem = armSubsystem;
     this.homePos = armSubsystem.getHomePosition();
     addRequirements(armSubsystem);

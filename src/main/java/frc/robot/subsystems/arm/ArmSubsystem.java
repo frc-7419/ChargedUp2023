@@ -23,26 +23,24 @@ public class ArmSubsystem extends SubsystemBase {
   private DigitalInput magneticLimitSwitch;
   private PigeonIMU extendedGyro;
 
-  /**
-   * Constructs the extended arm and main arm subsystem corresponding to the arm mechanism.
-   */
+  /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
     extendedArmMotor = new TalonSRX(CanIds.armExtended.id);
 
-    mainArmMotor1 = new CANSparkMax(
-      CanIds.armMain1.id, 
-      MotorType.kBrushless); // ENCODER DOESNT WORK
-    mainArmMotor2 = new CANSparkMax(
-      CanIds.armMain2.id, 
-      MotorType.kBrushless);
-    
+    mainArmMotor1 =
+        new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
+    mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
+
     magneticLimitSwitch = new DigitalInput(0); // port for now
 
     extendedGyro = new PigeonIMU(0);
     configureMotorControllers();
   }
 
-  /** Sets default inversions of left and right main motorcontrollers, and sets the conversion factor for motorcontroller encoder */
+  /**
+   * Sets default inversions of left and right main motorcontrollers, and sets the conversion factor
+   * for motorcontroller encoder
+   */
   public void configureMotorControllers() {
     mainArmMotor1.setInverted(false);
     mainArmMotor2.setInverted(true);
@@ -52,6 +50,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Sets power to both the main and extended arms.
+   *
    * @param power set to both main and extended arms.
    */
   public void setAllPower(double power) {
@@ -61,6 +60,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Sets power to the motors on the main arm.
+   *
    * @param power set to motors on the main arm.
    */
   public void setMainPower(double power) {
@@ -70,6 +70,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Sets power to the motor on the extended arm.
+   *
    * @param power to motor on the extended arm.
    */
   public void setExtendedPower(double power) {
@@ -78,6 +79,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Returns the position of the main arm.
+   *
    * @return The position of the main arm, in units of rotations.
    */
   public double getMainPosition() { // THIS ENCODER DOES WORK
@@ -86,6 +88,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Returns the current position of the extended arm.
+   *
    * @return The position of the extended arm, in units of rotations.
    */
   public double getExtendedPosition() {
@@ -99,6 +102,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Returns the home position of the main arms.
+   *
    * @return The home position of the main arms.
    */
   public double getHomePosition() {
@@ -107,6 +111,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Returns the yaw of the extended arm as measured by the arm's gyro.
+   *
    * @return The gyro's measured roll (angle of the extended arm).
    */
   public double getExtendedAngle() {
