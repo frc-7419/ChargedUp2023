@@ -41,8 +41,11 @@ public class Robot extends TimedRobot {
     allianceColor = DriverStation.getAlliance();
   }
 
-  public static Alliance getAllianceColor() {
-    return allianceColor;
+  public static String getAllianceColor() {
+    if (allianceColor == DriverStation.Alliance.Blue) {
+      return "Blue";
+    }
+    return "Red";
   }
 
   @Override

@@ -13,8 +13,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import org.photonvision.SimVisionTarget;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -239,45 +237,19 @@ public final class Constants {
   }
 
   public static class RobotConstants {
-    public static final Alliance currentAlliance = Robot.getAllianceColor();
 
     public static final double TalonFXTicksPerRotation = 2048;
 
     public static final double kTrackWidth = 0.6858; // meters
 
     public static final double kWheelRadius = 3 * 0.0254; // inches TO centimeters conversion
-    public static final double kWheelCircumference = 2 * Math.PI * kWheelRadius;
-
-    public static final double timeStep = 0.02;
+    public static final double kWheelCircumference =
+        2 * Math.PI * Constants.RobotConstants.kWheelRadius;
+    public static final String currentAlliance = Robot.getAllianceColor();
 
     public static final double mainArmGearRatio = 100;
-
-    public static final Transform3d kCameraToRobot =
-        new Transform3d(
-            new Translation3d(-0.25, 0, -.25), // in meters
-            new Rotation3d());
-
-    public static final int kGyroPin = 0;
-
-    // IMPORTANT: This block of code is from 2020 game and is for testing purposes
-    // only, we will update them to the 2023 season game
-    public static final double targetWidth =
-        Units.inchesToMeters(41.30) - Units.inchesToMeters(6.70); // meters
-    public static final double targetHeight =
-        Units.inchesToMeters(98.19) - Units.inchesToMeters(81.19); // meters
-    public static final double kFarTgtXPos = Units.feetToMeters(54);
-    public static final double kFarTgtYPos =
-        Units.feetToMeters(27 / 2) - Units.inchesToMeters(43.75) - Units.inchesToMeters(48.0 / 2.0);
-    public static final double kFarTgtZPos =
-        (Units.inchesToMeters(98.19) - targetHeight) / 2 + targetHeight;
-
-    public static final Pose3d kFarTargetPose =
-        new Pose3d(
-            new Translation3d(kFarTgtXPos, kFarTgtYPos, kFarTgtZPos),
-            new Rotation3d(0.0, 0.0, Units.degreesToRadians(180)));
-
-    public static final SimVisionTarget kFarTarget =
-        new SimVisionTarget(kFarTargetPose, targetWidth, targetHeight, 42);
+    //arbitrary until we mount camera
+    public static final Transform3d kCameraToRobot = new Transform3d();
   }
 
   public static class VisionConstants {
