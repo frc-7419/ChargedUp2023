@@ -6,9 +6,12 @@ package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.WristConstants.State;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.SmartArm;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.gripper.GripperSubsystem;
+import frc.robot.subsystems.gripper.RunGripper;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -22,7 +25,7 @@ public class IntakePiece extends SequentialCommandGroup {
    * @param armSubsystem for controlling position of the arms.
    * @param gripperSubsystem for controlling orientation of the gripper.
    */
-  public IntakePiece(ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem) {
+  public IntakePiece(ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem, GripperSubsystem gripperSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -36,7 +39,7 @@ public class IntakePiece extends SequentialCommandGroup {
       // new SetWristPosition(wristSubsystem, WristConstants.intakeSetpoint)
 
       // running gripper
-      // new RunGripper(gripperSubsystem)
+      new RunGripper(gripperSubsystem, State.SCORE, 1),
 
       // bringing arms back
       new SmartArm(armSubsystem, ArmConstants.resetSetpoint)

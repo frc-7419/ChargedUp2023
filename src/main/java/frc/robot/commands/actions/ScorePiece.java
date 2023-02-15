@@ -6,16 +6,19 @@ package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.WristConstants.State;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.SmartArm;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.gripper.GripperSubsystem;
+import frc.robot.subsystems.gripper.RunGripper;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScorePiece extends SequentialCommandGroup {
   /** Creates a new ScorePiece. */
-  public ScorePiece(ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem) {
+  public ScorePiece(ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem, GripperSubsystem gripperSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -28,7 +31,7 @@ public class ScorePiece extends SequentialCommandGroup {
       // new SetWristPosition(wristSubsystem, WristConstants.scoreSetpoint)
 
       // running gripper
-      // new RunGripper(gripperSubsystem)
+      new RunGripper(gripperSubsystem, State.SCORE, 1),
 
       // bringing arms back
       new SmartArm(armSubsystem, ArmConstants.resetSetpoint)
