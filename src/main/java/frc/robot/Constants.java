@@ -44,6 +44,8 @@ public final class Constants {
     // Gyro CAN IDs
     pigeon(0),
     extendedPigeon(51),
+
+    wristSpark(100), //unknown
     ;
 
     public final int id;
