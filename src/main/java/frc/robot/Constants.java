@@ -289,10 +289,29 @@ public final class Constants {
   }
 
   public static class ArmConstants {
+
+    // testing purposes
     public static final double mainArmSetpoint1 = 13000;
     public static final double mainArmSetpoint2 = 18000;
     public static final double mainArmPowerCoefficient = 0.5;
     public static final double extendedArmPowerCoefficient = 0.3;
+
+    // setpoints for intaking and scoring (arbitrary values until we get arms to tune)
+    public static final double intakeSetpoint = 0;
+    public static final double scoreSetpoint = 0;
+    public static final double resetSetpoint = 0;
+  }
+  public static class ElevatorConstants {
+
+    // setpoints for scoring (arbitrary values until we get elevator to tune)
+    public static final double scoreSetpoint = 0;
+  }
+  public static class WristConstants {
+
+    // setpoints for intaking and scoring (arbitrary values until we get gripper to tune)
+    public static final double intakeSetpoint = 0;
+    public static final double scoreSetpoint = 0;
+    public static final double resetSetpoint = 0;
   }
 
   public static class DriveConstants {
