@@ -16,6 +16,7 @@ import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.SmartBalanceNew;
 import frc.robot.subsystems.wrist.MoveWristWithJoystick;
+import frc.robot.subsystems.wrist.SmartWrist;
 import frc.robot.subsystems.wrist.WristSubsystem;
 
 public class RobotContainer {
@@ -45,7 +46,9 @@ public class RobotContainer {
   private final SmartExtendedArm smartExtendedArm = new SmartExtendedArm(armSubsystem, 0);
   private final MoveArmWithJoystick moveArmWithJoystick =
       new MoveArmWithJoystick(armSubsystem, driverJoystick);
-  private final MoveWristWithJoystick moveWristWithJoystick = new MoveWristWithJoystick(wristSubsystem, driverJoystick);
+  private final MoveWristWithJoystick moveWristWithJoystick =
+      new MoveWristWithJoystick(wristSubsystem, driverJoystick);
+  private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
   // Autonomous
 
   // Path Planning Commands
@@ -65,6 +68,7 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Button.kB.value).whileTrue(smartArm2);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartHome);
     new JoystickButton(driverJoystick, Button.kRightBumper.value).whileTrue(smartExtendedArm);
+    new JoystickButton(driverJoystick, Button.kLeftBumper.value).whileTrue(smartWrist);
   }
 
   // TODO update once done with autonomous command

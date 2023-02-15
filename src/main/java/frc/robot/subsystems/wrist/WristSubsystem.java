@@ -9,14 +9,14 @@ import static frc.robot.Constants.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class WristSubsystem extends SubsystemBase {
   CANSparkMax wrist;
 
   public WristSubsystem() {
-    wrist = new CANSparkMax(CanIds.wristSpark.id, MotorType.kBrushless); //find canid
+    wrist = new CANSparkMax(CanIds.wristSpark.id, MotorType.kBrushless); // find canid
+    wrist.getEncoder().setPositionConversionFactor(236179267); // find gearratio
   }
 
   public void setPower(double power) {
