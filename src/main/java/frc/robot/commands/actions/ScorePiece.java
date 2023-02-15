@@ -6,7 +6,7 @@ package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.WristConstants.State;
+import frc.robot.Constants.WristConstants.GripperState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.SmartArm;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -31,7 +31,7 @@ public class ScorePiece extends SequentialCommandGroup {
       // new SetWristPosition(wristSubsystem, WristConstants.scoreSetpoint)
 
       // running gripper
-      new RunGripper(gripperSubsystem, State.SCORE, 1),
+      new RunGripper(gripperSubsystem, GripperState.SCORE, 1),
 
       // bringing arms back
       new SmartArm(armSubsystem, ArmConstants.resetSetpoint)

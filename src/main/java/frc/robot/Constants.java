@@ -319,7 +319,7 @@ public final class Constants {
 
 
     // for controlling the state of the gripper
-    public static enum State {
+    public static enum GripperState {
         INTAKE,
         SCORE
     }

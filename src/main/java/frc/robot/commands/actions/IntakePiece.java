@@ -6,7 +6,7 @@ package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.WristConstants.State;
+import frc.robot.Constants.WristConstants.GripperState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.SmartArm;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -39,7 +39,7 @@ public class IntakePiece extends SequentialCommandGroup {
       // new SetWristPosition(wristSubsystem, WristConstants.intakeSetpoint)
 
       // running gripper
-      new RunGripper(gripperSubsystem, State.INTAKE, 1),
+      new RunGripper(gripperSubsystem, GripperState.INTAKE, 1),
 
       // bringing arms back
       new SmartArm(armSubsystem, ArmConstants.resetSetpoint)
