@@ -38,9 +38,13 @@ public final class Constants {
     armMain2(14),
     armExtended(51),
 
+    // Gripper CAN IDs
+    gripperSpark(69), // change later
+
     // Elevator CAN IDs
     rightElevatorMotor(12),
     leftElevatorMotor(13),
+
     // Gyro CAN IDs
     pigeon(0),
     extendedPigeon(51),
