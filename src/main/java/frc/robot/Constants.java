@@ -27,7 +27,7 @@ import org.photonvision.SimVisionTarget;
 public final class Constants {
 
   public static enum CanIds {
-    // 2020 drive train ids
+    // Drivetrain CAN IDs
     leftFalcon1(5),
     rightFalcon1(2),
     leftFalcon2(4),
@@ -38,6 +38,9 @@ public final class Constants {
     armMain2(14),
     armExtended(51),
 
+    // Elevator CAN IDs
+    rightElevatorMotor(12),
+    leftElevatorMotor(13),
     // Gyro CAN IDs
     pigeon(0),
     extendedPigeon(51),
@@ -293,7 +296,7 @@ public final class Constants {
   }
 
   public static class DriveConstants {
-    public static final double driveTrainGearRatio = (50 / 14) * (48 / 16);
+    public static final double driveTrainGearRatio = (double) (50.0 / 14) * (48.0 / 16);
     public static final double wheelDiameter = Units.inchesToMeters(6);
     public static final double wheelCircumference = Math.PI * wheelDiameter;
     public static final double unitsPerMeter = ((2048 * driveTrainGearRatio) / wheelCircumference);
@@ -332,6 +335,18 @@ public final class Constants {
     public static final double ExtendedArmKi = 0.2;
     public static final double ExtendedArmKd = 0.2;
     public static final double ExtendedArmKTolerance = 0;
+
+    // smart balance
+    public static final double BalanceAngleKp = 0.01;
+    public static final double BalanceAngleKi = 0;
+    public static final double BalanceAngleKd = 0;
+    public static final double BalanceAngleKTolerance = 2;
+    public static final double BalanceSpeedKp = 0.1;
+    public static final double BalanceSpeedKi = 0.0001;
+    public static final double BalanceSpeedKd = 0;
+    public static final double BalanceSpeed = 0.35; // desired robot speed in meter/s
+    public static final double BalanceSpeedKTolerance = 0.005;
+    public static final double BalanceSpeedkF = 0;
   }
 }
 ;
