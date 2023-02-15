@@ -39,7 +39,7 @@ public class IntakePiece extends SequentialCommandGroup {
       // new SetWristPosition(wristSubsystem, WristConstants.intakeSetpoint)
 
       // running gripper
-      new RunGripper(gripperSubsystem, State.SCORE, 1),
+      new RunGripper(gripperSubsystem, State.INTAKE, 1),
 
       // bringing arms back
       new SmartArm(armSubsystem, ArmConstants.resetSetpoint)
