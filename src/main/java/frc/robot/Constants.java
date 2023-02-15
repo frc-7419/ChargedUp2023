@@ -8,13 +8,9 @@ import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import org.photonvision.SimVisionTarget;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -27,19 +23,24 @@ import org.photonvision.SimVisionTarget;
 public final class Constants {
 
   public static enum CanIds {
-    // 2020 drive train ids
+    // Drivetrain CAN IDs
     leftFalcon1(5),
     rightFalcon1(2),
     leftFalcon2(4),
     rightFalcon2(3),
-    intakeSpark(32),
-    loaderVictor(16),
-    feederTalon(23),
-    armSpark1(11),
-    armSpark2(12),
-    rightElevatorFalcon(50),
-    leftElevatorFalcon(51),
-    pigeon(0);
+
+    // Arm CAN IDs
+    armMain1(12),
+    armMain2(14),
+    armExtended(51),
+
+    // Elevator CAN IDs
+    rightElevatorMotor(12),
+    leftElevatorMotor(13),
+    // Gyro CAN IDs
+    pigeon(0),
+    extendedPigeon(51),
+    ;
 
     public final int id;
 
@@ -48,45 +49,20 @@ public final class Constants {
     }
   }
 
-  public static final Transform3d kCameraToRobot =
-      new Transform3d(
-          new Translation3d(-0.25, 0, -.25), // in meters
-          new Rotation3d());
+  public static enum SensorIds {
 
-  public static final int kGyroPin = 0;
+    // Beambreak DIO IDs
+    beambreak(2),
 
-  // IMPORTANT: This block of code is from 2020 game and is for testing purposes
-  // only, we will update them to the 2023 season game
-  public static final double targetWidth =
-      Units.inchesToMeters(41.30) - Units.inchesToMeters(6.70); // meters
-  public static final double targetHeight =
-      Units.inchesToMeters(98.19) - Units.inchesToMeters(81.19); // meters
-  public static final double kFarTgtXPos = Units.feetToMeters(54);
-  public static final double kFarTgtYPos =
-      Units.feetToMeters(27 / 2) - Units.inchesToMeters(43.75) - Units.inchesToMeters(48.0 / 2.0);
-  public static final double kFarTgtZPos =
-      (Units.inchesToMeters(98.19) - targetHeight) / 2 + targetHeight;
+    // Limit switch DIO IDs
+    limitswitch(0),
+    ;
 
-  public static final Pose3d kFarTargetPose =
-      new Pose3d(
-          new Translation3d(kFarTgtXPos, kFarTgtYPos, kFarTgtZPos),
-          new Rotation3d(0.0, 0.0, Units.degreesToRadians(180)));
+    public final int id;
 
-  public static final SimVisionTarget kFarTarget =
-      new SimVisionTarget(kFarTargetPose, targetWidth, targetHeight, 42);
-  public static final DifferentialDriveKinematics kDtKinematics =
-      new DifferentialDriveKinematics(RobotConstants.kTrackWidth);
-
-  public static class VisionConstants {
-    public static final String name1 = "terima";
-    public static final String name2 = "teripaapa";
-    public static final double kTargetHeight = 1.071626; // meters
-    public static final double kCameraHeight = 0.5334; // meters
-    public static final double kCameraPitch = 42;
-    public static final double visionAmbiguityThreshold = 0.2;
-    public static final double focalLength = 2.9272781257541;
-    public static final int cameraResolutionWidth = 320; // pixels
-    public static final int cameraResolutionHeight = 240; // pixels
+    private SensorIds(int id) {
+      this.id = id;
+    }
   }
 
   public static class AprilTagPositionConstants {
@@ -255,6 +231,7 @@ public final class Constants {
   }
 
   public static class RobotConstants {
+
     public static final double TalonFXTicksPerRotation = 2048;
 
     public static final double kTrackWidth = 0.6858; // meters
@@ -265,15 +242,27 @@ public final class Constants {
     public static final String currentAlliance = Robot.getAllianceColor();
   }
 
-  public static class PowerConstants {
-    // drive
+  public static class VisionConstants {
+    public static final String name1 = "terima";
+    public static final String name2 = "teripaapa";
+    public static final double kTargetHeight = 1.071626; // meters
+    public static final double kCameraHeight = 0.5334; // meters
+    public static final double kCameraPitch = 42;
+    public static final double visionAmbiguityThreshold = 0.2;
+    public static final double focalLength = 2.9272781257541;
+    public static final int cameraResolutionWidth = 320; // pixels
+    public static final int cameraResolutionHeight = 240; // pixels
+  }
 
-    public static final double DriveBaseStraight = .55;
-    public static final double DriveBaseTurn = .35;
+  public static class ArmConstants {
+    public static final double mainArmSetpoint1 = 13000;
+    public static final double mainArmSetpoint2 = 18000;
+    public static final double mainArmPowerCoefficient = 0.5;
+    public static final double extendedArmPowerCoefficient = 0.3;
   }
 
   public static class DriveConstants {
-    public static final double driveTrainGearRatio = (50 / 14) * (48 / 16);
+    public static final double driveTrainGearRatio = (double) (50.0 / 14) * (48.0 / 16);
     public static final double wheelDiameter = Units.inchesToMeters(6);
     public static final double wheelCircumference = Math.PI * wheelDiameter;
     public static final double unitsPerMeter = ((2048 * driveTrainGearRatio) / wheelCircumference);
@@ -288,6 +277,42 @@ public final class Constants {
     public static final double kPDriveVelocity = 0.37841;
     public static final double maxVelocity = Units.feetToMeters(20);
     public static final double maxAcceleration = Units.feetToMeters(3);
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(trackWidth);
+  }
+
+  public static class PIDConstants {
+    // drive
+    public static final double DriveBaseMotionMagickP = 0.5;
+    public static final double DriveBaseMotionMagickI = 0;
+    public static final double DriveBaseMotionMagickD = 0;
+
+    // elevator
+    public static final double ElevatorKp = 0.0035;
+    public static final double ElevatorKf = -0.20459;
+
+    // arm
+    public static final double MainArmKp = 0.001;
+    public static final double MainArmKi = 0;
+    public static final double MainArmKd = 0;
+
+    // extended arm
+    public static final double ExtendedArmKp = 0.0001;
+    public static final double ExtendedArmKi = 0.2;
+    public static final double ExtendedArmKd = 0.2;
+    public static final double ExtendedArmKTolerance = 0;
+
+    // smart balance
+    public static final double BalanceAngleKp = 0.01;
+    public static final double BalanceAngleKi = 0;
+    public static final double BalanceAngleKd = 0;
+    public static final double BalanceAngleKTolerance = 2;
+    public static final double BalanceSpeedKp = 0.1;
+    public static final double BalanceSpeedKi = 0.0001;
+    public static final double BalanceSpeedKd = 0;
+    public static final double BalanceSpeed = 0.35; // desired robot speed in meter/s
+    public static final double BalanceSpeedKTolerance = 0.005;
+    public static final double BalanceSpeedkF = 0;
   }
 }
 ;
