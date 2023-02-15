@@ -8,20 +8,16 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CanIds;
-
 
 public class ElevatorSubsystem extends SubsystemBase {
   private CANSparkMax elevatorMaster;
   private CANSparkMax elevatorFollower;
   private RelativeEncoder encoder;
 
-  /**
-   * Constructs an elevator subsystem
-   */
+  /** Constructs an elevator subsystem */
   public ElevatorSubsystem() {
     elevatorMaster = new CANSparkMax(CanIds.leftElevatorMotor.id, MotorType.kBrushless);
     elevatorFollower = new CANSparkMax(CanIds.rightElevatorMotor.id, MotorType.kBrushless);
@@ -39,28 +35,26 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   /**
    * Sets the power of the motor
+   *
    * @param power input power between -1 and 1
    */
   public void setPower(double power) {
     elevatorMaster.set(power);
   }
 
-  /**
-   * Set brake mode
-   */
+  /** Set brake mode */
   public void brake() {
     elevatorMaster.setIdleMode(IdleMode.kBrake);
   }
 
-  /**
-   * Set coast mode
-   */
+  /** Set coast mode */
   public void coast() {
     elevatorMaster.setIdleMode(IdleMode.kCoast);
   }
 
   /**
    * Get elevator position
+   *
    * @return position in rotations
    */
   public double getElevatorPosition() {
@@ -69,6 +63,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   /**
    * Get elevator output
+   *
    * @return output between -1.0 and 1.0
    */
   public double getMotorOutputPercent() {
