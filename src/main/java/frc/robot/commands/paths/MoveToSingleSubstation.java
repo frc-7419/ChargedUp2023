@@ -7,32 +7,29 @@ package frc.robot.commands.paths;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPoint;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
+import frc.robot.Constants.WaypointPositionConstants;
+import frc.robot.Robot;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GenerateTrajectory;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoveToSingleSubstation extends SequentialCommandGroup {
-  private String teamColorWithPath = "";
+  private String teamColorAccordingToPath = "";
 
   public MoveToSingleSubstation(DriveBaseSubsystem driveBaseSubsystem) {
-
-    // TODO add waypoints for single substation
+    String allianceColor = Robot.getAllianceColor();
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
 
-    // TODO uncomment when we test other alliances
-
-    if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-      waypoints.add(Constants.WaypointPositionConstants.kBlueSubstationFirstWayPoint);
-      waypoints.add(Constants.WaypointPositionConstants.kBlueSubstationSecondWayPoint);
-      teamColorWithPath = "BlueSingleSubstation";
-    } else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-      waypoints.add(Constants.WaypointPositionConstants.kRedSubstationFirstWayPoint);
-      waypoints.add(Constants.WaypointPositionConstants.kRedSubstationSecondWayPoint);
-      teamColorWithPath = "RedSingleSubstation";
+    if (allianceColor.equals("Blue")) {
+      waypoints.add(WaypointPositionConstants.kBlueSubstationFirstWayPoint);
+      waypoints.add(WaypointPositionConstants.kBlueSubstationSecondWayPoint);
+      teamColorAccordingToPath = "BlueSingleSubstation";
+    } else {
+      waypoints.add(WaypointPositionConstants.kRedSubstationFirstWayPoint);
+      waypoints.add(WaypointPositionConstants.kRedSubstationSecondWayPoint);
+      teamColorAccordingToPath = "RedSingleSubstation";
     }
 
     addCommands(
@@ -41,6 +38,7 @@ public class MoveToSingleSubstation extends SequentialCommandGroup {
         new GenerateTrajectory(
             driveBaseSubsystem,
             PathPlanner.loadPath(
-                teamColorWithPath, PathPlanner.getConstraintsFromPath(teamColorWithPath))));
+                teamColorAccordingToPath,
+                PathPlanner.getConstraintsFromPath(teamColorAccordingToPath))));
   }
 }
