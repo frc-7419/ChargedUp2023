@@ -8,7 +8,9 @@ import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
@@ -240,6 +242,10 @@ public final class Constants {
     public static final double kWheelCircumference =
         2 * Math.PI * Constants.RobotConstants.kWheelRadius;
     public static final String currentAlliance = Robot.getAllianceColor();
+
+    public static final double mainArmGearRatio = 100;
+    //arbitrary until we mount camera
+    public static final Transform3d kCameraToRobot = new Transform3d();
   }
 
   public static class VisionConstants {
