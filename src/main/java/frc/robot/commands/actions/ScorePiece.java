@@ -44,7 +44,7 @@ public class ScorePiece extends SequentialCommandGroup {
         // new SetWristPosition(wristSubsystem, WristConstants.scoreSetpoint)
 
         // running gripper
-        new RunGripper(gripperSubsystem, GripperState.SCORE, 1),
+        new RunGripper(gripperSubsystem, GripperState.SCORE),
 
         // bringing arms back
         new SmartArm(armSubsystem, ArmConstants.resetSetpoint)

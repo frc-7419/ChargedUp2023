@@ -13,33 +13,33 @@ public class RunGripper extends CommandBase {
   private GripperState mode;
 
   private GripperSubsystem gripperSubsystem;
-  private double power;
 
   /**
    * @param gripperSubsystem for controlling the power of the gripper.
    * @param mode to determine what mode the gripper should be in (intake or scoring).
    * @param power the power set to the gripper.
    */
-  public RunGripper(GripperSubsystem gripperSubsystem, GripperState mode, double power) {
+  public RunGripper(GripperSubsystem gripperSubsystem, GripperState mode) {
     this.gripperSubsystem = gripperSubsystem;
     this.mode = mode;
-    this.power = power;
 
     addRequirements(gripperSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    if (mode == GripperState.INTAKE) {
+      gripperSubsystem.setPower(1);
+    } else if (mode == GripperState.SCORE) {
+      gripperSubsystem.setPower(-1);
+    }
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (mode == GripperState.INTAKE) {
-      gripperSubsystem.setPower(power);
-    } else if (mode == GripperState.SCORE) {
-      gripperSubsystem.setPower(-power);
-    }
+    
   }
 
   // Called once the command ends or is interrupted.
