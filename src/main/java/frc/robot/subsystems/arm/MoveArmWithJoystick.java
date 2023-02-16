@@ -29,9 +29,7 @@ public class MoveArmWithJoystick extends CommandBase {
   @Override
   public void execute() {
     double mainPowerJoystick = ArmConstants.mainArmPowerCoefficient * joystick.getRightY();
-    double extendedPowerJoystick = ArmConstants.extendedArmPowerCoefficient * joystick.getLeftY();
     armSubsystem.setMainPower(mainPowerJoystick);
-    armSubsystem.setExtendedPower(extendedPowerJoystick);
   }
 
   @Override

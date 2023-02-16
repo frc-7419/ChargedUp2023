@@ -2,9 +2,6 @@ package frc.robot.subsystems.arm;
 
 import static frc.robot.Constants.*;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -17,7 +14,6 @@ public class ArmSubsystem extends SubsystemBase {
 
   private CANSparkMax mainArmMotor1;
   private CANSparkMax mainArmMotor2;
-  private TalonSRX extendedArmMotor;
   private boolean homed;
   private double homePosition = 0;
   private DigitalInput magneticLimitSwitch;
@@ -25,9 +21,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
-    extendedArmMotor = new TalonSRX(CanIds.armExtended.id);
-
-    mainArmMotor1 = new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
+    mainArmMotor1 =
+        new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
     mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
 
     magneticLimitSwitch = new DigitalInput(0); // port for now
@@ -48,16 +43,6 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /**
-   * Sets power to both the main and extended arms.
-   *
-   * @param power set to both main and extended arms.
-   */
-  public void setAllPower(double power) {
-    setMainPower(power);
-    setExtendedPower(power);
-  }
-
-  /**
    * Sets power to the motors on the main arm.
    *
    * @param power set to motors on the main arm.
@@ -66,32 +51,14 @@ public class ArmSubsystem extends SubsystemBase {
     mainArmMotor1.set(power);
     // mainMotor2.set(power);
   }
-
-  /**
-   * Sets power to the motor on the extended arm.
-   *
-   * @param power to motor on the extended arm.
-   */
-  public void setExtendedPower(double power) {
-    extendedArmMotor.set(ControlMode.PercentOutput, power);
-  }
-
   /**
    * Returns the position of the main arm, relative to the arm's home position.
    *
    * @return The position of the main arm, in units of rotations.
    */
   public double getMainPosition() {
-    return mainArmMotor2.getEncoder().getPosition() - homePosition; //main arm motor 2's encoder works
-  }
-
-  /**
-   * Returns the current position of the extended arm.
-   *
-   * @return The position of the extended arm, in units of rotations.
-   */
-  public double getExtendedPosition() {
-    return extendedArmMotor.getSelectedSensorPosition();
+    return mainArmMotor2.getEncoder().getPosition()
+        - homePosition; // main arm motor 2's encoder works
   }
 
   /** Sets the home position variable to the current position of the main arm. */
@@ -108,21 +75,9 @@ public class ArmSubsystem extends SubsystemBase {
     return homePosition;
   }
 
-  /**
-   * Returns the roll of the extended arm as measured by the arm's gyro.
-   *
-   * @return The gyro's measured roll (corresponds to the angle of the extended arm).
-   */
-  public double getExtendedAngle() {
-    double[] gyroInformation = new double[3];
-    extendedGyro.getYawPitchRoll(gyroInformation);
-    return gyroInformation[2];
-  }
-
   /** Sets all arm motors to coast mode */
   public void coastAll() {
     coastMain();
-    coastExtended();
   }
 
   /** Sets both main arm motors to coast mode, allowing main arm to freely move */
@@ -131,26 +86,15 @@ public class ArmSubsystem extends SubsystemBase {
     mainArmMotor2.setIdleMode(IdleMode.kCoast);
   }
 
-  /** Sets extended arm motor to coast mode, allowing extended arm to freely move */
-  public void coastExtended() {
-    extendedArmMotor.setNeutralMode(NeutralMode.Coast);
-  }
-
   /** Sets all arm motors to brake mode */
   public void brakeAll() {
     brakeMain();
-    brakeExtended();
   }
 
   /** Sets both main arm motors to brake mode, stopping the main arm's movement */
   public void brakeMain() {
     mainArmMotor1.setIdleMode(IdleMode.kBrake);
     mainArmMotor2.setIdleMode(IdleMode.kBrake);
-  }
-
-  /** Sets extended arm's motor to brake mode, stopping the extended arm's movement */
-  public void brakeExtended() {
-    extendedArmMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override

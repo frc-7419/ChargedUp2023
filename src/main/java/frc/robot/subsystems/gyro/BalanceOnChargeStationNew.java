@@ -18,7 +18,8 @@ public class BalanceOnChargeStationNew extends CommandBase {
   private PIDController pitchAngleController;
   private PIDController speedController;
 
-  public BalanceOnChargeStationNew(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem) {
+  public BalanceOnChargeStationNew(
+      DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem) {
     this.driveBaseSubsystem = driveBaseSubsystem;
     this.gyroSubsystem = gyroSubsystem;
     addRequirements(driveBaseSubsystem, gyroSubsystem);

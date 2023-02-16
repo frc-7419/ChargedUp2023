@@ -15,7 +15,8 @@ import frc.robot.subsystems.drive.DriveBaseSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class BalanceOnChargeStation extends PIDCommand {
   /** Creates a new SmartBalance. */
-  public BalanceOnChargeStation(GyroSubsystem gyroSubsystem, DriveBaseSubsystem driveBaseSubsystem) {
+  public BalanceOnChargeStation(
+      GyroSubsystem gyroSubsystem, DriveBaseSubsystem driveBaseSubsystem) {
     super(
         // The controller that the command will use
         new PIDController(

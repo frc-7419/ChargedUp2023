@@ -6,15 +6,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.arm.ArmSubsystem;
-import frc.robot.subsystems.arm.MoveArmWithJoystick;
 import frc.robot.subsystems.arm.ArmToSetpoint;
-import frc.robot.subsystems.arm.MoveExtendedArm;
 import frc.robot.subsystems.arm.HomeArm;
+import frc.robot.subsystems.arm.MoveArmWithJoystick;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.BalanceOnChargeStationNew;
+import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.wrist.MoveWristWithJoystick;
 import frc.robot.subsystems.wrist.SmartWrist;
 import frc.robot.subsystems.wrist.WristSubsystem;
@@ -43,7 +42,6 @@ public class RobotContainer {
   private final ArmToSetpoint armToSetpoint2 =
       new ArmToSetpoint(armSubsystem, Constants.ArmConstants.mainArmSetpoint2);
   private final HomeArm homeArm = new HomeArm(armSubsystem);
-  private final MoveExtendedArm moveExtendedArm = new MoveExtendedArm(armSubsystem, 0);
   private final MoveArmWithJoystick moveArmWithJoystick =
       new MoveArmWithJoystick(armSubsystem, driverJoystick);
   private final MoveWristWithJoystick moveWristWithJoystick =
@@ -67,7 +65,6 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Button.kA.value).whileTrue(armToSetpoint1);
     new JoystickButton(driverJoystick, Button.kB.value).whileTrue(armToSetpoint2);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(homeArm);
-    new JoystickButton(driverJoystick, Button.kRightBumper.value).whileTrue(moveExtendedArm);
     new JoystickButton(driverJoystick, Button.kLeftBumper.value).whileTrue(smartWrist);
   }
 

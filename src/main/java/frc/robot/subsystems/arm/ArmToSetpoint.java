@@ -1,11 +1,10 @@
 package frc.robot.subsystems.arm;
 
-import static frc.robot.Constants.*;
+import static frc.robot.Constants.PIDConstants;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 
 /** Sets the main arm to a specific position using PID controllers. */
 public class ArmToSetpoint extends CommandBase {
@@ -16,10 +15,7 @@ public class ArmToSetpoint extends CommandBase {
 
   public ArmToSetpoint(ArmSubsystem armSubsystem, double setpoint) {
     pidController =
-        new PIDController(
-            Constants.PIDConstants.MainArmKp,
-            Constants.PIDConstants.MainArmKi,
-            Constants.PIDConstants.MainArmKd);
+        new PIDController(PIDConstants.MainArmKp, PIDConstants.MainArmKi, PIDConstants.MainArmKd);
 
     this.armSubsystem = armSubsystem;
     this.setpoint = setpoint;
@@ -38,7 +34,7 @@ public class ArmToSetpoint extends CommandBase {
    */
   @Override
   public void execute() {
-    
+
     double mainArmPosition = armSubsystem.getMainPosition();
     double calculatedMainArmPower = pidController.calculate(mainArmPosition);
     armSubsystem.setMainPower(calculatedMainArmPower);
