@@ -15,6 +15,9 @@ import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.BalanceOnChargeStationNew;
+import frc.robot.subsystems.wrist.MoveWristWithJoystick;
+import frc.robot.subsystems.wrist.SmartWrist;
+import frc.robot.subsystems.wrist.WristSubsystem;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -28,6 +31,7 @@ public class RobotContainer {
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
+  private final WristSubsystem wristSubsystem = new WristSubsystem();
 
   // Commands
   private final ArcadeDrive arcadeDrive =
@@ -42,6 +46,9 @@ public class RobotContainer {
   private final MoveExtendedArm moveExtendedArm = new MoveExtendedArm(armSubsystem, 0);
   private final MoveArmWithJoystick moveArmWithJoystick =
       new MoveArmWithJoystick(armSubsystem, driverJoystick);
+  private final MoveWristWithJoystick moveWristWithJoystick =
+      new MoveWristWithJoystick(wristSubsystem, driverJoystick);
+  private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
   // Autonomous
 
   // Path Planning Commands
@@ -61,6 +68,7 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Button.kB.value).whileTrue(armToSetpoint2);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(homeArm);
     new JoystickButton(driverJoystick, Button.kRightBumper.value).whileTrue(moveExtendedArm);
+    new JoystickButton(driverJoystick, Button.kLeftBumper.value).whileTrue(smartWrist);
   }
 
   // TODO update once done with autonomous command
@@ -77,5 +85,6 @@ public class RobotContainer {
   public void setDefaultCommands() {
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);
     armSubsystem.setDefaultCommand(moveArmWithJoystick);
+    wristSubsystem.setDefaultCommand(moveWristWithJoystick);
   }
 }

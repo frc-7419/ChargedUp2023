@@ -46,6 +46,8 @@ public final class Constants {
     // Gyro CAN IDs
     pigeon(0),
     extendedPigeon(51),
+
+    wristSpark(100), // unknown
     ;
 
     public final int id;
@@ -350,6 +352,12 @@ public final class Constants {
     public static final double BalanceSpeed = 0.35; // desired robot speed in meter/s
     public static final double BalanceSpeedKTolerance = 0.005;
     public static final double BalanceSpeedkF = 0;
+
+    // wrist PID
+    public static final double wristkP = 0.001;
+    public static final double wristkI = 0;
+    public static final double wristkD = 0;
+    public static final double wristTolerance = 0.1;
   }
 }
 ;
