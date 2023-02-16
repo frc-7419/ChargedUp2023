@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
 /** Sets the main arm to a specific position using PID controllers. */
-public class SmartArm extends CommandBase {
+public class ArmToSetpoint extends CommandBase {
 
   private PIDController pidController;
   private ArmSubsystem armSubsystem;
   private double setpoint;
 
-  public SmartArm(ArmSubsystem armSubsystem, double setpoint) {
+  public ArmToSetpoint(ArmSubsystem armSubsystem, double setpoint) {
     pidController =
         new PIDController(
             Constants.PIDConstants.MainArmKp,

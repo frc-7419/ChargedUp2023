@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.MoveArmWithJoystick;
-import frc.robot.subsystems.arm.SmartArm;
-import frc.robot.subsystems.arm.SmartExtendedArm;
-import frc.robot.subsystems.arm.SmartHome;
+import frc.robot.subsystems.arm.ArmToSetpoint;
+import frc.robot.subsystems.arm.MoveExtendedArm;
+import frc.robot.subsystems.arm.HomeArm;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.gyro.GyroSubsystem;
-import frc.robot.subsystems.gyro.SmartBalanceNew;
+import frc.robot.subsystems.gyro.BalanceOnChargeStationNew;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -32,14 +32,14 @@ public class RobotContainer {
   // Commands
   private final ArcadeDrive arcadeDrive =
       new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.2, 0.6);
-  private final SmartBalanceNew smartBalanceNew =
-      new SmartBalanceNew(driveBaseSubsystem, gyroSubsystem);
-  private final SmartArm smartArm1 =
-      new SmartArm(armSubsystem, Constants.ArmConstants.mainArmSetpoint1);
-  private final SmartArm smartArm2 =
-      new SmartArm(armSubsystem, Constants.ArmConstants.mainArmSetpoint2);
-  private final SmartHome smartHome = new SmartHome(armSubsystem);
-  private final SmartExtendedArm smartExtendedArm = new SmartExtendedArm(armSubsystem, 0);
+  private final BalanceOnChargeStationNew smartBalanceNew =
+      new BalanceOnChargeStationNew(driveBaseSubsystem, gyroSubsystem);
+  private final ArmToSetpoint smartArm1 =
+      new ArmToSetpoint(armSubsystem, Constants.ArmConstants.mainArmSetpoint1);
+  private final ArmToSetpoint smartArm2 =
+      new ArmToSetpoint(armSubsystem, Constants.ArmConstants.mainArmSetpoint2);
+  private final HomeArm smartHome = new HomeArm(armSubsystem);
+  private final MoveExtendedArm smartExtendedArm = new MoveExtendedArm(armSubsystem, 0);
   private final MoveArmWithJoystick moveArmWithJoystick =
       new MoveArmWithJoystick(armSubsystem, driverJoystick);
   // Autonomous

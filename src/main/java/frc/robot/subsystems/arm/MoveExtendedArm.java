@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.PIDConstants;
 
-public class SmartExtendedArm extends CommandBase {
+public class MoveExtendedArm extends CommandBase {
 
   private PIDController extendedArmPIDController;
   private PIDController mainArmController;
@@ -15,7 +15,7 @@ public class SmartExtendedArm extends CommandBase {
   private double setpoint;
   private double mainArmSetPoint;
 
-  public SmartExtendedArm(ArmSubsystem armSubsystem, double setpoint) {
+  public MoveExtendedArm(ArmSubsystem armSubsystem, double setpoint) {
 
     extendedArmPIDController =
         new PIDController(

@@ -6,13 +6,13 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SmartHome extends CommandBase {
+public class HomeArm extends CommandBase {
 
   private PIDController pidController;
   private ArmSubsystem armSubsystem;
   private double homePos;
 
-  public SmartHome(ArmSubsystem armSubsystem) {
+  public HomeArm(ArmSubsystem armSubsystem) {
     pidController =
         new PIDController(PIDConstants.MainArmKp, PIDConstants.MainArmKi, PIDConstants.MainArmKd);
 
