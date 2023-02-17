@@ -35,12 +35,16 @@ public class RobotContainer {
   // Commands
   private final ArcadeDrive arcadeDrive =
       new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.2, 0.6);
+
   private final BalanceOnChargeStationNew smartBalanceNew =
       new BalanceOnChargeStationNew(driveBaseSubsystem, gyroSubsystem);
-  private final ArmToSetpoint armToSetpoint1 =
-      new ArmToSetpoint(armSubsystem, Constants.ArmConstants.mainArmSetpoint1);
-  private final ArmToSetpoint armToSetpoint2 =
-      new ArmToSetpoint(armSubsystem, Constants.ArmConstants.mainArmSetpoint2);
+
+  private final ArmToSetpoint armToIntakeSetpoint =
+      new ArmToSetpoint(armSubsystem, Constants.ArmConstants.intakeSetpoint);
+
+  private final ArmToSetpoint armToScoreSetpoint =
+      new ArmToSetpoint(armSubsystem, Constants.ArmConstants.scoreSetpoint);
+
   private final HomeArm homeArm = new HomeArm(armSubsystem);
   private final MoveArmWithJoystick moveArmWithJoystick =
       new MoveArmWithJoystick(armSubsystem, driverJoystick);
@@ -62,8 +66,8 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(driverJoystick, Button.kX.value).whileTrue(smartBalanceNew);
-    new JoystickButton(driverJoystick, Button.kA.value).whileTrue(armToSetpoint1);
-    new JoystickButton(driverJoystick, Button.kB.value).whileTrue(armToSetpoint2);
+    new JoystickButton(driverJoystick, Button.kA.value).whileTrue(armToIntakeSetpoint);
+    new JoystickButton(driverJoystick, Button.kB.value).whileTrue(armToScoreSetpoint);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(homeArm);
     new JoystickButton(driverJoystick, Button.kLeftBumper.value).whileTrue(smartWrist);
   }

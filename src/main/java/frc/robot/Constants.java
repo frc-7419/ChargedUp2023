@@ -39,8 +39,7 @@ public final class Constants {
     gripperSpark(69), // change later
 
     // Elevator CAN IDs
-    rightElevatorMotor(12),
-    leftElevatorMotor(13),
+    mainElevatorMotor(12),
 
     // Gyro CAN IDs
     pigeon(0),
