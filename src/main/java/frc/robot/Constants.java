@@ -37,8 +37,7 @@ public final class Constants {
     armExtended(51),
 
     // Elevator CAN IDs
-    rightElevatorMotor(12),
-    leftElevatorMotor(13),
+    mainElevatorMotor(12),
     // Gyro CAN IDs
     pigeon(0),
     extendedPigeon(51),

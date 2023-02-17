@@ -4,27 +4,23 @@
 
 package frc.robot.subsystems.elevator;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.CanIds;
+import frc.robot.Constants;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private CANSparkMax elevatorMaster;
-  private CANSparkMax elevatorFollower;
-  private RelativeEncoder encoder;
+  private TalonFX elevatorMotor;
 
   /** Constructs an elevator subsystem */
   public ElevatorSubsystem() {
-    elevatorMaster = new CANSparkMax(CanIds.leftElevatorMotor.id, MotorType.kBrushless);
-    elevatorFollower = new CANSparkMax(CanIds.rightElevatorMotor.id, MotorType.kBrushless);
-    encoder = elevatorMaster.getEncoder();
-
-    elevatorMaster.setInverted(true);
-    elevatorFollower.follow(elevatorMaster, true);
+    elevatorMotor = new TalonFX(Constants.CanIds.mainElevatorMotor.id);
   }
 
   @Override
@@ -39,17 +35,17 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @param power input power between -1 and 1
    */
   public void setPower(double power) {
-    elevatorMaster.set(power);
+    elevatorMotor.set(ControlMode.PercentOutput, power);
   }
 
   /** Set brake mode */
   public void brake() {
-    elevatorMaster.setIdleMode(IdleMode.kBrake);
+    elevatorMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   /** Set coast mode */
   public void coast() {
-    elevatorMaster.setIdleMode(IdleMode.kCoast);
+    elevatorMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   /**
@@ -58,7 +54,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @return position in rotations
    */
   public double getElevatorPosition() {
-    return encoder.getPosition();
+    return elevatorMotor.getSelectedSensorPosition();
   }
 
   /**
@@ -67,6 +63,6 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @return output between -1.0 and 1.0
    */
   public double getMotorOutputPercent() {
-    return elevatorMaster.getAppliedOutput();
+    return elevatorMotor.getMotorOutputPercent();
   }
 }
