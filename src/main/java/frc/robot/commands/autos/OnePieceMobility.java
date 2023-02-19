@@ -4,12 +4,9 @@
 
 package frc.robot.commands.autos;
 
-import java.util.HashMap;
-
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.actions.IntakePiece;
@@ -18,30 +15,29 @@ import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.gripper.GripperSubsystem;
+import java.util.HashMap;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class OnePieceMobility extends SequentialCommandGroup {
   /** Creates a new OnePieceMobility. */
-  
-
-  public OnePieceMobility(DriveBaseSubsystem driveBaseSubsystem, ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem, GripperSubsystem gripperSubsystem) {
+  public OnePieceMobility(
+      DriveBaseSubsystem driveBaseSubsystem,
+      ElevatorSubsystem elevatorSubsystem,
+      ArmSubsystem armSubsystem,
+      GripperSubsystem gripperSubsystem) {
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
-    
-    eventMap.put("Intake Piece", new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem));
 
-    PathPlannerTrajectory onePieceMobility = 
-    PathPlanner.loadPath(
-      "One Piece + Mobility", 
-        PathPlanner.getConstraintsFromPath("One Piece + Mobility"));
+    eventMap.put(
+        "Intake Piece", new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem));
+
+    PathPlannerTrajectory onePieceMobility =
+        PathPlanner.loadPath(
+            "One Piece + Mobility", PathPlanner.getConstraintsFromPath("One Piece + Mobility"));
 
     addCommands(
-      new FollowPathWithEvents(
-        new OnePieceMobilityPath(driveBaseSubsystem),
-        onePieceMobility.getMarkers(),
-        eventMap
-    )
-    );
+        new FollowPathWithEvents(
+            new OnePieceMobilityPath(driveBaseSubsystem), onePieceMobility.getMarkers(), eventMap));
   }
 }

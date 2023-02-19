@@ -39,7 +39,8 @@ public class ArmToSetpoint extends CommandBase {
     double calculatedMainArmPower = pidController.calculate(mainArmPosition);
     armSubsystem.setMainPower(calculatedMainArmPower);
 
-    SmartDashboard.putNumber("Arm Error", pidController.getPositionError());
+    double error = pidController.getPositionError();
+    SmartDashboard.putNumber("armToSetpoint Error", error);
   }
 
   @Override
@@ -50,6 +51,7 @@ public class ArmToSetpoint extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return pidController.atSetpoint();
+    boolean setpointReached = pidController.atSetpoint();
+    return setpointReached;
   }
 }

@@ -30,8 +30,12 @@ public class HomeArm extends CommandBase {
 
   @Override
   public void execute() {
-    armSubsystem.setMainPower(pidController.calculate(armSubsystem.getMainPosition()));
-    SmartDashboard.putNumber("Arm Error", pidController.getPositionError());
+    double currentArmPosition = armSubsystem.getMainPosition();
+    double pidOutput = pidController.calculate(currentArmPosition);
+    armSubsystem.setMainPower(pidOutput);
+
+    double error = pidController.getPositionError();
+    SmartDashboard.putNumber("homeArm Error", error);
   }
 
   @Override
@@ -42,6 +46,7 @@ public class HomeArm extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return pidController.atSetpoint();
+    boolean setpointReached = pidController.atSetpoint();
+    return setpointReached;
   }
 }

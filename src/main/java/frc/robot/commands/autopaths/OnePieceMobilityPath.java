@@ -6,7 +6,6 @@ package frc.robot.commands.autopaths;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GenerateTrajectory;
@@ -19,12 +18,9 @@ public class OnePieceMobilityPath extends SequentialCommandGroup {
   public OnePieceMobilityPath(DriveBaseSubsystem driveBaseSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    PathPlannerTrajectory onePieceMobility = 
-    PathPlanner.loadPath(
-      "One Piece + Mobility", 
-        PathPlanner.getConstraintsFromPath("One Piece + Mobility"));
-    addCommands(
-      new GenerateTrajectory(driveBaseSubsystem, onePieceMobility)
-    );
+    PathPlannerTrajectory onePieceMobility =
+        PathPlanner.loadPath(
+            "One Piece + Mobility", PathPlanner.getConstraintsFromPath("One Piece + Mobility"));
+    addCommands(new GenerateTrajectory(driveBaseSubsystem, onePieceMobility));
   }
 }
