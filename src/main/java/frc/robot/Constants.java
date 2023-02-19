@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.util.HashMap;
-
 import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -14,7 +12,6 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -297,7 +294,7 @@ public final class Constants {
       SCORE
     }
   }
-  
+
   public static class DriveConstants {
     public static final double driveTrainGearRatio = (double) (50.0 / 14) * (48.0 / 16);
     public static final double wheelDiameter = Units.inchesToMeters(6);
@@ -326,7 +323,10 @@ public final class Constants {
 
     // elevator
     public static final double ElevatorKp = 0.0035;
+    public static final double ElevatorKi = 0;
+    public static final double ElevatorKd = 0;
     public static final double ElevatorKf = -0.20459;
+    public static final double ElevatorKTolerance = 0.15;
 
     // arm
     public static final double MainArmKp = 0.001;
