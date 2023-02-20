@@ -11,6 +11,8 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -279,6 +281,11 @@ public final class Constants {
   public static class ElevatorConstants {
     // setpoints for scoring (arbitrary values until we get elevator to tune)
     public static final double scoreSetpoint = 0;
+    public static final double carriageMass = 8.381376;
+    public static final double drumRadius = 0.0363728 / 2.0;
+    public static final double elevatorGearing = 12.5;
+    public static final Constraints m_constraints = new TrapezoidProfile.Constraints(8.6, 4.3);;
+    public static final double intakeSetpoint = 5;
   }
 
   public static class WristConstants {

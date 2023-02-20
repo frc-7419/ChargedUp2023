@@ -12,6 +12,9 @@ import frc.robot.subsystems.arm.MoveArmWithJoystick;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.elevator.ElevatorToSetpoint;
+import frc.robot.subsystems.elevator.MoveElevatorWithJoystick;
 import frc.robot.subsystems.gyro.BalanceOnChargeStationNew;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.wrist.MoveWristWithJoystick;
@@ -31,6 +34,7 @@ public class RobotContainer {
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final WristSubsystem wristSubsystem = new WristSubsystem();
+  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
   // Commands
   private final ArcadeDrive arcadeDrive =
@@ -45,6 +49,8 @@ public class RobotContainer {
   private final ArmToSetpoint armToScoreSetpoint =
       new ArmToSetpoint(armSubsystem, Constants.ArmConstants.scoreSetpoint);
 
+  private final ElevatorToSetpoint elevatorToSetpoint = new ElevatorToSetpoint(elevatorSubsystem, Constants.ElevatorConstants.intakeSetpoint);
+  private final MoveElevatorWithJoystick moveElevatorWithJoystick = new MoveElevatorWithJoystick(elevatorSubsystem, driverJoystick);
   private final HomeArm homeArm = new HomeArm(armSubsystem);
   private final MoveArmWithJoystick moveArmWithJoystick =
       new MoveArmWithJoystick(armSubsystem, driverJoystick);
@@ -70,6 +76,7 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Button.kB.value).whileTrue(armToScoreSetpoint);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(homeArm);
     new JoystickButton(driverJoystick, Button.kLeftBumper.value).whileTrue(smartWrist);
+    new JoystickButton(driverJoystick, Button.kRightBumper.value).whileTrue(elevatorToSetpoint);
   }
 
   // TODO update once done with autonomous command
@@ -87,5 +94,6 @@ public class RobotContainer {
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);
     armSubsystem.setDefaultCommand(moveArmWithJoystick);
     wristSubsystem.setDefaultCommand(moveWristWithJoystick);
+    elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystick);
   }
 }
