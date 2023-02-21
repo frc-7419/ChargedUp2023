@@ -6,10 +6,13 @@ package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.ElevatorConstants.NodeState;
 import frc.robot.Constants.WristConstants.GripperState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.elevator.ElevatorToSetpoint;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripper;
 
@@ -36,21 +39,15 @@ public class IntakePiece extends SequentialCommandGroup {
 
         // once we implement set points for elevator, this will reset the position of the elevator
         // to its lowest point
-        // new SetElevatorPosition(elevatorSubsystem, elevatorSubsystem.getHomePosition()),
+        new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND),
 
         new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint),
-
-        // setting position of wrist for intaking orientation
-        // new SetWristPosition(wristSubsystem, WristConstants.intakeSetpoint)
 
         // running gripper
         new RunGripper(gripperSubsystem, GripperState.INTAKE),
 
         // bringing arms back
         new ArmToSetpoint(armSubsystem, ArmConstants.resetSetpoint)
-
-        // resetting position of wrist for intaking orientation
-        // new SetWristPosition(wristSubsystem, WristConstants.resetSetpoint)
 
         );
   }
