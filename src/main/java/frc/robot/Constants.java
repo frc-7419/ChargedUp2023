@@ -284,7 +284,7 @@ public final class Constants {
     public static final double carriageMass = 8.381376;
     public static final double drumRadius = 1.7;
     public static final double elevatorGearing = 25;
-    public static final Constraints m_constraints = new TrapezoidProfile.Constraints(8.6, 4.3);;
+    public static final Constraints m_constraints = new TrapezoidProfile.Constraints(8.6, 4.3);
     public static final double intakeSetpoint = 5;
   }
 
