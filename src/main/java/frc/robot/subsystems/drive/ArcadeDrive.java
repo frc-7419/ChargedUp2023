@@ -44,7 +44,7 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     double joystickInputPower = joystick.getLeftY() * kStraight;
-    double xAxisSpeed = -speedLimiter.calculate(joystickInputPower);
+    double xAxisSpeed = speedLimiter.calculate(joystickInputPower);
 
     double joystickInputPowerTurn = joystick.getRightX() * kTurn;
     double zAxisRotation = joystickInputPowerTurn;

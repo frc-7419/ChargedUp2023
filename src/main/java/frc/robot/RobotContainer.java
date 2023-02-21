@@ -13,6 +13,7 @@ import frc.robot.subsystems.arm.MoveArmWithJoystick;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
+import frc.robot.subsystems.drive.Testing;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpoint;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystick;
@@ -44,6 +45,7 @@ public class RobotContainer {
   // Commands
   private final ArcadeDrive arcadeDrive =
       new ArcadeDrive(driverJoystick, driveBaseSubsystem, 0.2, 0.6);
+  private final Testing testing = new Testing(driveBaseSubsystem, driverJoystick);
 
   private final BalanceOnChargeStationNew smartBalanceNew =
       new BalanceOnChargeStationNew(driveBaseSubsystem, gyroSubsystem);
@@ -107,6 +109,7 @@ public class RobotContainer {
 
   public void setDefaultCommands() {
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);
+    // driveBaseSubsystem.setDefaultCommand(testing);
     armSubsystem.setDefaultCommand(moveArmWithJoystick);
     wristSubsystem.setDefaultCommand(moveWristWithJoystick);
     elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystick);
