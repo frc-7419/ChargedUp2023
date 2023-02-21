@@ -5,14 +5,16 @@
 package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ElevatorConstants.NodeState;
 
 public class ElevatorToSetpoint extends CommandBase {
   private ElevatorSubsystem elevatorSubsystem;
   private double setpoint;
+  private NodeState scoringNode;
 
-  public ElevatorToSetpoint(ElevatorSubsystem elevatorSubsystem, double setpoint) {
+  public ElevatorToSetpoint(ElevatorSubsystem elevatorSubsystem, NodeState scoringNode) {
     this.elevatorSubsystem = elevatorSubsystem;
-    this.setpoint = setpoint;
+    this.scoringNode = scoringNode;
     addRequirements(elevatorSubsystem);
   }
 
@@ -25,7 +27,7 @@ public class ElevatorToSetpoint extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSubsystem.setGoal(setpoint);
+    elevatorSubsystem.setGoal(scoringNode.elevatorSetpoint);
   }
 
   // Called once the command ends or is interrupted.

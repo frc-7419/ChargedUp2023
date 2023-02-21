@@ -43,7 +43,7 @@ public final class Constants {
     // Elevator CAN IDs
     mainElevatorMotor(12),
 
-    // Gyro CAN IDs
+    // Gyro CAN IDss
     pigeon(0),
     extendedPigeon(51),
 
@@ -280,12 +280,24 @@ public final class Constants {
 
   public static class ElevatorConstants {
     // setpoints for scoring (arbitrary values until we get elevator to tune)
-    public static final double scoreSetpoint = 0;
     public static final double carriageMass = 8.381376;
     public static final double drumRadius = 1.7;
     public static final double elevatorGearing = 25;
     public static final Constraints m_constraints = new TrapezoidProfile.Constraints(8.6, 4.3);;
     public static final double intakeSetpoint = 5;
+
+    public static enum NodeState {
+      GROUND(0),
+      SUBSTATION(20),
+      LOW(10),
+      HIGH(15);
+
+      public final double elevatorSetpoint;
+
+      private NodeState(double elevatorSetpoint) {
+        this.elevatorSetpoint = elevatorSetpoint;
+      }
+    }
   }
 
   public static class WristConstants {

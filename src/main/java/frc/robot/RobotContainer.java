@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.ElevatorConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.arm.HomeArm;
@@ -49,7 +50,11 @@ public class RobotContainer {
   private final ArmToSetpoint armToScoreSetpoint =
       new ArmToSetpoint(armSubsystem, Constants.ArmConstants.scoreSetpoint);
 
-  private final ElevatorToSetpoint elevatorToSetpoint = new ElevatorToSetpoint(elevatorSubsystem, Constants.ElevatorConstants.intakeSetpoint);
+  private final ElevatorToSetpoint elevatorToGround = new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND);
+  private final ElevatorToSetpoint elevatorToSubstation = new ElevatorToSetpoint(elevatorSubsystem, NodeState.SUBSTATION);
+  private final ElevatorToSetpoint elevatorToLow = new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
+  private final ElevatorToSetpoint elevatorToHigh = new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
+
   private final MoveElevatorWithJoystick moveElevatorWithJoystick = new MoveElevatorWithJoystick(elevatorSubsystem, driverJoystick);
   private final HomeArm homeArm = new HomeArm(armSubsystem);
   private final MoveArmWithJoystick moveArmWithJoystick =
@@ -76,7 +81,12 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Button.kB.value).whileTrue(armToScoreSetpoint);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(homeArm);
     new JoystickButton(driverJoystick, Button.kLeftBumper.value).whileTrue(smartWrist);
-    new JoystickButton(driverJoystick, Button.kRightBumper.value).whileTrue(elevatorToSetpoint);
+    // new JoystickButton(driverJoystick, Button.kRightBumper.value).whileTrue(elevatorToSetpoint);
+    new JoystickButton(operatorJoystick, Button.kX.value).whileTrue(elevatorToGround);
+    new JoystickButton(operatorJoystick, Button.kRightBumper.value).whileTrue(elevatorToHigh);
+    new JoystickButton(operatorJoystick, Button.kLeftBumper.value).whileTrue(elevatorToLow);
+    new JoystickButton(operatorJoystick, Button.kY.value).whileTrue(elevatorToSubstation);
+
   }
 
   // TODO update once done with autonomous command
