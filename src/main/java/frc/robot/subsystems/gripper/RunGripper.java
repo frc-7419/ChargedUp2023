@@ -26,7 +26,7 @@ public class RunGripper extends CommandBase {
     addRequirements(gripperSubsystem);
   }
 
-  // Called when the command is initially scheduled.
+  // Adjust direction based on if robot is intaking or scoring
   @Override
   public void initialize() {
     if (mode == GripperState.INTAKE) {

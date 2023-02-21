@@ -13,6 +13,7 @@ public class WristSubsystem extends SubsystemBase {
   private CANSparkMax wrist;
   private RelativeEncoder encoder;
 
+  /** Initializes the wrist motor and its encoder. */
   public WristSubsystem() {
     wrist = new CANSparkMax(CanIds.wristSpark.id, MotorType.kBrushless); // find canid
     encoder = wrist.getEncoder();

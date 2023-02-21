@@ -97,15 +97,18 @@ public class ArmSubsystem extends SubsystemBase {
     mainArmMotor2.setIdleMode(IdleMode.kBrake);
   }
 
-  @Override
-  public void periodic() {
+  public void checkLimitSwitch() {
     if (!magneticLimitSwitch.get() && !homed) {
       home();
       homed = true;
     }
+  }
+
+  @Override
+  public void periodic() {
+    checkLimitSwitch();
 
     // outputting arm positions to smart dashboard and homing status
-
     SmartDashboard.putNumber("Arm Position", getMainPosition());
     SmartDashboard.putNumber("Arm Position (2)", getMainPosition());
     SmartDashboard.putNumber("Home Pos", homePosition);
@@ -114,7 +117,7 @@ public class ArmSubsystem extends SubsystemBase {
     double[] gyroInformation = new double[3];
     extendedGyro.getYawPitchRoll(gyroInformation);
 
-    // putting gyro values into smartdashboard
+    // putting extended gyro values into smartdashboard
     SmartDashboard.putNumber("Extended Yaw", gyroInformation[0]);
     SmartDashboard.putNumber("Extended Pitch", gyroInformation[1]);
     SmartDashboard.putNumber("Extended Roll", gyroInformation[2]);

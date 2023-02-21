@@ -23,6 +23,7 @@ public class SmartWrist extends CommandBase {
   public void initialize() {
     wristController.setSetpoint(setpoint);
     wristController.setTolerance(PIDConstants.wristTolerance);
+    wristSubsystem.coast();
   }
 
   @Override
