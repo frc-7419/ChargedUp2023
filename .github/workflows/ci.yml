@@ -1,5 +1,5 @@
-name: Workflow for Codecov
-on: [push, pull_request]
+name: Workflow for Code Review
+on: [pull_request]
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -10,7 +10,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 18
+      - name: Run spotless
+        run: ./gradlew :spotlessApply
       - name: Install dependencies, run tests, and collect coverage
         run: gradle build
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Codeball AI Code Review
+        uses: sturdy-dev/codeball-action@v2.6.0
