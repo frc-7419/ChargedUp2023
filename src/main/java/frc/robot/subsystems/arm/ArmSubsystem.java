@@ -27,8 +27,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     extendedArmMotor = new TalonSRX(CanIds.armExtended.id);
 
-    mainArmMotor1 =
-        new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
+    mainArmMotor1 = new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
     mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
 
     magneticLimitSwitch = new DigitalInput(0); // port for now
@@ -78,12 +77,12 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /**
-   * Returns the position of the main arm.
+   * Returns the position of the main arm, relative to the arm's home position.
    *
    * @return The position of the main arm, in units of rotations.
    */
-  public double getMainPosition() { // THIS ENCODER DOES WORK
-    return mainArmMotor2.getEncoder().getPosition() - homePosition;
+  public double getMainPosition() {
+    return mainArmMotor2.getEncoder().getPosition() - homePosition; //main arm motor 2's encoder works
   }
 
   /**
@@ -110,9 +109,9 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /**
-   * Returns the yaw of the extended arm as measured by the arm's gyro.
+   * Returns the roll of the extended arm as measured by the arm's gyro.
    *
-   * @return The gyro's measured roll (angle of the extended arm).
+   * @return The gyro's measured roll (corresponds to the angle of the extended arm).
    */
   public double getExtendedAngle() {
     double[] gyroInformation = new double[3];
