@@ -10,9 +10,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 18
-      - name: Install dependencies, run tests, and collect coverage
-        run: gradle build
       - name: Run spotless
         run: ./gradlew :spotlessApply
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Install dependencies, run tests, and collect coverage
+        run: gradle build
+      - name: Codeball AI Code Review
+        uses: sturdy-dev/codeball-action@v2.6.0
