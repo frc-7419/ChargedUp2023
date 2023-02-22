@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":2,"i1":2,"i2":2,"i3":2,"i4":2,"i5":4,"i6":2,"i7":2,"i8":2,"i9":4,"i10":2,"i11":2,"i12":2,"i13":4,"i14":2,"i15":2,"i16":2,"i17":2,"i18":2,"i19":2,"i20":2,"i21":2,"i22":4,"i23":2,"i24":2,"i25":2,"i26":2,"i27":2,"i28":2,"i29":2,"i30":2};
+var data = {"i0":2,"i1":2,"i2":2,"i3":2,"i4":2,"i5":2,"i6":4,"i7":2,"i8":2,"i9":2,"i10":4,"i11":2,"i12":2,"i13":2,"i14":2,"i15":4,"i16":2,"i17":2,"i18":2,"i19":2,"i20":2,"i21":4,"i22":2,"i23":2,"i24":2,"i25":2,"i26":2,"i27":2,"i28":2,"i29":2,"i30":2,"i31":2,"i32":2};
 var tabs = {65535:["t0","All Classes"],2:["t2","Class Summary"],4:["t3","Enum Summary"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -112,7 +112,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><a href="frc/robot/subsystems/drive/ArcadeDrive.html" title="class in frc.robot.subsystems.drive">ArcadeDrive</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Command to arcade drive the robot (left joystick corresponds to straight, right joystick corresponds to turn)</div>
+</th>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><a href="frc/robot/subsystems/arm/ArmSubsystem.html" title="class in frc.robot.subsystems.arm">ArmSubsystem</a></td>
@@ -125,78 +127,77 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i3" class="rowColor">
 <td class="colFirst"><a href="frc/robot/Constants.html" title="class in frc.robot">Constants</a></td>
 <th class="colLast" scope="row">
-<div class="block">The Constants class provides a convenient place for teams to hold robot-wide
- numerical or boolean
+<div class="block">The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  constants.</div>
 </th>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><a href="frc/robot/Constants.ArmConstants.html" title="class in frc.robot">Constants.ArmConstants</a></td>
+<td class="colFirst"><a href="frc/robot/Constants.AprilTagPositionConstants.html" title="class in frc.robot">Constants.AprilTagPositionConstants</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><a href="frc/robot/Constants.CanIds.html" title="enum in frc.robot">Constants.CanIds</a></td>
+<td class="colFirst"><a href="frc/robot/Constants.ArmConstants.html" title="class in frc.robot">Constants.ArmConstants</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><a href="frc/robot/Constants.PIDConstants.html" title="class in frc.robot">Constants.PIDConstants</a></td>
+<td class="colFirst"><a href="frc/robot/Constants.CanIds.html" title="enum in frc.robot">Constants.CanIds</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><a href="frc/robot/Constants.PowerConstants.html" title="class in frc.robot">Constants.PowerConstants</a></td>
+<td class="colFirst"><a href="frc/robot/Constants.DriveConstants.html" title="class in frc.robot">Constants.DriveConstants</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i8" class="altColor">
-<td class="colFirst"><a href="frc/robot/Constants.RobotConstants.html" title="class in frc.robot">Constants.RobotConstants</a></td>
+<td class="colFirst"><a href="frc/robot/Constants.PIDConstants.html" title="class in frc.robot">Constants.PIDConstants</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i9" class="rowColor">
-<td class="colFirst"><a href="frc/robot/Constants.SensorIds.html" title="enum in frc.robot">Constants.SensorIds</a></td>
+<td class="colFirst"><a href="frc/robot/Constants.RobotConstants.html" title="class in frc.robot">Constants.RobotConstants</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i10" class="altColor">
-<td class="colFirst"><a href="frc/robot/Constants.VisionConstants.html" title="class in frc.robot">Constants.VisionConstants</a></td>
+<td class="colFirst"><a href="frc/robot/Constants.SensorIds.html" title="enum in frc.robot">Constants.SensorIds</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i11" class="rowColor">
+<td class="colFirst"><a href="frc/robot/Constants.VisionConstants.html" title="class in frc.robot">Constants.VisionConstants</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><a href="frc/robot/Constants.WaypointPositionConstants.html" title="class in frc.robot">Constants.WaypointPositionConstants</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i13" class="rowColor">
 <td class="colFirst"><a href="com/team7419/motors/DcMotor.html" title="class in com.team7419.motors">DcMotor</a></td>
 <th class="colLast" scope="row">
 <div class="block">simulation motor based on 971's motor model essentially modelling motor as generator + resistor</div>
 </th>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html" title="class in frc.robot.subsystems.drive">DriveBaseSubsystem</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><a href="frc/robot/subsystems/drive/DriveBaseSubsystem.TurnDirection.html" title="enum in frc.robot.subsystems.drive">DriveBaseSubsystem.TurnDirection</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><a href="frc/robot/subsystems/drive/DrivetrainPoseEstimator.html" title="class in frc.robot.subsystems.drive">DrivetrainPoseEstimator</a></td>
 <th class="colLast" scope="row">
 <div class="block">Performs estimation of the drivetrain's current position on the field, using a vision system,
  drivetrain encoders, and a gyroscope.</div>
 </th>
 </tr>
-<tr id="i15" class="rowColor">
-<td class="colFirst"><a href="com/team7419/templates/ExampleCommand.html" title="class in com.team7419.templates">ExampleCommand</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
-</tr>
-<tr id="i16" class="altColor">
-<td class="colFirst"><a href="com/team7419/templates/ExampleSubsystem.html" title="class in com.team7419.templates">ExampleSubsystem</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
-</tr>
 <tr id="i17" class="rowColor">
-<td class="colFirst"><a href="frc/robot/subsystems/gyro/GyroSubsystem.html" title="class in frc.robot.subsystems.gyro">GyroSubsystem</a></td>
+<td class="colFirst"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i18" class="altColor">
-<td class="colFirst"><a href="com/team7419/Initers.html" title="class in com.team7419">Initers</a></td>
+<td class="colFirst"><a href="frc/robot/subsystems/drive/GenerateTrajectory.html" title="class in frc.robot.subsystems.drive">GenerateTrajectory</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i19" class="rowColor">
-<td class="colFirst"><a href="com/team7419/InterpolatedTreeMap.html" title="class in com.team7419">InterpolatedTreeMap</a></td>
+<td class="colFirst"><a href="frc/robot/subsystems/gyro/GyroSubsystem.html" title="class in frc.robot.subsystems.gyro">GyroSubsystem</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i20" class="altColor">
@@ -206,42 +207,52 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i21" class="rowColor">
-<td class="colFirst"><a href="com/team7419/MotorGroup.html" title="class in com.team7419">MotorGroup</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
-</tr>
-<tr id="i22" class="altColor">
 <td class="colFirst"><a href="com/team7419/motors/MotorType.html" title="enum in com.team7419.motors">MotorType</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><a href="frc/robot/subsystems/arm/MoveArmWithJoystick.html" title="class in frc.robot.subsystems.arm">MoveArmWithJoystick</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><a href="frc/robot/commands/paths/MoveToMid.html" title="class in frc.robot.commands.paths">MoveToMid</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
 <tr id="i24" class="altColor">
-<td class="colFirst"><a href="frc/robot/Robot.html" title="class in frc.robot">Robot</a></td>
+<td class="colFirst"><a href="frc/robot/commands/paths/MoveToSingleSubstation.html" title="class in frc.robot.commands.paths">MoveToSingleSubstation</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i25" class="rowColor">
-<td class="colFirst"><a href="frc/robot/RobotContainer.html" title="class in frc.robot">RobotContainer</a></td>
+<td class="colFirst"><a href="frc/robot/Robot.html" title="class in frc.robot">Robot</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i26" class="altColor">
-<td class="colFirst"><a href="frc/robot/subsystems/arm/SmartArm.html" title="class in frc.robot.subsystems.arm">SmartArm</a></td>
+<td class="colFirst"><a href="frc/robot/RobotContainer.html" title="class in frc.robot">RobotContainer</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i27" class="rowColor">
-<td class="colFirst"><a href="frc/robot/subsystems/arm/SmartExtendedArm.html" title="class in frc.robot.subsystems.arm">SmartExtendedArm</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="frc/robot/subsystems/arm/SmartArm.html" title="class in frc.robot.subsystems.arm">SmartArm</a></td>
+<th class="colLast" scope="row">
+<div class="block">Sets the main arm to a specific position using PID controllers.</div>
+</th>
 </tr>
 <tr id="i28" class="altColor">
-<td class="colFirst"><a href="frc/robot/subsystems/arm/SmartHome.html" title="class in frc.robot.subsystems.arm">SmartHome</a></td>
+<td class="colFirst"><a href="frc/robot/subsystems/gyro/SmartBalance.html" title="class in frc.robot.subsystems.gyro">SmartBalance</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i29" class="rowColor">
-<td class="colFirst"><a href="com/team7419/TalonFuncs.html" title="class in com.team7419">TalonFuncs</a></td>
+<td class="colFirst"><a href="frc/robot/subsystems/gyro/SmartBalanceNew.html" title="class in frc.robot.subsystems.gyro">SmartBalanceNew</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i30" class="altColor">
+<td class="colFirst"><a href="frc/robot/subsystems/arm/SmartExtendedArm.html" title="class in frc.robot.subsystems.arm">SmartExtendedArm</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i31" class="rowColor">
+<td class="colFirst"><a href="frc/robot/subsystems/arm/SmartHome.html" title="class in frc.robot.subsystems.arm">SmartHome</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i32" class="altColor">
 <td class="colFirst"><a href="com/team7419/math/UnitConversions.html" title="class in com.team7419.math">UnitConversions</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
