@@ -1,6 +1,6 @@
 package frc.robot.subsystems.gyro;
 
-import static frc.robot.Constants.CanIds.*;
+import frc.robot.constants.DeviceIDs;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,7 +11,7 @@ public class GyroSubsystem extends SubsystemBase {
 
   /** Instatiates the pigeon and resets its yaw to 0 degrees. */
   public GyroSubsystem() {
-    this.gyro = new Pigeon2(pigeon.id);
+    this.gyro = new Pigeon2(DeviceIDs.CanIds.pigeon.id);
     gyro.setYaw(0);
   }
 

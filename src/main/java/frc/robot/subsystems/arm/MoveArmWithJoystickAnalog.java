@@ -2,7 +2,6 @@ package frc.robot.subsystems.arm;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ArmConstants;
 
 public class MoveArmWithJoystickAnalog extends CommandBase {
 
@@ -28,7 +27,7 @@ public class MoveArmWithJoystickAnalog extends CommandBase {
   /** The execute allows us to control the robot using a joystick */
   @Override
   public void execute() {
-    armSubsystem.setMainPower(joystick.getLeftY()*0.7);
+    armSubsystem.setMainPower(joystick.getLeftY() * 0.7);
   }
 
   @Override

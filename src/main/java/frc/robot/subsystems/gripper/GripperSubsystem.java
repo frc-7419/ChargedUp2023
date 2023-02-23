@@ -8,14 +8,14 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.CanIds;
+import frc.robot.constants.DeviceIDs;
 
 public class GripperSubsystem extends SubsystemBase {
   /** Creates a new gripper. */
   private CANSparkMax gripper;
 
   public GripperSubsystem() {
-    this.gripper = new CANSparkMax(CanIds.gripperSpark.id, MotorType.kBrushless);
+    this.gripper = new CANSparkMax(DeviceIDs.CanIds.gripperSpark.id, MotorType.kBrushless);
   }
 
   @Override

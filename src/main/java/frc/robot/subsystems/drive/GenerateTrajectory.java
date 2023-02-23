@@ -5,7 +5,7 @@ import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
-import frc.robot.Constants;
+import frc.robot.constants.DriveConstants;
 
 public class GenerateTrajectory extends RamseteCommand {
   private final DriveBaseSubsystem drivetrain;
@@ -18,13 +18,13 @@ public class GenerateTrajectory extends RamseteCommand {
         trajectory,
         drivetrain::getCtrlsPoseEstimate,
         new RamseteController(
-            Constants.DriveConstants.kRamseteB, Constants.DriveConstants.kRamseteZeta),
+            DriveConstants.kRamseteB, DriveConstants.kRamseteZeta),
         new SimpleMotorFeedforward(
-            Constants.DriveConstants.ks, Constants.DriveConstants.kv, Constants.DriveConstants.ka),
-        Constants.DriveConstants.driveKinematics,
+            DriveConstants.ks, DriveConstants.kv, DriveConstants.ka),
+        DriveConstants.driveKinematics,
         drivetrain::getWheelSpeeds,
-        new PIDController(Constants.DriveConstants.kPDriveVelocity, 0, 0),
-        new PIDController(Constants.DriveConstants.kPDriveVelocity, 0, 0),
+        new PIDController(DriveConstants.kPDriveVelocity, 0, 0),
+        new PIDController(DriveConstants.kPDriveVelocity, 0, 0),
         drivetrain::tankDriveVolts,
         drivetrain);
     this.drivetrain = drivetrain;

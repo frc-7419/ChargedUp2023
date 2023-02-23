@@ -6,7 +6,7 @@ package frc.robot.subsystems.gyro;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.PIDConstants;
+import frc.robot.constants.PIDConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 
 public class BalanceOnChargeStationNew extends CommandBase {

@@ -1,6 +1,7 @@
 package frc.robot.subsystems.arm;
 
-import static frc.robot.Constants.*;
+import frc.robot.constants.ArmConstants;
+import frc.robot.constants.DeviceIDs;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
@@ -22,7 +23,7 @@ public class ArmSubsystem extends SubsystemBase {
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
     mainArmMotor1 =
-        new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
+        new CANSparkMax(DeviceIDs.CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
     // mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
 
     magneticLimitSwitch = new DigitalInput(0); // port for now
@@ -39,7 +40,7 @@ public class ArmSubsystem extends SubsystemBase {
     mainArmMotor1.setInverted(false);
     // mainArmMotor2.setInverted(true);
 
-    //mainArmMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
+    // mainArmMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
   }
 
   /**
@@ -83,7 +84,7 @@ public class ArmSubsystem extends SubsystemBase {
   /** Sets both main arm motors to coast mode, allowing main arm to freely move */
   public void coastMain() {
     mainArmMotor1.setIdleMode(IdleMode.kCoast);
-  //  mainArmMotor2.setIdleMode(IdleMode.kCoast);
+    //  mainArmMotor2.setIdleMode(IdleMode.kCoast);
   }
 
   /** Sets all arm motors to brake mode */
@@ -94,7 +95,7 @@ public class ArmSubsystem extends SubsystemBase {
   /** Sets both main arm motors to brake mode, stopping the main arm's movement */
   public void brakeMain() {
     mainArmMotor1.setIdleMode(IdleMode.kBrake);
-//    mainArmMotor2.setIdleMode(IdleMode.kBrake);
+    //    mainArmMotor2.setIdleMode(IdleMode.kBrake);
   }
 
   public void checkLimitSwitch() {
@@ -110,7 +111,6 @@ public class ArmSubsystem extends SubsystemBase {
 
     // outputting arm positions to smart dashboard and homing status
     SmartDashboard.putNumber("Arm Position", getMainPosition());
-    SmartDashboard.putNumber("Arm Position (2)", getMainPosition());
     SmartDashboard.putNumber("Home Pos", homePosition);
     SmartDashboard.putBoolean("Arm Homed", homed);
 

@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.ElevatorConstants.NodeState;
+import frc.robot.constants.ElevatorConstants.NodeState;
+import frc.robot.constants.ArmConstants;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.arm.HomeArm;
-import frc.robot.subsystems.arm.MoveArmWithJoystick;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
 import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
@@ -17,7 +17,6 @@ import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.Testing;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpoint;
-import frc.robot.subsystems.elevator.MoveElevatorWithJoystick;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
@@ -43,36 +42,42 @@ public class RobotContainer {
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
 
   // Commands
-  private final ArcadeDrive arcadeDrive =
-      new ArcadeDrive(driverJoystick, driveBaseSubsystem, 1, 1);
+  private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem, 1, 1);
   private final Testing testing = new Testing(driveBaseSubsystem, driverJoystick);
 
   private final BalanceOnChargeStationNew smartBalanceNew =
       new BalanceOnChargeStationNew(driveBaseSubsystem, gyroSubsystem);
 
   private final ArmToSetpoint armToIntakeSetpoint =
-      new ArmToSetpoint(armSubsystem, Constants.ArmConstants.intakeSetpoint);
+      new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint);
 
   private final ArmToSetpoint armToScoreSetpoint =
-      new ArmToSetpoint(armSubsystem, Constants.ArmConstants.scoreSetpoint);
+      new ArmToSetpoint(armSubsystem, ArmConstants.scoreSetpoint);
 
-  private final ElevatorToSetpoint elevatorToGround = new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND);
-  private final ElevatorToSetpoint elevatorToSubstation = new ElevatorToSetpoint(elevatorSubsystem, NodeState.SUBSTATION);
-  private final ElevatorToSetpoint elevatorToLow = new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
-  private final ElevatorToSetpoint elevatorToHigh = new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
+  private final ElevatorToSetpoint elevatorToGround =
+      new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND);
+  private final ElevatorToSetpoint elevatorToSubstation =
+      new ElevatorToSetpoint(elevatorSubsystem, NodeState.SUBSTATION);
+  private final ElevatorToSetpoint elevatorToLow =
+      new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
+  private final ElevatorToSetpoint elevatorToHigh =
+      new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
 
-  // private final MoveElevatorWithJoystick moveElevatorWithJoystick = new MoveElevatorWithJoystick(elevatorSubsystem, driverJoystick);
+  // private final MoveElevatorWithJoystick moveElevatorWithJoystick = new
+  // MoveElevatorWithJoystick(elevatorSubsystem, driverJoystick);
   private final HomeArm homeArm = new HomeArm(armSubsystem);
   // private final MoveArmWithJoystick moveArmWithJoystick =
-      // new MoveArmWithJoystick(armSubsystem, driverJoystick);
+  // new MoveArmWithJoystick(armSubsystem, driverJoystick);
   private final MoveWristWithJoystick moveWristWithJoystick =
       new MoveWristWithJoystick(wristSubsystem, driverJoystick);
   // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
-  private final RunGripperWithJoystick runGripperWithJoystick = new RunGripperWithJoystick(gripperSubsystem, driverJoystick);
-   private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog = new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
- private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
+  private final RunGripperWithJoystick runGripperWithJoystick =
+      new RunGripperWithJoystick(gripperSubsystem, driverJoystick);
+  private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
+      new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
+  private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
       new MoveArmWithJoystickAnalog(armSubsystem, operatorJoystick);
- 
+
   // Autonomous
 
   // Path Planning Commands
@@ -97,7 +102,6 @@ public class RobotContainer {
     new JoystickButton(operatorJoystick, Button.kRightBumper.value).whileTrue(elevatorToHigh);
     new JoystickButton(operatorJoystick, Button.kLeftBumper.value).whileTrue(elevatorToLow);
     new JoystickButton(operatorJoystick, Button.kY.value).whileTrue(elevatorToSubstation);
-
   }
 
   // TODO update once done with autonomous command

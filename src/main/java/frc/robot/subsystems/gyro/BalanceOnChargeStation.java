@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.gyro;
 
-import static frc.robot.Constants.PIDConstants;
+import frc.robot.constants.PIDConstants;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;

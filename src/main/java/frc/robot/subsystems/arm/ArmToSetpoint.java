@@ -1,6 +1,6 @@
 package frc.robot.subsystems.arm;
 
-import static frc.robot.Constants.PIDConstants;
+import frc.robot.constants.PIDConstants;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

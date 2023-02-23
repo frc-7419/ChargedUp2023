@@ -10,8 +10,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class MoveElevatorWithJoystickAnalog extends CommandBase {
   /** Creates a new MoveElevatorWithJoystick. */
   private ElevatorSubsystem elevatorSubsystem;
+
   private XboxController joystick;
-  public MoveElevatorWithJoystickAnalog(ElevatorSubsystem elevatorSubsystem, XboxController joystick) {
+
+  public MoveElevatorWithJoystickAnalog(
+      ElevatorSubsystem elevatorSubsystem, XboxController joystick) {
     this.elevatorSubsystem = elevatorSubsystem;
     this.joystick = joystick;
     addRequirements(elevatorSubsystem);
@@ -25,7 +28,7 @@ public class MoveElevatorWithJoystickAnalog extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSubsystem.setPower(joystick.getRightY()*0.4);
+    elevatorSubsystem.setPower(joystick.getRightY() * 0.4);
   }
   // Called once the command ends or is interrupted.
   @Override
