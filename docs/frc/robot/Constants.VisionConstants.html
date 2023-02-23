@@ -152,28 +152,28 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#camPitch">camPitch</a></span></code></th>
+<td class="colFirst"><code>static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#cameraResolutionHeight">cameraResolutionHeight</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#camResHeight">camResHeight</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#cameraResolutionWidth">cameraResolutionWidth</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#camResWidth">camResWidth</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
 <td class="colFirst"><code>static double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#focalLength">focalLength</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#kCameraHeight">kCameraHeight</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#kCameraPitch">kCameraPitch</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -182,33 +182,18 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#maxLEDRange">maxLEDRange</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#minTargetArea">minTargetArea</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mountingAngle">mountingAngle</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#name1">name1</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#name2">name2</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#trackingSpeed">trackingSpeed</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#visionAmbiguityThreshold">visionAmbiguityThreshold</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -318,16 +303,29 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="mountingAngle">
+<a id="kCameraPitch">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>mountingAngle</h4>
-<pre>public static final&nbsp;double mountingAngle</pre>
+<h4>kCameraPitch</h4>
+<pre>public static final&nbsp;double kCameraPitch</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.mountingAngle">Constant Field Values</a></dd>
+<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.kCameraPitch">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="visionAmbiguityThreshold">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>visionAmbiguityThreshold</h4>
+<pre>public static final&nbsp;double visionAmbiguityThreshold</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.visionAmbiguityThreshold">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>
@@ -344,81 +342,29 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="camPitch">
+<a id="cameraResolutionWidth">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>camPitch</h4>
-<pre>public static final&nbsp;double camPitch</pre>
+<h4>cameraResolutionWidth</h4>
+<pre>public static final&nbsp;int cameraResolutionWidth</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.camPitch">Constant Field Values</a></dd>
+<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.cameraResolutionWidth">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>
-<a id="maxLEDRange">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>maxLEDRange</h4>
-<pre>public static final&nbsp;double maxLEDRange</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.maxLEDRange">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-<a id="minTargetArea">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>minTargetArea</h4>
-<pre>public static final&nbsp;double minTargetArea</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.minTargetArea">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-<a id="trackingSpeed">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>trackingSpeed</h4>
-<pre>public static final&nbsp;double trackingSpeed</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.trackingSpeed">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-<a id="camResWidth">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>camResWidth</h4>
-<pre>public static final&nbsp;int camResWidth</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.camResWidth">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-<a id="camResHeight">
+<a id="cameraResolutionHeight">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>camResHeight</h4>
-<pre>public static final&nbsp;int camResHeight</pre>
+<h4>cameraResolutionHeight</h4>
+<pre>public static final&nbsp;int cameraResolutionHeight</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.camResHeight">Constant Field Values</a></dd>
+<dd><a href="../../constant-values.html#frc.robot.Constants.VisionConstants.cameraResolutionHeight">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>

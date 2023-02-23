@@ -142,6 +142,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">ArcadeDrive</span>
 extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
+<div class="block">Command to arcade drive the robot (left joystick corresponds to straight, right joystick corresponds to turn)</div>
 </li>
 </ul>
 </div>
@@ -200,7 +201,9 @@ extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
            <a href="DriveBaseSubsystem.html" title="class in frc.robot.subsystems.drive">DriveBaseSubsystem</a>&nbsp;driveBaseSubsystem,
            double&nbsp;kStraight,
            double&nbsp;kTurn)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructs the ArcadeDrive class</div>
+</td>
 </tr>
 </table>
 </li>
@@ -228,12 +231,16 @@ extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute()">execute</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">In the execute method, move the joystick to make the robot move.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initialize()">initialize</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Initializes the arcadedrive to reset all motors to default values</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
@@ -288,6 +295,14 @@ extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
                    <a href="DriveBaseSubsystem.html" title="class in frc.robot.subsystems.drive">DriveBaseSubsystem</a>&nbsp;driveBaseSubsystem,
                    double&nbsp;kStraight,
                    double&nbsp;kTurn)</pre>
+<div class="block">Constructs the ArcadeDrive class</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>joystick</code> - </dd>
+<dd><code>driveBaseSubsystem</code> - </dd>
+<dd><code>kStraight</code> - </dd>
+<dd><code>kTurn</code> - </dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -307,6 +322,7 @@ extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
 <li class="blockList">
 <h4>initialize</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;initialize()</pre>
+<div class="block">Initializes the arcadedrive to reset all motors to default values</div>
 </li>
 </ul>
 <a id="execute()">
@@ -316,6 +332,7 @@ extends edu.wpi.first.wpilibj2.command.CommandBase</pre>
 <li class="blockList">
 <h4>execute</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;execute()</pre>
+<div class="block">In the execute method, move the joystick to make the robot move.</div>
 </li>
 </ul>
 <a id="isFinished()">

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -123,25 +123,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>edu.wpi.first.wpilibj2.command.SubsystemBase</li>
-<li>
-<ul class="inheritance">
 <li>frc.robot.subsystems.drive.DrivetrainPoseEstimator</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
-<dl>
-<dt>All Implemented Interfaces:</dt>
-<dd><code>edu.wpi.first.util.sendable.Sendable</code>, <code>edu.wpi.first.wpilibj2.command.Subsystem</code></dd>
-</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">DrivetrainPoseEstimator</span>
-extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
+extends java.lang.Object</pre>
 <div class="block">Performs estimation of the drivetrain's current position on the field, using a vision system,
  drivetrain encoders, and a gyroscope. These sensor readings are fused together using a Kalman
  filter. This in turn creates a best-guess at a Pose2d of where our drivetrain is currently at.</div>
@@ -166,7 +157,9 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(frc.robot.subsystems.gyro.GyroSubsystem)">DrivetrainPoseEstimator</a></span>&#8203;(<a href="../gyro/GyroSubsystem.html" title="class in frc.robot.subsystems.gyro">GyroSubsystem</a>&nbsp;gyroSubsystem)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructs a new DrivetrainPoseEstimator.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -187,39 +180,34 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>double[]</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInfo()">getInfo</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Gets the distance and angle (yaw) to the nearest AprilTag.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
 <td class="colFirst"><code>edu.wpi.first.math.geometry.Pose2d</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPoseEst()">getPoseEst</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPoseEstimation()">getPoseEstimation</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>edu.wpi.first.math.geometry.Rotation2d</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRotation2d()">getRotation2d</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the current rotation of the robot, using the gyroscope.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#periodic()">periodic</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>double[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVisionInformation()">getVisionInformation</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets the distance and angle (yaw) to the nearest AprilTag.</div>
+</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetToPose(edu.wpi.first.math.geometry.Pose2d,double,double)">resetToPose</a></span>&#8203;(edu.wpi.first.math.geometry.Pose2d&nbsp;pose,
            double&nbsp;leftDist,
            double&nbsp;rightDist)</code></th>
 <td class="colLast">
-<div class="block">Force the pose estimator to a particular pose.</div>
+<div class="block">Reset the pose given a specified Rotation2d, left distance, right distance, and pose</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(double,double)">update</a></span>&#8203;(double&nbsp;leftDist,
       double&nbsp;rightDist)</code></th>
@@ -229,25 +217,11 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </tr>
 </table>
 <ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.SubsystemBase">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;edu.wpi.first.wpilibj2.command.SubsystemBase</h3>
-<code>addChild, getName, getSubsystem, initSendable, setName, setSubsystem</code></li>
-</ul>
-<ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.Subsystem">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;edu.wpi.first.wpilibj2.command.Subsystem</h3>
-<code>getCurrentCommand, getDefaultCommand, register, run, runEnd, runOnce, setDefaultCommand, simulationPeriodic, startEnd</code></li>
 </ul>
 </li>
 </ul>
@@ -272,6 +246,12 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <li class="blockList">
 <h4>DrivetrainPoseEstimator</h4>
 <pre>public&nbsp;DrivetrainPoseEstimator&#8203;(<a href="../gyro/GyroSubsystem.html" title="class in frc.robot.subsystems.gyro">GyroSubsystem</a>&nbsp;gyroSubsystem)</pre>
+<div class="block">Constructs a new DrivetrainPoseEstimator. Initializes the AprilTag poses and their
+ corresponding Fiducial IDs.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>gyroSubsystem</code> - </dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -310,31 +290,23 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <div class="block">Gets the current rotation of the robot, using the gyroscope.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>Rotation of the robot, as a Rotation2d object</dd>
+<dd>Rotation of the robot, as a <code>Rotation2d</code> object</dd>
 </dl>
 </li>
 </ul>
-<a id="getInfo()">
+<a id="getVisionInformation()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getInfo</h4>
-<pre class="methodSignature">public&nbsp;double[]&nbsp;getInfo()</pre>
+<h4>getVisionInformation</h4>
+<pre class="methodSignature">public&nbsp;double[]&nbsp;getVisionInformation()</pre>
 <div class="block">Gets the distance and angle (yaw) to the nearest AprilTag.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>Distance to nearest AprilTag target in index 0, yaw to nearest AprilTag target in index 1</dd>
+<dd>Distance to nearest AprilTag target in index 0, yaw to nearest AprilTag target in index
+     1</dd>
 </dl>
-</li>
-</ul>
-<a id="periodic()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>periodic</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;periodic()</pre>
 </li>
 </ul>
 <a id="resetToPose(edu.wpi.first.math.geometry.Pose2d,double,double)">
@@ -346,18 +318,22 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;resetToPose&#8203;(edu.wpi.first.math.geometry.Pose2d&nbsp;pose,
                         double&nbsp;leftDist,
                         double&nbsp;rightDist)</pre>
-<div class="block">Force the pose estimator to a particular pose. This is useful for indicating to the software
- when you have manually moved your robot in a particular position on the field (EX: when you
- place it on the field at the start of the match).</div>
+<div class="block">Reset the pose given a specified Rotation2d, left distance, right distance, and pose</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>pose</code> - </dd>
+<dd><code>leftDist</code> - </dd>
+<dd><code>rightDist</code> - </dd>
+</dl>
 </li>
 </ul>
-<a id="getPoseEst()">
+<a id="getPoseEstimation()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>getPoseEst</h4>
-<pre class="methodSignature">public&nbsp;edu.wpi.first.math.geometry.Pose2d&nbsp;getPoseEst()</pre>
+<h4>getPoseEstimation</h4>
+<pre class="methodSignature">public&nbsp;edu.wpi.first.math.geometry.Pose2d&nbsp;getPoseEstimation()</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The current best-guess at drivetrain position on the field.</dd>

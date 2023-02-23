@@ -27,7 +27,8 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     extendedArmMotor = new TalonSRX(CanIds.armExtended.id);
 
-    mainArmMotor1 = new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
+    mainArmMotor1 =
+        new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
     mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
 
     magneticLimitSwitch = new DigitalInput(0); // port for now
@@ -82,7 +83,8 @@ public class ArmSubsystem extends SubsystemBase {
    * @return The position of the main arm, in units of rotations.
    */
   public double getMainPosition() {
-    return mainArmMotor2.getEncoder().getPosition() - homePosition; //main arm motor 2's encoder works
+    return mainArmMotor2.getEncoder().getPosition()
+        - homePosition; // main arm motor 2's encoder works
   }
 
   /**

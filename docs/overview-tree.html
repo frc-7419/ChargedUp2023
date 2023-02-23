@@ -96,14 +96,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h1 class="title">Hierarchy For All Packages</h1>
 <span class="packageHierarchyLabel">Package Hierarchies:</span>
 <ul class="horizontal">
-<li><a href="com/team7419/package-tree.html">com.team7419</a>, </li>
 <li><a href="com/team7419/math/package-tree.html">com.team7419.math</a>, </li>
 <li><a href="com/team7419/motors/package-tree.html">com.team7419.motors</a>, </li>
-<li><a href="com/team7419/templates/package-tree.html">com.team7419.templates</a>, </li>
 <li><a href="frc/robot/package-tree.html">frc.robot</a>, </li>
+<li><a href="frc/robot/commands/paths/package-tree.html">frc.robot.commands.paths</a>, </li>
 <li><a href="frc/robot/subsystems/arm/package-tree.html">frc.robot.subsystems.arm</a>, </li>
 <li><a href="frc/robot/subsystems/beambreak/package-tree.html">frc.robot.subsystems.beambreak</a>, </li>
 <li><a href="frc/robot/subsystems/drive/package-tree.html">frc.robot.subsystems.drive</a>, </li>
+<li><a href="frc/robot/subsystems/elevator/package-tree.html">frc.robot.subsystems.elevator</a>, </li>
 <li><a href="frc/robot/subsystems/gyro/package-tree.html">frc.robot.subsystems.gyro</a></li>
 </ul>
 </div>
@@ -113,35 +113,47 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul>
 <li class="circle">java.lang.Object
 <ul>
-<li class="circle">java.util.AbstractMap&lt;K,&#8203;V&gt; (implements java.util.Map&lt;K,&#8203;V&gt;)
-<ul>
-<li class="circle">java.util.TreeMap&lt;K,&#8203;V&gt; (implements java.lang.Cloneable, java.util.NavigableMap&lt;K,&#8203;V&gt;, java.io.Serializable)
-<ul>
-<li class="circle">com.team7419.<a href="com/team7419/InterpolatedTreeMap.html" title="class in com.team7419"><span class="typeNameLink">InterpolatedTreeMap</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="circle">edu.wpi.first.wpilibj2.command.CommandBase (implements edu.wpi.first.wpilibj2.command.Command, edu.wpi.first.util.sendable.Sendable)
 <ul>
 <li class="circle">frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/ArcadeDrive.html" title="class in frc.robot.subsystems.drive"><span class="typeNameLink">ArcadeDrive</span></a></li>
-<li class="circle">com.team7419.templates.<a href="com/team7419/templates/ExampleCommand.html" title="class in com.team7419.templates"><span class="typeNameLink">ExampleCommand</span></a></li>
+<li class="circle">edu.wpi.first.wpilibj2.command.CommandGroupBase
+<ul>
+<li class="circle">edu.wpi.first.wpilibj2.command.SequentialCommandGroup
+<ul>
+<li class="circle">frc.robot.commands.paths.<a href="frc/robot/commands/paths/MoveToMid.html" title="class in frc.robot.commands.paths"><span class="typeNameLink">MoveToMid</span></a></li>
+<li class="circle">frc.robot.commands.paths.<a href="frc/robot/commands/paths/MoveToSingleSubstation.html" title="class in frc.robot.commands.paths"><span class="typeNameLink">MoveToSingleSubstation</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="circle">frc.robot.subsystems.arm.<a href="frc/robot/subsystems/arm/MoveArmWithJoystick.html" title="class in frc.robot.subsystems.arm"><span class="typeNameLink">MoveArmWithJoystick</span></a></li>
+<li class="circle">edu.wpi.first.wpilibj2.command.PIDCommand
+<ul>
+<li class="circle">frc.robot.subsystems.gyro.<a href="frc/robot/subsystems/gyro/SmartBalance.html" title="class in frc.robot.subsystems.gyro"><span class="typeNameLink">SmartBalance</span></a></li>
+</ul>
+</li>
+<li class="circle">edu.wpi.first.wpilibj2.command.RamseteCommand
+<ul>
+<li class="circle">frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/GenerateTrajectory.html" title="class in frc.robot.subsystems.drive"><span class="typeNameLink">GenerateTrajectory</span></a></li>
+</ul>
+</li>
 <li class="circle">frc.robot.subsystems.arm.<a href="frc/robot/subsystems/arm/SmartArm.html" title="class in frc.robot.subsystems.arm"><span class="typeNameLink">SmartArm</span></a></li>
+<li class="circle">frc.robot.subsystems.gyro.<a href="frc/robot/subsystems/gyro/SmartBalanceNew.html" title="class in frc.robot.subsystems.gyro"><span class="typeNameLink">SmartBalanceNew</span></a></li>
 <li class="circle">frc.robot.subsystems.arm.<a href="frc/robot/subsystems/arm/SmartExtendedArm.html" title="class in frc.robot.subsystems.arm"><span class="typeNameLink">SmartExtendedArm</span></a></li>
 <li class="circle">frc.robot.subsystems.arm.<a href="frc/robot/subsystems/arm/SmartHome.html" title="class in frc.robot.subsystems.arm"><span class="typeNameLink">SmartHome</span></a></li>
 </ul>
 </li>
 <li class="circle">frc.robot.<a href="frc/robot/Constants.html" title="class in frc.robot"><span class="typeNameLink">Constants</span></a></li>
+<li class="circle">frc.robot.<a href="frc/robot/Constants.AprilTagPositionConstants.html" title="class in frc.robot"><span class="typeNameLink">Constants.AprilTagPositionConstants</span></a></li>
 <li class="circle">frc.robot.<a href="frc/robot/Constants.ArmConstants.html" title="class in frc.robot"><span class="typeNameLink">Constants.ArmConstants</span></a></li>
+<li class="circle">frc.robot.<a href="frc/robot/Constants.DriveConstants.html" title="class in frc.robot"><span class="typeNameLink">Constants.DriveConstants</span></a></li>
 <li class="circle">frc.robot.<a href="frc/robot/Constants.PIDConstants.html" title="class in frc.robot"><span class="typeNameLink">Constants.PIDConstants</span></a></li>
-<li class="circle">frc.robot.<a href="frc/robot/Constants.PowerConstants.html" title="class in frc.robot"><span class="typeNameLink">Constants.PowerConstants</span></a></li>
 <li class="circle">frc.robot.<a href="frc/robot/Constants.RobotConstants.html" title="class in frc.robot"><span class="typeNameLink">Constants.RobotConstants</span></a></li>
 <li class="circle">frc.robot.<a href="frc/robot/Constants.VisionConstants.html" title="class in frc.robot"><span class="typeNameLink">Constants.VisionConstants</span></a></li>
+<li class="circle">frc.robot.<a href="frc/robot/Constants.WaypointPositionConstants.html" title="class in frc.robot"><span class="typeNameLink">Constants.WaypointPositionConstants</span></a></li>
 <li class="circle">com.team7419.motors.<a href="com/team7419/motors/DcMotor.html" title="class in com.team7419.motors"><span class="typeNameLink">DcMotor</span></a></li>
-<li class="circle">com.team7419.<a href="com/team7419/Initers.html" title="class in com.team7419"><span class="typeNameLink">Initers</span></a></li>
+<li class="circle">frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DrivetrainPoseEstimator.html" title="class in frc.robot.subsystems.drive"><span class="typeNameLink">DrivetrainPoseEstimator</span></a></li>
 <li class="circle">frc.robot.<a href="frc/robot/Main.html" title="class in frc.robot"><span class="typeNameLink">Main</span></a></li>
-<li class="circle">com.team7419.<a href="com/team7419/MotorGroup.html" title="class in com.team7419"><span class="typeNameLink">MotorGroup</span></a></li>
 <li class="circle">edu.wpi.first.wpilibj.RobotBase (implements java.lang.AutoCloseable)
 <ul>
 <li class="circle">edu.wpi.first.wpilibj.IterativeRobotBase
@@ -161,12 +173,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="circle">frc.robot.subsystems.arm.<a href="frc/robot/subsystems/arm/ArmSubsystem.html" title="class in frc.robot.subsystems.arm"><span class="typeNameLink">ArmSubsystem</span></a></li>
 <li class="circle">frc.robot.subsystems.beambreak.<a href="frc/robot/subsystems/beambreak/BeamBreakSubsystem.html" title="class in frc.robot.subsystems.beambreak"><span class="typeNameLink">BeamBreakSubsystem</span></a></li>
 <li class="circle">frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html" title="class in frc.robot.subsystems.drive"><span class="typeNameLink">DriveBaseSubsystem</span></a></li>
-<li class="circle">frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DrivetrainPoseEstimator.html" title="class in frc.robot.subsystems.drive"><span class="typeNameLink">DrivetrainPoseEstimator</span></a></li>
-<li class="circle">com.team7419.templates.<a href="com/team7419/templates/ExampleSubsystem.html" title="class in com.team7419.templates"><span class="typeNameLink">ExampleSubsystem</span></a></li>
+<li class="circle">frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator"><span class="typeNameLink">ElevatorSubsystem</span></a></li>
 <li class="circle">frc.robot.subsystems.gyro.<a href="frc/robot/subsystems/gyro/GyroSubsystem.html" title="class in frc.robot.subsystems.gyro"><span class="typeNameLink">GyroSubsystem</span></a></li>
 </ul>
 </li>
-<li class="circle">com.team7419.<a href="com/team7419/TalonFuncs.html" title="class in com.team7419"><span class="typeNameLink">TalonFuncs</span></a></li>
 <li class="circle">com.team7419.math.<a href="com/team7419/math/UnitConversions.html" title="class in com.team7419.math"><span class="typeNameLink">UnitConversions</span></a></li>
 </ul>
 </li>

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -227,13 +227,15 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#factoryResetAll()">factoryResetAll</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set all the drivetrain motors to factory default</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAngle()">getAngle</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Gets the yaw to the nearest AprilTag target.</div>
+<div class="block">Gets the yaw angle to the nearest AprilTag target</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
@@ -245,7 +247,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDist()">getDist</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Gets the distance to the nearest AprilTag target.</div>
+<div class="block">Gets the distance to the nearest AprilTag target</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
@@ -297,75 +299,96 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </td>
 </tr>
 <tr id="i15" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#periodic()">periodic</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWheelSpeeds()">getWheelSpeeds</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets the wheels speeds of both sides of the drivetrain</div>
+</td>
 </tr>
 <tr id="i16" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#periodic()">periodic</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Tne periodic function is used for odometry</div>
+</td>
+</tr>
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetOdometry(edu.wpi.first.math.geometry.Pose2d)">resetOdometry</a></span>&#8203;(edu.wpi.first.math.geometry.Pose2d&nbsp;pose)</code></th>
 <td class="colLast">
 <div class="block">Force the pose estimator and all sensors to a particular pose.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAllDefaultInversions()">setAllDefaultInversions</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set all the drivetrain motors to the correct inversions</div>
+</td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAllMode(com.ctre.phoenix.motorcontrol.NeutralMode)">setAllMode</a></span>&#8203;(com.ctre.phoenix.motorcontrol.NeutralMode&nbsp;mode)</code></th>
 <td class="colLast">
 <div class="block">Sets the Neutral Mode (used when the motor is not running) of the drivetrain.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAllPower(double)">setAllPower</a></span>&#8203;(double&nbsp;power)</code></th>
 <td class="colLast">
 <div class="block">Sets the power of the drivetrain.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAllVoltage(double)">setAllVoltage</a></span>&#8203;(double&nbsp;voltage)</code></th>
 <td class="colLast">
 <div class="block">Provides a specific voltage to the drivetrain.</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLeftPower(double)">setLeftPower</a></span>&#8203;(double&nbsp;power)</code></th>
 <td class="colLast">
 <div class="block">Sets the power of the left side of the drivetrain.</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLeftVoltage(double)">setLeftVoltage</a></span>&#8203;(double&nbsp;voltage)</code></th>
 <td class="colLast">
 <div class="block">Provides a specific voltage to the left side of the drivetrain.</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRightPower(double)">setRightPower</a></span>&#8203;(double&nbsp;power)</code></th>
 <td class="colLast">
 <div class="block">Sets the power of the right side of the drivetrain.</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRightVoltage(double)">setRightVoltage</a></span>&#8203;(double&nbsp;voltage)</code></th>
 <td class="colLast">
 <div class="block">Provides a specific voltage to the right side of the drivetrain.</div>
 </td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stop()">stop</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Stops the drivetrain (sets all motors to 0 power)</div>
+</td>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tankDriveVolts(double,double)">tankDriveVolts</a></span>&#8203;(double&nbsp;leftVolts,
+              double&nbsp;rightVolts)</code></th>
+<td class="colLast">
+<div class="block">Tank drives the robot using the provided left and right voltages</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -551,6 +574,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <li class="blockList">
 <h4>stop</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;stop()</pre>
+<div class="block">Stops the drivetrain (sets all motors to 0 power)</div>
 </li>
 </ul>
 <a id="setAllMode(com.ctre.phoenix.motorcontrol.NeutralMode)">
@@ -596,6 +620,20 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Velocity, in raw sensor units</dd>
+</dl>
+</li>
+</ul>
+<a id="getWheelSpeeds()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getWheelSpeeds</h4>
+<pre class="methodSignature">public&nbsp;edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds&nbsp;getWheelSpeeds()</pre>
+<div class="block">Gets the wheels speeds of both sides of the drivetrain</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The speed of the wheels on the left and right side of the drivetrain, as a <code>DifferentialDriveWheelSpeeds</code> object</dd>
 </dl>
 </li>
 </ul>
@@ -648,6 +686,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <li class="blockList">
 <h4>setAllDefaultInversions</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setAllDefaultInversions()</pre>
+<div class="block">Set all the drivetrain motors to the correct inversions</div>
 </li>
 </ul>
 <a id="factoryResetAll()">
@@ -657,6 +696,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <li class="blockList">
 <h4>factoryResetAll</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;factoryResetAll()</pre>
+<div class="block">Set all the drivetrain motors to factory default</div>
 </li>
 </ul>
 <a id="drive(double,double)">
@@ -675,34 +715,6 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </dl>
 </li>
 </ul>
-<a id="getDist()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDist</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;getDist()</pre>
-<div class="block">Gets the distance to the nearest AprilTag target.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>Distance, in meters, to the nearest AprilTag</dd>
-</dl>
-</li>
-</ul>
-<a id="getAngle()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getAngle</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;getAngle()</pre>
-<div class="block">Gets the yaw to the nearest AprilTag target.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>Yaw, in degrees, to the nearest AprilTag</dd>
-</dl>
-</li>
-</ul>
 <a id="resetOdometry(edu.wpi.first.math.geometry.Pose2d)">
 <!--   -->
 </a>
@@ -715,7 +727,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
  when you place it on the field at the start of the match).</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>pose</code> - </dd>
+<dd><code>pose</code> - <code>Pose2d</code> to reset to</dd>
 </dl>
 </li>
 </ul>
@@ -732,13 +744,58 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </dl>
 </li>
 </ul>
+<a id="getDist()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDist</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;getDist()</pre>
+<div class="block">Gets the distance to the nearest AprilTag target</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Distance to the nearest AprilTag, in meters</dd>
+</dl>
+</li>
+</ul>
+<a id="getAngle()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAngle</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;getAngle()</pre>
+<div class="block">Gets the yaw angle to the nearest AprilTag target</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Yaw to the nearest AprilTag, in degrees</dd>
+</dl>
+</li>
+</ul>
 <a id="periodic()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>periodic</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;periodic()</pre>
+<div class="block">Tne periodic function is used for odometry</div>
+</li>
+</ul>
+<a id="tankDriveVolts(double,double)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>periodic</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;periodic()</pre>
+<h4>tankDriveVolts</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;tankDriveVolts&#8203;(double&nbsp;leftVolts,
+                           double&nbsp;rightVolts)</pre>
+<div class="block">Tank drives the robot using the provided left and right voltages</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>leftVolts</code> - Voltage to supply to the left side of the drivetrain</dd>
+<dd><code>rightVolts</code> - Voltage to supply to the right side of the drivetrain</dd>
+</dl>
 </li>
 </ul>
 </li>
