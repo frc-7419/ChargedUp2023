@@ -28,8 +28,17 @@ public class MoveArmWithJoystick extends CommandBase {
   /** The execute allows us to control the robot using a joystick */
   @Override
   public void execute() {
-    double mainPowerJoystick = ArmConstants.mainArmPowerCoefficient * joystick.getRightY();
-    armSubsystem.setMainPower(mainPowerJoystick);
+    if(joystick.getRightBumper()) {
+      armSubsystem.setMainPower(0.1);
+    }
+    else if(joystick.getLeftBumper()) {
+      armSubsystem.setMainPower(-0.1);
+    }
+    else {
+      armSubsystem.setMainPower(0);
+    }
+    // double mainPowerJoystick = ArmConstants.mainArmPowerCoefficient * joystick.getRightY();
+    // armSubsystem.setMainPower(mainPowerJoystick);
   }
 
   @Override

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ArmSubsystem extends SubsystemBase {
 
   private CANSparkMax mainArmMotor1;
-  private CANSparkMax mainArmMotor2;
+  // private CANSparkMax mainArmMotor2;
   private boolean homed;
   private double homePosition = 0;
   private DigitalInput magneticLimitSwitch;
@@ -23,7 +23,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     mainArmMotor1 =
         new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
-    mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
+    // mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
 
     magneticLimitSwitch = new DigitalInput(0); // port for now
 
@@ -37,9 +37,9 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void configureMotorControllers() {
     mainArmMotor1.setInverted(false);
-    mainArmMotor2.setInverted(true);
+    // mainArmMotor2.setInverted(true);
 
-    mainArmMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
+    //mainArmMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
   }
 
   /**
@@ -57,7 +57,7 @@ public class ArmSubsystem extends SubsystemBase {
    * @return The position of the main arm, in units of rotations.
    */
   public double getMainPosition() {
-    return mainArmMotor2.getEncoder().getPosition()
+    return mainArmMotor1.getEncoder().getPosition()
         - homePosition; // main arm motor 2's encoder works
   }
 
@@ -83,7 +83,7 @@ public class ArmSubsystem extends SubsystemBase {
   /** Sets both main arm motors to coast mode, allowing main arm to freely move */
   public void coastMain() {
     mainArmMotor1.setIdleMode(IdleMode.kCoast);
-    mainArmMotor2.setIdleMode(IdleMode.kCoast);
+  //  mainArmMotor2.setIdleMode(IdleMode.kCoast);
   }
 
   /** Sets all arm motors to brake mode */
@@ -94,7 +94,7 @@ public class ArmSubsystem extends SubsystemBase {
   /** Sets both main arm motors to brake mode, stopping the main arm's movement */
   public void brakeMain() {
     mainArmMotor1.setIdleMode(IdleMode.kBrake);
-    mainArmMotor2.setIdleMode(IdleMode.kBrake);
+//    mainArmMotor2.setIdleMode(IdleMode.kBrake);
   }
 
   public void checkLimitSwitch() {

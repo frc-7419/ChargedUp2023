@@ -27,7 +27,7 @@ public class MoveElevatorWithJoystick extends CommandBase {
   public void execute() {
     if (joystick.getRightTriggerAxis()!=0){
       elevatorSubsystem.setPower(0.1);
-    } else if (joystick.getLeftTriggerAxis()!=0){
+    } else if (joystick.getLeftTriggerAxis()!=0){  
       elevatorSubsystem.setPower(-0.1);
     } else {
       elevatorSubsystem.setPower(0);
