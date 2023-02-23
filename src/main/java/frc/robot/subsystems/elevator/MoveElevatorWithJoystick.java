@@ -6,6 +6,7 @@ package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.PowerConstants;
 
 public class MoveElevatorWithJoystick extends CommandBase {
   /** Creates a new MoveElevatorWithJoystick. */
@@ -26,9 +27,9 @@ public class MoveElevatorWithJoystick extends CommandBase {
   @Override
   public void execute() {
     if (joystick.getRightTriggerAxis()!=0){
-      elevatorSubsystem.setPower(0.1);
+      elevatorSubsystem.setPower(PowerConstants.elevatorPower);
     } else if (joystick.getLeftTriggerAxis()!=0){  
-      elevatorSubsystem.setPower(-0.1);
+      elevatorSubsystem.setPower(-PowerConstants.elevatorPower);
     } else {
       elevatorSubsystem.setPower(0);
     }

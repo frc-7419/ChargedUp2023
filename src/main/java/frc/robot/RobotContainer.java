@@ -44,7 +44,7 @@ public class RobotContainer {
 
   // Commands
   private final ArcadeDrive arcadeDrive =
-      new ArcadeDrive(driverJoystick, driveBaseSubsystem, 1, 1);
+      new ArcadeDrive(driverJoystick, driveBaseSubsystem);
   private final Testing testing = new Testing(driveBaseSubsystem, driverJoystick);
 
   private final BalanceOnChargeStationNew smartBalanceNew =

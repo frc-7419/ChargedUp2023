@@ -26,24 +26,24 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
 
   public static enum CanIds {
-    // Drivetrain CAN IDs
+    // Drivetrain
     leftFalcon1(4),
     rightFalcon1(2),
     leftFalcon2(5),
     rightFalcon2(3),
 
-    // Arm CAN IDs
+    // Arm
     armMain1(12),
     armMain2(14),
     armExtended(51),
 
-    // Gripper CAN IDs
+    // Gripper 
     gripperSpark(69), // change later
 
-    // Elevator CAN IDs
+    // Elevator
     mainElevatorMotor(13),
 
-    // Gyro CAN IDss
+    // Gyro 
     pigeon(0),
     extendedPigeon(51),
 
@@ -332,6 +332,13 @@ public final class Constants {
     public static final double maxAcceleration = Units.feetToMeters(3);
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(trackWidth);
+  }
+
+  public static class PowerConstants {
+    public static final double armPower = 0.1;
+    public static final double driveStraight = 1;
+    public static final double driveTurn = 1;
+    public static final double elevatorPower = 0.2;
   }
 
   public static class PIDConstants {

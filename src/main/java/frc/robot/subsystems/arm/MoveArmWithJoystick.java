@@ -3,6 +3,7 @@ package frc.robot.subsystems.arm;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.PowerConstants;
 
 public class MoveArmWithJoystick extends CommandBase {
 
@@ -29,10 +30,10 @@ public class MoveArmWithJoystick extends CommandBase {
   @Override
   public void execute() {
     if(joystick.getRightBumper()) {
-      armSubsystem.setMainPower(0.1);
+      armSubsystem.setMainPower(PowerConstants.armPower);
     }
     else if(joystick.getLeftBumper()) {
-      armSubsystem.setMainPower(-0.1);
+      armSubsystem.setMainPower(-PowerConstants.armPower);
     }
     else {
       armSubsystem.setMainPower(0);

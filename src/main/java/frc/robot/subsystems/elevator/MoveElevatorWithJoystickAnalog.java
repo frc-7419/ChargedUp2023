@@ -6,6 +6,7 @@ package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.PowerConstants;
 
 public class MoveElevatorWithJoystickAnalog extends CommandBase {
   /** Creates a new MoveElevatorWithJoystick. */
@@ -25,7 +26,7 @@ public class MoveElevatorWithJoystickAnalog extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSubsystem.setPower(joystick.getRightY()*0.4);
+    elevatorSubsystem.setPower(joystick.getRightY()*PowerConstants.elevatorPower);
   }
   // Called once the command ends or is interrupted.
   @Override
