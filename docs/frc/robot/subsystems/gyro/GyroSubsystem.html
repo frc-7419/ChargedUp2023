@@ -164,7 +164,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">GyroSubsystem</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Creates a new PigeonSubsystem.</div>
+<div class="block">Instatiates the pigeon and resets its yaw to 0 degrees.</div>
 </td>
 </tr>
 </table>
@@ -189,21 +189,21 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPitch()">getPitch</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Returns gyro pitch</div>
+<div class="block">Returns gyro pitch, in degrees</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRoll()">getRoll</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Returns gyro roll</div>
+<div class="block">Returns gyro roll, in degrees</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getYaw()">getYaw</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Returns gyro yaw</div>
+<div class="block">Returns gyro yaw, in degrees</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -256,7 +256,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <li class="blockList">
 <h4>GyroSubsystem</h4>
 <pre>public&nbsp;GyroSubsystem()</pre>
-<div class="block">Creates a new PigeonSubsystem.</div>
+<div class="block">Instatiates the pigeon and resets its yaw to 0 degrees.</div>
 </li>
 </ul>
 </li>
@@ -285,10 +285,10 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <li class="blockList">
 <h4>getYaw</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;getYaw()</pre>
-<div class="block">Returns gyro yaw</div>
+<div class="block">Returns gyro yaw, in degrees</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>yaw</dd>
+<dd>The pigeon's measured yaw in degrees</dd>
 </dl>
 </li>
 </ul>
@@ -299,10 +299,10 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <li class="blockList">
 <h4>getPitch</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;getPitch()</pre>
-<div class="block">Returns gyro pitch</div>
+<div class="block">Returns gyro pitch, in degrees</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>pitch</dd>
+<dd>The pigeon's measured pitch in degrees</dd>
 </dl>
 </li>
 </ul>
@@ -313,10 +313,10 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <li class="blockList">
 <h4>getRoll</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;getRoll()</pre>
-<div class="block">Returns gyro roll</div>
+<div class="block">Returns gyro roll, in degrees</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>roll</dd>
+<dd>The pigeon's measured roll in degrees</dd>
 </dl>
 </li>
 </ul>

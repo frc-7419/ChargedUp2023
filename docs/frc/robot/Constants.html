@@ -83,13 +83,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li>Method</li>
 </ul>
@@ -127,15 +127,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public final class <span class="typeNameLabel">Constants</span>
 extends java.lang.Object</pre>
-<div class="block">The Constants class provides a convenient place for teams to hold robot-wide
- numerical or boolean
- constants. This class should not be used for any other purpose. All constants
- should be declared
+<div class="block">The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
+ constants. This class should not be used for any other purpose. All constants should be declared
  globally (i.e. public static). Do not put anything functional in this class.
 
- <p>
- It is advised to statically import this class (or one of its inner classes)
- wherever the
+ <p>It is advised to statically import this class (or one of its inner classes) wherever the
  constants are needed, to reduce verbosity.</div>
 </li>
 </ul>
@@ -159,12 +155,22 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Constants.ArmConstants.html" title="class in frc.robot">Constants.ArmConstants</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Constants.AprilTagPositionConstants.html" title="class in frc.robot">Constants.AprilTagPositionConstants</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Constants.ArmConstants.html" title="class in frc.robot">Constants.ArmConstants</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Constants.CanIds.html" title="enum in frc.robot">Constants.CanIds</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Constants.DriveConstants.html" title="class in frc.robot">Constants.DriveConstants</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
@@ -174,90 +180,22 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Constants.PowerConstants.html" title="class in frc.robot">Constants.PowerConstants</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Constants.RobotConstants.html" title="class in frc.robot">Constants.RobotConstants</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Constants.SensorIds.html" title="enum in frc.robot">Constants.SensorIds</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Constants.VisionConstants.html" title="class in frc.robot">Constants.VisionConstants</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-</table>
-</li>
-</ul>
-</section>
-<!-- =========== FIELD SUMMARY =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
 <tr class="altColor">
-<td class="colFirst"><code>static edu.wpi.first.math.geometry.Transform3d</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#kCameraToRobot">kCameraToRobot</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static edu.wpi.first.math.kinematics.DifferentialDriveKinematics</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#kDtKinematics">kDtKinematics</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static org.photonvision.SimVisionTarget</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#kFarTarget">kFarTarget</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static edu.wpi.first.math.geometry.Pose3d</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#kFarTargetPose">kFarTargetPose</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#kFarTgtXPos">kFarTgtXPos</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#kFarTgtYPos">kFarTgtYPos</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#kFarTgtZPos">kFarTgtZPos</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#kGyroPin">kGyroPin</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#targetHeight">targetHeight</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#targetWidth">targetWidth</a></span></code></th>
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Constants.WaypointPositionConstants.html" title="class in frc.robot">Constants.WaypointPositionConstants</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -308,110 +246,6 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a id="kCameraToRobot">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>kCameraToRobot</h4>
-<pre>public static final&nbsp;edu.wpi.first.math.geometry.Transform3d kCameraToRobot</pre>
-</li>
-</ul>
-<a id="kGyroPin">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>kGyroPin</h4>
-<pre>public static final&nbsp;int kGyroPin</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../constant-values.html#frc.robot.Constants.kGyroPin">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-<a id="targetWidth">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>targetWidth</h4>
-<pre>public static final&nbsp;double targetWidth</pre>
-</li>
-</ul>
-<a id="targetHeight">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>targetHeight</h4>
-<pre>public static final&nbsp;double targetHeight</pre>
-</li>
-</ul>
-<a id="kFarTgtXPos">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>kFarTgtXPos</h4>
-<pre>public static final&nbsp;double kFarTgtXPos</pre>
-</li>
-</ul>
-<a id="kFarTgtYPos">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>kFarTgtYPos</h4>
-<pre>public static final&nbsp;double kFarTgtYPos</pre>
-</li>
-</ul>
-<a id="kFarTgtZPos">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>kFarTgtZPos</h4>
-<pre>public static final&nbsp;double kFarTgtZPos</pre>
-</li>
-</ul>
-<a id="kFarTargetPose">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>kFarTargetPose</h4>
-<pre>public static final&nbsp;edu.wpi.first.math.geometry.Pose3d kFarTargetPose</pre>
-</li>
-</ul>
-<a id="kFarTarget">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>kFarTarget</h4>
-<pre>public static final&nbsp;org.photonvision.SimVisionTarget kFarTarget</pre>
-</li>
-</ul>
-<a id="kDtKinematics">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>kDtKinematics</h4>
-<pre>public static final&nbsp;edu.wpi.first.math.kinematics.DifferentialDriveKinematics kDtKinematics</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section role="region">
 <ul class="blockList">
@@ -480,13 +314,13 @@ extends java.lang.Object</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li>Method</li>
 </ul>
