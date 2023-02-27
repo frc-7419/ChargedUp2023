@@ -112,10 +112,12 @@ public class DriveBaseSubsystem extends SubsystemBase {
     setLeftVoltage(voltage);
     setRightVoltage(voltage);
   }
+
   public void setTopPower(double power) {
     leftLeader.set(ControlMode.PercentOutput, power);
     rightLeader.set(ControlMode.PercentOutput, power);
   }
+
   public void setBottomPower(double power) {
     leftFollower.set(ControlMode.PercentOutput, power);
     rightFollower.set(ControlMode.PercentOutput, power);

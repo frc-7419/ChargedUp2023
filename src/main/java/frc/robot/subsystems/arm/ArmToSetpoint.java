@@ -26,7 +26,7 @@ public class ArmToSetpoint extends CommandBase {
   public void initialize() {
     pidController.setSetpoint(setpoint);
     pidController.setTolerance(0.15);
-    armSubsystem.coastMain();
+    armSubsystem.coast();
   }
   /**
    * In the execute method, we calculate the power needed to set the main arm to a specific
@@ -46,7 +46,7 @@ public class ArmToSetpoint extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     armSubsystem.setMainPower(0);
-    armSubsystem.brakeMain();
+    armSubsystem.brake();
   }
 
   @Override

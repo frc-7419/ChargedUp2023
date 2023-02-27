@@ -36,5 +36,4 @@ public class ElevatorToSetpoint extends CommandBase {
     elevatorSubsystem.setPower(0);
     elevatorSubsystem.brake();
   }
-
 }

@@ -17,8 +17,8 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.CanIds;
+import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
@@ -95,7 +95,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public double getRate() {
     return Units.rotationsPerMinuteToRadiansPerSecond(
-      elevatorMotor.getSelectedSensorVelocity() * ElevatorConstants.drumRadius);
+        elevatorMotor.getSelectedSensorVelocity() * ElevatorConstants.drumRadius);
   }
 
   public void controllerPeriodic() {
@@ -110,9 +110,9 @@ public class ElevatorSubsystem extends SubsystemBase {
       m_loop.predict(0.020);
 
       double nextVoltage = m_loop.getU(0);
-      elevatorMotor.set(ControlMode.PercentOutput, nextVoltage/11);
+      elevatorMotor.set(ControlMode.PercentOutput, nextVoltage / 11);
+    }
   }
-}
 
   @Override
   public void periodic() {
@@ -120,11 +120,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("elevator position", getElevatorPosition());
   }
 
-  public void brake(){
+  public void brake() {
     elevatorMotor.setNeutralMode(NeutralMode.Brake);
   }
 
-  public void coast(){
+  public void coast() {
     elevatorMotor.setNeutralMode(NeutralMode.Coast);
   }
 }

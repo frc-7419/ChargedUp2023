@@ -2,7 +2,6 @@ package frc.robot.subsystems.arm;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.PowerConstants;
 
 public class MoveArmWithJoystick extends CommandBase {
@@ -20,22 +19,21 @@ public class MoveArmWithJoystick extends CommandBase {
     this.joystick = joystick;
     addRequirements(armSubsystem);
   }
+
   /** Sets the main arm to default to coast */
   @Override
   public void initialize() {
-    armSubsystem.coastMain();
+    armSubsystem.coast();
   }
 
   /** The execute allows us to control the robot using a joystick */
   @Override
   public void execute() {
-    if(joystick.getRightBumper()) {
+    if (joystick.getRightBumper()) {
       armSubsystem.setMainPower(PowerConstants.armPower);
-    }
-    else if(joystick.getLeftBumper()) {
+    } else if (joystick.getLeftBumper()) {
       armSubsystem.setMainPower(-PowerConstants.armPower);
-    }
-    else {
+    } else {
       armSubsystem.setMainPower(0);
     }
     // double mainPowerJoystick = ArmConstants.mainArmPowerCoefficient * joystick.getRightY();

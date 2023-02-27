@@ -21,10 +21,7 @@ public class ArcadeDrive extends CommandBase {
    * @param kStraight
    * @param kTurn
    */
-  public ArcadeDrive(
-      XboxController joystick,
-      DriveBaseSubsystem driveBaseSubsystem
-      ) {
+  public ArcadeDrive(XboxController joystick, DriveBaseSubsystem driveBaseSubsystem) {
     this.joystick = joystick;
     this.driveBaseSubsystem = driveBaseSubsystem;
     addRequirements(driveBaseSubsystem);

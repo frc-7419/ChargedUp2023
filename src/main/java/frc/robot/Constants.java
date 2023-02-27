@@ -37,13 +37,13 @@ public final class Constants {
     armMain2(14),
     armExtended(51),
 
-    // Gripper 
+    // Gripper
     gripperSpark(69), // change later
 
     // Elevator
     mainElevatorMotor(13),
 
-    // Gyro 
+    // Gyro
     pigeon(0),
     extendedPigeon(51),
 

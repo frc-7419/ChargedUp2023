@@ -25,7 +25,7 @@ public class HomeArm extends CommandBase {
   public void initialize() {
     pidController.setSetpoint(homePos);
     pidController.setTolerance(0.15);
-    armSubsystem.coastMain();
+    armSubsystem.coast();
   }
 
   @Override
@@ -41,7 +41,7 @@ public class HomeArm extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     armSubsystem.setMainPower(0);
-    armSubsystem.brakeMain();
+    armSubsystem.brake();
   }
 
   @Override

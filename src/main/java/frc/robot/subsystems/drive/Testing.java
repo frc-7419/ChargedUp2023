@@ -10,7 +10,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Testing extends CommandBase {
   /** Creates a new Testing. */
   private DriveBaseSubsystem driveBaseSubsystem;
+
   private XboxController joystick;
+
   public Testing(DriveBaseSubsystem driveBaseSubsystem, XboxController joystick) {
     this.driveBaseSubsystem = driveBaseSubsystem;
     this.joystick = joystick;
@@ -24,13 +26,11 @@ public class Testing extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(joystick.getRightBumper()) {
+    if (joystick.getRightBumper()) {
       driveBaseSubsystem.setTopPower(0.1);
-    }
-    else if(joystick.getLeftBumper()) {
+    } else if (joystick.getLeftBumper()) {
       driveBaseSubsystem.setBottomPower(0.1);
-    }
-    else {
+    } else {
       driveBaseSubsystem.setAllPower(0);
     }
   }

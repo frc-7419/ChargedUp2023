@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.actions.IntakePiece;
 import frc.robot.commands.actions.ScorePiece;
-import frc.robot.commands.autopaths.OnePieceMobilityPath;
 import frc.robot.commands.autopaths.TwoPieceMobilityPath;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -34,14 +33,12 @@ public class TwoPieceMobility extends SequentialCommandGroup {
     eventMap.put(
         "Intake Piece", new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem));
 
-    eventMap.put(
-        "Score Piece", new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem));
-        
+    eventMap.put("Score Piece", new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem));
 
     PathPlannerTrajectory twoPieceMoblity =
         PathPlanner.loadPath(
             "Two Piece + Mobility", PathPlanner.getConstraintsFromPath("Two Piece + Mobility"));
-        
+
     addCommands(
         new FollowPathWithEvents(
             new TwoPieceMobilityPath(driveBaseSubsystem), twoPieceMoblity.getMarkers(), eventMap));
