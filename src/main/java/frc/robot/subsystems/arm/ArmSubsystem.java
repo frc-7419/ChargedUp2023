@@ -9,14 +9,16 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
+import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
 
   private CANSparkMax mainArmMotor1;
-  private AbsoluteEncoder absoluteEncoder;
+  private AnalogEncoder absoluteEncoder;
   // private CANSparkMax mainArmMotor2;
   private boolean homed;
   private double homePosition = 0;
@@ -27,7 +29,12 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     mainArmMotor1 =
         new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
-    absoluteEncoder = mainArmMotor1.getAbsoluteEncoder(Type.kDutyCycle);
+
+    absoluteEncoder = new AnalogEncoder(3);
+
+    // arbitrary cuz idk gearing stuff
+    absoluteEncoder.setDistancePerRotation(4);
+    
     // mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
 
     magneticLimitSwitch = new DigitalInput(0); // port for now
@@ -64,7 +71,7 @@ public class ArmSubsystem extends SubsystemBase {
    * @return The position of the main arm, in units of rotations.
    */
   public double getMainPosition() {
-      return absoluteEncoder.getPosition();
+      return absoluteEncoder.getAbsolutePosition();
   }
 
   /** Sets the home position variable to the current position of the main arm. */
@@ -116,7 +123,6 @@ public class ArmSubsystem extends SubsystemBase {
 
     // outputting arm positions to smart dashboard and homing status
     SmartDashboard.putNumber("Arm Position", getMainPosition());
-    SmartDashboard.putNumber("Arm Position (2)", getMainPosition());
 
     // SmartDashboard.putNumber("Home Pos", homePosition);
     // SmartDashboard.putBoolean("Arm Homed", homed);
