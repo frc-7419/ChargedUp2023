@@ -15,7 +15,6 @@ public class ArmSubsystem extends SubsystemBase {
   private AnalogEncoder absoluteEncoder;
   private boolean homed;
   private double homePosition = 0;
-  // private CANSparkMax mainArmMotor2;
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
@@ -24,13 +23,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     absoluteEncoder = new AnalogEncoder(3);
 
-    // arbitrary cuz idk gearing stuff
-    absoluteEncoder.setDistancePerRotation(10);
-    absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
-
-    // mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
-
-    // absoluteEncoder.setPositionConversionFactor(2 * RobotConstants.mainArmGearRatio / 4096);
+    configureEncoder();
     configureMotorControllers();
   }
 
@@ -40,9 +33,14 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void configureMotorControllers() {
     mainArmMotor1.setInverted(false);
-
-    // mainArmMotor2.setInverted(true);
     // mainArmMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
+  }
+
+  public void configureEncoder() {
+    // arbitrary cuz idk gearing stuff
+    absoluteEncoder.setDistancePerRotation(10);
+    absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
+    // absoluteEncoder.setPositionConversionFactor(2 * RobotConstants.mainArmGearRatio / 4096);
   }
 
   /**
@@ -52,7 +50,6 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void setPower(double power) {
     mainArmMotor1.set(power);
-    // mainMotor2.set(power);
   }
 
   /**
@@ -86,13 +83,11 @@ public class ArmSubsystem extends SubsystemBase {
   /** Sets arm motor to coast mode, allowing arm to freely move */
   public void coast() {
     mainArmMotor1.setIdleMode(IdleMode.kCoast);
-    //  mainArmMotor2.setIdleMode(IdleMode.kCoast);
   }
 
   /** Sets arm motor to brake mode, stopping the arm's movement */
   public void brake() {
     mainArmMotor1.setIdleMode(IdleMode.kBrake);
-    // mainArmMotor2.setIdleMode(IdleMode.kBrake);
   }
 
   @Override
@@ -100,7 +95,5 @@ public class ArmSubsystem extends SubsystemBase {
     // outputting arm positions to smart dashboard and homing status
     SmartDashboard.putNumber("Arm Position", getPosition());
     SmartDashboard.putNumber("Arm Angle", getAngle());
-    // SmartDashboard.putNumber("Home Pos", homePosition);
-    // SmartDashboard.putBoolean("Arm Homed", homed);
   }
 }
