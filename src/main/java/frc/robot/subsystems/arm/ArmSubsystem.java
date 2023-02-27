@@ -33,8 +33,8 @@ public class ArmSubsystem extends SubsystemBase {
     absoluteEncoder = new AnalogEncoder(3);
 
     // arbitrary cuz idk gearing stuff
-    absoluteEncoder.setDistancePerRotation(4);
-    
+    absoluteEncoder.setDistancePerRotation(10);
+
     // mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
 
     magneticLimitSwitch = new DigitalInput(0); // port for now
@@ -43,6 +43,7 @@ public class ArmSubsystem extends SubsystemBase {
     
     // absoluteEncoder.setPositionConversionFactor(2 * RobotConstants.mainArmGearRatio / 4096);
     configureMotorControllers();
+    absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
   }
 
   /**
@@ -123,7 +124,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     // outputting arm positions to smart dashboard and homing status
     SmartDashboard.putNumber("Arm Position", getMainPosition());
-
+    SmartDashboard.putNumber("Arm Angle", getMainAngle());
     // SmartDashboard.putNumber("Home Pos", homePosition);
     // SmartDashboard.putBoolean("Arm Homed", homed);
 
@@ -135,4 +136,10 @@ public class ArmSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("Extended Pitch", gyroInformation[1]);
     // SmartDashboard.putNumber("Extended Roll", gyroInformation[2]);
   }
+
+public double getMainAngle() {
+    double position = absoluteEncoder.getAbsolutePosition()-absoluteEncoder.getPositionOffset();
+    return position * 360;
+}
+
 }

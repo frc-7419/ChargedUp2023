@@ -271,6 +271,7 @@ public final class Constants {
     // testing purposes
     public static final double mainArmPowerCoefficient = 0.5;
     public static final double extendedArmPowerCoefficient = 0.3;
+    public static final double armOffset = 0.05;
 
     // setpoints for intaking and scoring (arbitrary values until we get arms to tune)
     public static final double intakeSetpoint = 0;
@@ -335,7 +336,8 @@ public final class Constants {
   }
 
   public static class PowerConstants {
-    public static final double armPower = 0.1;
+    public static final double armPower = 0.7;
+    public static final double armFeedforward = 0.05;
     public static final double driveStraight = 1;
     public static final double driveTurn = 1;
     public static final double elevatorPower = 0.2;
