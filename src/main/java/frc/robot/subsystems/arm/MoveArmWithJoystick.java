@@ -30,11 +30,11 @@ public class MoveArmWithJoystick extends CommandBase {
   @Override
   public void execute() {
     if (joystick.getRightBumper()) {
-      armSubsystem.setMainPower(PowerConstants.armPower);
+      armSubsystem.setPower(PowerConstants.armPower);
     } else if (joystick.getLeftBumper()) {
-      armSubsystem.setMainPower(-PowerConstants.armPower);
+      armSubsystem.setPower(-PowerConstants.armPower);
     } else {
-      armSubsystem.setMainPower(0);
+      armSubsystem.setPower(0);
     }
     // double mainPowerJoystick = ArmConstants.mainArmPowerCoefficient * joystick.getRightY();
     // armSubsystem.setMainPower(mainPowerJoystick);

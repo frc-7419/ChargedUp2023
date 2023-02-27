@@ -35,9 +35,9 @@ public class ArmToSetpoint extends CommandBase {
   @Override
   public void execute() {
 
-    double mainArmPosition = armSubsystem.getMainPosition();
+    double mainArmPosition = armSubsystem.getPosition();
     double calculatedMainArmPower = pidController.calculate(mainArmPosition);
-    armSubsystem.setMainPower(calculatedMainArmPower);
+    armSubsystem.setPower(calculatedMainArmPower);
 
     double error = pidController.getPositionError();
     SmartDashboard.putNumber("armToSetpoint Error", error);
@@ -45,7 +45,7 @@ public class ArmToSetpoint extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    armSubsystem.setMainPower(0);
+    armSubsystem.setPower(0);
     armSubsystem.brake();
   }
 

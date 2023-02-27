@@ -50,7 +50,7 @@ public class ArmSubsystem extends SubsystemBase {
    *
    * @param power set to motors on the main arm.
    */
-  public void setMainPower(double power) {
+  public void setPower(double power) {
     mainArmMotor1.set(power);
     // mainMotor2.set(power);
   }
@@ -60,13 +60,18 @@ public class ArmSubsystem extends SubsystemBase {
    *
    * @return The position of the main arm, in units of rotations.
    */
-  public double getMainPosition() {
+  public double getPosition() {
     return absoluteEncoder.getAbsolutePosition();
+  }
+
+  public double getAngle() {
+    double position = absoluteEncoder.getAbsolutePosition() - absoluteEncoder.getPositionOffset();
+    return position * 360;
   }
 
   /** Sets the home position variable to the current position of the main arm. */
   public void home() {
-    homePosition = getMainPosition();
+    homePosition = getPosition();
   }
 
   /**
@@ -93,14 +98,9 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // outputting arm positions to smart dashboard and homing status
-    SmartDashboard.putNumber("Arm Position", getMainPosition());
-    SmartDashboard.putNumber("Arm Angle", getMainAngle());
+    SmartDashboard.putNumber("Arm Position", getPosition());
+    SmartDashboard.putNumber("Arm Angle", getAngle());
     // SmartDashboard.putNumber("Home Pos", homePosition);
     // SmartDashboard.putBoolean("Arm Homed", homed);
-  }
-
-  public double getMainAngle() {
-    double position = absoluteEncoder.getAbsolutePosition() - absoluteEncoder.getPositionOffset();
-    return position * 360;
   }
 }
