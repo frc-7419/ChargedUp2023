@@ -1,9 +1,0 @@
-com.team7419.math
-com.team7419.motors
-frc.robot
-frc.robot.commands.paths
-frc.robot.subsystems.arm
-frc.robot.subsystems.beambreak
-frc.robot.subsystems.drive
-frc.robot.subsystems.elevator
-frc.robot.subsystems.gyro
