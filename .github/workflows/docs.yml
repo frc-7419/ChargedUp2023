@@ -19,4 +19,5 @@ jobs:
       - name: Deploy Java 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          FOLDER: build/docs/javadoc
+          folder: build/docs/javadoc
+          branch: docs
