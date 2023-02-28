@@ -120,8 +120,7 @@ public class DrivetrainPoseEstimator {
         // is on the field physically and
         // gets the camera pose
         m_poseEstimator.addVisionMeasurement(
-            camPose.transformBy(RobotConstants.kCameraToRobot).toPose2d(),
-            resultTimeStamp);
+            camPose.transformBy(RobotConstants.kCameraToRobot).toPose2d(), resultTimeStamp);
 
         // outputting everthing to smartdashboard for viewing
         SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEstimation().getX());

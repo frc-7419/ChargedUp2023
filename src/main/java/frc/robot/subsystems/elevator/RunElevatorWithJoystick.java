@@ -6,34 +6,44 @@ package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.constants.ElevatorConstants;
 
-public class MoveElevatorWithJoystickAnalog extends CommandBase {
-  /** Creates a new MoveElevatorWithJoystick. */
+public class RunElevatorWithJoystick extends CommandBase {
+  /** Creates a new RunElevatorWithJoystick. */
   private ElevatorSubsystem elevatorSubsystem;
 
   private XboxController joystick;
 
-  public MoveElevatorWithJoystickAnalog(
-      ElevatorSubsystem elevatorSubsystem, XboxController joystick) {
+  public RunElevatorWithJoystick(ElevatorSubsystem elevatorSubsystem, XboxController joystick) {
+    // Use addRequirements() here to declare subsystem dependencies.
     this.elevatorSubsystem = elevatorSubsystem;
     this.joystick = joystick;
     addRequirements(elevatorSubsystem);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    elevatorSubsystem.brake();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSubsystem.setPower(joystick.getRightY() * ElevatorConstants.elevatorPower);
+    if (joystick.getYButton()) {
+      elevatorSubsystem.setPower(0.5);
+    } else if (joystick.getAButton()) {
+      elevatorSubsystem.setPower(-0.5);
+    } else {
+      elevatorSubsystem.setPower(0);
+    }
   }
+
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    elevatorSubsystem.setPower(0);
+    elevatorSubsystem.brake();
+  }
 
   // Returns true when the command should end.
   @Override

@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.constants.ElevatorConstants.NodeState;
 import frc.robot.constants.ArmConstants;
+import frc.robot.constants.ElevatorConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.arm.HomeArm;
@@ -42,7 +42,7 @@ public class RobotContainer {
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
 
   // Commands
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem, 1, 1);
+  private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem);
   private final Testing testing = new Testing(driveBaseSubsystem, driverJoystick);
 
   private final BalanceOnChargeStationNew smartBalanceNew =

@@ -4,10 +4,9 @@
 
 package frc.robot.subsystems.gyro;
 
-import frc.robot.constants.PIDConstants;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.constants.PIDConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more

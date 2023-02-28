@@ -56,7 +56,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public ElevatorSubsystem() {
     elevatorMotor = new TalonFX(DeviceIDs.CanIds.mainElevatorMotor.id);
-
     elevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 

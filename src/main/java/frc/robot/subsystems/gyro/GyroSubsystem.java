@@ -1,10 +1,9 @@
 package frc.robot.subsystems.gyro;
 
-import frc.robot.constants.DeviceIDs;
-
 import com.ctre.phoenix.sensors.Pigeon2;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.DeviceIDs;
 
 public class GyroSubsystem extends SubsystemBase {
   private Pigeon2 gyro;

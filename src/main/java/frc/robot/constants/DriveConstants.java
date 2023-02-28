@@ -4,6 +4,8 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 public final class DriveConstants {
+  public static final double driveStraight = 1;
+  public static final double driveTurn = 1;
   public static final double driveTrainGearRatio = (double) (50.0 / 14) * (48.0 / 16);
   public static final double wheelDiameter = Units.inchesToMeters(6);
   public static final double wheelCircumference = Math.PI * wheelDiameter;

@@ -1,9 +1,8 @@
 package frc.robot.subsystems.wrist;
 
-import frc.robot.constants.PIDConstants;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.constants.PIDConstants;
 
 /** Uses PID to move wrist to a setpoint */
 public class SmartWrist extends CommandBase {
