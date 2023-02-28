@@ -39,7 +39,6 @@ public class ArmSubsystem extends SubsystemBase {
   public void configureEncoder() {
     // arbitrary cuz idk gearing stuff
     absoluteEncoder.setDistancePerRotation(10);
-    absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
     // absoluteEncoder.setPositionConversionFactor(2 * RobotConstants.mainArmGearRatio / 4096);
   }
 
@@ -62,7 +61,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public double getAngle() {
-    double position = absoluteEncoder.getAbsolutePosition() - absoluteEncoder.getPositionOffset();
+    double position = absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset;
     return position * 360;
   }
 
