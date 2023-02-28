@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.ElevatorConstants.NodeState;
+import frc.robot.constants.ArmConstants;
+import frc.robot.constants.ElevatorConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.arm.HomeArm;
@@ -48,10 +49,10 @@ public class RobotContainer {
       new BalanceOnChargeStationNew(driveBaseSubsystem, gyroSubsystem);
 
   private final ArmToSetpoint armToIntakeSetpoint =
-      new ArmToSetpoint(armSubsystem, Constants.ArmConstants.intakeSetpoint);
+      new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint);
 
   private final ArmToSetpoint armToScoreSetpoint =
-      new ArmToSetpoint(armSubsystem, Constants.ArmConstants.scoreSetpoint);
+      new ArmToSetpoint(armSubsystem, ArmConstants.scoreSetpoint);
 
   private final ElevatorToSetpoint elevatorToGround =
       new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND);

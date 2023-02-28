@@ -1,6 +1,6 @@
 package frc.robot.subsystems.wrist;
 
-import static frc.robot.Constants.*;
+import static frc.robot.constants.DeviceIDs.CanIds;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;

@@ -1,10 +1,9 @@
 package frc.robot.subsystems.arm;
 
-import static frc.robot.Constants.PIDConstants;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.constants.PIDConstants;
 
 /** Sets the main arm to a specific position using PID controllers. */
 public class ArmToSetpoint extends CommandBase {

@@ -3,9 +3,9 @@ package frc.robot.subsystems.drive;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.PowerConstants;
+import frc.robot.constants.DriveConstants;
 
-/** Command to arcade drive the robot (left joystick --> straight, right joystick --> turn) */
+/** Command to arcade drive the robot (left joystick - straight, right joystick - turn) */
 public class ArcadeDrive extends CommandBase {
 
   private DriveBaseSubsystem driveBaseSubsystem;
@@ -36,20 +36,20 @@ public class ArcadeDrive extends CommandBase {
   /** In the execute method, move the joystick to make the robot move. */
   @Override
   public void execute() {
-    double joystickInputPower = joystick.getLeftY() * PowerConstants.driveStraight;
+    double joystickInputPower = joystick.getLeftY() * DriveConstants.driveStraight;
     double xAxisSpeed = speedLimiter.calculate(joystickInputPower);
 
-    double joystickInputPowerTurn = joystick.getRightX() * PowerConstants.driveTurn;
+    double joystickInputPowerTurn = joystick.getRightX() * DriveConstants.driveTurn;
     double zAxisRotation = joystickInputPowerTurn;
     driveBaseSubsystem.drive(xAxisSpeed, zAxisRotation);
 
-    driveBaseSubsystem.coast();
+    // driveBaseSubsystem.coast();
 
-    double leftPower = xAxisSpeed + zAxisRotation;
-    double rightPower = xAxisSpeed - zAxisRotation;
+    // double leftPower = xAxisSpeed + zAxisRotation;
+    // double rightPower = xAxisSpeed - zAxisRotation;
 
-    driveBaseSubsystem.setLeftPower(leftPower);
-    driveBaseSubsystem.setRightPower(rightPower);
+    // driveBaseSubsystem.setLeftPower(leftPower);
+    // driveBaseSubsystem.setRightPower(rightPower);
   }
 
   @Override

@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.constants.DeviceIDs;
+import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 
 public class DriveBaseSubsystem extends SubsystemBase {
@@ -26,7 +27,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   private Field2d field = new Field2d();
   DifferentialDriveKinematics kinematics =
-      new DifferentialDriveKinematics(Constants.RobotConstants.kTrackWidth);
+      new DifferentialDriveKinematics(RobotConstants.kTrackWidth);
 
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
   PIDController leftPIDController = new PIDController(8.5, 0, 0);
@@ -39,10 +40,10 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   public DriveBaseSubsystem() {
     SmartDashboard.putData("Field", field);
-    leftLeader = new TalonFX(Constants.CanIds.leftFalcon1.id);
-    leftFollower = new TalonFX(Constants.CanIds.leftFalcon2.id);
-    rightLeader = new TalonFX(Constants.CanIds.rightFalcon1.id);
-    rightFollower = new TalonFX(Constants.CanIds.rightFalcon2.id);
+    leftLeader = new TalonFX(DeviceIDs.CanIds.leftFalcon1.id);
+    leftFollower = new TalonFX(DeviceIDs.CanIds.leftFalcon2.id);
+    rightLeader = new TalonFX(DeviceIDs.CanIds.rightFalcon1.id);
+    rightFollower = new TalonFX(DeviceIDs.CanIds.rightFalcon2.id);
 
     factoryResetAll();
     setAllDefaultInversions();
@@ -204,8 +205,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
    */
   public double getLeftVelocityInMeters() {
     return getLeftVelocity()
-        * Constants.RobotConstants.kWheelCircumference
-        / Constants.RobotConstants.TalonFXTicksPerRotation;
+        * RobotConstants.kWheelCircumference
+        / RobotConstants.TalonFXTicksPerRotation;
   }
   /**
    * Gets the velocity of the right side of the drivetrain
@@ -214,8 +215,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
    */
   public double getRightVelocityInMeters() {
     return getRightVelocity()
-        * Constants.RobotConstants.kWheelCircumference
-        / Constants.RobotConstants.TalonFXTicksPerRotation;
+        * RobotConstants.kWheelCircumference
+        / RobotConstants.TalonFXTicksPerRotation;
   }
   /** Set all the drivetrain motors to the correct inversions */
   public void setAllDefaultInversions() {

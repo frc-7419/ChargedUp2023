@@ -2,7 +2,7 @@ package frc.robot.subsystems.arm;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.PowerConstants;
+import frc.robot.constants.ArmConstants;
 
 public class MoveArmWithJoystickAnalog extends CommandBase {
 
@@ -27,9 +27,9 @@ public class MoveArmWithJoystickAnalog extends CommandBase {
 
   @Override
   public void execute() {
-    double joystickArmPower = joystick.getLeftY() * PowerConstants.armPower;
+    double joystickArmPower = joystick.getLeftY() * ArmConstants.armPower;
     double armAngle = armSubsystem.getAngle();
-    double armFeedforwardPower = PowerConstants.armFeedforward * Math.cos(Math.toRadians(armAngle));
+    double armFeedforwardPower = ArmConstants.armFeedforward * Math.cos(Math.toRadians(armAngle));
     double armPower = joystickArmPower + armFeedforwardPower;
     armSubsystem.setPower(armPower);
   }

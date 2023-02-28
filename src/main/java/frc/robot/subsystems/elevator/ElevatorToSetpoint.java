@@ -5,7 +5,7 @@
 package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ElevatorConstants.NodeState;
+import frc.robot.constants.ElevatorConstants.NodeState;
 
 public class ElevatorToSetpoint extends CommandBase {
   private ElevatorSubsystem elevatorSubsystem;

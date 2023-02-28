@@ -5,9 +5,9 @@
 package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.ElevatorConstants.NodeState;
-import frc.robot.Constants.WristConstants.GripperState;
+import frc.robot.constants.ArmConstants;
+import frc.robot.constants.ElevatorConstants.NodeState;
+import frc.robot.constants.WristConstants.GripperState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;

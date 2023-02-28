@@ -17,8 +17,8 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.CanIds;
-import frc.robot.Constants.ElevatorConstants;
+import frc.robot.constants.DeviceIDs;
+import frc.robot.constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
@@ -55,8 +55,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       new LinearSystemLoop<>(m_elevatorPlant, m_controller, m_observer, 12.0, 0.020);
 
   public ElevatorSubsystem() {
-    elevatorMotor = new TalonFX(CanIds.mainElevatorMotor.id);
-
+    elevatorMotor = new TalonFX(DeviceIDs.CanIds.mainElevatorMotor.id);
     elevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
