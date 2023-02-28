@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class MoveWristWithJoystick extends CommandBase {
   private WristSubsystem wristSubsystem;
   private XboxController joystick;
+  private double power;
 
   public MoveWristWithJoystick(WristSubsystem wristSubsystem, XboxController joystick) {
     this.wristSubsystem = wristSubsystem;
@@ -21,7 +22,7 @@ public class MoveWristWithJoystick extends CommandBase {
 
   @Override
   public void execute() {
-    double power = joystick.getLeftY();
+    power = joystick.getLeftY();
     wristSubsystem.setPower(power);
   }
 

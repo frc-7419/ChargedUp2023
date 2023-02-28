@@ -9,6 +9,8 @@ public class SmartWrist extends CommandBase {
   private WristSubsystem wristSubsystem;
   private PIDController wristController;
   private double setpoint;
+  private double wristPosition;
+  private double output;
 
   public SmartWrist(WristSubsystem wristSubsystem, double setpoint) {
     this.wristSubsystem = wristSubsystem;
@@ -27,8 +29,8 @@ public class SmartWrist extends CommandBase {
 
   @Override
   public void execute() {
-    double wristPosition = wristSubsystem.getPosition();
-    double output = wristController.calculate(wristPosition);
+    wristPosition = wristSubsystem.getPosition();
+    output = wristController.calculate(wristPosition);
     wristSubsystem.setPower(output);
   }
 
