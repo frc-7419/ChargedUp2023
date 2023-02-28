@@ -7,7 +7,7 @@ public final class ArmConstants {
 
   public static final double armMomentofInertia = 69.420;
 
-  public static final double armGearing = (double) (64) / 16 * (double) (64) / 14 * 3;
+  public static final double armGearing = (double)(64) / 16 * (double)(64) / 14 * 3;
 
   // testing purposes
   public static final double mainArmPowerCoefficient = 0.5;
