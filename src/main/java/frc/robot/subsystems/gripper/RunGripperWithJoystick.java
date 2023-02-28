@@ -29,8 +29,7 @@ public class RunGripperWithJoystick extends CommandBase {
   public void execute() {
     if (joystick.getXButton()) {
       gripperSubsystem.setPower(-1);
-    }
-    else if (joystick.getBButton()) {
+    } else if (joystick.getBButton()) {
       gripperSubsystem.setPower(1);
     }
   }
