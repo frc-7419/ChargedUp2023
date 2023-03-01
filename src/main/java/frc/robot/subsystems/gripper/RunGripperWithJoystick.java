@@ -28,9 +28,11 @@ public class RunGripperWithJoystick extends CommandBase {
   @Override
   public void execute() {
     if(joystick.getRightBumper()) {
+      gripperSubsystem.coast();
       gripperSubsystem.setPower(0.7);
     }
     else if(joystick.getLeftBumper()) {
+      gripperSubsystem.coast();
       gripperSubsystem.setPower(-0.7);
     }
     else {

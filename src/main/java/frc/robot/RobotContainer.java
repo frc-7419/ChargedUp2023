@@ -34,7 +34,7 @@ public class RobotContainer {
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final WristSubsystem wristSubsystem = new WristSubsystem();
-  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+//   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
 
   // Commands
@@ -49,21 +49,21 @@ public class RobotContainer {
   private final ArmToSetpoint armToScoreSetpoint =
       new ArmToSetpoint(armSubsystem, ArmConstants.scoreSetpoint);
 
-  private final ElevatorToSetpoint elevatorToGround =
-      new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND);
-  private final ElevatorToSetpoint elevatorToSubstation =
-      new ElevatorToSetpoint(elevatorSubsystem, NodeState.SUBSTATION);
-  private final ElevatorToSetpoint elevatorToLow =
-      new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
-  private final ElevatorToSetpoint elevatorToHigh =
-      new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
+//   private final ElevatorToSetpoint elevatorToGround =
+//       new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND);
+//   private final ElevatorToSetpoint elevatorToSubstation =
+//       new ElevatorToSetpoint(elevatorSubsystem, NodeState.SUBSTATION);
+//   private final ElevatorToSetpoint elevatorToLow =
+//       new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
+//   private final ElevatorToSetpoint elevatorToHigh =
+//       new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
   private final MoveWristWithJoystick moveWristWithJoystick =
       new MoveWristWithJoystick(wristSubsystem, driverJoystick);
   // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
   private final RunGripperWithJoystick runGripperWithJoystick =
       new RunGripperWithJoystick(gripperSubsystem, operatorJoystick);
-  private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
-      new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
+//   private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
+//       new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
   private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
       new MoveArmWithJoystickAnalog(armSubsystem, operatorJoystick);
 
@@ -86,10 +86,10 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Button.kB.value).whileTrue(armToScoreSetpoint);
     // new JoystickButton(driverJoystick, Button.kLeftBumper.value).whileTrue(smartWrist);
     // new JoystickButton(driverJoystick, Button.kRightBumper.value).whileTrue(elevatorToSetpoint);
-    new JoystickButton(operatorJoystick, Button.kX.value).whileTrue(elevatorToGround);
-    new JoystickButton(operatorJoystick, Button.kRightBumper.value).whileTrue(elevatorToHigh);
-    new JoystickButton(operatorJoystick, Button.kLeftBumper.value).whileTrue(elevatorToLow);
-    new JoystickButton(operatorJoystick, Button.kY.value).whileTrue(elevatorToSubstation);
+    // new JoystickButton(operatorJoystick, Button.kX.value).whileTrue(elevatorToGround);
+    // new JoystickButton(operatorJoystick, Button.kRightBumper.value).whileTrue(elevatorToHigh);
+    // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).whileTrue(elevatorToLow);
+    // new JoystickButton(operatorJoystick, Button.kY.value).whileTrue(elevatorToSubstation);
   }
 
   // TODO update once done with autonomous command
@@ -108,7 +108,7 @@ public class RobotContainer {
     // driveBaseSubsystem.setDefaultCommand(testing);
     armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
     wristSubsystem.setDefaultCommand(moveWristWithJoystick);
-    elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
+    // elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
     gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
   }
 }
