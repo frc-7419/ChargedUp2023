@@ -14,7 +14,6 @@ public class RunElevatorWithJoystick extends CommandBase {
   private XboxController joystick;
 
   public RunElevatorWithJoystick(ElevatorSubsystem elevatorSubsystem, XboxController joystick) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.elevatorSubsystem = elevatorSubsystem;
     this.joystick = joystick;
     addRequirements(elevatorSubsystem);

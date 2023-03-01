@@ -35,11 +35,14 @@ public final class DeviceIDs {
 
   public static enum SensorIds {
 
-    // Beambreak DIO IDs
-    beambreak(2),
+    // Beambreak DIO ID
+    beamBreak(2),
 
-    // Limit switch DIO IDs
-    limitswitch(0),
+    // Limit switch DIO ID
+    limitSwitch(0),
+
+    // Arm Absolute Analog Encoder ID
+    absoluteEncoder(3),
     ;
 
     public final int id;

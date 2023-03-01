@@ -19,7 +19,7 @@ public class ArmSubsystem extends SubsystemBase {
     mainArmMotor1 =
         new CANSparkMax(DeviceIDs.CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
 
-    absoluteEncoder = new AnalogEncoder(3);
+    absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.absoluteEncoder.id);
 
     configureEncoder();
     configureMotorControllers();
@@ -31,9 +31,12 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void configureMotorControllers() {
     mainArmMotor1.setInverted(false);
-    // mainArmMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
   }
 
+  /**
+   * Sets position offset for the absolute encoder (i.e. after the offset, the absolute position
+   * reading will be 0 when the arm is parallel to the ground)
+   */
   public void configureEncoder() {
     absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
   }
