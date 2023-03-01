@@ -11,7 +11,6 @@ import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.arm.HomeArm;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
-import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.Testing;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -32,7 +31,6 @@ public class RobotContainer {
 
   // Subsystems
   // TODO will use when testing beambreak
-  private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
