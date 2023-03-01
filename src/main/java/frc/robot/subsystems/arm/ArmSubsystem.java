@@ -13,15 +13,13 @@ public class ArmSubsystem extends SubsystemBase {
 
   private CANSparkMax mainArmMotor1;
   private AnalogEncoder absoluteEncoder;
-  private boolean homed;
-  private double homePosition = 0;
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
     mainArmMotor1 =
         new CANSparkMax(DeviceIDs.CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
 
-    absoluteEncoder = new AnalogEncoder(3);
+    absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.absoluteEncoder.id);
 
     configureEncoder();
     configureMotorControllers();
@@ -33,13 +31,14 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void configureMotorControllers() {
     mainArmMotor1.setInverted(false);
-    // mainArmMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
   }
 
+  /**
+   * Sets position offset for the absolute encoder (i.e. after the offset, the absolute position
+   * reading will be 0 when the arm is parallel to the ground)
+   */
   public void configureEncoder() {
-    // arbitrary cuz idk gearing stuff
-    absoluteEncoder.setDistancePerRotation(10);
-    // absoluteEncoder.setPositionConversionFactor(2 * RobotConstants.mainArmGearRatio / 4096);
+    absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
   }
 
   /**
@@ -61,22 +60,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public double getAngle() {
-    double position = absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset;
-    return position * 360;
-  }
-
-  /** Sets the home position variable to the current position of the main arm. */
-  public void home() {
-    homePosition = getPosition();
-  }
-
-  /**
-   * Returns the home position of the main arms.
-   *
-   * @return The home position of the main arms.
-   */
-  public double getHomePosition() {
-    return homePosition;
+    return getPosition() * 360;
   }
 
   /** Sets arm motor to coast mode, allowing arm to freely move */

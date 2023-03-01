@@ -17,6 +17,7 @@ public final class PIDConstants {
   public static final double MainArmKp = 0.001;
   public static final double MainArmKi = 0;
   public static final double MainArmKd = 0;
+  public static final double MainArmTolerance = 0.15;
 
   // extended arm
   public static final double ExtendedArmKp = 0.0001;
@@ -41,4 +42,5 @@ public final class PIDConstants {
   public static final double wristkI = 0;
   public static final double wristkD = 0;
   public static final double wristTolerance = 0.1;
+
 }

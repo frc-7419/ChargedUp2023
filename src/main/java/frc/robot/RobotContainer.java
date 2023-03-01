@@ -9,10 +9,7 @@ import frc.robot.constants.ArmConstants;
 import frc.robot.constants.ElevatorConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
-import frc.robot.subsystems.arm.HomeArm;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
-import frc.robot.subsystems.beambreak.BeamBreakSubsystem;
-import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.Testing;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -33,7 +30,6 @@ public class RobotContainer {
 
   // Subsystems
   // TODO will use when testing beambreak
-  private final BeamBreakSubsystem beamBreakSubsystem = new BeamBreakSubsystem();
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
@@ -42,9 +38,8 @@ public class RobotContainer {
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
 
   // Commands
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem);
-  private final Testing testing = new Testing(driveBaseSubsystem, driverJoystick);
-
+  // TODO will use when driving
+  //   private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem);
   private final BalanceOnChargeStationNew smartBalanceNew =
       new BalanceOnChargeStationNew(driveBaseSubsystem, gyroSubsystem);
 
@@ -62,12 +57,6 @@ public class RobotContainer {
       new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
   private final ElevatorToSetpoint elevatorToHigh =
       new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
-
-  // private final MoveElevatorWithJoystick moveElevatorWithJoystick = new
-  // MoveElevatorWithJoystick(elevatorSubsystem, driverJoystick);
-  private final HomeArm homeArm = new HomeArm(armSubsystem);
-  // private final MoveArmWithJoystick moveArmWithJoystick =
-  // new MoveArmWithJoystick(armSubsystem, driverJoystick);
   private final MoveWristWithJoystick moveWristWithJoystick =
       new MoveWristWithJoystick(wristSubsystem, driverJoystick);
   // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
@@ -95,7 +84,6 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Button.kX.value).whileTrue(smartBalanceNew);
     new JoystickButton(driverJoystick, Button.kA.value).whileTrue(armToIntakeSetpoint);
     new JoystickButton(driverJoystick, Button.kB.value).whileTrue(armToScoreSetpoint);
-    new JoystickButton(driverJoystick, Button.kY.value).whileTrue(homeArm);
     // new JoystickButton(driverJoystick, Button.kLeftBumper.value).whileTrue(smartWrist);
     // new JoystickButton(driverJoystick, Button.kRightBumper.value).whileTrue(elevatorToSetpoint);
     new JoystickButton(operatorJoystick, Button.kX.value).whileTrue(elevatorToGround);
