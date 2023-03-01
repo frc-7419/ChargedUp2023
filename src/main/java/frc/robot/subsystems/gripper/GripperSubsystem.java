@@ -6,6 +6,7 @@ package frc.robot.subsystems.gripper;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -19,6 +20,8 @@ public class GripperSubsystem extends SubsystemBase {
 
   public GripperSubsystem() {
     this.gripper = new TalonSRX(DeviceIDs.CanIds.gripperSRX.id);
+    gripper.configPeakCurrentLimit(20);
+    gripper.enableCurrentLimit(true);
   }
 
   @Override
