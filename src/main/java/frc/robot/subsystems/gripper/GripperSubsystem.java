@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems.gripper;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -12,10 +15,10 @@ import frc.robot.constants.DeviceIDs;
 
 public class GripperSubsystem extends SubsystemBase {
   /** Creates a new gripper. */
-  private CANSparkMax gripper;
+  private TalonSRX gripper;
 
   public GripperSubsystem() {
-    this.gripper = new CANSparkMax(DeviceIDs.CanIds.gripperSpark.id, MotorType.kBrushless);
+    this.gripper = new TalonSRX(DeviceIDs.CanIds.gripperSRX.id);
   }
 
   @Override
@@ -24,14 +27,14 @@ public class GripperSubsystem extends SubsystemBase {
   }
 
   public void setPower(double power) {
-    gripper.set(power);
+    gripper.set(ControlMode.PercentOutput, power);
   }
 
   public void brake() {
-    gripper.setIdleMode(IdleMode.kBrake);
+    gripper.setNeutralMode(NeutralMode.Brake);
   }
 
   public void coast() {
-    gripper.setIdleMode(IdleMode.kCoast);
+    gripper.setNeutralMode(NeutralMode.Coast);
   }
 }

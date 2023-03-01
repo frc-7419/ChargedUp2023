@@ -32,7 +32,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       LinearSystemId.createElevatorSystem(
           DCMotor.getFalcon500(1),
           ElevatorConstants.carriageMass,
-          1,
+          Units.inchesToMeters(ElevatorConstants.drumRadius),
           ElevatorConstants.elevatorGearing);
 
   private final KalmanFilter<N2, N1, N1> m_observer =
@@ -41,7 +41,7 @@ public class ElevatorSubsystem extends SubsystemBase {
           Nat.N1(),
           m_elevatorPlant,
           VecBuilder.fill(Units.inchesToMeters(2), Units.inchesToMeters(40)),
-          VecBuilder.fill(0.01),
+          VecBuilder.fill(0.00001),
           0.020);
 
   private final LinearQuadraticRegulator<N2, N1, N1> m_controller =
@@ -89,7 +89,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public double getElevatorPosition() {
     return Units.rotationsToRadians(
-        elevatorMotor.getSelectedSensorPosition() * ElevatorConstants.drumRadius);
+        elevatorMotor.getSelectedSensorPosition() * ElevatorConstants.drumRadius / (2048*25));
   }
 
   public double getRate() {

@@ -61,7 +61,7 @@ public class RobotContainer {
       new MoveWristWithJoystick(wristSubsystem, driverJoystick);
   // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
   private final RunGripperWithJoystick runGripperWithJoystick =
-      new RunGripperWithJoystick(gripperSubsystem, driverJoystick);
+      new RunGripperWithJoystick(gripperSubsystem, operatorJoystick);
   private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
       new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
   private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
@@ -104,7 +104,7 @@ public class RobotContainer {
   }
 
   public void setDefaultCommands() {
-    driveBaseSubsystem.setDefaultCommand(arcadeDrive);
+    // driveBaseSubsystem.setDefaultCommand(arcadeDrive);
     // driveBaseSubsystem.setDefaultCommand(testing);
     armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
     wristSubsystem.setDefaultCommand(moveWristWithJoystick);
