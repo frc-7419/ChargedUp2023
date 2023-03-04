@@ -54,9 +54,9 @@ public class BalanceOnChargeStationNew extends CommandBase {
     double pitch = gyroSubsystem.getRoll();
     double calculatedDirection = pitchAngleController.calculate(pitch);
 
-    double yaw = gyroSubsystem.getYaw();
-    // TODO: will use during testing
-    double calculatedYaw = yawAngleController.calculate(yaw);
+    // double yaw = gyroSubsystem.getYaw();
+    // // TODO: will use during testing
+    // double calculatedYaw = yawAngleController.calculate(yaw);
 
     double speed = driveBaseSubsystem.getLeftVelocityInMeters();
     double calculatedPower = speedController.calculate(speed);

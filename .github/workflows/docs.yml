@@ -1,0 +1,29 @@
+name: Documentation
+on:
+  push:
+    branches: [master]
+jobs:
+  publish:
+    name: "Documentation - Publish"
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 13
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: Build with Gradle
+        run: ./gradlew javadoc
+      - name: Setup Git User
+        run: |
+          git config --global user.name "wlmchen"
+          git config --global user.email "65417452+wlmchen@users.noreply.github.com"
+      - name: Deploy Java 🚀
+        run: |
+          pip install ghp-import
+          ghp-import --no-jekyll --message="Deploy $(git rev-parse --short $GITHUB_SHA) 🚀" --push --remote=origin --branch=docs --force --cname=docs.7419.tech build/docs/javadoc

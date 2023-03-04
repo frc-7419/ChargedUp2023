@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.team7419"},{"l":"com.team7419.math"},{"l":"com.team7419.motors"},{"l":"com.team7419.templates"},{"l":"frc.robot"},{"l":"frc.robot.subsystems.arm"},{"l":"frc.robot.subsystems.beambreak"},{"l":"frc.robot.subsystems.drive"},{"l":"frc.robot.subsystems.gyro"}]
