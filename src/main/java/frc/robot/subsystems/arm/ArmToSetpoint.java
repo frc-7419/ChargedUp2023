@@ -21,19 +21,14 @@ public class ArmToSetpoint extends CommandBase {
     addRequirements(armSubsystem);
   }
 
-  /**
-   * Initializes the setpoints and tolerance for the PID controller.
-   */
+  /** Initializes the setpoints and tolerance for the PID controller. */
   @Override
   public void initialize() {
     pidController.setSetpoint(setpoint);
     pidController.setTolerance(PIDConstants.MainArmTolerance);
     armSubsystem.coast();
   }
-  /**
-   * Calculates the power needed to set the main arm to a specific
-   * position during every cycle.
-   */
+  /** Calculates the power needed to set the main arm to a specific position during every cycle. */
   @Override
   public void execute() {
 

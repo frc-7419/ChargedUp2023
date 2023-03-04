@@ -89,7 +89,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public double getElevatorPosition() {
     return Units.rotationsToRadians(
-        elevatorMotor.getSelectedSensorPosition() * ElevatorConstants.drumRadius / (2048*25));
+        elevatorMotor.getSelectedSensorPosition() * ElevatorConstants.drumRadius / (2048 * 25));
   }
 
   public double getRate() {

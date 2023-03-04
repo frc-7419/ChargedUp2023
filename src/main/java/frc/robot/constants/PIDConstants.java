@@ -42,5 +42,4 @@ public final class PIDConstants {
   public static final double wristkI = 0;
   public static final double wristkD = 0;
   public static final double wristTolerance = 0.1;
-
 }

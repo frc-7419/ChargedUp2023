@@ -27,15 +27,13 @@ public class RunGripperWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(joystick.getRightBumper()) {
+    if (joystick.getRightBumper()) {
       gripperSubsystem.coast();
       gripperSubsystem.setPower(0.7);
-    }
-    else if(joystick.getLeftBumper()) {
+    } else if (joystick.getLeftBumper()) {
       gripperSubsystem.coast();
       gripperSubsystem.setPower(-0.7);
-    }
-    else {
+    } else {
       gripperSubsystem.setPower(0);
       gripperSubsystem.brake();
     }
