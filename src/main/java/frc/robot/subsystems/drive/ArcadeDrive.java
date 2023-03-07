@@ -9,7 +9,6 @@ import frc.robot.constants.DriveConstants;
  * Command to arcade drive the robot (left joystick corresponds to straight, right joystick
  * corresponds to turn)
  */
-
 public class ArcadeDrive extends CommandBase {
 
   private DriveBaseSubsystem driveBaseSubsystem;
@@ -22,8 +21,6 @@ public class ArcadeDrive extends CommandBase {
    *
    * @param joystick
    * @param driveBaseSubsystem
-   * @param kStraight
-   * @param kTurn
    */
   public ArcadeDrive(XboxController joystick, DriveBaseSubsystem driveBaseSubsystem) {
     this.joystick = joystick;
@@ -47,6 +44,7 @@ public class ArcadeDrive extends CommandBase {
     double zAxisRotation = joystickInputPowerTurn;
     driveBaseSubsystem.drive(xAxisSpeed, zAxisRotation);
 
+    // TODO Check if this works
     // driveBaseSubsystem.coast();
 
     // double leftPower = xAxisSpeed + zAxisRotation;
