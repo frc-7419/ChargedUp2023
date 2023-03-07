@@ -9,7 +9,6 @@ import frc.robot.constants.DriveConstants;
  * Command to arcade drive the robot (left joystick corresponds to straight, right joystick
  * corresponds to turn)
  */
-
 public class ArcadeDrive extends CommandBase {
 
   private DriveBaseSubsystem driveBaseSubsystem;
