@@ -17,7 +17,6 @@ public class RunGripper extends CommandBase {
   /**
    * @param gripperSubsystem for controlling the power of the gripper.
    * @param mode to determine what mode the gripper should be in (intake or scoring).
-   * @param power the power set to the gripper.
    */
   public RunGripper(GripperSubsystem gripperSubsystem, GripperState mode) {
     this.gripperSubsystem = gripperSubsystem;
