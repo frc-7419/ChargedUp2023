@@ -22,100 +22,78 @@ import frc.robot.constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
-  private TrapezoidProfile.State m_lastProfiledReference = new TrapezoidProfile.State();
-  private TrapezoidProfile.State goal = new TrapezoidProfile.State(0.0, 0.0);
-  private boolean closedLoop = false;
+  private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(300, 150);
+  private TrapezoidProfile.State goal = new TrapezoidProfile.State();
+  private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
+  
+
 
   private final TalonFX elevatorMotor;
 
-  private final LinearSystem<N2, N1, N1> m_elevatorPlant =
-      LinearSystemId.createElevatorSystem(
-          DCMotor.getFalcon500(1),
-          ElevatorConstants.carriageMass,
-          Units.inchesToMeters(ElevatorConstants.drumRadius),
-          ElevatorConstants.elevatorGearing);
+  // private final LinearSystem<N2, N1, N1> m_elevatorPlant =
+  //     LinearSystemId.createElevatorSystem(
+  //         DCMotor.getFalcon500(1),
+  //         ElevatorConstants.carriageMass,
+  //         Units.inchesToMeters(ElevatorConstants.drumRadius),
+  //         ElevatorConstants.elevatorGearing);
 
-  private final KalmanFilter<N2, N1, N1> m_observer =
-      new KalmanFilter<>(
-          Nat.N2(),
-          Nat.N1(),
-          m_elevatorPlant,
-          VecBuilder.fill(Units.inchesToMeters(2), Units.inchesToMeters(40)),
-          VecBuilder.fill(0.00001),
-          0.020);
+  // private final KalmanFilter<N2, N1, N1> m_observer =
+  //     new KalmanFilter<>(
+  //         Nat.N2(),
+  //         Nat.N1(),
+  //         m_elevatorPlant,
+  //         VecBuilder.fill(Units.inchesToMeters(2), Units.inchesToMeters(40)),
+  //         VecBuilder.fill(0.00001),
+  //         0.020);
 
-  private final LinearQuadraticRegulator<N2, N1, N1> m_controller =
-      new LinearQuadraticRegulator<>(
-          m_elevatorPlant,
-          VecBuilder.fill(Units.inchesToMeters(1.0), Units.inchesToMeters(10.0)),
-          VecBuilder.fill(12.0),
-          0.020);
+  // private final LinearQuadraticRegulator<N2, N1, N1> m_controller =
+  //     new LinearQuadraticRegulator<>(
+  //         m_elevatorPlant,
+  //         VecBuilder.fill(Units.inchesToMeters(1.0), Units.inchesToMeters(10.0)),
+  //         VecBuilder.fill(12.0),
+  //         0.020);
 
-  private final LinearSystemLoop<N2, N1, N1> m_loop =
-      new LinearSystemLoop<>(m_elevatorPlant, m_controller, m_observer, 12.0, 0.020);
+  // private final LinearSystemLoop<N2, N1, N1> m_loop =
+  //     new LinearSystemLoop<>(m_elevatorPlant, m_controller, m_observer, 12.0, 0.020);
 
   public ElevatorSubsystem() {
     elevatorMotor = new TalonFX(DeviceIDs.CanIds.mainElevatorMotor.id);
-    elevatorMotor.set(ControlMode.PercentOutput, 0);
+    elevatorMotor.setSelectedSensorPosition(0);
+    // elevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
-  public void reset() {
-    m_loop.reset(VecBuilder.fill(getElevatorPosition(), getRate()));
-    m_lastProfiledReference = new TrapezoidProfile.State(getElevatorPosition(), getRate());
-  }
-
-  public void setSpeed(double percent) {
-    closedLoop = false;
-    elevatorMotor.set(ControlMode.PercentOutput, percent);
-  }
+  
 
   public void setPower(double percent) {
-    closedLoop = false;
+    // closedLoop = false;
     elevatorMotor.set(ControlMode.PercentOutput, percent);
   }
-
-  public void setGoal(double positionMeters) {
-    if (!closedLoop) {
-      closedLoop = true;
-      reset();
-    }
-
-    if (positionMeters > 0.0) {
-      goal = new TrapezoidProfile.State(positionMeters, 0.0);
-    } else {
-      goal = new TrapezoidProfile.State(0.0, 0.0);
-    }
+  public void setGoal(double setpoint) {
+    goal = new TrapezoidProfile.State(setpoint, 0);
   }
+  public TrapezoidProfile.State getGoal() {
+    return goal;
+  }
+  public void setSetpoint(TrapezoidProfile.State nextSetpoint) {
+    setpoint = nextSetpoint;
+  }
+  public TrapezoidProfile.State getSetpoint() {
+    return setpoint;
+  }
+  public TrapezoidProfile.Constraints getConstraints() {
+    return constraints;
+  }
+ 
 
   public double getElevatorPosition() {
     return Units.rotationsToRadians(
         elevatorMotor.getSelectedSensorPosition() * ElevatorConstants.drumRadius / (2048 * 25));
   }
 
-  public double getRate() {
-    return Units.rotationsPerMinuteToRadiansPerSecond(
-        elevatorMotor.getSelectedSensorVelocity() * ElevatorConstants.drumRadius);
-  }
-
-  public void controllerPeriodic() {
-    if (closedLoop) {
-      m_lastProfiledReference =
-          (new TrapezoidProfile(ElevatorConstants.m_constraints, goal, m_lastProfiledReference))
-              .calculate(0.020);
-      m_loop.setNextR(m_lastProfiledReference.position, m_lastProfiledReference.velocity);
-
-      m_loop.correct(VecBuilder.fill(getElevatorPosition()));
-
-      m_loop.predict(0.020);
-
-      double nextVoltage = m_loop.getU(0);
-      elevatorMotor.set(ControlMode.PercentOutput, nextVoltage / 11);
-    }
-  }
-
+  
   @Override
   public void periodic() {
-    controllerPeriodic();
+    // controllerPeriodic();
     SmartDashboard.putNumber("elevator position", getElevatorPosition());
   }
 

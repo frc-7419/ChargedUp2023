@@ -11,7 +11,7 @@ import frc.robot.constants.WristConstants.GripperState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
-import frc.robot.subsystems.elevator.ElevatorToSetpoint;
+// import frc.robot.subsystems.elevator.ElevatorToSetpoint;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripper;
 
@@ -38,7 +38,7 @@ public class IntakePiece extends SequentialCommandGroup {
 
         // once we implement set points for elevator, this will reset the position of the elevator
         // to its lowest point
-        new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND),
+        // new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND),
         new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint),
 
         // running gripper

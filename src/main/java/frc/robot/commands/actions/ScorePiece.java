@@ -11,7 +11,7 @@ import frc.robot.constants.WristConstants.GripperState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
-import frc.robot.subsystems.elevator.ElevatorToSetpoint;
+// import frc.robot.subsystems.elevator.ElevatorToSetpoint;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripper;
 
@@ -37,7 +37,7 @@ public class ScorePiece extends SequentialCommandGroup {
     addCommands(
         // once we implement set points for elevator, this will reset the position of the elevator
         // to score point
-        new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW),
+        // new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW),
         new ArmToSetpoint(armSubsystem, ArmConstants.scoreSetpoint),
 
         // running gripper

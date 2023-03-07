@@ -6,6 +6,7 @@ package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.constants.ElevatorConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -15,7 +16,7 @@ public class ElevatorPID extends PIDCommand {
   public ElevatorPID(ElevatorSubsystem elevatorSubsystem, double setpoint) {
     super(
         // The controller that the command will use
-        new PIDController(0.001, 0, 0),
+        new PIDController(0.068575, 0, 0),
         // This should return the measurement
         elevatorSubsystem::getElevatorPosition,
         // This should return the setpoint (can also be a constant)
@@ -23,12 +24,12 @@ public class ElevatorPID extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          elevatorSubsystem.setPower(output);
+          elevatorSubsystem.setPower(output + ElevatorConstants.elevatorFeedForward);
         });
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
     // Configure additional PID options by calling `getController` here.b
-    getController().setTolerance(1);
+    getController().setTolerance(0.5);
   }
 
   // Returns true when the command should end.
