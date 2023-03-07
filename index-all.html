@@ -214,8 +214,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Sets default inversions of left and right main motorcontrollers, and sets the conversion factor
  for motorcontroller encoder</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html#controllerPeriodic()">controllerPeriodic()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/constants/RobotConstants.html#currentAlliance">currentAlliance</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/RobotConstants.html" title="class in frc.robot.constants">RobotConstants</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -303,15 +301,23 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/constants/ElevatorConstants.html#elevatorGearing">elevatorGearing</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/ElevatorConstants.html" title="class in frc.robot.constants">ElevatorConstants</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="frc/robot/constants/ElevatorConstants.html#elevatorKa">elevatorKa</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/ElevatorConstants.html" title="class in frc.robot.constants">ElevatorConstants</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/constants/PIDConstants.html#ElevatorKd">ElevatorKd</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/PIDConstants.html" title="class in frc.robot.constants">PIDConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/constants/PIDConstants.html#ElevatorKf">ElevatorKf</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/PIDConstants.html" title="class in frc.robot.constants">PIDConstants</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="frc/robot/constants/ElevatorConstants.html#elevatorKg">elevatorKg</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/ElevatorConstants.html" title="class in frc.robot.constants">ElevatorConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/constants/PIDConstants.html#ElevatorKi">ElevatorKi</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/PIDConstants.html" title="class in frc.robot.constants">PIDConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/constants/PIDConstants.html#ElevatorKp">ElevatorKp</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/PIDConstants.html" title="class in frc.robot.constants">PIDConstants</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="frc/robot/constants/ElevatorConstants.html#elevatorKs">elevatorKs</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/ElevatorConstants.html" title="class in frc.robot.constants">ElevatorConstants</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/constants/PIDConstants.html#ElevatorKTolerance">ElevatorKTolerance</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/PIDConstants.html" title="class in frc.robot.constants">PIDConstants</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="frc/robot/constants/ElevatorConstants.html#elevatorKv">elevatorKv</a></span> - Static variable in class frc.robot.constants.<a href="frc/robot/constants/ElevatorConstants.html" title="class in frc.robot.constants">ElevatorConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/elevator/ElevatorPID.html" title="class in frc.robot.subsystems.elevator"><span class="typeNameLink">ElevatorPID</span></a> - Class in <a href="frc/robot/subsystems/elevator/package-summary.html">frc.robot.subsystems.elevator</a></dt>
 <dd>&nbsp;</dd>
@@ -327,10 +333,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html#%3Cinit%3E()">ElevatorSubsystem()</a></span> - Constructor for class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="frc/robot/subsystems/elevator/ElevatorToSetpoint.html" title="class in frc.robot.subsystems.elevator"><span class="typeNameLink">ElevatorToSetpoint</span></a> - Class in <a href="frc/robot/subsystems/elevator/package-summary.html">frc.robot.subsystems.elevator</a></dt>
+<dt><a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html" title="class in frc.robot.subsystems.elevator"><span class="typeNameLink">ElevatorToSetpointWithFeedForward</span></a> - Class in <a href="frc/robot/subsystems/elevator/package-summary.html">frc.robot.subsystems.elevator</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorToSetpoint.html#%3Cinit%3E(frc.robot.subsystems.elevator.ElevatorSubsystem,frc.robot.constants.ElevatorConstants.NodeState)">ElevatorToSetpoint(ElevatorSubsystem, ElevatorConstants.NodeState)</a></span> - Constructor for class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorToSetpoint.html" title="class in frc.robot.subsystems.elevator">ElevatorToSetpoint</a></dt>
-<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html#%3Cinit%3E(frc.robot.subsystems.elevator.ElevatorSubsystem,frc.robot.constants.ElevatorConstants.NodeState)">ElevatorToSetpointWithFeedForward(ElevatorSubsystem, ElevatorConstants.NodeState)</a></span> - Constructor for class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html" title="class in frc.robot.subsystems.elevator">ElevatorToSetpointWithFeedForward</a></dt>
+<dd>
+<div class="block">Creates a new ElevatorToSetpointWithFeedForward.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/arm/ArmToSetpoint.html#end(boolean)">end(boolean)</a></span> - Method in class frc.robot.subsystems.arm.<a href="frc/robot/subsystems/arm/ArmToSetpoint.html" title="class in frc.robot.subsystems.arm">ArmToSetpoint</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/arm/MoveArmWithJoystick.html#end(boolean)">end(boolean)</a></span> - Method in class frc.robot.subsystems.arm.<a href="frc/robot/subsystems/arm/MoveArmWithJoystick.html" title="class in frc.robot.subsystems.arm">MoveArmWithJoystick</a></dt>
@@ -343,7 +351,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/drive/Testing.html#end(boolean)">end(boolean)</a></span> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/Testing.html" title="class in frc.robot.subsystems.drive">Testing</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorToSetpoint.html#end(boolean)">end(boolean)</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorToSetpoint.html" title="class in frc.robot.subsystems.elevator">ElevatorToSetpoint</a></dt>
+<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html#end(boolean)">end(boolean)</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html" title="class in frc.robot.subsystems.elevator">ElevatorToSetpointWithFeedForward</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/MoveElevatorWithJoystick.html#end(boolean)">end(boolean)</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/MoveElevatorWithJoystick.html" title="class in frc.robot.subsystems.elevator">MoveElevatorWithJoystick</a></dt>
 <dd>&nbsp;</dd>
@@ -377,7 +385,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/drive/Testing.html#execute()">execute()</a></span> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/Testing.html" title="class in frc.robot.subsystems.drive">Testing</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorToSetpoint.html#execute()">execute()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorToSetpoint.html" title="class in frc.robot.subsystems.elevator">ElevatorToSetpoint</a></dt>
+<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html#execute()">execute()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html" title="class in frc.robot.subsystems.elevator">ElevatorToSetpointWithFeedForward</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/MoveElevatorWithJoystick.html#execute()">execute()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/MoveElevatorWithJoystick.html" title="class in frc.robot.subsystems.elevator">MoveElevatorWithJoystick</a></dt>
 <dd>&nbsp;</dd>
@@ -466,6 +474,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="frc/robot/RobotContainer.html#getAutonomousCommand()">getAutonomousCommand()</a></span> - Method in class frc.robot.<a href="frc/robot/RobotContainer.html" title="class in frc.robot">RobotContainer</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html#getConstraints()">getConstraints()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html#getCtrlsPoseEstimate()">getCtrlsPoseEstimate()</a></span> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html" title="class in frc.robot.subsystems.drive">DriveBaseSubsystem</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/team7419/motors/DcMotor.html#getCurrent()">getCurrent()</a></span> - Method in class com.team7419.motors.<a href="com/team7419/motors/DcMotor.html" title="class in com.team7419.motors">DcMotor</a></dt>
@@ -475,6 +485,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Gets the distance to the nearest AprilTag target</div>
 </dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html#getElevatorPosition()">getElevatorPosition()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html#getGoal()">getGoal()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html#getLeftFollow()">getLeftFollow()</a></span> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html" title="class in frc.robot.subsystems.drive">DriveBaseSubsystem</a></dt>
 <dd>&nbsp;</dd>
@@ -504,8 +516,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Uses the motor's integrated encoder to find the position of the arm.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html#getRate()">getRate()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html#getRightFollow()">getRightFollow()</a></span> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html" title="class in frc.robot.subsystems.drive">DriveBaseSubsystem</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html#getRightMast()">getRightMast()</a></span> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html" title="class in frc.robot.subsystems.drive">DriveBaseSubsystem</a></dt>
@@ -526,6 +536,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the current rotation of the robot, using the gyroscope.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html#getSetpoint()">getSetpoint()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/team7419/motors/DcMotor.html#getVelocity()">getVelocity()</a></span> - Method in class com.team7419.motors.<a href="com/team7419/motors/DcMotor.html" title="class in com.team7419.motors">DcMotor</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/drive/DrivetrainPoseEstimator.html#getVisionInformation()">getVisionInformation()</a></span> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DrivetrainPoseEstimator.html" title="class in frc.robot.subsystems.drive">DrivetrainPoseEstimator</a></dt>
@@ -598,7 +610,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/drive/Testing.html#initialize()">initialize()</a></span> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/Testing.html" title="class in frc.robot.subsystems.drive">Testing</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorToSetpoint.html#initialize()">initialize()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorToSetpoint.html" title="class in frc.robot.subsystems.elevator">ElevatorToSetpoint</a></dt>
+<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html#initialize()">initialize()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html" title="class in frc.robot.subsystems.elevator">ElevatorToSetpointWithFeedForward</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/MoveElevatorWithJoystick.html#initialize()">initialize()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/MoveElevatorWithJoystick.html" title="class in frc.robot.subsystems.elevator">MoveElevatorWithJoystick</a></dt>
 <dd>&nbsp;</dd>
@@ -643,6 +655,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/drive/Testing.html#isFinished()">isFinished()</a></span> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/Testing.html" title="class in frc.robot.subsystems.drive">Testing</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorPID.html#isFinished()">isFinished()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorPID.html" title="class in frc.robot.subsystems.elevator">ElevatorPID</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html#isFinished()">isFinished()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorToSetpointWithFeedForward.html" title="class in frc.robot.subsystems.elevator">ElevatorToSetpointWithFeedForward</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/MoveElevatorWithJoystick.html#isFinished()">isFinished()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/MoveElevatorWithJoystick.html" title="class in frc.robot.subsystems.elevator">MoveElevatorWithJoystick</a></dt>
 <dd>&nbsp;</dd>
@@ -970,8 +984,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Converts rotational speed in raw sensor units to rotations per minute</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html#reset()">reset()</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/team7419/motors/DcMotor.html#reset(double,double,double)">reset(double, double, double)</a></span> - Method in class com.team7419.motors.<a href="com/team7419/motors/DcMotor.html" title="class in com.team7419.motors">DcMotor</a></dt>
 <dd>
 <div class="block">set values of position, velocity, current to whatever you want</div>
@@ -1106,7 +1118,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Provides a specific voltage to the right side of the drivetrain.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html#setSpeed(double)">setSpeed(double)</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></dt>
+<dt><span class="memberNameLink"><a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html#setSetpoint(edu.wpi.first.math.trajectory.TrapezoidProfile.State)">setSetpoint(TrapezoidProfile.State)</a></span> - Method in class frc.robot.subsystems.elevator.<a href="frc/robot/subsystems/elevator/ElevatorSubsystem.html" title="class in frc.robot.subsystems.elevator">ElevatorSubsystem</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html#setTopPower(double)">setTopPower(double)</a></span> - Method in class frc.robot.subsystems.drive.<a href="frc/robot/subsystems/drive/DriveBaseSubsystem.html" title="class in frc.robot.subsystems.drive">DriveBaseSubsystem</a></dt>
 <dd>&nbsp;</dd>
