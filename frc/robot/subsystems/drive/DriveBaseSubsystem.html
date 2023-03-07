@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -320,40 +320,50 @@ double&nbsp;rot)</code></th>
 </tr>
 <tr class="altColor" id="i22">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBottomPower(double)">setBottomPower</a></span>&#8203;(double&nbsp;power)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i23">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLeftPower(double)">setLeftPower</a></span>&#8203;(double&nbsp;power)</code></th>
 <td class="colLast">
 <div class="block">Sets the power of the left side of the drivetrain.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i23">
+<tr class="altColor" id="i24">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLeftVoltage(double)">setLeftVoltage</a></span>&#8203;(double&nbsp;voltage)</code></th>
 <td class="colLast">
 <div class="block">Provides a specific voltage to the left side of the drivetrain.</div>
 </td>
 </tr>
-<tr class="altColor" id="i24">
+<tr class="rowColor" id="i25">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRightPower(double)">setRightPower</a></span>&#8203;(double&nbsp;power)</code></th>
 <td class="colLast">
 <div class="block">Sets the power of the right side of the drivetrain.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i25">
+<tr class="altColor" id="i26">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRightVoltage(double)">setRightVoltage</a></span>&#8203;(double&nbsp;voltage)</code></th>
 <td class="colLast">
 <div class="block">Provides a specific voltage to the right side of the drivetrain.</div>
 </td>
 </tr>
-<tr class="altColor" id="i26">
+<tr class="rowColor" id="i27">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTopPower(double)">setTopPower</a></span>&#8203;(double&nbsp;power)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i28">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stop()">stop</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Stops the drivetrain (sets all motors to 0 power)</div>
 </td>
 </tr>
-<tr class="rowColor" id="i27">
+<tr class="rowColor" id="i29">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tankDriveVolts(double,double)">tankDriveVolts</a></span>&#8203;(double&nbsp;leftVolts,
 double&nbsp;rightVolts)</code></th>
@@ -379,7 +389,7 @@ double&nbsp;rightVolts)</code></th>
 <h3>Methods inherited from interface&nbsp;edu.wpi.first.wpilibj2.command.Subsystem</h3>
 <a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.Subsystem">
 <!--   -->
-</a><code>getCurrentCommand, getDefaultCommand, register, run, runEnd, runOnce, setDefaultCommand, simulationPeriodic, startEnd</code></div>
+</a><code>getCurrentCommand, getDefaultCommand, register, removeDefaultCommand, run, runEnd, runOnce, setDefaultCommand, simulationPeriodic, startEnd</code></div>
 </section>
 </li>
 </ul>
@@ -464,6 +474,18 @@ double&nbsp;rightVolts)</code></th>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>voltage</code> - voltage to set</dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setTopPower(double)">setTopPower</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setTopPower</span>&#8203;(<span class="arguments">double&nbsp;power)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setBottomPower(double)">setBottomPower</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setBottomPower</span>&#8203;(<span class="arguments">double&nbsp;power)</span></div>
 </section>
 </li>
 <li class="blockList">

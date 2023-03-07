@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -125,9 +125,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <tbody>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">ElevatorSubsystem</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Constructs an elevator subsystem</div>
-</td>
+<td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -155,42 +153,52 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#brake()">brake</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Set brake mode</div>
-</td>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#coast()">coast</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Set coast mode</div>
-</td>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i2">
-<td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getElevatorPosition()">getElevatorPosition</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Get elevator position</div>
-</td>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#controllerPeriodic()">controllerPeriodic</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i3">
 <td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMotorOutputPercent()">getMotorOutputPercent</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Get elevator output</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getElevatorPosition()">getElevatorPosition</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i4">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#periodic()">periodic</a></span>()</code></th>
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRate()">getRate</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPower(double)">setPower</a></span>&#8203;(double&nbsp;power)</code></th>
-<td class="colLast">
-<div class="block">Sets the power of the motor</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#periodic()">periodic</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i6">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reset()">reset</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i7">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGoal(double)">setGoal</a></span>&#8203;(double&nbsp;positionMeters)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i8">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPower(double)">setPower</a></span>&#8203;(double&nbsp;percent)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSpeed(double)">setSpeed</a></span>&#8203;(double&nbsp;percent)</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -210,7 +218,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <h3>Methods inherited from interface&nbsp;edu.wpi.first.wpilibj2.command.Subsystem</h3>
 <a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.Subsystem">
 <!--   -->
-</a><code>getCurrentCommand, getDefaultCommand, register, run, runEnd, runOnce, setDefaultCommand, simulationPeriodic, startEnd</code></div>
+</a><code>getCurrentCommand, getDefaultCommand, register, removeDefaultCommand, run, runEnd, runOnce, setDefaultCommand, simulationPeriodic, startEnd</code></div>
 </section>
 </li>
 </ul>
@@ -228,7 +236,6 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <section class="detail">
 <h3><a id="&lt;init&gt;()">ElevatorSubsystem</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">ElevatorSubsystem</span>()</div>
-<div class="block">Constructs an elevator subsystem</div>
 </section>
 </li>
 </ul>
@@ -243,55 +250,62 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="periodic()">periodic</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">periodic</span>()</div>
+<h3><a id="reset()">reset</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">reset</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setSpeed(double)">setSpeed</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setSpeed</span>&#8203;(<span class="arguments">double&nbsp;percent)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="setPower(double)">setPower</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setPower</span>&#8203;(<span class="arguments">double&nbsp;power)</span></div>
-<div class="block">Sets the power of the motor</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>power</code> - input power between -1 and 1</dd>
-</dl>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setPower</span>&#8203;(<span class="arguments">double&nbsp;percent)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="brake()">brake</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">brake</span>()</div>
-<div class="block">Set brake mode</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="coast()">coast</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">coast</span>()</div>
-<div class="block">Set coast mode</div>
+<h3><a id="setGoal(double)">setGoal</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setGoal</span>&#8203;(<span class="arguments">double&nbsp;positionMeters)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getElevatorPosition()">getElevatorPosition</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getElevatorPosition</span>()</div>
-<div class="block">Get elevator position</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>position in rotations</dd>
-</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getMotorOutputPercent()">getMotorOutputPercent</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getMotorOutputPercent</span>()</div>
-<div class="block">Get elevator output</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>output between -1.0 and 1.0</dd>
-</dl>
+<h3><a id="getRate()">getRate</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getRate</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="controllerPeriodic()">controllerPeriodic</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">controllerPeriodic</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="periodic()">periodic</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">periodic</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="brake()">brake</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">brake</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="coast()">coast</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">coast</span>()</div>
 </section>
 </li>
 </ul>

@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -154,47 +154,26 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <tbody>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#brakeAll()">brakeAll</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#brake()">brake</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Sets all arm motors to brake mode</div>
+<div class="block">Sets arm motor to brake mode, stopping the arm's movement</div>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#brakeExtended()">brakeExtended</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#coast()">coast</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Sets extended arm's motor to brake mode, stopping the extended arm's movement</div>
+<div class="block">Sets arm motor to coast mode, allowing arm to freely move</div>
 </td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#brakeMain()">brakeMain</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#configureEncoder()">configureEncoder</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Sets both main arm motors to brake mode, stopping the main arm's movement</div>
+<div class="block">Sets position offset for the absolute encoder (i.e.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i3">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#coastAll()">coastAll</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Sets all arm motors to coast mode</div>
-</td>
-</tr>
-<tr class="altColor" id="i4">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#coastExtended()">coastExtended</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Sets extended arm motor to coast mode, allowing extended arm to freely move</div>
-</td>
-</tr>
-<tr class="rowColor" id="i5">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#coastMain()">coastMain</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Sets both main arm motors to coast mode, allowing main arm to freely move</div>
-</td>
-</tr>
-<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#configureMotorControllers()">configureMotorControllers</a></span>()</code></th>
 <td class="colLast">
@@ -202,63 +181,26 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
  for motorcontroller encoder</div>
 </td>
 </tr>
-<tr class="rowColor" id="i7">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getExtendedAngle()">getExtendedAngle</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Returns the roll of the extended arm as measured by the arm's gyro.</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAngle()">getAngle</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i8">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getExtendedPosition()">getExtendedPosition</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Returns the current position of the extended arm.</div>
-</td>
-</tr>
-<tr class="rowColor" id="i9">
-<td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHomePosition()">getHomePosition</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Returns the home position of the main arms.</div>
-</td>
-</tr>
-<tr class="altColor" id="i10">
-<td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMainPosition()">getMainPosition</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPosition()">getPosition</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the position of the main arm, relative to the arm's home position.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i11">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#home()">home</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Sets the home position variable to the current position of the main arm.</div>
-</td>
-</tr>
-<tr class="altColor" id="i12">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#periodic()">periodic</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i13">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAllPower(double)">setAllPower</a></span>&#8203;(double&nbsp;power)</code></th>
-<td class="colLast">
-<div class="block">Sets power to both the main and extended arms.</div>
-</td>
-</tr>
-<tr class="altColor" id="i14">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setExtendedPower(double)">setExtendedPower</a></span>&#8203;(double&nbsp;power)</code></th>
-<td class="colLast">
-<div class="block">Sets power to the motor on the extended arm.</div>
-</td>
-</tr>
-<tr class="rowColor" id="i15">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMainPower(double)">setMainPower</a></span>&#8203;(double&nbsp;power)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPower(double)">setPower</a></span>&#8203;(double&nbsp;power)</code></th>
 <td class="colLast">
 <div class="block">Sets power to the motors on the main arm.</div>
 </td>
@@ -281,7 +223,7 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <h3>Methods inherited from interface&nbsp;edu.wpi.first.wpilibj2.command.Subsystem</h3>
 <a id="methods.inherited.from.class.edu.wpi.first.wpilibj2.command.Subsystem">
 <!--   -->
-</a><code>getCurrentCommand, getDefaultCommand, register, run, runEnd, runOnce, setDefaultCommand, simulationPeriodic, startEnd</code></div>
+</a><code>getCurrentCommand, getDefaultCommand, register, removeDefaultCommand, run, runEnd, runOnce, setDefaultCommand, simulationPeriodic, startEnd</code></div>
 </section>
 </li>
 </ul>
@@ -322,19 +264,16 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setAllPower(double)">setAllPower</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setAllPower</span>&#8203;(<span class="arguments">double&nbsp;power)</span></div>
-<div class="block">Sets power to both the main and extended arms.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>power</code> - set to both main and extended arms.</dd>
-</dl>
+<h3><a id="configureEncoder()">configureEncoder</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">configureEncoder</span>()</div>
+<div class="block">Sets position offset for the absolute encoder (i.e. after the offset, the absolute position
+ reading will be 0 when the arm is parallel to the ground)</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setMainPower(double)">setMainPower</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setMainPower</span>&#8203;(<span class="arguments">double&nbsp;power)</span></div>
+<h3><a id="setPower(double)">setPower</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setPower</span>&#8203;(<span class="arguments">double&nbsp;power)</span></div>
 <div class="block">Sets power to the motors on the main arm.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -344,19 +283,8 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setExtendedPower(double)">setExtendedPower</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setExtendedPower</span>&#8203;(<span class="arguments">double&nbsp;power)</span></div>
-<div class="block">Sets power to the motor on the extended arm.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>power</code> - to motor on the extended arm.</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="getMainPosition()">getMainPosition</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getMainPosition</span>()</div>
+<h3><a id="getPosition()">getPosition</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getPosition</span>()</div>
 <div class="block">Returns the position of the main arm, relative to the arm's home position.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -366,84 +294,22 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getExtendedPosition()">getExtendedPosition</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getExtendedPosition</span>()</div>
-<div class="block">Returns the current position of the extended arm.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The position of the extended arm, in units of rotations.</dd>
-</dl>
+<h3><a id="getAngle()">getAngle</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getAngle</span>()</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="home()">home</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">home</span>()</div>
-<div class="block">Sets the home position variable to the current position of the main arm.</div>
+<h3><a id="coast()">coast</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">coast</span>()</div>
+<div class="block">Sets arm motor to coast mode, allowing arm to freely move</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getHomePosition()">getHomePosition</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getHomePosition</span>()</div>
-<div class="block">Returns the home position of the main arms.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The home position of the main arms.</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="getExtendedAngle()">getExtendedAngle</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getExtendedAngle</span>()</div>
-<div class="block">Returns the roll of the extended arm as measured by the arm's gyro.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The gyro's measured roll (corresponds to the angle of the extended arm).</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="coastAll()">coastAll</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">coastAll</span>()</div>
-<div class="block">Sets all arm motors to coast mode</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="coastMain()">coastMain</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">coastMain</span>()</div>
-<div class="block">Sets both main arm motors to coast mode, allowing main arm to freely move</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="coastExtended()">coastExtended</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">coastExtended</span>()</div>
-<div class="block">Sets extended arm motor to coast mode, allowing extended arm to freely move</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="brakeAll()">brakeAll</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">brakeAll</span>()</div>
-<div class="block">Sets all arm motors to brake mode</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="brakeMain()">brakeMain</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">brakeMain</span>()</div>
-<div class="block">Sets both main arm motors to brake mode, stopping the main arm's movement</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="brakeExtended()">brakeExtended</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">brakeExtended</span>()</div>
-<div class="block">Sets extended arm's motor to brake mode, stopping the extended arm's movement</div>
+<h3><a id="brake()">brake</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">brake</span>()</div>
+<div class="block">Sets arm motor to brake mode, stopping the arm's movement</div>
 </section>
 </li>
 <li class="blockList">
