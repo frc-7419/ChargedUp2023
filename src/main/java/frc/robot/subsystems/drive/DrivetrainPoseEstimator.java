@@ -4,14 +4,6 @@
 
 package frc.robot.subsystems.drive;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonUtils;
-import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
-
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
@@ -23,20 +15,22 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.numbers.N5;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.AprilTagPositionConstants;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.RobotConstants;
 import frc.robot.constants.VisionConstants;
 import frc.robot.subsystems.gyro.GyroSubsystem;
+import java.util.HashMap;
+import java.util.Map;
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 /**
- * Performs estimation of the drivetrain's current position on the field, using
- * a vision system,
- * drivetrain encoders, and a gyroscope. These sensor readings are fused
- * together using a Kalman
- * filter. This in turn creates a best-guess at a Pose2d of where our drivetrain
- * is currently at.
+ * Performs estimation of the drivetrain's current position on the field, using a vision system,
+ * drivetrain encoders, and a gyroscope. These sensor readings are fused together using a Kalman
+ * filter. This in turn creates a best-guess at a Pose2d of where our drivetrain is currently at.
  */
 public class DrivetrainPoseEstimator {
   // Sensors used as part of the Pose Estimation
@@ -67,8 +61,7 @@ public class DrivetrainPoseEstimator {
   private final DifferentialDrivePoseEstimator m_poseEstimator;
 
   /**
-   * Constructs a new DrivetrainPoseEstimator. Initializes the AprilTag poses and
-   * their
+   * Constructs a new DrivetrainPoseEstimator. Initializes the AprilTag poses and their
    * corresponding Fiducial IDs.
    *
    * @param gyroSubsystem
@@ -86,32 +79,35 @@ public class DrivetrainPoseEstimator {
     poses.put(7, AprilTagPositionConstants.kAprilTagSevenPose);
     poses.put(8, AprilTagPositionConstants.kAprilTagEightPose);
 
-    m_poseEstimator = new DifferentialDrivePoseEstimator(
-        DriveConstants.kDriveKinematics,
-        getRotation2d(),
-        0, // Assume zero encoder counts at start
-        0,
-        new Pose2d(),
-        localMeasurementStdDevs,
-        visionMeasurementStdDevs);
+    m_poseEstimator =
+        new DifferentialDrivePoseEstimator(
+            DriveConstants.kDriveKinematics,
+            getRotation2d(),
+            0, // Assume zero encoder counts at start
+            0,
+            new Pose2d(),
+            localMeasurementStdDevs,
+            visionMeasurementStdDevs);
   }
 
   /**
    * Perform all periodic pose estimation tasks.
    *
-   * @param leftDist  Distance (in m) the left wheel has traveled
+   * @param leftDist Distance (in m) the left wheel has traveled
    * @param rightDist Distance (in m) the right wheel has traveled
    */
   public void update(double leftDist, double rightDist) {
     m_poseEstimator.update(getRotation2d(), leftDist, rightDist);
     resultTimeStamp = scoringCameraResult.getTimestampSeconds();
-    
+
     // update predicted robot pose and ambiguity for each camera
     updateScoringCameraVision();
     updateAuxiliaryCameraVision();
-    
-    Boolean didScoringCameraDetect = (scoringCameraAmbiguity < VisionConstants.visionAmbiguityThreshold);
-    Boolean didAuxiliaryCameraDetect = (auxiliaryCameraAmbiguity < VisionConstants.visionAmbiguityThreshold);
+
+    Boolean didScoringCameraDetect =
+        (scoringCameraAmbiguity < VisionConstants.visionAmbiguityThreshold);
+    Boolean didAuxiliaryCameraDetect =
+        (auxiliaryCameraAmbiguity < VisionConstants.visionAmbiguityThreshold);
 
     if (!(didScoringCameraDetect || didAuxiliaryCameraDetect)) {
       return;
@@ -134,10 +130,12 @@ public class DrivetrainPoseEstimator {
         Pose3d targetPose = poses.get(fiducialId);
         Transform3d scoringCameraToTargetTrans = target.getBestCameraToTarget();
         Pose3d scoringCameraPose = targetPose.transformBy(scoringCameraToTargetTrans.inverse());
-        scoringCameraRobotPose = scoringCameraPose.transformBy(RobotConstants.kScoringCameraToRobot);
+        scoringCameraRobotPose =
+            scoringCameraPose.transformBy(RobotConstants.kScoringCameraToRobot);
       }
     }
   }
+
   public void updateAuxiliaryCameraVision() {
     auxiliaryCameraResult = auxiliaryCamera.getLatestResult();
     if (auxiliaryCameraResult.hasTargets() && resultTimeStamp != previousTimeStamp) {
@@ -149,7 +147,8 @@ public class DrivetrainPoseEstimator {
         Pose3d targetPose = poses.get(fiducialId);
         Transform3d auxiliaryCameraToTargetTrans = target.getBestCameraToTarget();
         Pose3d auxiliaryCameraPose = targetPose.transformBy(auxiliaryCameraToTargetTrans.inverse());
-        auxiliaryCameraRobotPose = auxiliaryCameraPose.transformBy(RobotConstants.kAuxiliaryCameraToRobot);
+        auxiliaryCameraRobotPose =
+            auxiliaryCameraPose.transformBy(RobotConstants.kAuxiliaryCameraToRobot);
       }
     }
   }
@@ -166,34 +165,31 @@ public class DrivetrainPoseEstimator {
   /**
    * Gets the distance and angle (yaw) to the nearest AprilTag.
    *
-   * @return Distance to nearest AprilTag target in index 0, yaw to nearest
-   *         AprilTag target in index
-   *         1
+   * @return Distance to nearest AprilTag target in index 0, yaw to nearest AprilTag target in index
+   *     1
    */
   public double[] getVisionInformation() {
     PhotonPipelineResult scoringCameraResult = scoringCamera.getLatestResult();
     double[] info = new double[2];
     if (scoringCameraResult.hasTargets()) {
-      info[0] = PhotonUtils.calculateDistanceToTargetMeters(
-          VisionConstants.kCameraHeight,
-          VisionConstants.kTargetHeight,
-          Units.degreesToRadians(VisionConstants.kCameraPitch),
-          Units.degreesToRadians(scoringCameraResult.getBestTarget().getPitch()));
+      info[0] =
+          PhotonUtils.calculateDistanceToTargetMeters(
+              VisionConstants.kCameraHeight,
+              VisionConstants.kTargetHeight,
+              Units.degreesToRadians(VisionConstants.kCameraPitch),
+              Units.degreesToRadians(scoringCameraResult.getBestTarget().getPitch()));
       info[1] = scoringCameraResult.getBestTarget().getYaw();
     }
     return info;
   }
 
   /**
-   * Force the pose estimator to a particular pose. This is useful for indicating
-   * to the software
-   * when you have manually moved your robot in a particular position on the field
-   * (EX: when you
+   * Force the pose estimator to a particular pose. This is useful for indicating to the software
+   * when you have manually moved your robot in a particular position on the field (EX: when you
    * place it on the field at the start of the match).
    */
   /**
-   * Reset the pose given a specified Rotation2d, left distance, right distance,
-   * and pose
+   * Reset the pose given a specified Rotation2d, left distance, right distance, and pose
    *
    * @param pose
    * @param leftDist

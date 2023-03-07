@@ -16,7 +16,7 @@ public final class RobotConstants {
   // arbitrary until we mount camera
   public static final Transform3d kCameraToRobot = new Transform3d();
 
-public static Transform3d kScoringCameraToRobot;
+  public static Transform3d kScoringCameraToRobot;
 
-public static Transform3d kAuxiliaryCameraToRobot;
+  public static Transform3d kAuxiliaryCameraToRobot;
 }
