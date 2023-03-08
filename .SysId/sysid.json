@@ -1,8 +1,8 @@
 {
   "SysId": {
-    "Analysis Type": "Drivetrain",
+    "Analysis Type": "General Mechanism",
     "NetworkTables Settings": {
-      "serverTeam": "10.94.19.2"
+      "serverTeam": "10.74.19.2"
     },
     "Program Log": {
       "window": {
@@ -10,6 +10,6 @@
       }
     },
     "mode": "Client (NT4)",
-    "serverTeam": "10.94.19.2"
+    "serverTeam": "10.74.19.2"
   }
 }

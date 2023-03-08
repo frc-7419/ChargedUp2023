@@ -4,18 +4,18 @@
 
 package frc.robot.subsystems.gyro;
 
-import static frc.robot.Constants.PIDConstants;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.constants.PIDConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class SmartBalance extends PIDCommand {
+public class BalanceOnChargeStation extends PIDCommand {
   /** Creates a new SmartBalance. */
-  public SmartBalance(GyroSubsystem gyroSubsystem, DriveBaseSubsystem driveBaseSubsystem) {
+  public BalanceOnChargeStation(
+      GyroSubsystem gyroSubsystem, DriveBaseSubsystem driveBaseSubsystem) {
     super(
         // The controller that the command will use
         new PIDController(

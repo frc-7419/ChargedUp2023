@@ -16,8 +16,10 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.numbers.N5;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants;
-import frc.robot.Constants.VisionConstants;
+import frc.robot.constants.AprilTagPositionConstants;
+import frc.robot.constants.DriveConstants;
+import frc.robot.constants.RobotConstants;
+import frc.robot.constants.VisionConstants;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,18 +76,18 @@ public class DrivetrainPoseEstimator {
         \$$   \$$$$$$$ \$$       \$$       \$$      \$$  \$$$$$$$
      */
 
-    poses.put(1, Constants.AprilTagPositionConstants.kAprilTagOnePose);
-    poses.put(2, Constants.AprilTagPositionConstants.kAprilTagTwoPose);
-    poses.put(3, Constants.AprilTagPositionConstants.kAprilTagThreePose);
-    poses.put(4, Constants.AprilTagPositionConstants.kAprilTagFourPose);
-    poses.put(5, Constants.AprilTagPositionConstants.kAprilTagFivePose);
-    poses.put(6, Constants.AprilTagPositionConstants.kAprilTagSixPose);
-    poses.put(7, Constants.AprilTagPositionConstants.kAprilTagSevenPose);
-    poses.put(8, Constants.AprilTagPositionConstants.kAprilTagEightPose);
+    poses.put(1, AprilTagPositionConstants.kAprilTagOnePose);
+    poses.put(2, AprilTagPositionConstants.kAprilTagTwoPose);
+    poses.put(3, AprilTagPositionConstants.kAprilTagThreePose);
+    poses.put(4, AprilTagPositionConstants.kAprilTagFourPose);
+    poses.put(5, AprilTagPositionConstants.kAprilTagFivePose);
+    poses.put(6, AprilTagPositionConstants.kAprilTagSixPose);
+    poses.put(7, AprilTagPositionConstants.kAprilTagSevenPose);
+    poses.put(8, AprilTagPositionConstants.kAprilTagEightPose);
 
     m_poseEstimator =
         new DifferentialDrivePoseEstimator(
-            Constants.DriveConstants.kDriveKinematics,
+            DriveConstants.kDriveKinematics,
             getRotation2d(),
             0, // Assume zero encoder counts at start
             0,
@@ -118,8 +120,7 @@ public class DrivetrainPoseEstimator {
         // is on the field physically and
         // gets the camera pose
         m_poseEstimator.addVisionMeasurement(
-            camPose.transformBy(Constants.RobotConstants.kCameraToRobot).toPose2d(),
-            resultTimeStamp);
+            camPose.transformBy(RobotConstants.kCameraToRobot).toPose2d(), resultTimeStamp);
 
         // outputting everthing to smartdashboard for viewing
         SmartDashboard.putNumber("Vision+Odo X Pos", getPoseEstimation().getX());
@@ -149,9 +150,9 @@ public class DrivetrainPoseEstimator {
     if (result.hasTargets()) {
       info[0] =
           PhotonUtils.calculateDistanceToTargetMeters(
-              Constants.VisionConstants.kCameraHeight,
-              Constants.VisionConstants.kTargetHeight,
-              Units.degreesToRadians(Constants.VisionConstants.kCameraPitch),
+              VisionConstants.kCameraHeight,
+              VisionConstants.kTargetHeight,
+              Units.degreesToRadians(VisionConstants.kCameraPitch),
               Units.degreesToRadians(result.getBestTarget().getPitch()));
       info[1] = result.getBestTarget().getYaw();
     }

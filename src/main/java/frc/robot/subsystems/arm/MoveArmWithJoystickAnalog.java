@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.ArmConstants;
 
-public class MoveArmWithJoystick extends CommandBase {
+public class MoveArmWithJoystickAnalog extends CommandBase {
 
   private ArmSubsystem armSubsystem;
   private XboxController joystick;
@@ -14,30 +14,25 @@ public class MoveArmWithJoystick extends CommandBase {
    * @param armSubsystem
    * @param joystick
    */
-  public MoveArmWithJoystick(ArmSubsystem armSubsystem, XboxController joystick) {
+  public MoveArmWithJoystickAnalog(ArmSubsystem armSubsystem, XboxController joystick) {
     this.armSubsystem = armSubsystem;
     this.joystick = joystick;
     addRequirements(armSubsystem);
   }
 
-  /** Sets the main arm to default to coast */
   @Override
   public void initialize() {
     armSubsystem.coast();
   }
 
-  /** The execute allows us to control the robot using a joystick */
   @Override
   public void execute() {
-    if (joystick.getRightBumper()) {
-      armSubsystem.setPower(ArmConstants.armPower);
-    } else if (joystick.getLeftBumper()) {
-      armSubsystem.setPower(-ArmConstants.armPower);
-    } else {
-      armSubsystem.setPower(0);
-    }
-    // double mainPowerJoystick = ArmConstants.mainArmPowerCoefficient * joystick.getRightY();
-    // armSubsystem.setMainPower(mainPowerJoystick);
+    double joystickArmPower = joystick.getLeftY() * ArmConstants.armPower;
+    double armAngle = armSubsystem.getAngle();
+    double armFeedforwardPower = ArmConstants.armFeedforward * Math.cos(Math.toRadians(armAngle));
+    double armPower = joystickArmPower + armFeedforwardPower;
+    // double armPower = joystickArmPower;
+    armSubsystem.setPower(armPower);
   }
 
   @Override

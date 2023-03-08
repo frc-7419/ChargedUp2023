@@ -3,6 +3,7 @@ package frc.robot.subsystems.drive;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.constants.DriveConstants;
 
 /**
  * Command to arcade drive the robot (left joystick corresponds to straight, right joystick
@@ -11,8 +12,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ArcadeDrive extends CommandBase {
 
   private DriveBaseSubsystem driveBaseSubsystem;
-  private double kStraight;
-  private double kTurn;
   private XboxController joystick;
 
   // Limits *acceleration* not max speed; basically kD
@@ -22,18 +21,10 @@ public class ArcadeDrive extends CommandBase {
    *
    * @param joystick
    * @param driveBaseSubsystem
-   * @param kStraight
-   * @param kTurn
    */
-  public ArcadeDrive(
-      XboxController joystick,
-      DriveBaseSubsystem driveBaseSubsystem,
-      double kStraight,
-      double kTurn) {
+  public ArcadeDrive(XboxController joystick, DriveBaseSubsystem driveBaseSubsystem) {
     this.joystick = joystick;
     this.driveBaseSubsystem = driveBaseSubsystem;
-    this.kStraight = kStraight;
-    this.kTurn = kTurn;
     addRequirements(driveBaseSubsystem);
   }
   /** Initializes the arcadedrive to reset all motors to default values */
@@ -46,20 +37,21 @@ public class ArcadeDrive extends CommandBase {
   /** In the execute method, move the joystick to make the robot move. */
   @Override
   public void execute() {
-    double joystickInputPower = joystick.getLeftY() * kStraight;
-    double xAxisSpeed = -speedLimiter.calculate(joystickInputPower);
+    double joystickInputPower = joystick.getLeftY() * DriveConstants.driveStraight;
+    double xAxisSpeed = speedLimiter.calculate(joystickInputPower);
 
-    double joystickInputPowerTurn = joystick.getRightX() * kTurn;
+    double joystickInputPowerTurn = joystick.getRightX() * DriveConstants.driveTurn;
     double zAxisRotation = joystickInputPowerTurn;
     driveBaseSubsystem.drive(xAxisSpeed, zAxisRotation);
 
-    driveBaseSubsystem.coast();
+    // TODO Check if this works
+    // driveBaseSubsystem.coast();
 
-    double leftPower = xAxisSpeed + zAxisRotation;
-    double rightPower = xAxisSpeed - zAxisRotation;
+    // double leftPower = xAxisSpeed + zAxisRotation;
+    // double rightPower = xAxisSpeed - zAxisRotation;
 
-    driveBaseSubsystem.setLeftPower(leftPower);
-    driveBaseSubsystem.setRightPower(rightPower);
+    // driveBaseSubsystem.setLeftPower(leftPower);
+    // driveBaseSubsystem.setRightPower(rightPower);
   }
 
   @Override

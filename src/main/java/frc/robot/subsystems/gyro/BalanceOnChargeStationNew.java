@@ -6,10 +6,10 @@ package frc.robot.subsystems.gyro;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.PIDConstants;
+import frc.robot.constants.PIDConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 
-public class SmartBalanceNew extends CommandBase {
+public class BalanceOnChargeStationNew extends CommandBase {
   /** Creates a new SmartBalanceNew. */
   private DriveBaseSubsystem driveBaseSubsystem;
 
@@ -18,7 +18,8 @@ public class SmartBalanceNew extends CommandBase {
   private PIDController pitchAngleController;
   private PIDController speedController;
 
-  public SmartBalanceNew(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem) {
+  public BalanceOnChargeStationNew(
+      DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem) {
     this.driveBaseSubsystem = driveBaseSubsystem;
     this.gyroSubsystem = gyroSubsystem;
     addRequirements(driveBaseSubsystem, gyroSubsystem);

@@ -1,39 +1,27 @@
 package frc.robot.subsystems.arm;
 
-import static frc.robot.Constants.*;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.ArmConstants;
+import frc.robot.constants.DeviceIDs;
 
 public class ArmSubsystem extends SubsystemBase {
 
   private CANSparkMax mainArmMotor1;
-  private CANSparkMax mainArmMotor2;
-  private TalonSRX extendedArmMotor;
-  private boolean homed;
-  private double homePosition = 0;
-  private DigitalInput magneticLimitSwitch;
-  private PigeonIMU extendedGyro;
+  private AnalogEncoder absoluteEncoder;
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
-    extendedArmMotor = new TalonSRX(CanIds.armExtended.id);
-
     mainArmMotor1 =
-        new CANSparkMax(CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
-    mainArmMotor2 = new CANSparkMax(CanIds.armMain2.id, MotorType.kBrushless);
+        new CANSparkMax(DeviceIDs.CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
 
-    magneticLimitSwitch = new DigitalInput(0); // port for now
+    absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.absoluteEncoder.id);
 
-    extendedGyro = new PigeonIMU(0);
+    configureEncoder();
     configureMotorControllers();
   }
 
@@ -43,19 +31,14 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void configureMotorControllers() {
     mainArmMotor1.setInverted(false);
-    mainArmMotor2.setInverted(true);
-
-    mainArmMotor2.getEncoder().setPositionConversionFactor(RobotConstants.mainArmGearRatio);
   }
 
   /**
-   * Sets power to both the main and extended arms.
-   *
-   * @param power set to both main and extended arms.
+   * Sets position offset for the absolute encoder (i.e. after the offset, the absolute position
+   * reading will be 0 when the arm is parallel to the ground)
    */
-  public void setAllPower(double power) {
-    setMainPower(power);
-    setExtendedPower(power);
+  public void configureEncoder() {
+    absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
   }
 
   /**
@@ -63,18 +46,8 @@ public class ArmSubsystem extends SubsystemBase {
    *
    * @param power set to motors on the main arm.
    */
-  public void setMainPower(double power) {
+  public void setPower(double power) {
     mainArmMotor1.set(power);
-    // mainMotor2.set(power);
-  }
-
-  /**
-   * Sets power to the motor on the extended arm.
-   *
-   * @param power to motor on the extended arm.
-   */
-  public void setExtendedPower(double power) {
-    extendedArmMotor.set(ControlMode.PercentOutput, power);
   }
 
   /**
@@ -82,99 +55,28 @@ public class ArmSubsystem extends SubsystemBase {
    *
    * @return The position of the main arm, in units of rotations.
    */
-  public double getMainPosition() {
-    return mainArmMotor2.getEncoder().getPosition()
-        - homePosition; // main arm motor 2's encoder works
+  public double getPosition() {
+    return absoluteEncoder.getAbsolutePosition();
   }
 
-  /**
-   * Returns the current position of the extended arm.
-   *
-   * @return The position of the extended arm, in units of rotations.
-   */
-  public double getExtendedPosition() {
-    return extendedArmMotor.getSelectedSensorPosition();
+  public double getAngle() {
+    return getPosition() * 360;
   }
 
-  /** Sets the home position variable to the current position of the main arm. */
-  public void home() {
-    homePosition = getMainPosition();
-  }
-
-  /**
-   * Returns the home position of the main arms.
-   *
-   * @return The home position of the main arms.
-   */
-  public double getHomePosition() {
-    return homePosition;
-  }
-
-  /**
-   * Returns the roll of the extended arm as measured by the arm's gyro.
-   *
-   * @return The gyro's measured roll (corresponds to the angle of the extended arm).
-   */
-  public double getExtendedAngle() {
-    double[] gyroInformation = new double[3];
-    extendedGyro.getYawPitchRoll(gyroInformation);
-    return gyroInformation[2];
-  }
-
-  /** Sets all arm motors to coast mode */
-  public void coastAll() {
-    coastMain();
-    coastExtended();
-  }
-
-  /** Sets both main arm motors to coast mode, allowing main arm to freely move */
-  public void coastMain() {
+  /** Sets arm motor to coast mode, allowing arm to freely move */
+  public void coast() {
     mainArmMotor1.setIdleMode(IdleMode.kCoast);
-    mainArmMotor2.setIdleMode(IdleMode.kCoast);
   }
 
-  /** Sets extended arm motor to coast mode, allowing extended arm to freely move */
-  public void coastExtended() {
-    extendedArmMotor.setNeutralMode(NeutralMode.Coast);
-  }
-
-  /** Sets all arm motors to brake mode */
-  public void brakeAll() {
-    brakeMain();
-    brakeExtended();
-  }
-
-  /** Sets both main arm motors to brake mode, stopping the main arm's movement */
-  public void brakeMain() {
+  /** Sets arm motor to brake mode, stopping the arm's movement */
+  public void brake() {
     mainArmMotor1.setIdleMode(IdleMode.kBrake);
-    mainArmMotor2.setIdleMode(IdleMode.kBrake);
-  }
-
-  /** Sets extended arm's motor to brake mode, stopping the extended arm's movement */
-  public void brakeExtended() {
-    extendedArmMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override
   public void periodic() {
-    if (!magneticLimitSwitch.get() && !homed) {
-      home();
-      homed = true;
-    }
-
     // outputting arm positions to smart dashboard and homing status
-
-    SmartDashboard.putNumber("Arm Position", getMainPosition());
-    SmartDashboard.putNumber("Arm Position (2)", getMainPosition());
-    SmartDashboard.putNumber("Home Pos", homePosition);
-    SmartDashboard.putBoolean("Arm Homed", homed);
-
-    double[] gyroInformation = new double[3];
-    extendedGyro.getYawPitchRoll(gyroInformation);
-
-    // putting gyro values into smartdashboard
-    SmartDashboard.putNumber("Extended Yaw", gyroInformation[0]);
-    SmartDashboard.putNumber("Extended Pitch", gyroInformation[1]);
-    SmartDashboard.putNumber("Extended Roll", gyroInformation[2]);
+    SmartDashboard.putNumber("Arm Position", getPosition());
+    SmartDashboard.putNumber("Arm Angle", getAngle());
   }
 }
