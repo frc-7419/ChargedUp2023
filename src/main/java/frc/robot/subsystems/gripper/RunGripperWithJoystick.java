@@ -32,21 +32,23 @@ public class RunGripperWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (joystick.getRightBumper() && holdMode==false) {
+    if (joystick.getRightBumper() && holdMode == false) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
-      Boolean isStalling = gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold;
       double currentTimeStamp = Timer.getFPGATimestamp();
-      Boolean didDelay = lastTimeStamp+GripperConstants.gripperDelaySeconds<currentTimeStamp;
-      if (isStalling && didDelay){ // Hold mode won't be set to true unless we run it for 0.5 seconds to get the motor up to speed
+      double timePassed = currentTimeStamp - lastTimeStamp;
+      boolean isStalling = gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold;
+      boolean didDelay = timePassed > GripperConstants.gripperDelaySeconds;
+      if (isStalling && didDelay) { 
+        // Hold mode won't be set to true unless we run it for 0.5 seconds to get the motor up to speed
         holdMode = true;
       }
     } else if (joystick.getLeftBumper()) {
       gripperSubsystem.coast();
       gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);
       holdMode = false;
-    } else if(holdMode==true) {
-      gripperSubsystem.setPower(GripperConstants.gripperFeedforward);
+    } else if (holdMode == true) {
+      gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);
       gripperSubsystem.brake();
     } else {
       gripperSubsystem.setPower(0);
