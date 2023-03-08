@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.gripper;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.GripperConstants;
@@ -11,6 +12,7 @@ import frc.robot.constants.GripperConstants;
 public class RunGripperWithJoystick extends CommandBase {
   private GripperSubsystem gripperSubsystem;
   private XboxController joystick;
+  private double lastTimeStamp;
   private Boolean holdMode = false;
 
   public RunGripperWithJoystick(GripperSubsystem gripperSubsystem, XboxController joystick) {
@@ -24,6 +26,7 @@ public class RunGripperWithJoystick extends CommandBase {
   @Override
   public void initialize() {
     gripperSubsystem.coast();
+    lastTimeStamp = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -32,7 +35,10 @@ public class RunGripperWithJoystick extends CommandBase {
     if (joystick.getRightBumper() && holdMode==false) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
-      if ( gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold){
+      Boolean isStalling = gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold;
+      double currentTimeStamp = Timer.getFPGATimestamp();
+      Boolean didDelay = lastTimeStamp+GripperConstants.gripperDelaySeconds<currentTimeStamp;
+      if (isStalling && didDelay){ // Hold mode won't be set to true unless we run it for 0.5 seconds to get the motor up to speed
         holdMode = true;
       }
     } else if (joystick.getLeftBumper()) {
@@ -44,6 +50,7 @@ public class RunGripperWithJoystick extends CommandBase {
       gripperSubsystem.brake();
     } else {
       gripperSubsystem.setPower(0);
+      lastTimeStamp = Timer.getFPGATimestamp();
       gripperSubsystem.brake();
     }
   }
