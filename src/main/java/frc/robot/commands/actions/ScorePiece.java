@@ -32,15 +32,13 @@ public class ScorePiece extends SequentialCommandGroup {
   public ScorePiece(
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
-      GripperSubsystem gripperSubsystem, NodeState scoreLocation) {
+      GripperSubsystem gripperSubsystem,
+      NodeState scoreLocation) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation),
-
         new ArmToSetpoint(armSubsystem, ArmConstants.scoreSetpoint),
-
-        new RunGripper(gripperSubsystem, GripperState.SCORE)
-    );
+        new RunGripper(gripperSubsystem, GripperState.SCORE));
   }
 }

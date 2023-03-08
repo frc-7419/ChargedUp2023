@@ -14,7 +14,7 @@ public final class DeviceIDs {
     armExtended(51),
 
     // Gripper CAN IDs
-    gripperSRX(57), // change later
+    gripperNeo(14), // change later
 
     // Elevator CAN IDs
     mainElevatorMotor(13),
