@@ -11,6 +11,8 @@ public final class WristConstants {
   // for controlling the state of the gripper
   public static enum GripperState {
     INTAKE,
-    SCORE
+    SCORE,
+    HOLD
   }
+  
 }

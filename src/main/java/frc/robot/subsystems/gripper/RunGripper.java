@@ -29,9 +29,15 @@ public class RunGripper extends CommandBase {
   @Override
   public void initialize() {
     if (mode == GripperState.INTAKE) {
+      gripperSubsystem.coast();
       gripperSubsystem.setPower(1);
     } else if (mode == GripperState.SCORE) {
+      gripperSubsystem.coast();
       gripperSubsystem.setPower(-1);
+    }
+    else if(mode == GripperState.HOLD) {
+      gripperSubsystem.setPower(0);
+      gripperSubsystem.brake();
     }
   }
 

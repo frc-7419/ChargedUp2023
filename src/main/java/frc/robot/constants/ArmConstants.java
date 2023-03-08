@@ -18,4 +18,19 @@ public final class ArmConstants {
   public static final double intakeSetpoint = 1000;
   public static final double scoreSetpoint = 0;
   public static final double resetSetpoint = 0;
+
+  public static enum ArmState {
+    RESET(0),
+    LOW(30),
+    HIGH(60),
+    SUBSTATION(80);
+
+    public final double armSetpoint;
+
+    private ArmState(double armSetpoint) {
+      this.armSetpoint = armSetpoint;
+    }
+  }
+
+ 
 }

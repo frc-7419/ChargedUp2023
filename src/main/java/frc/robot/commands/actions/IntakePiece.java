@@ -11,6 +11,7 @@ import frc.robot.constants.WristConstants.GripperState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
 // import frc.robot.subsystems.elevator.ElevatorToSetpoint;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripper;
@@ -31,20 +32,15 @@ public class IntakePiece extends SequentialCommandGroup {
   public IntakePiece(
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
-      GripperSubsystem gripperSubsystem) {
+      GripperSubsystem gripperSubsystem, NodeState intakeLocation) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+        new ElevatorToSetpointWithFeedForward(elevatorSubsystem, intakeLocation),
 
-        // once we implement set points for elevator, this will reset the position of the elevator
-        // to its lowest point
-        // new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND),
         new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint),
 
-        // running gripper
-        new RunGripper(gripperSubsystem, GripperState.INTAKE),
-
-        // bringing arms back
-        new ArmToSetpoint(armSubsystem, ArmConstants.resetSetpoint));
+        new RunGripper(gripperSubsystem, GripperState.INTAKE)
+    );
   }
 }
