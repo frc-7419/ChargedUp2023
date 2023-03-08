@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.DeviceIDs;
 
@@ -24,7 +25,7 @@ public class GripperSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("gripper velocity", getVelocity());
   }
 
   public void setPower(double power) {
@@ -45,5 +46,9 @@ public class GripperSubsystem extends SubsystemBase {
 
   public void coast() {
     gripper.setIdleMode(IdleMode.kCoast);
+  }
+
+  public double getVelocity() {
+    return gripper.getEncoder().getVelocity();
   }
 }

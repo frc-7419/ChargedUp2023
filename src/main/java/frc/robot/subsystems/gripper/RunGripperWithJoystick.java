@@ -11,6 +11,7 @@ import frc.robot.constants.GripperConstants;
 public class RunGripperWithJoystick extends CommandBase {
   private GripperSubsystem gripperSubsystem;
   private XboxController joystick;
+  private Boolean holdMode = false;
 
   public RunGripperWithJoystick(GripperSubsystem gripperSubsystem, XboxController joystick) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -28,14 +29,21 @@ public class RunGripperWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (joystick.getRightBumper()) {
+    if (joystick.getRightBumper() && holdMode==false) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
+      if ( gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold){
+        holdMode = true;
+      }
     } else if (joystick.getLeftBumper()) {
       gripperSubsystem.coast();
       gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);
-    } else {
+      holdMode = false;
+    } else if(holdMode==true) {
       gripperSubsystem.setPower(GripperConstants.gripperFeedforward);
+      gripperSubsystem.brake();
+    } else {
+      gripperSubsystem.setPower(0);
       gripperSubsystem.brake();
     }
   }
