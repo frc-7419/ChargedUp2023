@@ -4,13 +4,9 @@
 
 package frc.robot.subsystems.gripper;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.DeviceIDs;
 
@@ -31,11 +27,11 @@ public class GripperSubsystem extends SubsystemBase {
     gripper.set(power);
   }
 
-  public void setIntakePower(double power){
+  public void setIntakePower(double power) {
     gripper.set(power);
   }
 
-  public void setOuttakePower(double power){
+  public void setOuttakePower(double power) {
     gripper.set(-power);
   }
 
