@@ -6,6 +6,7 @@ package frc.robot.subsystems.gripper;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.constants.GripperConstants;
 
 public class RunGripperWithJoystick extends CommandBase {
   private GripperSubsystem gripperSubsystem;
@@ -29,12 +30,12 @@ public class RunGripperWithJoystick extends CommandBase {
   public void execute() {
     if (joystick.getRightBumper()) {
       gripperSubsystem.coast();
-      gripperSubsystem.setPower(0.7);
+      gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
     } else if (joystick.getLeftBumper()) {
       gripperSubsystem.coast();
-      gripperSubsystem.setPower(-0.7);
+      gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);
     } else {
-      gripperSubsystem.setPower(0);
+      gripperSubsystem.setPower(GripperConstants.gripperFeedforward);
       gripperSubsystem.brake();
     }
   }

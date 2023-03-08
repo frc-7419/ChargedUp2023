@@ -32,15 +32,13 @@ public class IntakePiece extends SequentialCommandGroup {
   public IntakePiece(
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
-      GripperSubsystem gripperSubsystem, NodeState intakeLocation) {
+      GripperSubsystem gripperSubsystem,
+      NodeState intakeLocation) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, intakeLocation),
-
         new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint),
-
-        new RunGripper(gripperSubsystem, GripperState.INTAKE)
-    );
+        new RunGripper(gripperSubsystem, GripperState.INTAKE));
   }
 }

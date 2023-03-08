@@ -5,7 +5,6 @@
 package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.constants.ArmConstants;
 import frc.robot.constants.ArmConstants.ArmState;
 import frc.robot.constants.ElevatorConstants.NodeState;
 import frc.robot.constants.WristConstants.GripperState;
@@ -38,10 +37,7 @@ public class SmartRetract extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.GROUND),
-
         new ArmToSetpoint(armSubsystem, ArmState.RESET.armSetpoint),
-
-        new RunGripper(gripperSubsystem, GripperState.HOLD)
-    );
+        new RunGripper(gripperSubsystem, GripperState.HOLD));
   }
 }

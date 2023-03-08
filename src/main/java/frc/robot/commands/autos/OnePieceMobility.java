@@ -32,9 +32,12 @@ public class OnePieceMobility extends SequentialCommandGroup {
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
 
     eventMap.put(
-        "Intake Piece", new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.GROUND));
+        "Intake Piece",
+        new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.GROUND));
 
-    eventMap.put("Score Piece", new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
+    eventMap.put(
+        "Score Piece",
+        new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
 
     PathPlannerTrajectory onePieceMobility =
         PathPlanner.loadPath(

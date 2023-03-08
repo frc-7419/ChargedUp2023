@@ -14,5 +14,4 @@ public final class WristConstants {
     SCORE,
     HOLD
   }
-  
 }

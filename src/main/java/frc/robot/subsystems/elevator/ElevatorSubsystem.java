@@ -3,16 +3,6 @@ package frc.robot.subsystems.elevator;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import edu.wpi.first.math.Nat;
-import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.controller.LinearQuadraticRegulator;
-import edu.wpi.first.math.estimator.KalmanFilter;
-import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.numbers.N2;
-import edu.wpi.first.math.system.LinearSystem;
-import edu.wpi.first.math.system.LinearSystemLoop;
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,11 +12,10 @@ import frc.robot.constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
-  private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(300, 150);
+  private final TrapezoidProfile.Constraints constraints =
+      new TrapezoidProfile.Constraints(300, 150);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
-  
-
 
   private final TalonFX elevatorMotor;
 
@@ -62,35 +51,36 @@ public class ElevatorSubsystem extends SubsystemBase {
     // elevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
-  
-
   public void setPower(double percent) {
     // closedLoop = false;
     elevatorMotor.set(ControlMode.PercentOutput, percent);
   }
+
   public void setGoal(double setpoint) {
     goal = new TrapezoidProfile.State(setpoint, 0);
   }
+
   public TrapezoidProfile.State getGoal() {
     return goal;
   }
+
   public void setSetpoint(TrapezoidProfile.State nextSetpoint) {
     setpoint = nextSetpoint;
   }
+
   public TrapezoidProfile.State getSetpoint() {
     return setpoint;
   }
+
   public TrapezoidProfile.Constraints getConstraints() {
     return constraints;
   }
- 
 
   public double getElevatorPosition() {
     return Units.rotationsToRadians(
         elevatorMotor.getSelectedSensorPosition() * ElevatorConstants.drumRadius / (2048 * 25));
   }
 
-  
   @Override
   public void periodic() {
     // controllerPeriodic();
