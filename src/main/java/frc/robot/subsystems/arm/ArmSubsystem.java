@@ -46,10 +46,10 @@ public class ArmSubsystem extends SubsystemBase {
   /**
    * Sets the desired goal state of the arm.
    *
-   * @param goal the desired goal state of the arm
+   * @param goalState the desired goal state of the arm
    */
-  public void setGoal(double setpoint) {
-    goal = new TrapezoidProfile.State(setpoint, 0);
+  public void setGoal(double goalState) {
+    goal = new TrapezoidProfile.State(goalState, 0);
   }
 
   /**
