@@ -5,7 +5,7 @@
 package frc.robot.subsystems.gripper;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.constants.WristConstants.GripperState;
+import frc.robot.constants.GripperConstants.GripperState;
 
 public class RunGripper extends CommandBase {
 
@@ -34,8 +34,7 @@ public class RunGripper extends CommandBase {
     } else if (mode == GripperState.SCORE) {
       gripperSubsystem.coast();
       gripperSubsystem.setPower(-1);
-    }
-    else if(mode == GripperState.HOLD) {
+    } else if (mode == GripperState.HOLD) {
       gripperSubsystem.setPower(0);
       gripperSubsystem.brake();
     }

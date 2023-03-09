@@ -7,7 +7,7 @@ package frc.robot.commands.actions;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.constants.ArmConstants;
 import frc.robot.constants.ElevatorConstants.NodeState;
-import frc.robot.constants.WristConstants.GripperState;
+import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -32,15 +32,13 @@ public class ScorePiece extends SequentialCommandGroup {
   public ScorePiece(
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
-      GripperSubsystem gripperSubsystem, NodeState scoreLocation) {
+      GripperSubsystem gripperSubsystem,
+      NodeState scoreLocation) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation),
-
         new ArmToSetpoint(armSubsystem, ArmConstants.scoreSetpoint),
-
-        new RunGripper(gripperSubsystem, GripperState.SCORE)
-    );
+        new RunGripper(gripperSubsystem, GripperState.SCORE));
   }
 }

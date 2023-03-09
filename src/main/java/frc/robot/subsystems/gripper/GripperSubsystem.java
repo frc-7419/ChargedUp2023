@@ -4,36 +4,47 @@
 
 package frc.robot.subsystems.gripper;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.DeviceIDs;
 
 public class GripperSubsystem extends SubsystemBase {
   /** Creates a new gripper. */
-  private TalonSRX gripper;
+  private CANSparkMax gripper;
 
   public GripperSubsystem() {
-    this.gripper = new TalonSRX(DeviceIDs.CanIds.gripperSRX.id);
-    gripper.configPeakCurrentLimit(20);
-    gripper.enableCurrentLimit(true);
+    this.gripper = new CANSparkMax(DeviceIDs.CanIds.gripperNeo.id, MotorType.kBrushless);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("gripper velocity", getVelocity());
   }
 
   public void setPower(double power) {
-    gripper.set(ControlMode.PercentOutput, power);
+    gripper.set(power);
+  }
+
+  public void setIntakePower(double power) {
+    gripper.set(power);
+  }
+
+  public void setOuttakePower(double power) {
+    gripper.set(-power);
   }
 
   public void brake() {
-    gripper.setNeutralMode(NeutralMode.Brake);
+    gripper.setIdleMode(IdleMode.kBrake);
   }
 
   public void coast() {
-    gripper.setNeutralMode(NeutralMode.Coast);
+    gripper.setIdleMode(IdleMode.kCoast);
+  }
+
+  public double getVelocity() {
+    return gripper.getEncoder().getVelocity();
   }
 }
