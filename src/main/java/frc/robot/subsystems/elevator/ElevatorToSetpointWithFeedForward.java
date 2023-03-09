@@ -42,7 +42,8 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
         new TrapezoidProfile.State(elevatorSubsystem.getElevatorPosition(), 0));
 
     SmartDashboard.putNumber("Elevator Goal Position", elevatorSubsystem.getGoal().position);
-    SmartDashboard.putNumber("Elevator Setpoint Position", elevatorSubsystem.getSetpoint().position);
+    SmartDashboard.putNumber(
+        "Elevator Setpoint Position", elevatorSubsystem.getSetpoint().position);
   }
 
   // Called every time the schseduler runs while the command is scheduled.
@@ -72,8 +73,7 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

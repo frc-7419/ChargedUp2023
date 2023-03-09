@@ -15,6 +15,7 @@ import frc.robot.constants.ArmConstants.ArmState;
 public class ArmToSetpointWithFeedforward extends CommandBase {
   /** Creates a new ArmToSetpointWithFeedforward. */
   private ArmSubsystem armSubsystem;
+
   private double setpoint;
   private TrapezoidProfile currentProfile;
   private ArmFeedforward feedforward;
@@ -23,7 +24,8 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   public ArmToSetpointWithFeedforward(ArmSubsystem armSubsystem, ArmState armState) {
     this.armSubsystem = armSubsystem;
     this.setpoint = armState.armSetpoint;
-    this.feedforward = new ArmFeedforward(ArmConstants.ks, ArmConstants.kg, ArmConstants.kv, ArmConstants.ka);
+    this.feedforward =
+        new ArmFeedforward(ArmConstants.ks, ArmConstants.kg, ArmConstants.kv, ArmConstants.ka);
     this.keshav = new PIDController(0.3, 0, 0);
 
     addRequirements(armSubsystem);
@@ -37,19 +39,21 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
 
     SmartDashboard.putNumber("Arm Goal Position", armSubsystem.getGoal().position);
     SmartDashboard.putNumber("Arm Setpoint Position", armSubsystem.getSetpoint().position);
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentProfile = new TrapezoidProfile(armSubsystem.getConstraints(), armSubsystem.getGoal(), armSubsystem.getSetpoint());
+    currentProfile =
+        new TrapezoidProfile(
+            armSubsystem.getConstraints(), armSubsystem.getGoal(), armSubsystem.getSetpoint());
 
     double currentPosition = armSubsystem.getPosition();
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
-    double feedForwardPower = feedforward.calculate(nextSetpoint.position, nextSetpoint.velocity) / 12;
+    double feedForwardPower =
+        feedforward.calculate(nextSetpoint.position, nextSetpoint.velocity) / 12;
 
     armSubsystem.setSetpoint(nextSetpoint);
 
@@ -57,7 +61,7 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
 
     double armPower = keshav.calculate(currentPosition);
 
-    armSubsystem.setPower(armPower + feedForwardPower);  
+    armSubsystem.setPower(armPower + feedForwardPower);
   }
 
   // Called once the command ends or is interrupted.
