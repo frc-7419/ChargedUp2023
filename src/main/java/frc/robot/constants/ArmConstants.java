@@ -19,6 +19,12 @@ public final class ArmConstants {
   public static final double scoreSetpoint = 0;
   public static final double resetSetpoint = 0;
 
+  public static double initialPosition;
+  public static double ks;
+  public static double kg;
+  public static double kv;
+  public static double ka;
+  
   public static enum ArmState {
     RESET(0),
     LOW(30),
@@ -31,10 +37,4 @@ public final class ArmConstants {
       this.armSetpoint = armSetpoint;
     }
   }
-
-  public static double initialPosition;
-  public static double ks;
-  public static double kg;
-  public static double kv;
-  public static double ka;
 }

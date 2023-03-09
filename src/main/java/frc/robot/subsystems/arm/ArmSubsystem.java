@@ -1,10 +1,14 @@
 package frc.robot.subsystems.arm;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.ArmConstants;
@@ -12,8 +16,13 @@ import frc.robot.constants.DeviceIDs;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private CANSparkMax mainArmMotor1;
-  private AnalogEncoder absoluteEncoder;
+  private TalonFX armMotor;
+  private DutyCycleEncoder absoluteEncoder;
+
+  private final TrapezoidProfile.Constraints constraints =
+      new TrapezoidProfile.Constraints(300, 150);
+  private TrapezoidProfile.State goal = new TrapezoidProfile.State();
+  private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
 
   private final TrapezoidProfile.Constraints constraints =
       new TrapezoidProfile.Constraints(300, 150);
@@ -22,12 +31,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
-    mainArmMotor1 =
-        new CANSparkMax(DeviceIDs.CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
-
-    absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.absoluteEncoder.id);
-
-    configureEncoder();
+    armMotor = new TalonFX(DeviceIDs.CanIds.armFalcon.id);
+    absoluteEncoder = new DutyCycleEncoder(DeviceIDs.SensorIds.armAbsoluteEncoder.id);
     configureMotorControllers();
   }
 
@@ -36,7 +41,52 @@ public class ArmSubsystem extends SubsystemBase {
    * for motorcontroller encoder
    */
   public void configureMotorControllers() {
-    mainArmMotor1.setInverted(false);
+    armMotor.setInverted(false);
+  }
+
+  /**
+   * Sets the desired goal state of the arm.
+   *
+   * @param goal the desired goal state of the arm
+   */
+  public void setGoal(double setpoint) {
+    goal = new TrapezoidProfile.State(setpoint, 0);
+  }
+
+  /**
+   * Gets the desired goal state of the arm.
+   *
+   * @return desired state of goal (Trapezoidal Profile State)
+   */
+  public TrapezoidProfile.State getGoal() {
+    return goal;
+  }
+
+  /**
+   * Sets the next setpoint for the arm.
+   *
+   * @param nextSetpoint the next setpoint for the arm
+   */
+  public void setSetpoint(TrapezoidProfile.State nextSetpoint) {
+    setpoint = nextSetpoint;
+  }
+
+  /**
+   * Gets the arm setpoint.
+   *
+   * @return The setpoint of the arm
+   */
+  public TrapezoidProfile.State getSetpoint() {
+    return setpoint;
+  }
+
+  /**
+   * Gets the arm constraints.
+   *
+   * @return the constraints (velocity and acceleration) for the trapezoidal profiling
+   */
+  public TrapezoidProfile.Constraints getConstraints() {
+    return constraints;
   }
 
   public void setGoal(double setpoint) {
@@ -72,7 +122,7 @@ public class ArmSubsystem extends SubsystemBase {
    * @param power set to motors on the main arm.
    */
   public void setPower(double power) {
-    mainArmMotor1.set(power);
+    armMotor.set(ControlMode.PercentOutput, power);
   }
 
   /**
@@ -81,21 +131,26 @@ public class ArmSubsystem extends SubsystemBase {
    * @return The position of the main arm, in units of rotations.
    */
   public double getPosition() {
-    return absoluteEncoder.getAbsolutePosition();
+    return absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset;
   }
 
+  /**
+   * Gets the arm rotation in degrees.
+   *
+   * @return the position in degrees.
+   */
   public double getAngle() {
     return getPosition() * 360;
   }
 
   /** Sets arm motor to coast mode, allowing arm to freely move */
   public void coast() {
-    mainArmMotor1.setIdleMode(IdleMode.kCoast);
+    armMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   /** Sets arm motor to brake mode, stopping the arm's movement */
   public void brake() {
-    mainArmMotor1.setIdleMode(IdleMode.kBrake);
+    armMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override
