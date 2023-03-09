@@ -5,19 +5,21 @@ import static frc.robot.constants.DeviceIDs.CanIds;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.DeviceIDs;
+import frc.robot.constants.WristConstants;
 
 public class WristSubsystem extends SubsystemBase {
   private CANSparkMax wrist;
-  private RelativeEncoder encoder;
+
+  private AnalogEncoder absoluteEncoder;
 
   /** Initializes the wrist motor and its encoder. */
   public WristSubsystem() {
     wrist = new CANSparkMax(CanIds.wristSpark.id, MotorType.kBrushless); // find canid
-    encoder = wrist.getEncoder();
-    encoder.setPositionConversionFactor(50); // find gearratio
+    absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.wristAbsoluteEncoder.id);
   }
 
   /**
@@ -28,11 +30,11 @@ public class WristSubsystem extends SubsystemBase {
   public void setPower(double power) {
     wrist.set(power);
   }
-
+  /** Sets the wrist to coast mode. */
   public void coast() {
     wrist.setIdleMode(IdleMode.kCoast);
   }
-
+  /** Sets the wrist to brake mode. */
   public void brake() {
     wrist.setIdleMode(IdleMode.kBrake);
   }
@@ -43,7 +45,7 @@ public class WristSubsystem extends SubsystemBase {
    * @return the encoder's measured position, in rotations
    */
   public double getPosition() {
-    return encoder.getPosition();
+    return absoluteEncoder.getAbsolutePosition() - WristConstants.wristOffset;
   }
 
   /** Sets the motor power to 0, but doesn't brake. */

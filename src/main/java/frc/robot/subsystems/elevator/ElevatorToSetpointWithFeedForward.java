@@ -17,7 +17,7 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
   private double setpoint;
   private TrapezoidProfile currentProfile;
   private ElevatorFeedforward feedforward;
-  private PIDController keshav;
+  private PIDController elevatorPIDController;
 
   /** Creates a new ElevatorToSetpointWithFeedForward. */
   public ElevatorToSetpointWithFeedForward(
@@ -30,16 +30,13 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
             ElevatorConstants.elevatorKg,
             ElevatorConstants.elevatorKv,
             ElevatorConstants.elevatorKa);
-    this.keshav = new PIDController(0.3, 0, 0);
+    this.elevatorPIDController = new PIDController(0.3, 0, 0);
     addRequirements(elevatorSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // keshav.setSetpoint(setpoint);
-    // keshav.setTolerance(0.01);
-
     elevatorSubsystem.setGoal(setpoint);
     elevatorSubsystem.setSetpoint(
         new TrapezoidProfile.State(elevatorSubsystem.getElevatorPosition(), 0));
@@ -67,18 +64,15 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
 
     SmartDashboard.putNumber("Trapezoid Position", nextSetpoint.position);
 
-    keshav.setSetpoint(nextSetpoint.position);
+    elevatorPIDController.setSetpoint(nextSetpoint.position);
 
-    double elevatorPower = keshav.calculate(currentPosition);
+    double elevatorPower = elevatorPIDController.calculate(currentPosition);
     elevatorSubsystem.setPower(elevatorPower + feedForwardPower);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
-    // double stopPower = feedforward.calculate(0, 0);
-    // elevatorSubsystem.setPower(stopPower);
   }
 
   // Returns true when the command should end.

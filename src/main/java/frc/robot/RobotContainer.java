@@ -21,7 +21,7 @@ public class RobotContainer {
   // private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
 
-  // // Commandsq
+  // // Commands
   // // TODO will use when driving
   // private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem);
   // // private final BalanceOnChargeStationNew smartBalanceNew =
