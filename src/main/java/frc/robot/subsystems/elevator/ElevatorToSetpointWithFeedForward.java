@@ -41,8 +41,8 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
     elevatorSubsystem.setSetpoint(
         new TrapezoidProfile.State(elevatorSubsystem.getElevatorPosition(), 0));
 
-    SmartDashboard.putNumber("Goal Position", elevatorSubsystem.getGoal().position);
-    SmartDashboard.putNumber("Setpoint Position", elevatorSubsystem.getSetpoint().position);
+    SmartDashboard.putNumber("Elevator Goal Position", elevatorSubsystem.getGoal().position);
+    SmartDashboard.putNumber("Elevator Setpoint Position", elevatorSubsystem.getSetpoint().position);
   }
 
   // Called every time the schseduler runs while the command is scheduled.
@@ -58,7 +58,7 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
-    double feedForwardPower = feedforward.calculate(nextSetpoint.velocity);
+    double feedForwardPower = feedforward.calculate(nextSetpoint.velocity) / 12;
 
     elevatorSubsystem.setSetpoint(nextSetpoint);
 

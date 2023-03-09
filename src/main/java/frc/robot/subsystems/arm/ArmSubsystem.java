@@ -3,6 +3,7 @@ package frc.robot.subsystems.arm;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,6 +14,11 @@ public class ArmSubsystem extends SubsystemBase {
 
   private TalonFX armMotor;
   private DutyCycleEncoder absoluteEncoder;
+
+  private final TrapezoidProfile.Constraints constraints =
+      new TrapezoidProfile.Constraints(300, 150);
+  private TrapezoidProfile.State goal = new TrapezoidProfile.State();
+  private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
@@ -27,6 +33,33 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void configureMotorControllers() {
     armMotor.setInverted(false);
+  }
+
+  public void setGoal(double setpoint) {
+    goal = new TrapezoidProfile.State(setpoint, 0);
+  }
+
+  public TrapezoidProfile.State getGoal() {
+    return goal;
+  }
+
+  public void setSetpoint(TrapezoidProfile.State nextSetpoint) {
+    setpoint = nextSetpoint;
+  }
+
+  public TrapezoidProfile.State getSetpoint() {
+    return setpoint;
+  }
+
+  public TrapezoidProfile.Constraints getConstraints() {
+    return constraints;
+  }
+  /**
+   * Sets position offset for the absolute encoder (i.e. after the offset, the absolute position
+   * reading will be 0 when the arm is parallel to the ground)
+   */
+  public void configureEncoder() {
+    absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
   }
 
   /**
