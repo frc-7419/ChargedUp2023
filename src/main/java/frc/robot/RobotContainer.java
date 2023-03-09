@@ -15,6 +15,7 @@ import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.led.LedSubsystem;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
@@ -29,6 +30,7 @@ public class RobotContainer {
   // private final WristSubsystem wristSubsystem = new WristSubsystem();
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
+  private final LedSubsystem ledSubsystem = new LedSubsystem();
 
   // // Commands
 
@@ -117,9 +119,11 @@ public class RobotContainer {
     // new JoystickButton(operatorJoystick, Button.kX.value).whileTrue(elevatorToGround);
     // new JoystickButton(operatorJoystick, Button.kRightBumper.value).whileTrue(elevatorToHigh);
     // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).whileTrue(elevatorToLow);
+    // new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(scorePieceLow);
+    // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
 
-    new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(scorePieceLow);
-    new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
+    // new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceGround);
+    // new JoystickButton(operatorJoystick, Button.kY.value).onTrue(intakePieceSubstation);
 
     new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceGround);
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(intakePieceSubstation);
