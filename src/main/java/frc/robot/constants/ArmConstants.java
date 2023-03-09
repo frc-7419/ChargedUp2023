@@ -31,4 +31,11 @@ public final class ArmConstants {
       this.armSetpoint = armSetpoint;
     }
   }
+
+
+public static double initialPosition;
+public static double ks;
+public static double kg;
+public static double kv;
+public static double ka;
 }
