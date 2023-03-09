@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.actions.IntakePiece;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.autopaths.TwoPieceMobilityPath;
-import frc.robot.constants.ElevatorConstants.NodeState;
+import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -33,7 +33,7 @@ public class TwoPieceMobility extends SequentialCommandGroup {
 
     eventMap.put(
         "Intake Piece",
-        new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.GROUND));
+        new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET));
 
     eventMap.put(
         "Score Piece",

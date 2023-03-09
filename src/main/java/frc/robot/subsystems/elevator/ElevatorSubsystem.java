@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.DeviceIDs;
@@ -19,78 +20,91 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private final TalonFX elevatorMotor;
 
-  // private final LinearSystem<N2, N1, N1> m_elevatorPlant =
-  //     LinearSystemId.createElevatorSystem(
-  //         DCMotor.getFalcon500(1),
-  //         ElevatorConstants.carriageMass,
-  //         Units.inchesToMeters(ElevatorConstants.drumRadius),
-  //         ElevatorConstants.elevatorGearing);
-
-  // private final KalmanFilter<N2, N1, N1> m_observer =
-  //     new KalmanFilter<>(
-  //         Nat.N2(),
-  //         Nat.N1(),
-  //         m_elevatorPlant,
-  //         VecBuilder.fill(Units.inchesToMeters(2), Units.inchesToMeters(40)),
-  //         VecBuilder.fill(0.00001),
-  //         0.020);
-
-  // private final LinearQuadraticRegulator<N2, N1, N1> m_controller =
-  //     new LinearQuadraticRegulator<>(
-  //         m_elevatorPlant,
-  //         VecBuilder.fill(Units.inchesToMeters(1.0), Units.inchesToMeters(10.0)),
-  //         VecBuilder.fill(12.0),
-  //         0.020);
-
-  // private final LinearSystemLoop<N2, N1, N1> m_loop =
-  //     new LinearSystemLoop<>(m_elevatorPlant, m_controller, m_observer, 12.0, 0.020);
+  private AnalogEncoder absoluteEncoder;
 
   public ElevatorSubsystem() {
     elevatorMotor = new TalonFX(DeviceIDs.CanIds.mainElevatorMotor.id);
     elevatorMotor.setSelectedSensorPosition(0);
+
+    absoluteEncoder = new AnalogEncoder(2);
     // elevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
+  /**
+   * Sets the elevator power.
+   *
+   * @param power [-1, 1] power set to the elevator
+   */
   public void setPower(double percent) {
-    // closedLoop = false;
     elevatorMotor.set(ControlMode.PercentOutput, percent);
   }
 
-  public void setGoal(double setpoint) {
-    goal = new TrapezoidProfile.State(setpoint, 0);
+  /**
+   * Sets the desired goal state of the elevator.
+   *
+   * @param goal the desired goal state of the elevator
+   */
+  public void setGoal(double goalState) {
+    goal = new TrapezoidProfile.State(goalState, 0);
   }
 
+  /**
+   * Gets the desired goal state of the elevator.
+   *
+   * @return desired state of goal (Trapezoidal Profile State)
+   */
   public TrapezoidProfile.State getGoal() {
     return goal;
   }
 
+  /**
+   * Sets the next setpoint for the elevator.
+   *
+   * @param nextSetpoint the next setpoint for the elevator
+   */
   public void setSetpoint(TrapezoidProfile.State nextSetpoint) {
     setpoint = nextSetpoint;
   }
 
+  /**
+   * Gets the elevator setpoint.
+   *
+   * @return The setpoint of the elevator
+   */
   public TrapezoidProfile.State getSetpoint() {
     return setpoint;
   }
 
+  /**
+   * Gets the elevator constraints.
+   *
+   * @return the constraints (velocity and acceleration) for the trapezoidal profiling
+   */
   public TrapezoidProfile.Constraints getConstraints() {
     return constraints;
   }
 
+  /**
+   * Gets the elevator position.
+   *
+   * @return the current position of the elevator
+   */
   public double getElevatorPosition() {
     return Units.rotationsToRadians(
-        elevatorMotor.getSelectedSensorPosition() * ElevatorConstants.drumRadius / (2048 * 25));
+        absoluteEncoder.getAbsolutePosition() * ElevatorConstants.drumRadius / (2048 * 25));
   }
 
   @Override
   public void periodic() {
-    // controllerPeriodic();
     SmartDashboard.putNumber("elevator position", getElevatorPosition());
   }
 
+  /** Sets the elevator to brake mode. */
   public void brake() {
     elevatorMotor.setNeutralMode(NeutralMode.Brake);
   }
 
+  /** Sets the elevator to coast mode. */
   public void coast() {
     elevatorMotor.setNeutralMode(NeutralMode.Coast);
   }

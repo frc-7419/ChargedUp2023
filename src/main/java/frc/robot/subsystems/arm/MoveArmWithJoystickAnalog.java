@@ -31,7 +31,6 @@ public class MoveArmWithJoystickAnalog extends CommandBase {
     double armAngle = armSubsystem.getAngle();
     double armFeedforwardPower = ArmConstants.armFeedforward * Math.cos(Math.toRadians(armAngle));
     double armPower = joystickArmPower + armFeedforwardPower;
-    // double armPower = joystickArmPower;
     armSubsystem.setPower(armPower);
   }
 

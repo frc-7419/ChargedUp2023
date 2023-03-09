@@ -7,4 +7,7 @@ public final class WristConstants {
   public static final double intakeSetpoint = 0;
   public static final double scoreSetpoint = 0;
   public static final double resetSetpoint = 0;
+
+  // TODO record this
+  public static double wristOffset = 0;
 }

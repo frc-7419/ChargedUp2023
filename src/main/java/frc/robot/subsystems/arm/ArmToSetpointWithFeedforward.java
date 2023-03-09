@@ -10,22 +10,25 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.ArmConstants;
-import frc.robot.constants.ArmConstants.ArmState;
+import frc.robot.constants.NodeConstants.NodeState;
+import frc.robot.constants.PIDConstants;
 
 public class ArmToSetpointWithFeedforward extends CommandBase {
   /** Creates a new ArmToSetpointWithFeedforward. */
   private ArmSubsystem armSubsystem;
+
   private double setpoint;
   private TrapezoidProfile currentProfile;
   private ArmFeedforward feedforward;
-  private PIDController keshav;
+  private PIDController armPIDController;
 
-  public ArmToSetpointWithFeedforward(ArmSubsystem armSubsystem, ArmState armState) {
+  public ArmToSetpointWithFeedforward(ArmSubsystem armSubsystem, NodeState armState) {
     this.armSubsystem = armSubsystem;
     this.setpoint = armState.armSetpoint;
-    this.feedforward = new ArmFeedforward(ArmConstants.ks, ArmConstants.kg, ArmConstants.kv, ArmConstants.ka);
-    this.keshav = new PIDController(0.3, 0, 0);
-
+    this.feedforward =
+        new ArmFeedforward(ArmConstants.ks, ArmConstants.kg, ArmConstants.kv, ArmConstants.ka);
+    this.armPIDController =
+        new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
     addRequirements(armSubsystem);
   }
 
@@ -37,27 +40,31 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
 
     SmartDashboard.putNumber("Arm Goal Position", armSubsystem.getGoal().position);
     SmartDashboard.putNumber("Arm Setpoint Position", armSubsystem.getSetpoint().position);
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentProfile = new TrapezoidProfile(armSubsystem.getConstraints(), armSubsystem.getGoal(), armSubsystem.getSetpoint());
+    currentProfile =
+        new TrapezoidProfile(
+            armSubsystem.getConstraints(), armSubsystem.getGoal(), armSubsystem.getSetpoint());
+
 
     double currentPosition = armSubsystem.getPosition();
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
-    double feedForwardPower = feedforward.calculate(nextSetpoint.position, nextSetpoint.velocity) / 12;
+    double feedForwardPower =
+        feedforward.calculate(nextSetpoint.position, nextSetpoint.velocity) / 12;
 
     armSubsystem.setSetpoint(nextSetpoint);
 
-    keshav.setSetpoint(nextSetpoint.position);
+    armPIDController.setSetpoint(nextSetpoint.position);
 
-    double armPower = keshav.calculate(currentPosition);
+    double armPower = armPIDController.calculate(currentPosition);
 
-    armSubsystem.setPower(armPower + feedForwardPower);  
+    armSubsystem.setPower(armPower + feedForwardPower);
+
   }
 
   // Called once the command ends or is interrupted.

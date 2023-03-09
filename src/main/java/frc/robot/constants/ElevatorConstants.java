@@ -21,15 +21,17 @@ public final class ElevatorConstants {
   public static final double elevatorKg = 0.073137;
 
   public static enum NodeState {
-    GROUND(4),
-    SUBSTATION(20),
-    LOW(35),
-    HIGH(30);
+    RESET(4, 0),
+    SUBSTATION(20, 30),
+    LOW(35, 50),
+    HIGH(30, 80);
 
     public final double elevatorSetpoint;
+    public final double armSetpoint;
 
-    private NodeState(double elevatorSetpoint) {
+    private NodeState(double elevatorSetpoint, double armSetpoint) {
       this.elevatorSetpoint = elevatorSetpoint;
+      this.armSetpoint = armSetpoint;
     }
   }
 }

@@ -13,8 +13,7 @@ public class ArmToSetpoint extends CommandBase {
   private double setpoint;
 
   public ArmToSetpoint(ArmSubsystem armSubsystem, double setpoint) {
-    pidController =
-        new PIDController(PIDConstants.MainArmKp, PIDConstants.MainArmKi, PIDConstants.MainArmKd);
+    pidController = new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
 
     this.armSubsystem = armSubsystem;
     this.setpoint = setpoint;
@@ -25,7 +24,7 @@ public class ArmToSetpoint extends CommandBase {
   @Override
   public void initialize() {
     pidController.setSetpoint(setpoint);
-    pidController.setTolerance(PIDConstants.MainArmTolerance);
+    pidController.setTolerance(PIDConstants.armTolerance);
     armSubsystem.coast();
   }
   /** Calculates the power needed to set the main arm to a specific position during every cycle. */

@@ -9,9 +9,7 @@ public final class DeviceIDs {
     rightFalcon2(3),
 
     // Arm CAN IDs
-    armMain1(12),
-    armMain2(14),
-    armExtended(51),
+    armFalcon(12),
 
     // Gripper CAN IDs
     gripperNeo(14), // change later
@@ -41,9 +39,11 @@ public final class DeviceIDs {
     // Limit switch DIO ID
     limitSwitch(0),
 
-    // Arm Absolute Analog Encoder ID
-    absoluteEncoder(3),
-    ;
+    // Arm Through Bore Encoder DIO ID
+    armAbsoluteEncoder(0),
+
+    // Wrist Through Bore Encoder DIO ID
+    wristAbsoluteEncoder(1);
 
     public final int id;
 

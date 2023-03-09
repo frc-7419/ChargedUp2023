@@ -39,8 +39,9 @@ public class RunGripperWithJoystick extends CommandBase {
       double timePassed = currentTimeStamp - lastTimeStamp;
       boolean isStalling = gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold;
       boolean didDelay = timePassed > GripperConstants.gripperDelaySeconds;
-      if (isStalling && didDelay) { 
-        // Hold mode won't be set to true unless we run it for 0.5 seconds to get the motor up to speed
+      if (isStalling && didDelay) {
+        // Hold mode won't be set to true unless we run it for 0.5 seconds to get the motor up to
+        // speed
         holdMode = true;
       }
     } else if (joystick.getLeftBumper()) {
