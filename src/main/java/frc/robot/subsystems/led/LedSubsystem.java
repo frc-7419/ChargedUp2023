@@ -38,17 +38,16 @@ public class LedSubsystem extends SubsystemBase {
     return ledBuffer;
   }
 
-  
   public void startLed() {
     led.setData(ledBuffer);
     led.start();
   }
-  
+
   public void stopLed() {
     led.setData(ledBuffer);
     led.stop();
   }
-  
+
   public void rainbowLED(int rainbowFirstPixelHue) {
     for (var i = 0; i < ledBuffer.getLength(); i++) {
       final var hue = (rainbowFirstPixelHue + (i * 180 / ledBuffer.getLength())) % 180;
