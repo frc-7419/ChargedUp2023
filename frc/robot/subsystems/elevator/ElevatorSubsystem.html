@@ -153,32 +153,44 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#brake()">brake</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Sets the elevator to brake mode.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#coast()">coast</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Sets the elevator to coast mode.</div>
+</td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getConstraints()">getConstraints</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the elevator constraints.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i3">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getElevatorPosition()">getElevatorPosition</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the elevator position.</div>
+</td>
 </tr>
 <tr class="altColor" id="i4">
 <td class="colFirst"><code>edu.wpi.first.math.trajectory.TrapezoidProfile.State</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGoal()">getGoal</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the desired goal state of the elevator.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i5">
 <td class="colFirst"><code>edu.wpi.first.math.trajectory.TrapezoidProfile.State</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSetpoint()">getSetpoint</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the elevator setpoint.</div>
+</td>
 </tr>
 <tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
@@ -187,18 +199,24 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </tr>
 <tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGoal(double)">setGoal</a></span>&#8203;(double&nbsp;setpoint)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGoal(double)">setGoal</a></span>&#8203;(double&nbsp;goalState)</code></th>
+<td class="colLast">
+<div class="block">Sets the desired goal state of the elevator.</div>
+</td>
 </tr>
 <tr class="altColor" id="i8">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPower(double)">setPower</a></span>&#8203;(double&nbsp;percent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Sets the elevator power.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i9">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSetpoint(edu.wpi.first.math.trajectory.TrapezoidProfile.State)">setSetpoint</a></span>&#8203;(edu.wpi.first.math.trajectory.TrapezoidProfile.State&nbsp;nextSetpoint)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Sets the next setpoint for the elevator.</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -252,42 +270,77 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <section class="detail">
 <h3><a id="setPower(double)">setPower</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setPower</span>&#8203;(<span class="arguments">double&nbsp;percent)</span></div>
+<div class="block">Sets the elevator power.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>percent</code> - [-1, 1] power set to the elevator</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="setGoal(double)">setGoal</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setGoal</span>&#8203;(<span class="arguments">double&nbsp;setpoint)</span></div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setGoal</span>&#8203;(<span class="arguments">double&nbsp;goalState)</span></div>
+<div class="block">Sets the desired goal state of the elevator.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>goalState</code> - the desired goal state of the elevator</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getGoal()">getGoal</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">edu.wpi.first.math.trajectory.TrapezoidProfile.State</span>&nbsp;<span class="memberName">getGoal</span>()</div>
+<div class="block">Gets the desired goal state of the elevator.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>desired state of goal (Trapezoidal Profile State)</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="setSetpoint(edu.wpi.first.math.trajectory.TrapezoidProfile.State)">setSetpoint</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setSetpoint</span>&#8203;(<span class="arguments">edu.wpi.first.math.trajectory.TrapezoidProfile.State&nbsp;nextSetpoint)</span></div>
+<div class="block">Sets the next setpoint for the elevator.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>nextSetpoint</code> - the next setpoint for the elevator</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getSetpoint()">getSetpoint</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">edu.wpi.first.math.trajectory.TrapezoidProfile.State</span>&nbsp;<span class="memberName">getSetpoint</span>()</div>
+<div class="block">Gets the elevator setpoint.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The setpoint of the elevator</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getConstraints()">getConstraints</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints</span>&nbsp;<span class="memberName">getConstraints</span>()</div>
+<div class="block">Gets the elevator constraints.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the constraints (velocity and acceleration) for the trapezoidal profiling</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getElevatorPosition()">getElevatorPosition</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getElevatorPosition</span>()</div>
+<div class="block">Gets the elevator position.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the current position of the elevator</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
@@ -300,12 +353,14 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <section class="detail">
 <h3><a id="brake()">brake</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">brake</span>()</div>
+<div class="block">Sets the elevator to brake mode.</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="coast()">coast</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">coast</span>()</div>
+<div class="block">Sets the elevator to coast mode.</div>
 </section>
 </li>
 </ul>

@@ -184,17 +184,23 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <tr class="altColor" id="i4">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAngle()">getAngle</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the arm rotation in degrees.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i5">
 <td class="colFirst"><code>edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getConstraints()">getConstraints</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the arm constraints.</div>
+</td>
 </tr>
 <tr class="altColor" id="i6">
 <td class="colFirst"><code>edu.wpi.first.math.trajectory.TrapezoidProfile.State</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGoal()">getGoal</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the desired goal state of the arm.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i7">
 <td class="colFirst"><code>double</code></td>
@@ -206,7 +212,9 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <tr class="altColor" id="i8">
 <td class="colFirst"><code>edu.wpi.first.math.trajectory.TrapezoidProfile.State</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSetpoint()">getSetpoint</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the arm setpoint.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i9">
 <td class="colFirst"><code>void</code></td>
@@ -215,8 +223,10 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </tr>
 <tr class="altColor" id="i10">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGoal(double)">setGoal</a></span>&#8203;(double&nbsp;setpoint)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGoal(double)">setGoal</a></span>&#8203;(double&nbsp;goalState)</code></th>
+<td class="colLast">
+<div class="block">Sets the desired goal state of the arm.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i11">
 <td class="colFirst"><code>void</code></td>
@@ -228,7 +238,9 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <tr class="altColor" id="i12">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSetpoint(edu.wpi.first.math.trajectory.TrapezoidProfile.State)">setSetpoint</a></span>&#8203;(edu.wpi.first.math.trajectory.TrapezoidProfile.State&nbsp;nextSetpoint)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Sets the next setpoint for the arm.</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -290,31 +302,56 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="setGoal(double)">setGoal</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setGoal</span>&#8203;(<span class="arguments">double&nbsp;setpoint)</span></div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setGoal</span>&#8203;(<span class="arguments">double&nbsp;goalState)</span></div>
+<div class="block">Sets the desired goal state of the arm.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>goalState</code> - the desired goal state of the arm</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getGoal()">getGoal</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">edu.wpi.first.math.trajectory.TrapezoidProfile.State</span>&nbsp;<span class="memberName">getGoal</span>()</div>
+<div class="block">Gets the desired goal state of the arm.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>desired state of goal (Trapezoidal Profile State)</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="setSetpoint(edu.wpi.first.math.trajectory.TrapezoidProfile.State)">setSetpoint</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setSetpoint</span>&#8203;(<span class="arguments">edu.wpi.first.math.trajectory.TrapezoidProfile.State&nbsp;nextSetpoint)</span></div>
+<div class="block">Sets the next setpoint for the arm.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>nextSetpoint</code> - the next setpoint for the arm</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getSetpoint()">getSetpoint</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">edu.wpi.first.math.trajectory.TrapezoidProfile.State</span>&nbsp;<span class="memberName">getSetpoint</span>()</div>
+<div class="block">Gets the arm setpoint.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The setpoint of the arm</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getConstraints()">getConstraints</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints</span>&nbsp;<span class="memberName">getConstraints</span>()</div>
+<div class="block">Gets the arm constraints.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the constraints (velocity and acceleration) for the trapezoidal profiling</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
@@ -351,6 +388,11 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <section class="detail">
 <h3><a id="getAngle()">getAngle</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getAngle</span>()</div>
+<div class="block">Gets the arm rotation in degrees.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the position in degrees.</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
