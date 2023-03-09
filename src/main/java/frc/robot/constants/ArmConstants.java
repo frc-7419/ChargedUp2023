@@ -24,4 +24,20 @@ public final class ArmConstants {
   public static double kg;
   public static double kv;
   public static double ka;
+  
+  public static enum ArmState {
+    RESET(0),
+    LOW(30),
+    HIGH(60),
+    SUBSTATION(80);
+
+    public final double armSetpoint;
+
+    private ArmState(double armSetpoint) {
+      this.armSetpoint = armSetpoint;
+    }
+  }
+
+
+
 }

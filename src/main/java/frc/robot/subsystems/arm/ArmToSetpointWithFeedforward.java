@@ -29,7 +29,6 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
         new ArmFeedforward(ArmConstants.ks, ArmConstants.kg, ArmConstants.kv, ArmConstants.ka);
     this.armPIDController =
         new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
-
     addRequirements(armSubsystem);
   }
 
@@ -50,6 +49,7 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
         new TrapezoidProfile(
             armSubsystem.getConstraints(), armSubsystem.getGoal(), armSubsystem.getSetpoint());
 
+
     double currentPosition = armSubsystem.getPosition();
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
@@ -64,6 +64,7 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
     double armPower = armPIDController.calculate(currentPosition);
 
     armSubsystem.setPower(armPower + feedForwardPower);
+
   }
 
   // Called once the command ends or is interrupted.
