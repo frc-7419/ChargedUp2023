@@ -44,7 +44,6 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
     SmartDashboard.putNumber("Elevator Goal Position", elevatorSubsystem.getGoal().position);
     SmartDashboard.putNumber(
         "Elevator Setpoint Position", elevatorSubsystem.getSetpoint().position);
-
   }
 
   // Called every time the schseduler runs while the command is scheduled.

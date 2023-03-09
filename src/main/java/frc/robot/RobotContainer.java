@@ -18,7 +18,6 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
-import frc.robot.subsystems.wrist.WristSubsystem;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -27,7 +26,7 @@ public class RobotContainer {
   // Subsystems
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
-  private final WristSubsystem wristSubsystem = new WristSubsystem();
+  // private final WristSubsystem wristSubsystem = new WristSubsystem();
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
 
@@ -63,11 +62,27 @@ public class RobotContainer {
   // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.RES);
 
+  // //   private final ElevatorToSetpoint elevatorToGround =
+  // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND);
+  // //   private final ElevatorToSetpoint elevatorToSubstation =
+  // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.SUBSTATION);
+  // //   private final ElevatorToSetpoint elevatorToLow =
+  // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
+  // //   private final ElevatorToSetpoint elevatorToHigh =
+  // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
+  // private final MoveWristWithJoystick moveWristWithJoystick =
+  //     new MoveWristWithJoystick(wristSubsystem, driverJoystick);
+  // // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
+  // private final RunGripperWithJoystick runGripperWithJoystick =
+  //     new RunGripperWithJoystick(gripperSubsystem, operatorJoystick);
+  // private final ElevatorToSetpointWithFeedForward elevatorPIDHigh = new
+  // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
+  // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new
+  // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.GROUND);
   private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
       new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
   private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
       new MoveArmWithJoystickAnalog(armSubsystem, operatorJoystick);
-
   private final IntakePiece intakePieceGround =
       new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET);
   private final IntakePiece intakePieceSubstation =
