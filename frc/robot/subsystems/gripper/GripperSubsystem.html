@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -161,11 +161,26 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i2">
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVelocity()">getVelocity</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#periodic()">periodic</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setIntakePower(double)">setIntakePower</a></span>&#8203;(double&nbsp;power)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setOuttakePower(double)">setOuttakePower</a></span>&#8203;(double&nbsp;power)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPower(double)">setPower</a></span>&#8203;(double&nbsp;power)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -232,6 +247,18 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="setIntakePower(double)">setIntakePower</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setIntakePower</span>&#8203;(<span class="arguments">double&nbsp;power)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setOuttakePower(double)">setOuttakePower</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setOuttakePower</span>&#8203;(<span class="arguments">double&nbsp;power)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="brake()">brake</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">brake</span>()</div>
 </section>
@@ -240,6 +267,12 @@ extends edu.wpi.first.wpilibj2.command.SubsystemBase</pre>
 <section class="detail">
 <h3><a id="coast()">coast</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">coast</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getVelocity()">getVelocity</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">double</span>&nbsp;<span class="memberName">getVelocity</span>()</div>
 </section>
 </li>
 </ul>
