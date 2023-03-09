@@ -11,4 +11,5 @@ frc.robot.subsystems.drive
 frc.robot.subsystems.elevator
 frc.robot.subsystems.gripper
 frc.robot.subsystems.gyro
+frc.robot.subsystems.led
 frc.robot.subsystems.wrist
