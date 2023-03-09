@@ -63,7 +63,6 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
     double armPower = armPIDController.calculate(currentPosition);
 
     armSubsystem.setPower(armPower + feedForwardPower);
-
   }
 
   // Called once the command ends or is interrupted.

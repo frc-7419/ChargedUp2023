@@ -75,14 +75,18 @@ public class RobotContainer {
   // // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
   // private final RunGripperWithJoystick runGripperWithJoystick =
   //     new RunGripperWithJoystick(gripperSubsystem, operatorJoystick);
-  // private final ElevatorToSetpointWithFeedForward elevatorPIDHigh = new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
-  // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.GROUND);
-    private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
-        new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
+  // private final ElevatorToSetpointWithFeedForward elevatorPIDHigh = new
+  // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
+  // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new
+  // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.GROUND);
+  private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
+      new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
   private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
       new MoveArmWithJoystickAnalog(armSubsystem, operatorJoystick);
-  private final IntakePiece intakePieceGround = new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET);
-  private final IntakePiece intakePieceSubstation = new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.SUBSTATION);
+  private final IntakePiece intakePieceGround =
+      new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET);
+  private final IntakePiece intakePieceSubstation =
+      new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.SUBSTATION);
 
   private final ScorePiece scorePieceLow =
       new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.LOW);
