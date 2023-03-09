@@ -3,7 +3,6 @@ package frc.robot.subsystems.arm;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,7 +15,8 @@ public class ArmSubsystem extends SubsystemBase {
   private CANSparkMax mainArmMotor1;
   private AnalogEncoder absoluteEncoder;
 
-  private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(300, 150);
+  private final TrapezoidProfile.Constraints constraints =
+      new TrapezoidProfile.Constraints(300, 150);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
 
@@ -38,18 +38,23 @@ public class ArmSubsystem extends SubsystemBase {
   public void configureMotorControllers() {
     mainArmMotor1.setInverted(false);
   }
+
   public void setGoal(double setpoint) {
     goal = new TrapezoidProfile.State(setpoint, 0);
   }
+
   public TrapezoidProfile.State getGoal() {
     return goal;
   }
+
   public void setSetpoint(TrapezoidProfile.State nextSetpoint) {
     setpoint = nextSetpoint;
   }
+
   public TrapezoidProfile.State getSetpoint() {
     return setpoint;
   }
+
   public TrapezoidProfile.Constraints getConstraints() {
     return constraints;
   }

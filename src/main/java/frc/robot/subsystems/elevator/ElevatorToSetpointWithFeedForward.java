@@ -20,10 +20,16 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
   private PIDController keshav;
 
   /** Creates a new ElevatorToSetpointWithFeedForward. */
-  public ElevatorToSetpointWithFeedForward(ElevatorSubsystem elevatorSubsystem, NodeState nodeState) {
+  public ElevatorToSetpointWithFeedForward(
+      ElevatorSubsystem elevatorSubsystem, NodeState nodeState) {
     this.elevatorSubsystem = elevatorSubsystem;
     this.setpoint = nodeState.elevatorSetpoint;
-    this.feedforward = new ElevatorFeedforward(ElevatorConstants.elevatorKs, ElevatorConstants.elevatorKg, ElevatorConstants.elevatorKv,ElevatorConstants.elevatorKa);
+    this.feedforward =
+        new ElevatorFeedforward(
+            ElevatorConstants.elevatorKs,
+            ElevatorConstants.elevatorKg,
+            ElevatorConstants.elevatorKv,
+            ElevatorConstants.elevatorKa);
     this.keshav = new PIDController(0.3, 0, 0);
     addRequirements(elevatorSubsystem);
   }
@@ -33,18 +39,24 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
   public void initialize() {
     // keshav.setSetpoint(setpoint);
     // keshav.setTolerance(0.01);
-    
+
     elevatorSubsystem.setGoal(setpoint);
-    elevatorSubsystem.setSetpoint(new TrapezoidProfile.State(elevatorSubsystem.getElevatorPosition(), 0));
+    elevatorSubsystem.setSetpoint(
+        new TrapezoidProfile.State(elevatorSubsystem.getElevatorPosition(), 0));
 
     SmartDashboard.putNumber("Elevator Goal Position", elevatorSubsystem.getGoal().position);
-    SmartDashboard.putNumber("Elevator Setpoint Position", elevatorSubsystem.getSetpoint().position);
+    SmartDashboard.putNumber(
+        "Elevator Setpoint Position", elevatorSubsystem.getSetpoint().position);
   }
 
   // Called every time the schseduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentProfile = new TrapezoidProfile(elevatorSubsystem.getConstraints(), elevatorSubsystem.getGoal(), elevatorSubsystem.getSetpoint());
+    currentProfile =
+        new TrapezoidProfile(
+            elevatorSubsystem.getConstraints(),
+            elevatorSubsystem.getGoal(),
+            elevatorSubsystem.getSetpoint());
 
     double currentPosition = elevatorSubsystem.getElevatorPosition();
 
@@ -57,9 +69,9 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
     SmartDashboard.putNumber("Trapezoid Position", nextSetpoint.position);
 
     keshav.setSetpoint(nextSetpoint.position);
-    
+
     double elevatorPower = keshav.calculate(currentPosition);
-    elevatorSubsystem.setPower(elevatorPower + feedForwardPower);  
+    elevatorSubsystem.setPower(elevatorPower + feedForwardPower);
   }
 
   // Called once the command ends or is interrupted.

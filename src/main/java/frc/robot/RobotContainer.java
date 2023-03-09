@@ -13,13 +13,10 @@ import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.elevator.ElevatorPID;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
-import frc.robot.subsystems.gyro.GyroSubsystem;
-import frc.robot.subsystems.wrist.WristSubsystem;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -61,19 +58,26 @@ public class RobotContainer {
   // // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
   // private final RunGripperWithJoystick runGripperWithJoystick =
   //     new RunGripperWithJoystick(gripperSubsystem, operatorJoystick);
-  private final ElevatorToSetpointWithFeedForward elevatorPIDHigh = new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
-  private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.GROUND);
-    private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
-        new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
+  private final ElevatorToSetpointWithFeedForward elevatorPIDHigh =
+      new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
+  private final ElevatorToSetpointWithFeedForward elevatorPIDGround =
+      new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.GROUND);
+  private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
+      new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
   private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
       new MoveArmWithJoystickAnalog(armSubsystem, operatorJoystick);
-  private final IntakePiece intakePieceGround = new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.GROUND);
-  private final IntakePiece intakePieceSubstation = new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.SUBSTATION);
+  private final IntakePiece intakePieceGround =
+      new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.GROUND);
+  private final IntakePiece intakePieceSubstation =
+      new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.SUBSTATION);
 
-  private final ScorePiece scorePieceLow = new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.LOW);
-  private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH);
+  private final ScorePiece scorePieceLow =
+      new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.LOW);
+  private final ScorePiece scorePieceHigh =
+      new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH);
 
-  private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
+  private final SmartRetract smartRetract =
+      new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
 
   // Autonomous
 
@@ -105,7 +109,6 @@ public class RobotContainer {
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(intakePieceSubstation);
 
     new JoystickButton(operatorJoystick, Button.kA.value).onTrue(smartRetract);
-
   }
 
   // TODO update once done with autonomous command
