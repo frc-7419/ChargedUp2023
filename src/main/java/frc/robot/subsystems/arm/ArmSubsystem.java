@@ -35,25 +35,50 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor.setInverted(false);
   }
 
+  /**
+   * Sets the desired goal state of the arm.
+   * @param goal the desired goal state of the arm
+   */
   public void setGoal(double setpoint) {
     goal = new TrapezoidProfile.State(setpoint, 0);
   }
 
+  /**
+   * Gets the desired goal state of the arm.
+   *
+   * @return desired state of goal (Trapezoidal Profile State)
+   */
   public TrapezoidProfile.State getGoal() {
     return goal;
   }
 
+  /**
+   * Sets the next setpoint for the arm.
+   *
+   * @param nextSetpoint the next setpoint for the arm
+   */
   public void setSetpoint(TrapezoidProfile.State nextSetpoint) {
     setpoint = nextSetpoint;
   }
 
+  /**
+   * Gets the arm setpoint.
+   *
+   * @return The setpoint of the arm
+   */
   public TrapezoidProfile.State getSetpoint() {
     return setpoint;
   }
 
+  /**
+   * Gets the arm constraints.
+   *
+   * @return the constraints (velocity and acceleration) for the trapezoidal profiling
+   */
   public TrapezoidProfile.Constraints getConstraints() {
     return constraints;
   }
+
   /**
    * Sets position offset for the absolute encoder (i.e. after the offset, the absolute position
    * reading will be 0 when the arm is parallel to the ground)
@@ -80,6 +105,10 @@ public class ArmSubsystem extends SubsystemBase {
     return absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset;
   }
 
+  /**
+   * Gets the arm rotation in degrees.
+   * @return the position in degrees.
+   */
   public double getAngle() {
     return getPosition() * 360;
   }

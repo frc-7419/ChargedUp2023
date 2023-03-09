@@ -14,17 +14,11 @@ public final class PIDConstants {
   public static final double ElevatorKTolerance = 0.15;
 
   // arm
-  public static final double MainArmKp = 0.001;
-  public static final double MainArmKi = 0;
-  public static final double MainArmKd = 0;
-  public static final double MainArmTolerance = 0.15;
-
-  // extended arm
-  public static final double ExtendedArmKp = 0.0001;
-  public static final double ExtendedArmKi = 0.2;
-  public static final double ExtendedArmKd = 0.2;
-  public static final double ExtendedArmKTolerance = 0;
-
+  public static final double armKp = 0.3;
+  public static final double armKi = 0;
+  public static final double armKd = 0;
+  public static final double armTolerance = 0.15;
+  
   // smart balance
   public static final double BalanceAngleKp = 0.01;
   public static final double BalanceAngleKi = 0;

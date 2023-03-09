@@ -4,13 +4,15 @@
 
 package frc.robot.subsystems.arm;
 
+import frc.robot.constants.PIDConstants;
+
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.ArmConstants;
-import frc.robot.constants.ArmConstants.ArmState;
+import frc.robot.constants.NodeConstants.NodeState;
 
 public class ArmToSetpointWithFeedforward extends CommandBase {
   /** Creates a new ArmToSetpointWithFeedforward. */
@@ -19,14 +21,14 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   private double setpoint;
   private TrapezoidProfile currentProfile;
   private ArmFeedforward feedforward;
-  private PIDController keshav;
+  private PIDController armPIDController;
 
-  public ArmToSetpointWithFeedforward(ArmSubsystem armSubsystem, ArmState armState) {
+  public ArmToSetpointWithFeedforward(ArmSubsystem armSubsystem, NodeState armState) {
     this.armSubsystem = armSubsystem;
     this.setpoint = armState.armSetpoint;
     this.feedforward =
         new ArmFeedforward(ArmConstants.ks, ArmConstants.kg, ArmConstants.kv, ArmConstants.ka);
-    this.keshav = new PIDController(0.3, 0, 0);
+    this.armPIDController = new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
 
     addRequirements(armSubsystem);
   }
@@ -57,9 +59,9 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
 
     armSubsystem.setSetpoint(nextSetpoint);
 
-    keshav.setSetpoint(nextSetpoint.position);
+    armPIDController.setSetpoint(nextSetpoint.position);
 
-    double armPower = keshav.calculate(currentPosition);
+    double armPower = armPIDController.calculate(currentPosition);
 
     armSubsystem.setPower(armPower + feedForwardPower);
   }

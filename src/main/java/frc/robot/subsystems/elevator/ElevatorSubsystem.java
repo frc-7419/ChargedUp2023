@@ -49,7 +49,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   /**
-   * Gets the desired gola state of the elevator.
+   * Gets the desired goal state of the elevator.
    *
    * @return desired state of goal (Trapezoidal Profile State)
    */
