@@ -13,16 +13,25 @@ public final class ElevatorConstants {
   public static final double intakeSetpoint = 5;
   public static final double elevatorFeedForward = 0.05;
 
+  public static final double elevatorKs = 0.085469;
+  public static final double elevatorKv = 25.285;
+  // public static final double elevatorKv = 28.285;
+  public static final double elevatorKa = 1.2056;
+  // public static final double elevatorKa = 2.3;
+  public static final double elevatorKg = 0.073137;
+
   public static enum NodeState {
-    GROUND(0),
-    SUBSTATION(20),
-    LOW(10),
-    HIGH(15);
+    RESET(4, 0),
+    SUBSTATION(20, 30),
+    LOW(35, 50),
+    HIGH(30, 80);
 
     public final double elevatorSetpoint;
+    public final double armSetpoint;
 
-    private NodeState(double elevatorSetpoint) {
+    private NodeState(double elevatorSetpoint, double armSetpoint) {
       this.elevatorSetpoint = elevatorSetpoint;
+      this.armSetpoint = armSetpoint;
     }
   }
 }
