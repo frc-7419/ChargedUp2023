@@ -18,7 +18,7 @@ public final class PIDConstants {
   public static final double armKi = 0;
   public static final double armKd = 0;
   public static final double armTolerance = 0.15;
-  
+
   // smart balance
   public static final double BalanceAngleKp = 0.01;
   public static final double BalanceAngleKi = 0;

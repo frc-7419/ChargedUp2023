@@ -1,6 +1,5 @@
 package frc.robot.constants;
 
-
 public final class NodeConstants {
   public static enum NodeState {
     RESET(4, 0),

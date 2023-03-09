@@ -13,8 +13,7 @@ public class ArmToSetpoint extends CommandBase {
   private double setpoint;
 
   public ArmToSetpoint(ArmSubsystem armSubsystem, double setpoint) {
-    pidController =
-        new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
+    pidController = new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
 
     this.armSubsystem = armSubsystem;
     this.setpoint = setpoint;

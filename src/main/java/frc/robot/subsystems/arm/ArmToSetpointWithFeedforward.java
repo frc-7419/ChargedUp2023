@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems.arm;
 
-import frc.robot.constants.PIDConstants;
-
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -13,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.ArmConstants;
 import frc.robot.constants.NodeConstants.NodeState;
+import frc.robot.constants.PIDConstants;
 
 public class ArmToSetpointWithFeedforward extends CommandBase {
   /** Creates a new ArmToSetpointWithFeedforward. */
@@ -28,7 +27,8 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
     this.setpoint = armState.armSetpoint;
     this.feedforward =
         new ArmFeedforward(ArmConstants.ks, ArmConstants.kg, ArmConstants.kv, ArmConstants.ka);
-    this.armPIDController = new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
+    this.armPIDController =
+        new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
 
     addRequirements(armSubsystem);
   }

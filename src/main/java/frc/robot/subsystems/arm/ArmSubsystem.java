@@ -37,6 +37,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Sets the desired goal state of the arm.
+   *
    * @param goal the desired goal state of the arm
    */
   public void setGoal(double setpoint) {
@@ -107,6 +108,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /**
    * Gets the arm rotation in degrees.
+   *
    * @return the position in degrees.
    */
   public double getAngle() {
