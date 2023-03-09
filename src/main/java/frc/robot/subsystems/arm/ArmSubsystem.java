@@ -1,9 +1,14 @@
 package frc.robot.subsystems.arm;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.AnalogEncoder;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.ArmConstants;
@@ -11,17 +16,13 @@ import frc.robot.constants.DeviceIDs;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private CANSparkMax mainArmMotor1;
-  private AnalogEncoder absoluteEncoder;
+  private TalonFX armMotor;
+  private DutyCycleEncoder absoluteEncoder;
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
-    mainArmMotor1 =
-        new CANSparkMax(DeviceIDs.CanIds.armMain1.id, MotorType.kBrushless); // ENCODER DOESNT WORK
-
-    absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.absoluteEncoder.id);
-
-    configureEncoder();
+    armMotor = new TalonFX(DeviceIDs.CanIds.armFalcon.id);
+    absoluteEncoder = new DutyCycleEncoder(0);
     configureMotorControllers();
   }
 
@@ -30,15 +31,7 @@ public class ArmSubsystem extends SubsystemBase {
    * for motorcontroller encoder
    */
   public void configureMotorControllers() {
-    mainArmMotor1.setInverted(false);
-  }
-
-  /**
-   * Sets position offset for the absolute encoder (i.e. after the offset, the absolute position
-   * reading will be 0 when the arm is parallel to the ground)
-   */
-  public void configureEncoder() {
-    absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
+    armMotor.setInverted(false);
   }
 
   /**
@@ -47,7 +40,7 @@ public class ArmSubsystem extends SubsystemBase {
    * @param power set to motors on the main arm.
    */
   public void setPower(double power) {
-    mainArmMotor1.set(power);
+    armMotor.set(ControlMode.PercentOutput, power);
   }
 
   /**
@@ -56,7 +49,7 @@ public class ArmSubsystem extends SubsystemBase {
    * @return The position of the main arm, in units of rotations.
    */
   public double getPosition() {
-    return absoluteEncoder.getAbsolutePosition();
+    return absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset;
   }
 
   public double getAngle() {
@@ -65,12 +58,12 @@ public class ArmSubsystem extends SubsystemBase {
 
   /** Sets arm motor to coast mode, allowing arm to freely move */
   public void coast() {
-    mainArmMotor1.setIdleMode(IdleMode.kCoast);
+    armMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   /** Sets arm motor to brake mode, stopping the arm's movement */
   public void brake() {
-    mainArmMotor1.setIdleMode(IdleMode.kBrake);
+    armMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override

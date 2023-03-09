@@ -9,9 +9,7 @@ public final class DeviceIDs {
     rightFalcon2(3),
 
     // Arm CAN IDs
-    armMain1(12),
-    armMain2(14),
-    armExtended(51),
+    armFalcon(12),
 
     // Gripper CAN IDs
     gripperNeo(14), // change later
