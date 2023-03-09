@@ -33,7 +33,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   /**
    * Sets the elevator power.
    *
-   * @param power [-1, 1] power set to the elevator
+   * @param percent [-1, 1] power set to the elevator
    */
   public void setPower(double percent) {
     elevatorMotor.set(ControlMode.PercentOutput, percent);
@@ -42,7 +42,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   /**
    * Sets the desired goal state of the elevator.
    *
-   * @param goal the desired goal state of the elevator
+   * @param goalState the desired goal state of the elevator
    */
   public void setGoal(double goalState) {
     goal = new TrapezoidProfile.State(goalState, 0);
