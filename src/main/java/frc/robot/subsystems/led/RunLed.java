@@ -32,17 +32,18 @@ public class RunLed extends CommandBase {
   public void execute() {
     // ledSubsystem.setLEDColor(50, 0, 0);
     // ledSubsystem.rainbowLED(0);
-    if (joystick.getAButtonPressed()) {
+    if ( joystick.getPOV() == LEDConstants.conePOV) { // 180 represents down
       ledSubsystem.setLEDColor(LEDConstants.yellowH, LEDConstants.yellowS, LEDConstants.yellowV);
     }
-    if (joystick.getBButtonPressed()) {
+    if (joystick.getPOV() == LEDConstants.cubePOV) { // 0 represents up
       ledSubsystem.setLEDColor(LEDConstants.purpleH, LEDConstants.purpleS, LEDConstants.purpleV);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end (boolean interrupted) {}
+  public void end (boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

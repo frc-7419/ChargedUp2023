@@ -9,5 +9,7 @@ public final class LEDConstants {
     public static final int yellowH = 10;
     public static final int yellowS = 255;
     public static final int yellowV = 255;
-    // 
+    // cone and cube POVs
+    public static final int conePOV = 180;
+    public static final int cubePOV = 0;
 }
