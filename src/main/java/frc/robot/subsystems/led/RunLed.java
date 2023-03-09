@@ -4,15 +4,18 @@
 
 package frc.robot.subsystems.led;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.LEDConstants;
 
 /** This class sets the LED lights to our desired colors */
 public class RunLed extends CommandBase {
   private LedSubsystem ledSubsystem;
+  private XboxController joystick;
   /** Creates a new RunLed. */
-  public RunLed(LedSubsystem ledSubsystem) {
+  public RunLed(LedSubsystem ledSubsystem, XboxController joystick) {
     this.ledSubsystem = ledSubsystem;
+    this.joystick = joystick;
     addRequirements(ledSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -29,7 +32,12 @@ public class RunLed extends CommandBase {
   public void execute() {
     // ledSubsystem.setLEDColor(50, 0, 0);
     // ledSubsystem.rainbowLED(0);
-    ledSubsystem.setLEDColor(LEDConstants.yellowH, LEDConstants.yellowS, LEDConstants.yellowV);
+    if (joystick.getAButtonPressed()) {
+      ledSubsystem.setLEDColor(LEDConstants.yellowH, LEDConstants.yellowS, LEDConstants.yellowV);
+    }
+    if (joystick.getBButtonPressed()) {
+      ledSubsystem.setLEDColor(LEDConstants.purpleH, LEDConstants.purpleS, LEDConstants.purpleV);
+    }
   }
 
   // Called once the command ends or is interrupted.

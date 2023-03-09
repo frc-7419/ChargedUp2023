@@ -49,7 +49,7 @@ public class RobotContainer {
   // // // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
   private final RunGripperWithJoystick runGripperWithJoystick =
       new RunGripperWithJoystick(gripperSubsystem, operatorJoystick);
-  private final RunLed runLed = new RunLed(ledSubsystem);
+  private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
   // private final ElevatorToSetpointWithFeedForward elevatorPIDHigh = new
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
   // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new
