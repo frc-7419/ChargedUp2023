@@ -21,8 +21,8 @@ jobs:
         run: ./gradlew javadoc
       - name: Setup Git User
         run: |
-          git config --global user.name "wlmchen"
-          git config --global user.email "65417452+wlmchen@users.noreply.github.com"
+          git config --global user.name "Team7419"
+          git config --global user.email "126924979+Team7419@users.noreply.github.com"
       - name: Deploy Java 🚀
         run: |
           pip install ghp-import
