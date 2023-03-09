@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
+import frc.robot.subsystems.led.LedSubsystem;
+import frc.robot.subsystems.led.RunLed;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -20,6 +22,7 @@ public class RobotContainer {
   // // private final WristSubsystem wristSubsystem = new WristSubsystem();
   // private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
+  private final LedSubsystem ledSubsystem = new LedSubsystem();
 
   // // Commandsq
   // // TODO will use when driving
@@ -46,6 +49,7 @@ public class RobotContainer {
   // // // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
   private final RunGripperWithJoystick runGripperWithJoystick =
       new RunGripperWithJoystick(gripperSubsystem, operatorJoystick);
+  private final RunLed runLed = new RunLed(ledSubsystem);
   // private final ElevatorToSetpointWithFeedForward elevatorPIDHigh = new
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
   // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new
@@ -89,7 +93,6 @@ public class RobotContainer {
     // new JoystickButton(operatorJoystick, Button.kX.value).whileTrue(elevatorToGround);
     // new JoystickButton(operatorJoystick, Button.kRightBumper.value).whileTrue(elevatorToHigh);
     // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).whileTrue(elevatorToLow);
-
     // new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(scorePieceLow);
     // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
 
@@ -117,6 +120,6 @@ public class RobotContainer {
     // armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
     // // wristSubsystem.setDefaultCommand(moveWristWithJoystick);
     // elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
-    gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
+    ledSubsystem.setDefaultCommand(runLed);
   }
 }
