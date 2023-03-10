@@ -7,6 +7,7 @@ package frc.robot.subsystems.led;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.LEDConstants;
 
 public class LedSubsystem extends SubsystemBase {
   /** Creates a new LEDSubsystem. */
@@ -15,11 +16,11 @@ public class LedSubsystem extends SubsystemBase {
   public AddressableLEDBuffer ledBuffer;
 
   public LedSubsystem() {
-    led = new AddressableLED(8);
-    ledBuffer = new AddressableLEDBuffer(500);
+    led = new AddressableLED(0);
+    ledBuffer = new AddressableLEDBuffer(2);
     led.setLength(ledBuffer.getLength());
-    // led.setData(ledBuffer);
-    // led.start();
+    led.setData(ledBuffer);
+    led.start();
     // led1 = new AddressableLED(1);
     // ledBuffer1 = new AddressableLEDBuffer(60);
     // led1.setLength(ledBuffer1.getLength());
@@ -66,6 +67,33 @@ public class LedSubsystem extends SubsystemBase {
       ledBuffer.setHSV(i, h, s, v);
     }
     led.setData(ledBuffer);
+  }
+
+  public void setUkraine() {
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      if ((int) i % 2 == 0) {
+        ledBuffer.setHSV(i, LEDConstants.blueH, LEDConstants.blueS, LEDConstants.blueV);
+      } else {
+        ledBuffer.setHSV(i, LEDConstants.yellowH, LEDConstants.yellowS, LEDConstants.yellowV);
+      }
+    }
+    led.setData(ledBuffer);
+  }
+
+  public void setLEDBlue() {
+    setLEDColor(LEDConstants.blueH, LEDConstants.blueS, LEDConstants.blueV);
+  }
+
+  public void setLEDYellow() {
+    setLEDColor(LEDConstants.yellowH, LEDConstants.yellowS, LEDConstants.yellowV);
+  }
+
+  public void setLEDRed() {
+    setLEDColor(LEDConstants.redH, LEDConstants.redS, LEDConstants.redV);
+  }
+
+  public void setLEDGreen() {
+    setLEDColor(LEDConstants.greenH, LEDConstants.greenS, LEDConstants.greenV);
   }
 
   // public AddressableLED getLed1(){

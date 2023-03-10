@@ -8,18 +8,22 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.GripperConstants;
+import frc.robot.subsystems.led.LedSubsystem;
 
 public class RunGripperWithJoystick extends CommandBase {
   private GripperSubsystem gripperSubsystem;
   private XboxController joystick;
+  private LedSubsystem ledSubsystem;
   private double lastTimeStamp;
   private Boolean holdMode = false;
 
-  public RunGripperWithJoystick(GripperSubsystem gripperSubsystem, XboxController joystick) {
+  public RunGripperWithJoystick(
+      GripperSubsystem gripperSubsystem, XboxController joystick, LedSubsystem ledSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.gripperSubsystem = gripperSubsystem;
     this.joystick = joystick;
-    addRequirements(gripperSubsystem);
+    this.ledSubsystem = ledSubsystem;
+    addRequirements(gripperSubsystem, ledSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -35,6 +39,8 @@ public class RunGripperWithJoystick extends CommandBase {
     if (joystick.getRightBumper() && holdMode == false) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
+      ledSubsystem.setLEDRed();
+
       double currentTimeStamp = Timer.getFPGATimestamp();
       double timePassed = currentTimeStamp - lastTimeStamp;
       boolean isStalling = gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold;
@@ -47,10 +53,12 @@ public class RunGripperWithJoystick extends CommandBase {
     } else if (joystick.getLeftBumper()) {
       gripperSubsystem.coast();
       gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);
+      ledSubsystem.setLEDBlue();
       holdMode = false;
     } else if (holdMode == true) {
       gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);
       gripperSubsystem.brake();
+      ledSubsystem.setLEDGreen();
     } else {
       gripperSubsystem.setPower(0);
       lastTimeStamp = Timer.getFPGATimestamp();

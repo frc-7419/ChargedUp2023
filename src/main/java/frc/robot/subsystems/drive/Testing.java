@@ -32,7 +32,7 @@ public class Testing extends CommandBase {
       driveBaseSubsystem.setBottomPower(0.1);
     } else {
       driveBaseSubsystem.setAllPower(0);
-    }
+    }  
   }
 
   // Called once the command ends or is interrupted.

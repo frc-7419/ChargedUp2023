@@ -19,6 +19,7 @@ import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
 import frc.robot.subsystems.led.LedSubsystem;
+import frc.robot.subsystems.led.RunLed;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -57,7 +58,7 @@ public class RobotContainer {
   // // // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
 
   private final RunGripperWithJoystick runGripperWithJoystick =
-      new RunGripperWithJoystick(gripperSubsystem, operatorJoystick);
+      new RunGripperWithJoystick(gripperSubsystem, operatorJoystick, ledSubsystem);
 
   // private final ElevatorToSetpointWithFeedForward elevatorPIDHigh = new
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
@@ -97,6 +98,7 @@ public class RobotContainer {
 
   private final SmartRetract smartRetract =
       new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
+  private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
 
   // Autonomous
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
@@ -139,6 +141,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
+    ledSubsystem.rainbowLED(0);
     return autonomousChooser.getSelected();
   }
 
@@ -148,5 +151,6 @@ public class RobotContainer {
     // wristSubsystem.setDefaultCommand(moveWristWithJoystick);
     elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
     gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
+    ledSubsystem.setDefaultCommand(runLed);
   }
 }
