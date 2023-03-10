@@ -9,6 +9,8 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.actions.AutoIntakePiece;
+import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.actions.IntakePiece;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.autopaths.OnePieceMobilityPath;
@@ -33,11 +35,11 @@ public class OnePieceMobility extends SequentialCommandGroup {
 
     eventMap.put(
         "Intake Piece",
-        new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET));
+        new AutoIntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET));
 
     eventMap.put(
         "Score Piece",
-        new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
+        new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
 
     PathPlannerTrajectory onePieceMobility =
         PathPlanner.loadPath(

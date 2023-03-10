@@ -87,9 +87,9 @@ public class RobotContainer {
   private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
       new MoveArmWithJoystickAnalog(armSubsystem, operatorJoystick);
   private final IntakePiece intakePieceGround =
-      new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET);
+      new IntakePiece(elevatorSubsystem, armSubsystem, NodeState.RESET);
   private final IntakePiece intakePieceSubstation =
-      new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.SUBSTATION);
+      new IntakePiece(elevatorSubsystem, armSubsystem, NodeState.SUBSTATION);
 
   private final ScorePiece scorePieceLow =
       new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.LOW);
@@ -98,6 +98,7 @@ public class RobotContainer {
 
   private final SmartRetract smartRetract =
       new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
+      
   private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
 
   // Autonomous
