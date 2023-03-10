@@ -36,12 +36,12 @@ public class OnePiece extends SequentialCommandGroup {
         "Score Piece",
         new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
 
-    PathPlannerTrajectory onePieceMobility =
+    PathPlannerTrajectory onePiece =
         PathPlanner.loadPath(
             "One Piece", PathPlanner.getConstraintsFromPath("One Piece"));
 
     addCommands(
         new FollowPathWithEvents(
-            new OnePiecePath(driveBaseSubsystem), onePieceMobility.getMarkers(), eventMap));
+            new OnePiecePath(driveBaseSubsystem), onePiece.getMarkers(), eventMap));
   }
 }
