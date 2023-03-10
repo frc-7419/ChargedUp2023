@@ -9,7 +9,7 @@ public final class DriveConstants {
 
   public static final double slowStraight = 0.5;
   public static final double slowTurn = 0.5;
-  
+
   public static final double driveTrainGearRatio = (double) (50.0 / 14) * (48.0 / 16);
   public static final double wheelDiameter = Units.inchesToMeters(6);
   public static final double wheelCircumference = Math.PI * wheelDiameter;

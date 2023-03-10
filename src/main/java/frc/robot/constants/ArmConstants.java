@@ -24,7 +24,7 @@ public final class ArmConstants {
   public static double kg;
   public static double kv;
   public static double ka;
-public static double armElevatorDelay;
+  public static double armElevatorDelay;
 
   public static enum ArmState {
     RESET(0),

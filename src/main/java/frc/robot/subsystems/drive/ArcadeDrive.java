@@ -15,7 +15,6 @@ public class ArcadeDrive extends CommandBase {
   private XboxController joystick;
   private boolean slowMode = false;
 
-
   // Limits *acceleration* not max speed; basically kD
   private final SlewRateLimiter speedLimiter = new SlewRateLimiter(100);
   /**
@@ -39,7 +38,7 @@ public class ArcadeDrive extends CommandBase {
   /** In the execute method, move the joystick to make the robot move. */
   @Override
   public void execute() {
-    if (joystick.getRightBumper()){
+    if (joystick.getRightBumper()) {
       slowMode = !slowMode;
     }
     double straightCoefficient = getStraightCoefficient();
@@ -61,16 +60,16 @@ public class ArcadeDrive extends CommandBase {
     // driveBaseSubsystem.setRightPower(rightPower);
   }
 
-  private double getStraightCoefficient(){
-    if (slowMode){
+  private double getStraightCoefficient() {
+    if (slowMode) {
       return DriveConstants.slowStraight;
     } else {
       return DriveConstants.driveStraight;
     }
   }
 
-  private double getTurnCoefficient(){
-    if (slowMode){
+  private double getTurnCoefficient() {
+    if (slowMode) {
       return DriveConstants.slowTurn;
     } else {
       return DriveConstants.driveTurn;

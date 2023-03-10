@@ -38,7 +38,6 @@ public class AutoIntakePiece extends SequentialCommandGroup {
     addCommands(
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, intakeLocation),
         new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint),
-        new RunGripper(gripperSubsystem, GripperState.INTAKE)
-    );
+        new RunGripper(gripperSubsystem, GripperState.INTAKE));
   }
 }

@@ -38,16 +38,14 @@ public class SmartBalance extends CommandBase {
     double previousPitch = robotPitch;
     robotPitch = gyroSubsystem.getPitch();
     double changeInPitch = (robotPitch - previousPitch) / (timePassed);
-    if(!stopCorrecting) {
-      if(Math.abs(robotPitch) < BalanceConstants.pitchTolerance) {
+    if (!stopCorrecting) {
+      if (Math.abs(robotPitch) < BalanceConstants.pitchTolerance) {
         driveBaseSubsystem.setAllPower(0);
-        driveBaseSubsystem.brake(); 
+        driveBaseSubsystem.brake();
         stopCorrecting = true;
-      }
-      else if(changeInPitch > BalanceConstants.pitchDerivativeThreshold) {
-          driveBaseSubsystem.setAllPower(BalanceConstants.slowPower);
-      }
-      else { 
+      } else if (changeInPitch > BalanceConstants.pitchDerivativeThreshold) {
+        driveBaseSubsystem.setAllPower(BalanceConstants.slowPower);
+      } else {
         driveBaseSubsystem.setAllPower(BalanceConstants.normalPower);
       }
     }

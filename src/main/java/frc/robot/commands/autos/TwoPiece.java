@@ -11,9 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.actions.AutoIntakePiece;
 import frc.robot.commands.actions.AutoScorePiece;
-import frc.robot.commands.actions.IntakePiece;
-import frc.robot.commands.actions.ScorePiece;
-import frc.robot.commands.autopaths.TwoPieceMobilityPath;
+import frc.robot.commands.autopaths.TwoPiecePath;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -24,9 +22,9 @@ import java.util.HashMap;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TwoPieceMobility extends SequentialCommandGroup {
+public class TwoPiece extends SequentialCommandGroup {
   /** Creates a new OnePieceMobility. */
-  public TwoPieceMobility(
+  public TwoPiece(
       DriveBaseSubsystem driveBaseSubsystem,
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
@@ -41,12 +39,12 @@ public class TwoPieceMobility extends SequentialCommandGroup {
         "Score Piece",
         new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
 
-    PathPlannerTrajectory twoPieceMoblity =
+    PathPlannerTrajectory onePieceMobility =
         PathPlanner.loadPath(
-            "Two Piece + Mobility", PathPlanner.getConstraintsFromPath("Two Piece + Mobility"));
+            "Two Piece", PathPlanner.getConstraintsFromPath("Two Piece"));
 
     addCommands(
         new FollowPathWithEvents(
-            new TwoPieceMobilityPath(driveBaseSubsystem), twoPieceMoblity.getMarkers(), eventMap));
+            new TwoPiecePath(driveBaseSubsystem), onePieceMobility.getMarkers(), eventMap));
   }
 }

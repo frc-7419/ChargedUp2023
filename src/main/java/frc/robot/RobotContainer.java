@@ -18,8 +18,11 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
+import frc.robot.subsystems.gyro.GyroSubsystem;
+import frc.robot.subsystems.gyro.SmartBalance;
 import frc.robot.subsystems.led.LedSubsystem;
 import frc.robot.subsystems.led.RunLed;
+import frc.robot.subsystems.wrist.WristSubsystem;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -28,7 +31,8 @@ public class RobotContainer {
   // Subsystems
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
-  // private final WristSubsystem wristSubsystem = new WristSubsystem();
+  private final WristSubsystem wristSubsystem = new WristSubsystem();
+  private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
   private final LedSubsystem ledSubsystem = new LedSubsystem();
@@ -36,8 +40,7 @@ public class RobotContainer {
   // // Commands
 
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem);
-  // // private final BalanceOnChargeStationNew smartBalanceNew =
-  // //     new BalanceOnChargeStationNew(driveBaseSubsystem, gyroSubsystem);
+  private final SmartBalance smartBalance = new SmartBalance(driveBaseSubsystem, gyroSubsystem);
 
   // // private final ArmToSetpoint armToIntakeSetpoint =
   // //     new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint);
@@ -88,6 +91,7 @@ public class RobotContainer {
       new MoveArmWithJoystickAnalog(armSubsystem, operatorJoystick);
   private final IntakePiece intakePieceGround =
       new IntakePiece(elevatorSubsystem, armSubsystem, NodeState.RESET);
+
   private final IntakePiece intakePieceSubstation =
       new IntakePiece(elevatorSubsystem, armSubsystem, NodeState.SUBSTATION);
 
@@ -98,7 +102,7 @@ public class RobotContainer {
 
   private final SmartRetract smartRetract =
       new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
-      
+
   private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
 
   // Autonomous

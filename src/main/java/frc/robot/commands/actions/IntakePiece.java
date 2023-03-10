@@ -6,14 +6,11 @@ package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.constants.ArmConstants;
-import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
-import frc.robot.subsystems.gripper.GripperSubsystem;
-import frc.robot.subsystems.gripper.RunGripper;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -29,14 +26,11 @@ public class IntakePiece extends SequentialCommandGroup {
    * @param gripperSubsystem for controlling orientation of the gripper.
    */
   public IntakePiece(
-      ElevatorSubsystem elevatorSubsystem,
-      ArmSubsystem armSubsystem,
-      NodeState intakeLocation) {
+      ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem, NodeState intakeLocation) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, intakeLocation),
-        new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint)
-    );
+        new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint));
   }
 }
