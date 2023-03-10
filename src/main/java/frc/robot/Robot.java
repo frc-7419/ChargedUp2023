@@ -8,6 +8,8 @@
 package frc.robot;
 
 import com.pathplanner.lib.server.PathPlannerServer;
+
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -21,6 +23,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
+    CameraServer.startAutomaticCapture();
     PathPlannerServer.startServer(5811);
   }
 
