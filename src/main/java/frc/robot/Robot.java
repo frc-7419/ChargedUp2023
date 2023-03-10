@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.pathplanner.lib.server.PathPlannerServer;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -18,6 +21,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer robotContainer;
   private static Alliance allianceColor;
+  private static String allianceSide;
 
   @Override
   public void robotInit() {
@@ -41,6 +45,11 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     robotContainer.getAutonomousCommand().schedule();
     allianceColor = DriverStation.getAlliance();
+    Map<Integer, String> locationMap = new HashMap<Integer, String>();
+    locationMap.put(1, "left");
+    locationMap.put(2, "mid");
+    locationMap.put(3, "right");
+    allianceSide = locationMap.get(DriverStation.getLocation()); // 1 - left 2 - mid 3 - right
   }
 
   public static String getAllianceColor() {
@@ -49,6 +58,11 @@ public class Robot extends TimedRobot {
     }
     return "Red";
   }
+
+  public static String getAllianceSide(){
+    return allianceSide;
+  }
+  
 
   @Override
   public void autonomousPeriodic() {}

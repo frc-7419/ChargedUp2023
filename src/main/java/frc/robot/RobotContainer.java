@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.actions.IntakePiece;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
+import frc.robot.commands.autos.OnePiece;
+import frc.robot.commands.autos.ThreePiece;
+import frc.robot.commands.autos.TwoPiece;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
@@ -103,6 +106,10 @@ public class RobotContainer {
   private final SmartRetract smartRetract =
       new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
 
+  private final OnePiece onePiece = new OnePiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
+  private final TwoPiece twoPiece = new twoPiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
+  private final ThreePiece threePiece = new threePiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
+
   private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
 
   // Autonomous
@@ -139,9 +146,9 @@ public class RobotContainer {
   }
 
   private void configureAutoSelector() {
-    autonomousChooser.setDefaultOption("", null);
-    autonomousChooser.addOption("", null);
-    autonomousChooser.addOption("", null);
+    autonomousChooser.setDefaultOption("Two Piece", twoPiece);
+    autonomousChooser.addOption("One Piece", onePiece);
+    autonomousChooser.addOption("Three Piece", threePiece);
     SmartDashboard.putData(autonomousChooser);
   }
 

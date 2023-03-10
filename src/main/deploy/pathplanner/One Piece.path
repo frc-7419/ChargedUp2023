@@ -2,12 +2,12 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 2.2126993686651066,
+        "x": 2.21,
         "y": 0.94
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6917582715111172,
+        "x": 3.21,
         "y": 0.94
       },
       "holonomicAngle": 0,
@@ -16,7 +16,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "Score Piece"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -24,24 +26,26 @@
     },
     {
       "anchorPoint": {
-        "x": 6.776118395986792,
-        "y": 0.9358665490024421
+        "x": 5.176262984104916,
+        "y": 0.94
       },
       "prevControl": {
-        "x": 3.732923930873154,
-        "y": 0.9358665490024421
+        "x": 5.920710273039418,
+        "y": 0.9399999999999998
       },
       "nextControl": {
-        "x": 9.81931286110043,
-        "y": 0.9358665490024421
+        "x": 5.920710273039418,
+        "y": 0.9399999999999998
       },
       "holonomicAngle": 0,
-      "isReversal": false,
+      "isReversal": true,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "Intake Piece"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -49,12 +53,12 @@
     },
     {
       "anchorPoint": {
-        "x": 2.0184806394538386,
-        "y": 0.46108828917806605
+        "x": 6.56,
+        "y": 0.94
       },
       "prevControl": {
-        "x": 4.4324189978118875,
-        "y": 0.46108828917806577
+        "x": 5.085575562587372,
+        "y": 0.94
       },
       "nextControl": null,
       "holonomicAngle": 0,
@@ -74,19 +78,13 @@
     {
       "position": 0.0,
       "names": [
-        "Score Piece High"
-      ]
-    },
-    {
-      "position": 1.039701704545455,
-      "names": [
-        "Intake Piece"
+        "Score Piece"
       ]
     },
     {
       "position": 2.0,
       "names": [
-        "Score Piece High"
+        "Intake Piece"
       ]
     }
   ]

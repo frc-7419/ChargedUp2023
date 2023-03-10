@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.actions.AutoIntakePiece;
 import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.autopaths.TwoPiecePath;
+import frc.robot.constants.RobotConstants;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -31,12 +32,13 @@ public class TwoPiece extends SequentialCommandGroup {
       GripperSubsystem gripperSubsystem) {
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
 
+    String allianceColor = RobotConstants.currentAllianceColor;
     eventMap.put(
         "Intake Piece",
         new AutoIntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET));
 
     eventMap.put(
-        "Score Piece",
+        "Score Piece High",
         new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
 
     PathPlannerTrajectory twoPiece =

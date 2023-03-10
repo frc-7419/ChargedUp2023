@@ -10,7 +10,8 @@ public final class RobotConstants {
 
   public static final double kWheelRadius = 3 * 0.0254; // inches TO centimeters conversion
   public static final double kWheelCircumference = 2 * Math.PI * kWheelRadius;
-  public static final String currentAlliance = Robot.getAllianceColor();
+  public static final String currentAllianceColor = Robot.getAllianceColor();
+  public static final String currentAllianceSide = Robot.getAllianceSide();
 
   public static final double mainArmGearRatio = 100;
   // arbitrary until we mount camera

@@ -36,7 +36,7 @@ public class ThreePiece extends SequentialCommandGroup {
         new AutoIntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET));
 
     eventMap.put(
-        "Score Piece",
+        "Score Piece High",
         new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
 
     PathPlannerTrajectory threePiece =
