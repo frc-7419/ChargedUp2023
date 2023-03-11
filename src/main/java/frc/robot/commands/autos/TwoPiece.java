@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.actions.AutoIntakePiece;
 import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.autopaths.TwoPiecePath;
-import frc.robot.constants.RobotConstants;
 import frc.robot.constants.NodeConstants.NodeState;
+import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -42,8 +42,7 @@ public class TwoPiece extends SequentialCommandGroup {
         new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
 
     PathPlannerTrajectory twoPiece =
-        PathPlanner.loadPath(
-            "Two Piece", PathPlanner.getConstraintsFromPath("Two Piece"));
+        PathPlanner.loadPath("Two Piece", PathPlanner.getConstraintsFromPath("Two Piece"));
 
     addCommands(
         new FollowPathWithEvents(

@@ -6,7 +6,6 @@ package frc.robot.commands.autopaths;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.constants.RobotConstants;
@@ -22,8 +21,7 @@ public class TwoPiecePath extends SequentialCommandGroup {
     String allianceSide = RobotConstants.currentAllianceSide;
     Alliance currentAlliance = RobotConstants.currentAlliance;
     PathPlannerTrajectory twoPiecePath =
-        PathPlanner.loadPath(
-            "Two Piece", PathPlanner.getConstraintsFromPath("Two Piece"));
+        PathPlanner.loadPath("Two Piece", PathPlanner.getConstraintsFromPath("Two Piece"));
     PathPlannerTrajectory.transformTrajectoryForAlliance(twoPiecePath, currentAlliance);
     addCommands(new GenerateTrajectory(driveBaseSubsystem, twoPiecePath));
   }

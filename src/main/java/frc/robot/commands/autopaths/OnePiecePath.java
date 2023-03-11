@@ -6,14 +6,12 @@ package frc.robot.commands.autopaths;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Robot;
 import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GenerateTrajectory;
@@ -27,12 +25,10 @@ public class OnePiecePath extends SequentialCommandGroup {
     String path = allianceSide + " One Piece";
     Alliance currentAlliance = RobotConstants.currentAlliance;
     PathPlannerTrajectory onePiecePath =
-        PathPlanner.loadPath(
-            "One Piece", PathPlanner.getConstraintsFromPath("One Piece"));
+        PathPlanner.loadPath("One Piece", PathPlanner.getConstraintsFromPath("One Piece"));
     PathPlannerTrajectory.transformTrajectoryForAlliance(onePiecePath, currentAlliance);
 
-
-    Translation2d translation2d = new Translation2d(0,3.96);
+    Translation2d translation2d = new Translation2d(0, 3.96);
     Rotation2d rotation2d = new Rotation2d(Units.degreesToRadians(180));
     Transform2d transform2d = new Transform2d(translation2d, rotation2d);
 
@@ -40,4 +36,3 @@ public class OnePiecePath extends SequentialCommandGroup {
     addCommands(new GenerateTrajectory(driveBaseSubsystem, onePiecePath));
   }
 }
- 

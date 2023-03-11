@@ -40,8 +40,7 @@ public class ThreePiece extends SequentialCommandGroup {
         new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
 
     PathPlannerTrajectory threePiece =
-        PathPlanner.loadPath(
-            "Three Piece", PathPlanner.getConstraintsFromPath("Three Piece"));
+        PathPlanner.loadPath("Three Piece", PathPlanner.getConstraintsFromPath("Three Piece"));
 
     addCommands(
         new FollowPathWithEvents(

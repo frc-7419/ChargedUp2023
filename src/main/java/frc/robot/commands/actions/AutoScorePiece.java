@@ -6,12 +6,10 @@ package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.constants.ArmConstants;
-import frc.robot.constants.RobotConstants;
 import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.constants.NodeConstants.NodeState;
+import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.arm.ArmSubsystem;
-import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.arm.ArmToSetpointWithFeedforward;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
@@ -39,12 +37,10 @@ public class AutoScorePiece extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      Commands.parallel(
-       new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation),
-       new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation)
-      ).withTimeout(RobotConstants.armElevatorDelay),
-       
-      new RunGripper(gripperSubsystem, GripperState.SCORE)
-    );
+        Commands.parallel(
+                new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation),
+                new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation))
+            .withTimeout(RobotConstants.armElevatorDelay),
+        new RunGripper(gripperSubsystem, GripperState.SCORE));
   }
 }

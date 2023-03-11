@@ -5,17 +5,14 @@ import static frc.robot.constants.DeviceIDs.CanIds;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.DeviceIDs;
-import frc.robot.constants.WristConstants;
 
 public class WristSubsystem extends SubsystemBase {
   private CANSparkMax wrist;
-  private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(300, 150);
+  private final TrapezoidProfile.Constraints constraints =
+      new TrapezoidProfile.Constraints(300, 150);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
 
@@ -51,50 +48,51 @@ public class WristSubsystem extends SubsystemBase {
   public double getPosition() {
     return wrist.getEncoder().getPosition() * 2 * Math.PI;
   }
-  
-  /** Sets the desired goal state of the arm.
-  *
-  * @param goalState the desired goal state of the arm
-  */
- public void setGoal(double goalState) {
-   goal = new TrapezoidProfile.State(goalState, 0);
- }
 
- /**
-  * Gets the desired goal state of the arm.
-  *
-  * @return desired state of goal (Trapezoidal Profile State)
-  */
- public TrapezoidProfile.State getGoal() {
-   return goal;
- }
+  /**
+   * Sets the desired goal state of the arm.
+   *
+   * @param goalState the desired goal state of the arm
+   */
+  public void setGoal(double goalState) {
+    goal = new TrapezoidProfile.State(goalState, 0);
+  }
 
- /**
-  * Sets the next setpoint for the arm.
-  *
-  * @param nextSetpoint the next setpoint for the arm
-  */
- public void setSetpoint(TrapezoidProfile.State nextSetpoint) {
-   setpoint = nextSetpoint;
- }
+  /**
+   * Gets the desired goal state of the arm.
+   *
+   * @return desired state of goal (Trapezoidal Profile State)
+   */
+  public TrapezoidProfile.State getGoal() {
+    return goal;
+  }
 
- /**
-  * Gets the arm setpoint.
-  *
-  * @return The setpoint of the arm
-  */
- public TrapezoidProfile.State getSetpoint() {
-   return setpoint;
- }
+  /**
+   * Sets the next setpoint for the arm.
+   *
+   * @param nextSetpoint the next setpoint for the arm
+   */
+  public void setSetpoint(TrapezoidProfile.State nextSetpoint) {
+    setpoint = nextSetpoint;
+  }
 
- /**
-  * Gets the arm constraints.
-  *
-  * @return the constraints (velocity and acceleration) for the trapezoidal profiling
-  */
- public TrapezoidProfile.Constraints getConstraints() {
-   return constraints;
- }
+  /**
+   * Gets the arm setpoint.
+   *
+   * @return The setpoint of the arm
+   */
+  public TrapezoidProfile.State getSetpoint() {
+    return setpoint;
+  }
+
+  /**
+   * Gets the arm constraints.
+   *
+   * @return the constraints (velocity and acceleration) for the trapezoidal profiling
+   */
+  public TrapezoidProfile.Constraints getConstraints() {
+    return constraints;
+  }
   /** Sets the motor power to 0, but doesn't brake. */
   public void stop() {
     setPower(0);

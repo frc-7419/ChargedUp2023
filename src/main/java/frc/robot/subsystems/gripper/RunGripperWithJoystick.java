@@ -40,7 +40,8 @@ public class RunGripperWithJoystick extends CommandBase {
     gripperSubsystem.isHolding = holdMode;
 
     boolean leftTriggerActivated = joystick.getLeftTriggerAxis() >= RobotConstants.joystickDeadZone;
-    boolean rightTriggerActivated = joystick.getRightTriggerAxis() >= RobotConstants.joystickDeadZone;
+    boolean rightTriggerActivated =
+        joystick.getRightTriggerAxis() >= RobotConstants.joystickDeadZone;
 
     if (rightTriggerActivated && !holdMode) {
       gripperSubsystem.coast();

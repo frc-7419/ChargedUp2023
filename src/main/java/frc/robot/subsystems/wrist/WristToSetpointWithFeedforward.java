@@ -9,15 +9,15 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.constants.ArmConstants;
 import frc.robot.constants.NodeConstants.NodeState;
-import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.constants.PIDConstants;
 import frc.robot.constants.WristConstants;
+import frc.robot.subsystems.arm.ArmSubsystem;
 
 public class WristToSetpointWithFeedforward extends CommandBase {
   /** Creates a new ArmToSetpointWithFeedforward. */
   private WristSubsystem wristSubsystem;
+
   private ArmSubsystem armSubsystem;
 
   private double setpoint;
@@ -25,11 +25,14 @@ public class WristToSetpointWithFeedforward extends CommandBase {
   private ArmFeedforward feedforward;
   private PIDController wristPIDController;
 
-  public WristToSetpointWithFeedforward(WristSubsystem wristSubsystem, ArmSubsystem armSubsystem, NodeState wristState) {
+  public WristToSetpointWithFeedforward(
+      WristSubsystem wristSubsystem, ArmSubsystem armSubsystem, NodeState wristState) {
     this.wristSubsystem = wristSubsystem;
     this.armSubsystem = armSubsystem;
     this.setpoint = wristState.wristSetpoint;
-    this.feedforward = new ArmFeedforward(WristConstants.ks, WristConstants.kg, WristConstants.kv, WristConstants.ka);
+    this.feedforward =
+        new ArmFeedforward(
+            WristConstants.ks, WristConstants.kg, WristConstants.kv, WristConstants.ka);
     this.wristPIDController =
         new PIDController(PIDConstants.wristkP, PIDConstants.wristkI, PIDConstants.wristkD);
     addRequirements(wristSubsystem);
@@ -50,16 +53,21 @@ public class WristToSetpointWithFeedforward extends CommandBase {
   public void execute() {
     currentProfile =
         new TrapezoidProfile(
-          wristSubsystem.getConstraints(), wristSubsystem.getGoal(), wristSubsystem.getSetpoint());
+            wristSubsystem.getConstraints(),
+            wristSubsystem.getGoal(),
+            wristSubsystem.getSetpoint());
 
     double currentPosition = wristSubsystem.getPosition();
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
     double feedForwardPower =
-        feedforward.calculate(nextSetpoint.position + armSubsystem.getPosition() * 2 * Math.PI, nextSetpoint.velocity) / 12;
+        feedforward.calculate(
+                nextSetpoint.position + armSubsystem.getPosition() * 2 * Math.PI,
+                nextSetpoint.velocity)
+            / 12;
 
-        wristSubsystem.setSetpoint(nextSetpoint);
+    wristSubsystem.setSetpoint(nextSetpoint);
 
     wristPIDController.setSetpoint(nextSetpoint.position);
 

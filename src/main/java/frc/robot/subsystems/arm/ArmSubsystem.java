@@ -114,7 +114,6 @@ public class ArmSubsystem extends SubsystemBase {
   public double getAngle() {
     return getPosition() * 360;
   }
-  
 
   /** Sets arm motor to coast mode, allowing arm to freely move */
   public void coast() {

@@ -14,6 +14,7 @@ import frc.robot.constants.DeviceIDs;
 public class GripperSubsystem extends SubsystemBase {
   /** Creates a new gripper. */
   private CANSparkMax gripper;
+
   public boolean isHolding;
 
   public GripperSubsystem() {
