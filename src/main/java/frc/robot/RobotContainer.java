@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.actions.IntakePiece;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
-import frc.robot.commands.autos.OnePiece;
-import frc.robot.commands.autos.ThreePiece;
-import frc.robot.commands.autos.TwoPiece;
+// import frc.robot.commands.autos.OnePiece;
+// import frc.robot.commands.autos.ThreePiece;
+// import frc.robot.commands.autos.TwoPiece;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
@@ -25,6 +25,7 @@ import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.SmartBalance;
 import frc.robot.subsystems.led.LedSubsystem;
 import frc.robot.subsystems.led.RunLed;
+import frc.robot.subsystems.wrist.MoveWristWithJoystick;
 import frc.robot.subsystems.wrist.WristSubsystem;
 
 public class RobotContainer {
@@ -33,10 +34,10 @@ public class RobotContainer {
 
   // Subsystems
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
-  private final ArmSubsystem armSubsystem = new ArmSubsystem();
-  private final WristSubsystem wristSubsystem = new WristSubsystem();
+  // private final ArmSubsystem armSubsystem = new ArmSubsystem();
+  // private final WristSubsystem wristSubsystem = new WristSubsystem();
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
-  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  // private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
   private final LedSubsystem ledSubsystem = new LedSubsystem();
 
@@ -59,8 +60,8 @@ public class RobotContainer {
   // // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
   // // //   private final ElevatorToSetpoint elevatorToHigh =
   // // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
-  private final MoveWristWithJoystick moveWristWithJoystick =
-      new MoveWristWithJoystick(wristSubsystem, driverJoystick);
+  // private final MoveWristWithJoystick moveWristWithJoystick =
+  //     new MoveWristWithJoystick(wristSubsystem, driverJoystick);
   // // // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
 
   private final RunGripperWithJoystick runGripperWithJoystick =
@@ -88,27 +89,27 @@ public class RobotContainer {
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
   // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.GROUND);
-  private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
-      new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
-  private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
-      new MoveArmWithJoystickAnalog(armSubsystem, operatorJoystick);
-  private final IntakePiece intakePieceGround =
-      new IntakePiece(elevatorSubsystem, armSubsystem, NodeState.RESET);
+  // private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
+  //     new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
+  // private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
+  //     new MoveArmWithJoystickAnalog(armSubsystem, operatorJoystick);
+  // private final IntakePiece intakePieceGround =
+  //     new IntakePiece(elevatorSubsystem, armSubsystem, NodeState.RESET);
 
-  private final IntakePiece intakePieceSubstation =
-      new IntakePiece(elevatorSubsystem, armSubsystem, NodeState.SUBSTATION);
+  // private final IntakePiece intakePieceSubstation =
+  //     new IntakePiece(elevatorSubsystem, armSubsystem, NodeState.SUBSTATION);
 
-  private final ScorePiece scorePieceLow =
-      new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.LOW);
-  private final ScorePiece scorePieceHigh =
-      new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH);
+  // private final ScorePiece scorePieceLow =
+  //     new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.LOW);
+  // private final ScorePiece scorePieceHigh =
+  //     new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH);
 
-  private final SmartRetract smartRetract =
-      new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
+  // private final SmartRetract smartRetract =
+  //     new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
 
-  private final OnePiece onePiece = new OnePiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
-  private final TwoPiece twoPiece = new TwoPiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
-  private final ThreePiece threePiece = new ThreePiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
+  // private final OnePiece onePiece = new OnePiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
+  // private final TwoPiece twoPiece = new TwoPiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
+  // private final ThreePiece threePiece = new ThreePiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
 
   private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
 
@@ -125,19 +126,19 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(scorePieceLow);
-    new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
+    // new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(scorePieceLow);
+    // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
 
-    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceGround);
-    new JoystickButton(operatorJoystick, Button.kY.value).onTrue(intakePieceSubstation);
+    // new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceGround);
+    // new JoystickButton(operatorJoystick, Button.kY.value).onTrue(intakePieceSubstation);
 
-    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(smartRetract);
+    // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(smartRetract);
   }
 
   private void configureAutoSelector() {
-    autonomousChooser.setDefaultOption("Two Piece", twoPiece);
-    autonomousChooser.addOption("One Piece", onePiece);
-    autonomousChooser.addOption("Three Piece", threePiece);
+    // autonomousChooser.setDefaultOption("Two Piece", twoPiece);
+    // autonomousChooser.addOption("One Piece", onePiece);
+    // autonomousChooser.addOption("Three Piece", threePiece);
     SmartDashboard.putData(autonomousChooser);
   }
 
@@ -150,8 +151,8 @@ public class RobotContainer {
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);
     gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
     ledSubsystem.setDefaultCommand(runLed);
-
-    armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
-    elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
+    // wristSubsystem.setDefaultCommand(moveWristWithJoystick);
+    // armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
+    // elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
   }
 }

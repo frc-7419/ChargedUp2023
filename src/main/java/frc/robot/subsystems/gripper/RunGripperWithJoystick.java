@@ -38,7 +38,11 @@ public class RunGripperWithJoystick extends CommandBase {
   @Override
   public void execute() {
     gripperSubsystem.isHolding = holdMode;
-    if (joystick.getRightTriggerAxis() >= RobotConstants.joystickDeadZone && !holdMode) {
+
+    boolean leftTriggerActivated = joystick.getLeftTriggerAxis() >= RobotConstants.joystickDeadZone;
+    boolean rightTriggerActivated = joystick.getRightTriggerAxis() >= RobotConstants.joystickDeadZone;
+
+    if (rightTriggerActivated && !holdMode) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
       ledSubsystem.setLEDRed();
@@ -52,12 +56,12 @@ public class RunGripperWithJoystick extends CommandBase {
         // speed
         holdMode = true;
       }
-    } else if (joystick.getLeftTriggerAxis() >= RobotConstants.joystickDeadZone) {
+    } else if (leftTriggerActivated) {
       gripperSubsystem.coast();
       gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);
       ledSubsystem.setLEDBlue();
       holdMode = false;
-    } else if (holdMode == true) {
+    } else if (holdMode) {
       gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);
       gripperSubsystem.brake();
       ledSubsystem.setLEDGreen();

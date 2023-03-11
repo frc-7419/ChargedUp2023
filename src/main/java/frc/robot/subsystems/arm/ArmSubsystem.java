@@ -103,7 +103,7 @@ public class ArmSubsystem extends SubsystemBase {
    * @return The position of the main arm, in units of rotations.
    */
   public double getPosition() {
-    return absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset;
+    return absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset; // 0 should = horizontal
   }
 
   /**
@@ -114,6 +114,7 @@ public class ArmSubsystem extends SubsystemBase {
   public double getAngle() {
     return getPosition() * 360;
   }
+  
 
   /** Sets arm motor to coast mode, allowing arm to freely move */
   public void coast() {
