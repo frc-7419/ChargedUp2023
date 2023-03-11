@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.constants.PIDConstants;
+import frc.robot.constants.RobotConstants;
 import frc.robot.constants.WristConstants;
 import frc.robot.subsystems.arm.ArmSubsystem;
 
@@ -61,11 +62,14 @@ public class WristToSetpointWithFeedforward extends CommandBase {
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
-    double feedForwardPower =
+    double wristPositionWithArmOffset = nextSetpoint.position + armSubsystem.getPosition() * 2 * Math.PI;
+
+    double feedForwardVoltage =
         feedforward.calculate(
-                nextSetpoint.position + armSubsystem.getPosition() * 2 * Math.PI,
-                nextSetpoint.velocity)
-            / 12;
+                wristPositionWithArmOffset,
+                nextSetpoint.velocity);
+
+    double feedForwardPower = feedForwardVoltage / RobotConstants.maxVoltage;
 
     wristSubsystem.setSetpoint(nextSetpoint);
 
@@ -73,7 +77,9 @@ public class WristToSetpointWithFeedforward extends CommandBase {
 
     double armPower = wristPIDController.calculate(currentPosition);
 
-    wristSubsystem.setPower(armPower + feedForwardPower);
+    double pidFeedforwardPower = armPower + feedForwardPower;
+
+    wristSubsystem.setPower(pidFeedforwardPower);
   }
 
   // Called once the command ends or is interrupted.
@@ -82,7 +88,7 @@ public class WristToSetpointWithFeedforward extends CommandBase {
     wristSubsystem.setPower(0);
     wristSubsystem.brake();
   }
-
+  
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

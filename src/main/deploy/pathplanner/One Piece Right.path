@@ -3,12 +3,12 @@
     {
       "anchorPoint": {
         "x": 2.21,
-        "y": 0.94
+        "y": 1.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.21,
-        "y": 0.94
+        "x": 3.274365021412546,
+        "y": 1.0
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -26,19 +26,16 @@
     },
     {
       "anchorPoint": {
-        "x": 5.176262984104916,
+        "x": 6.89,
         "y": 0.94
       },
       "prevControl": {
-        "x": 5.920710273039418,
-        "y": 0.9399999999999998
+        "x": 5.415575562587372,
+        "y": 0.94
       },
-      "nextControl": {
-        "x": 5.920710273039418,
-        "y": 0.9399999999999998
-      },
+      "nextControl": null,
       "holonomicAngle": 0,
-      "isReversal": true,
+      "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
@@ -50,41 +47,16 @@
         "waitBehavior": "none",
         "waitTime": 0
       }
-    },
-    {
-      "anchorPoint": {
-        "x": 6.56,
-        "y": 0.94
-      },
-      "prevControl": {
-        "x": 5.085575562587372,
-        "y": 0.94
-      },
-      "nextControl": null,
-      "holonomicAngle": 0,
-      "isReversal": false,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
     }
   ],
+  "maxVelocity": null,
+  "maxAcceleration": null,
+  "isReversed": true,
   "markers": [
     {
       "position": 0.0,
       "names": [
-        "Score Piece"
-      ]
-    },
-    {
-      "position": 2.0,
-      "names": [
-        "Intake Piece"
+        "Score Piece High"
       ]
     }
   ]

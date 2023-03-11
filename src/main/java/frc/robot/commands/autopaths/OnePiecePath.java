@@ -22,17 +22,12 @@ import frc.robot.subsystems.drive.GenerateTrajectory;
 public class OnePiecePath extends SequentialCommandGroup {
   public OnePiecePath(DriveBaseSubsystem driveBaseSubsystem) {
     String allianceSide = RobotConstants.currentAllianceSide;
-    String path = allianceSide + " One Piece";
+    String pathName = "One Piece" + allianceSide;
     Alliance currentAlliance = RobotConstants.currentAlliance;
     PathPlannerTrajectory onePiecePath =
-        PathPlanner.loadPath("One Piece", PathPlanner.getConstraintsFromPath("One Piece"));
+        PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));
     PathPlannerTrajectory.transformTrajectoryForAlliance(onePiecePath, currentAlliance);
 
-    Translation2d translation2d = new Translation2d(0, 3.96);
-    Rotation2d rotation2d = new Rotation2d(Units.degreesToRadians(180));
-    Transform2d transform2d = new Transform2d(translation2d, rotation2d);
-
-    onePiecePath.transformBy(transform2d);
     addCommands(new GenerateTrajectory(driveBaseSubsystem, onePiecePath));
   }
 }

@@ -22,4 +22,6 @@ public final class RobotConstants {
   public static double armElevatorDelay;
 
   public static double joystickDeadZone = 0.07;
+
+public static double maxVoltage = 12;
 }

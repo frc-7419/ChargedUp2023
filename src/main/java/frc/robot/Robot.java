@@ -45,9 +45,9 @@ public class Robot extends TimedRobot {
     robotContainer.getAutonomousCommand().schedule();
     allianceColor = DriverStation.getAlliance();
     Map<Integer, String> locationMap = new HashMap<Integer, String>();
-    locationMap.put(1, "left");
-    locationMap.put(2, "mid");
-    locationMap.put(3, "right");
+    locationMap.put(1, "Left");
+    locationMap.put(2, "Mid");
+    locationMap.put(3, "Right");
     allianceSide = locationMap.get(DriverStation.getLocation()); // 1 - left 2 - mid 3 - right
   }
 

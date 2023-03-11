@@ -2,13 +2,13 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 2.21,
-        "y": 0.94
+        "x": 2.0301141076215807,
+        "y": 5.014908987163945
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.21,
-        "y": 0.94
+        "x": 4.7180293412719525,
+        "y": 5.014908987163945
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -16,9 +16,7 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [
-          "Score Piece"
-        ],
+        "names": [],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -26,16 +24,16 @@
     },
     {
       "anchorPoint": {
-        "x": 5.176262984104916,
-        "y": 0.94
+        "x": 6.855064421029317,
+        "y": 4.615995772275905
       },
       "prevControl": {
-        "x": 5.920710273039418,
-        "y": 0.9399999999999998
+        "x": 4.8396888322567175,
+        "y": 4.615995772275905
       },
       "nextControl": {
-        "x": 5.920710273039418,
-        "y": 0.9399999999999998
+        "x": 4.8396888322567175,
+        "y": 4.615995772275905
       },
       "holonomicAngle": 0,
       "isReversal": true,
@@ -43,9 +41,7 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [
-          "Intake Piece"
-        ],
+        "names": [],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -53,12 +49,12 @@
     },
     {
       "anchorPoint": {
-        "x": 6.56,
-        "y": 0.94
+        "x": 2.0396120413093914,
+        "y": 4.426037098519695
       },
       "prevControl": {
-        "x": 5.085575562587372,
-        "y": 0.94
+        "x": 4.453550399667442,
+        "y": 4.426037098519695
       },
       "nextControl": null,
       "holonomicAngle": 0,
@@ -74,5 +70,15 @@
       }
     }
   ],
-  "markers": []
+  "maxVelocity": null,
+  "maxAcceleration": null,
+  "isReversed": true,
+  "markers": [
+    {
+      "position": 1.04,
+      "names": [
+        "Intake Piece"
+      ]
+    }
+  ]
 }

@@ -7,6 +7,8 @@ package frc.robot.commands.autos;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
+
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.actions.AutoIntakePiece;
@@ -31,8 +33,9 @@ public class TwoPiece extends SequentialCommandGroup {
       ArmSubsystem armSubsystem,
       GripperSubsystem gripperSubsystem) {
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
-
-    String allianceColor = RobotConstants.currentAllianceColor;
+    Alliance alliance = RobotConstants.currentAlliance;
+    String allianceSide = RobotConstants.currentAllianceSide;
+    String pathName = "Two Piece" + allianceSide;
     eventMap.put(
         "Intake Piece",
         new AutoIntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET));
@@ -42,8 +45,8 @@ public class TwoPiece extends SequentialCommandGroup {
         new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
 
     PathPlannerTrajectory twoPiece =
-        PathPlanner.loadPath("Two Piece", PathPlanner.getConstraintsFromPath("Two Piece"));
-
+        PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));
+        PathPlannerTrajectory.transformTrajectoryForAlliance(twoPiece,alliance);
     addCommands(
         new FollowPathWithEvents(
             new TwoPiecePath(driveBaseSubsystem), twoPiece.getMarkers(), eventMap));
