@@ -59,8 +59,8 @@ public class RobotContainer {
   // // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
   // // //   private final ElevatorToSetpoint elevatorToHigh =
   // // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
-  // // private final MoveWristWithJoystick moveWristWithJoystick =
-  // //     new MoveWristWithJoystick(wristSubsystem, driverJoystick);
+  private final MoveWristWithJoystick moveWristWithJoystick =
+      new MoveWristWithJoystick(wristSubsystem, driverJoystick);
   // // // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
 
   private final RunGripperWithJoystick runGripperWithJoystick =
@@ -107,8 +107,8 @@ public class RobotContainer {
       new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
 
   private final OnePiece onePiece = new OnePiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
-  private final TwoPiece twoPiece = new twoPiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
-  private final ThreePiece threePiece = new threePiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
+  private final TwoPiece twoPiece = new TwoPiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
+  private final ThreePiece threePiece = new ThreePiece(driveBaseSubsystem, elevatorSubsystem, armSubsystem, gripperSubsystem);
 
   private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
 
@@ -125,19 +125,8 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    // new JoystickButton(driverJoystick, Button.kX.value).whileTrue(smartBalanceNew);
-    // new JoystickButton(driverJoystick, Button.kA.value).whileTrue(armToIntakeSetpoint);
-    // new JoystickButton(driverJoystick, Button.kB.value).whileTrue(armToScoreSetpoint);
-    // new JoystickButton(driverJoystick, Button.kLeftBumper.value).whileTrue(smartWrist);
-    // new JoystickButton(driverJoystick, Button.kRightBumper.value).whileTrue(elevatorToSetpoint);
-    // new JoystickButton(operatorJoystick, Button.kX.value).whileTrue(elevatorToGround);
-    // new JoystickButton(operatorJoystick, Button.kRightBumper.value).whileTrue(elevatorToHigh);
-    // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).whileTrue(elevatorToLow);
-    // new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(scorePieceLow);
-    // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
-
-    // new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceGround);
-    // new JoystickButton(operatorJoystick, Button.kY.value).onTrue(intakePieceSubstation);
+    new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(scorePieceLow);
+    new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
 
     new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceGround);
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(intakePieceSubstation);
@@ -159,10 +148,10 @@ public class RobotContainer {
 
   public void setDefaultCommands() {
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);
-    armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
-    // wristSubsystem.setDefaultCommand(moveWristWithJoystick);
-    elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
     gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
     ledSubsystem.setDefaultCommand(runLed);
+
+    armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
+    elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
   }
 }

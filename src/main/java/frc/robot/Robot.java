@@ -59,6 +59,10 @@ public class Robot extends TimedRobot {
     return "Red";
   }
 
+  public static Alliance getAlliance() {
+    return allianceColor;
+  }
+
   public static String getAllianceSide(){
     return allianceSide;
   }

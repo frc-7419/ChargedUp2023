@@ -35,6 +35,7 @@ public class ScorePiece extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation),
-        new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation));
+        new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation)
+    );
   }
 }

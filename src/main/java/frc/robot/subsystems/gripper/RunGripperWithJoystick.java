@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.GripperConstants;
+import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.led.LedSubsystem;
 
 public class RunGripperWithJoystick extends CommandBase {
@@ -36,7 +37,8 @@ public class RunGripperWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (joystick.getRightBumper() && holdMode == false) {
+    gripperSubsystem.isHolding = holdMode;
+    if (joystick.getRightTriggerAxis() >= RobotConstants.joystickDeadZone && !holdMode) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
       ledSubsystem.setLEDRed();
@@ -50,7 +52,7 @@ public class RunGripperWithJoystick extends CommandBase {
         // speed
         holdMode = true;
       }
-    } else if (joystick.getLeftBumper()) {
+    } else if (joystick.getLeftTriggerAxis() >= RobotConstants.joystickDeadZone) {
       gripperSubsystem.coast();
       gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);
       ledSubsystem.setLEDBlue();
