@@ -12,16 +12,13 @@ import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GenerateTrajectory;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ThreePiecePath extends SequentialCommandGroup {
-  /** Creates a new OnePieceMobilityPath. */
   public ThreePiecePath(DriveBaseSubsystem driveBaseSubsystem) {
     String allianceSide = RobotConstants.currentAllianceSide;
+    String pathName = "Three Piece" + allianceSide;
     Alliance currentAlliance = RobotConstants.currentAlliance;
     PathPlannerTrajectory threePiecePath =
-        PathPlanner.loadPath("Three Piece", PathPlanner.getConstraintsFromPath("Three Piece"));
+        PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));
     PathPlannerTrajectory.transformTrajectoryForAlliance(threePiecePath, currentAlliance);
     addCommands(new GenerateTrajectory(driveBaseSubsystem, threePiecePath));
   }

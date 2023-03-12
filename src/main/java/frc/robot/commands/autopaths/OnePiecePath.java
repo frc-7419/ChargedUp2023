@@ -12,9 +12,6 @@ import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GenerateTrajectory;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class OnePiecePath extends SequentialCommandGroup {
   public OnePiecePath(DriveBaseSubsystem driveBaseSubsystem) {
     String allianceSide = RobotConstants.currentAllianceSide;
