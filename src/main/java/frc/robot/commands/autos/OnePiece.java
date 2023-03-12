@@ -7,15 +7,13 @@ package frc.robot.commands.autos;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.autopaths.OnePiecePath;
-import frc.robot.constants.RobotConstants;
 import frc.robot.constants.NodeConstants.NodeState;
+import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -42,7 +40,7 @@ public class OnePiece extends SequentialCommandGroup {
 
     PathPlannerTrajectory onePiece =
         PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));
-    PathPlannerTrajectory.transformTrajectoryForAlliance(onePiece,alliance);
+    PathPlannerTrajectory.transformTrajectoryForAlliance(onePiece, alliance);
 
     addCommands(
         new FollowPathWithEvents(

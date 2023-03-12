@@ -62,12 +62,11 @@ public class WristToSetpointWithFeedforward extends CommandBase {
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
-    double wristPositionWithArmOffset = nextSetpoint.position + armSubsystem.getPosition() * 2 * Math.PI;
+    double wristPositionWithArmOffset =
+        nextSetpoint.position + armSubsystem.getPosition() * 2 * Math.PI;
 
     double feedForwardVoltage =
-        feedforward.calculate(
-                wristPositionWithArmOffset,
-                nextSetpoint.velocity);
+        feedforward.calculate(wristPositionWithArmOffset, nextSetpoint.velocity);
 
     double feedForwardPower = feedForwardVoltage / RobotConstants.maxVoltage;
 
@@ -88,7 +87,7 @@ public class WristToSetpointWithFeedforward extends CommandBase {
     wristSubsystem.setPower(0);
     wristSubsystem.brake();
   }
-  
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

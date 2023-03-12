@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class RunDrive extends CommandBase {
   /** Creates a new RunDrive. */
   private double power;
+
   private DriveBaseSubsystem driveBaseSubsystem;
+
   public RunDrive(DriveBaseSubsystem driveBaseSubsystem, double power) {
     this.driveBaseSubsystem = driveBaseSubsystem;
     this.power = power;

@@ -20,13 +20,10 @@ public class TwoPiecePath extends SequentialCommandGroup {
   public TwoPiecePath(DriveBaseSubsystem driveBaseSubsystem) {
     String allianceSide = RobotConstants.currentAllianceSide;
     Alliance currentAlliance = RobotConstants.currentAlliance;
-    String pathName = "Two Piece " + allianceSide; //stephen ur goofy
+    String pathName = "Two Piece " + allianceSide; // stephen ur goofy
     PathPlannerTrajectory twoPiecePath =
         PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));
     PathPlannerTrajectory.transformTrajectoryForAlliance(twoPiecePath, currentAlliance);
     addCommands(new GenerateTrajectory(driveBaseSubsystem, twoPiecePath));
-
-    
-    
   }
 }

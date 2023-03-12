@@ -1,22 +1,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.autos.Mobility;
 // import frc.robot.commands.autos.OnePiece;
 // import frc.robot.commands.autos.ThreePiece;
 // import frc.robot.commands.autos.TwoPiece;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.gripper.GripperSubsystem;
-import frc.robot.subsystems.gripper.RunGripperWithJoystick;
-import frc.robot.subsystems.gyro.GyroSubsystem;
-import frc.robot.subsystems.gyro.SmartBalance;
-import frc.robot.subsystems.led.LedSubsystem;
-import frc.robot.subsystems.led.RunLed;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);

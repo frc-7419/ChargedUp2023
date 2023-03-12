@@ -7,19 +7,17 @@ package frc.robot.commands.autos;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.actions.AutoScorePiece;
-import frc.robot.commands.autopaths.OnePiecePath;
+import frc.robot.commands.autopaths.BalancePath;
 import frc.robot.constants.RobotConstants;
-import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.gripper.GripperSubsystem;
+import frc.robot.subsystems.gyro.GyroSubsystem;
+import frc.robot.subsystems.gyro.SmartBalance;
 import java.util.HashMap;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -31,18 +29,21 @@ public class Balance extends SequentialCommandGroup {
       DriveBaseSubsystem driveBaseSubsystem,
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
-      GripperSubsystem gripperSubsystem) {
+      GripperSubsystem gripperSubsystem,
+      GyroSubsystem gyroSubsystem) {
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
     Alliance alliance = RobotConstants.currentAlliance;
     String allianceSide = RobotConstants.currentAllianceSide;
     String pathName = "Balance " + allianceSide;
 
+    eventMap.put("Auto Balance", new SmartBalance(driveBaseSubsystem, gyroSubsystem));
+
     PathPlannerTrajectory balance =
         PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));
-    PathPlannerTrajectory.transformTrajectoryForAlliance(balance,alliance);
+    PathPlannerTrajectory.transformTrajectoryForAlliance(balance, alliance);
 
     addCommands(
         new FollowPathWithEvents(
-            new OnePiecePath(driveBaseSubsystem), balance.getMarkers(), eventMap));
+            new BalancePath(driveBaseSubsystem), balance.getMarkers(), eventMap));
   }
 }

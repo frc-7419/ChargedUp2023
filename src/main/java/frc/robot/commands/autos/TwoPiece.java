@@ -7,7 +7,6 @@ package frc.robot.commands.autos;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
-
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -46,7 +45,7 @@ public class TwoPiece extends SequentialCommandGroup {
 
     PathPlannerTrajectory twoPiece =
         PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));
-        PathPlannerTrajectory.transformTrajectoryForAlliance(twoPiece,alliance);
+    PathPlannerTrajectory.transformTrajectoryForAlliance(twoPiece, alliance);
     addCommands(
         new FollowPathWithEvents(
             new TwoPiecePath(driveBaseSubsystem), twoPiece.getMarkers(), eventMap));
