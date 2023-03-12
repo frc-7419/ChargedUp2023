@@ -12,10 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.autopaths.BalancePath;
 import frc.robot.constants.RobotConstants;
-import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.elevator.ElevatorSubsystem;
-import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.SmartBalance;
 import java.util.HashMap;
@@ -25,12 +22,7 @@ import java.util.HashMap;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Balance extends SequentialCommandGroup {
   /** Creates a new OnePieceMobility. */
-  public Balance(
-      DriveBaseSubsystem driveBaseSubsystem,
-      ElevatorSubsystem elevatorSubsystem,
-      ArmSubsystem armSubsystem,
-      GripperSubsystem gripperSubsystem,
-      GyroSubsystem gyroSubsystem) {
+  public Balance(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem) {
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
     Alliance alliance = RobotConstants.currentAlliance;
     String allianceSide = RobotConstants.currentAllianceSide;

@@ -1,6 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.autos.Mobility;
 // import frc.robot.commands.autos.OnePiece;
@@ -8,6 +10,7 @@ import frc.robot.commands.autos.Mobility;
 // import frc.robot.commands.autos.TwoPiece;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
+import frc.robot.subsystems.gyro.GyroSubsystem;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -17,7 +20,7 @@ public class RobotContainer {
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   // private final ArmSubsystem armSubsystem = new ArmSubsystem();
   // private final WristSubsystem wristSubsystem = new WristSubsystem();
-  // private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
+  private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   // // private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   // private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
   // private final LedSubsystem ledSubsystem = new LedSubsystem();
@@ -88,17 +91,18 @@ public class RobotContainer {
   // private final SmartRetract smartRetract =
   //     new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
 
+  // private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
+
+  // // Autonomous
+  private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
   // private final OnePiece onePiece = new OnePiece(driveBaseSubsystem, elevatorSubsystem,
   // armSubsystem, gripperSubsystem);
   // private final TwoPiece twoPiece = new TwoPiece(driveBaseSubsystem, elevatorSubsystem,
   // armSubsystem, gripperSubsystem);
   // private final ThreePiece threePiece = new ThreePiece(driveBaseSubsystem, elevatorSubsystem,
   // armSubsystem, gripperSubsystem);
-
-  // private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
-
-  // // Autonomous
-  // private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+  // private final Balance balance = new Balance(driveBaseSubsystem, gyroSubsystem);
+  private final Mobility mobility = new Mobility(driveBaseSubsystem);
   // Path Planning Commands
 
   // TODO will use when testing path planning
@@ -106,7 +110,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureButtonBindings();
-    // configureAutoSelector();
+    configureAutoSelector();
   }
 
   private void configureButtonBindings() {
@@ -119,12 +123,12 @@ public class RobotContainer {
     // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(smartRetract);
   }
 
-  // private void configureAutoSelector() {
-  //   // autonomousChooser.setDefaultOption("Two Piece", twoPiece);
-  //   // autonomousChooser.addOption("One Piece", onePiece);
-  //   // autonomousChooser.addOption("Three Piece", threePiece);
-  //   SmartDashboard.putData(autonomousChooser);
-  // }
+  private void configureAutoSelector() {
+    autonomousChooser.setDefaultOption("Mobility", mobility);
+    // autonomousChooser.addOption("One Piece", onePiece);
+    // autonomousChooser.addOption("Three Piece", threePiece);
+    SmartDashboard.putData(autonomousChooser);
+  }
 
   public Command getAutonomousCommand() {
     // ledSubsystem.rainbowLED(0);

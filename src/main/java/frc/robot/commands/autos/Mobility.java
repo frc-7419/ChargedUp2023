@@ -16,6 +16,9 @@ public class Mobility extends SequentialCommandGroup {
   public Mobility(DriveBaseSubsystem driveBaseSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new RunDrive(driveBaseSubsystem, 0.3).withTimeout(1.5));
+    addCommands(
+        new RunDrive(driveBaseSubsystem, 0.8).withTimeout(0.2),
+        new RunDrive(driveBaseSubsystem, -0.4).withTimeout(1.5),
+        new RunDrive(driveBaseSubsystem, 0.3).withTimeout(4));
   }
 }

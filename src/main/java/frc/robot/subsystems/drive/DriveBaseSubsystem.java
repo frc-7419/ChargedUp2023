@@ -1,7 +1,11 @@
 package frc.robot.subsystems.drive;
 
+import javax.swing.text.AbstractDocument.LeafElement;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -53,15 +57,23 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
     leftLeader.configVoltageCompSaturation(11);
     leftLeader.enableVoltageCompensation(true);
+    leftLeader.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 100, 0, 0), 5);
+    leftLeader.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 0,0), 5);
 
     leftFollower.configVoltageCompSaturation(11);
     leftFollower.enableVoltageCompensation(true);
+    leftFollower.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 100, 0, 0), 5);
+    leftFollower.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 0,0), 5);
 
     rightLeader.configVoltageCompSaturation(11);
-    rightFollower.enableVoltageCompensation(true);
+    rightLeader.enableVoltageCompensation(true);
+    rightLeader.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 100, 0, 0), 5);
+    rightLeader.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 0,0), 5);
 
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
+    rightFollower.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 100, 0, 0), 5);
+    rightFollower.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 0,0), 5);
 
     poseEstimation = new DrivetrainPoseEstimator(new GyroSubsystem());
   }
