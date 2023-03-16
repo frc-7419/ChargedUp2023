@@ -15,4 +15,8 @@ public final class RobotConstants {
   public static final double mainArmGearRatio = 100;
   // arbitrary until we mount camera
   public static final Transform3d kCameraToRobot = new Transform3d();
+
+  public static Transform3d kScoringCameraToRobot;
+
+  public static Transform3d kAuxiliaryCameraToRobot;
 }
