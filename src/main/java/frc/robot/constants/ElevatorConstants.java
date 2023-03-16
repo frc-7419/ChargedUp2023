@@ -20,6 +20,13 @@ public final class ElevatorConstants {
   // public static final double elevatorKa = 2.3;
   public static final double elevatorKg = 0.073137;
 
+  public static final double elevatorKP = 0.01;
+  public static final double elevatorKI = 0;
+  public static final double elevatorKD = 0;
+  public static final double elevatorKF = 0;
+
+  public static final double closedLoopPeakOutput = 0.8;
+
   public static enum NodeState {
     RESET(4, 0),
     SUBSTATION(20, 30),

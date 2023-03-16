@@ -1,8 +1,13 @@
 package frc.robot.subsystems.elevator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.AnalogEncoder;
@@ -28,6 +33,30 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     absoluteEncoder = new AnalogEncoder(2);
     // elevatorMotor.set(ControlMode.PercentOutput, 0);
+
+    TalonFXConfiguration config = new TalonFXConfiguration();
+    config.primaryPID.selectedFeedbackSensor = TalonFXFeedbackDevice.IntegratedSensor.toFeedbackDevice();
+    config.slot0.kP = ElevatorConstants.elevatorKP;
+    config.slot0.kI = ElevatorConstants.elevatorKI;
+    config.slot0.kD = ElevatorConstants.elevatorKD;
+    config.slot0.kF = ElevatorConstants.elevatorKF;
+    // config.slot0.integralZone = // idk what this does
+    config.slot0.closedLoopPeakOutput = ElevatorConstants.closedLoopPeakOutput;
+    config.voltageCompSaturation = 11;
+    
+    // Soft Limits
+    /*
+    config.forwardSoftLimitEnable = true;
+    config.forwardSoftLimitThreshold = 50000;
+    config.reverseSoftLimitEnable = true;
+    config.reverseSoftLimitThreshold = 0;
+    */
+
+    elevatorMotor.configAllSettings(config);
+  }
+
+  public void setMotionMagic(double ticks) {
+    elevatorMotor.set(TalonFXControlMode.MotionMagic, ticks, DemandType.ArbitraryFeedForward, ElevatorConstants.elevatorFeedForward);
   }
 
   /**
@@ -92,6 +121,14 @@ public class ElevatorSubsystem extends SubsystemBase {
   public double getElevatorPosition() {
     return Units.rotationsToRadians(
         absoluteEncoder.getAbsolutePosition() * ElevatorConstants.drumRadius / (2048 * 25));
+  }
+
+  public double getElevatorIntegratedPosition() {
+    return elevatorMotor.getSelectedSensorPosition();
+  }
+
+  public double getElevatorOutput() {
+    return elevatorMotor.getMotorOutputPercent();
   }
 
   @Override
