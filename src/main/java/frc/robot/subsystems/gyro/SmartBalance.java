@@ -13,7 +13,7 @@ public class SmartBalance extends CommandBase {
   private GyroSubsystem gyroSubsystem;
   private DriveBaseSubsystem driveBaseSubsystem;
   private double robotPitch;
-  private double lastTimeStamp;
+  private double lastTimeStamp, currentTimeStamp;
   boolean stopCorrecting = false;
 
   /** Creates a new SmartBalance. */
@@ -33,8 +33,9 @@ public class SmartBalance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double currentTimeStamp = Timer.getFPGATimestamp();
-    double timePassed = currentTimeStamp - lastTimeStamp;
+    lastTimeStamp = currentTimeStamp;
+    currentTimeStamp = Timer.getFPGATimestamp();
+    double timePassed = currentTimeStamp - lastTimeStamp; //HOPEFULLY constant but goofy ah
     double previousPitch = robotPitch;
     robotPitch = gyroSubsystem.getPitch();
     double changeInPitch = (robotPitch - previousPitch) / (timePassed);
