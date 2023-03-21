@@ -4,19 +4,17 @@
 
 package frc.robot.subsystems.drive;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Testing extends CommandBase {
-  /** Creates a new Testing. */
+public class RunDrive extends CommandBase {
+  /** Creates a new RunDrive. */
+  private double power;
+
   private DriveBaseSubsystem driveBaseSubsystem;
 
-  private XboxController joystick;
-
-  public Testing(DriveBaseSubsystem driveBaseSubsystem, XboxController joystick) {
+  public RunDrive(DriveBaseSubsystem driveBaseSubsystem, double power) {
     this.driveBaseSubsystem = driveBaseSubsystem;
-    this.joystick = joystick;
-    addRequirements(driveBaseSubsystem);
+    this.power = power;
   }
 
   // Called when the command is initially scheduled.
@@ -26,19 +24,14 @@ public class Testing extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (joystick.getRightBumper()) {
-      driveBaseSubsystem.setTopPower(0.1);
-    } else if (joystick.getLeftBumper()) {
-      driveBaseSubsystem.setBottomPower(0.1);
-    } else {
-      driveBaseSubsystem.setAllPower(0);
-    }
+    driveBaseSubsystem.setAllPower(power);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     driveBaseSubsystem.setAllPower(0);
+    driveBaseSubsystem.brake();
   }
 
   // Returns true when the command should end.

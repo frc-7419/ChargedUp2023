@@ -12,4 +12,17 @@ public final class LEDConstants {
   // cone and cube POVs
   public static final int conePOV = 180;
   public static final int cubePOV = 0;
+
+  // intake
+  public static final int blueH = 120;
+  public static final int blueS = 255;
+  public static final int blueV = 255;
+
+  public static final int redH = 0;
+  public static final int redS = 255;
+  public static final int redV = 255;
+
+  public static final int greenH = 60;
+  public static final int greenS = 255;
+  public static final int greenV = 128;
 }

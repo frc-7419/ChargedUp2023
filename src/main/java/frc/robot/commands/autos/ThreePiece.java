@@ -9,9 +9,9 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.actions.IntakePiece;
-import frc.robot.commands.actions.ScorePiece;
-import frc.robot.commands.autopaths.TwoPieceMobilityPath;
+import frc.robot.commands.actions.AutoIntakePiece;
+import frc.robot.commands.actions.AutoScorePiece;
+import frc.robot.commands.autopaths.ThreePiecePath;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -22,9 +22,9 @@ import java.util.HashMap;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TwoPieceMobility extends SequentialCommandGroup {
-  /** Creates a new OnePieceMobility. */
-  public TwoPieceMobility(
+public class ThreePiece extends SequentialCommandGroup {
+  /** Creates a new ThreePiece. */
+  public ThreePiece(
       DriveBaseSubsystem driveBaseSubsystem,
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
@@ -33,18 +33,17 @@ public class TwoPieceMobility extends SequentialCommandGroup {
 
     eventMap.put(
         "Intake Piece",
-        new IntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET));
+        new AutoIntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET));
 
     eventMap.put(
-        "Score Piece",
-        new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
+        "Score Piece High",
+        new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
 
-    PathPlannerTrajectory twoPieceMoblity =
-        PathPlanner.loadPath(
-            "Two Piece + Mobility", PathPlanner.getConstraintsFromPath("Two Piece + Mobility"));
+    PathPlannerTrajectory threePiece =
+        PathPlanner.loadPath("Three Piece", PathPlanner.getConstraintsFromPath("Three Piece"));
 
     addCommands(
         new FollowPathWithEvents(
-            new TwoPieceMobilityPath(driveBaseSubsystem), twoPieceMoblity.getMarkers(), eventMap));
+            new ThreePiecePath(driveBaseSubsystem), threePiece.getMarkers(), eventMap));
   }
 }

@@ -1,0 +1,96 @@
+{
+  "waypoints": [
+    {
+      "anchorPoint": {
+        "x": 2.02061617393377,
+        "y": 1.0257768382835346
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.49967507677978,
+        "y": 1.0257768382835346
+      },
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.836068553653696,
+        "y": 0.9023037003419971
+      },
+      "prevControl": {
+        "x": 3.7928740885400583,
+        "y": 0.9023037003419971
+      },
+      "nextControl": {
+        "x": 3.7928740885400583,
+        "y": 0.9023037003419971
+      },
+      "holonomicAngle": 0,
+      "isReversal": true,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 2.0184806394538386,
+        "y": 0.46108828917806605
+      },
+      "prevControl": {
+        "x": 4.4324189978118875,
+        "y": 0.46108828917806577
+      },
+      "nextControl": null,
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    }
+  ],
+  "maxVelocity": null,
+  "maxAcceleration": null,
+  "isReversed": true,
+  "markers": [
+    {
+      "position": 0.0,
+      "names": [
+        "Score Piece High"
+      ]
+    },
+    {
+      "position": 1.039701704545455,
+      "names": [
+        "Intake Piece"
+      ]
+    },
+    {
+      "position": 2.0,
+      "names": [
+        "Score Piece High"
+      ]
+    }
+  ]
+}
