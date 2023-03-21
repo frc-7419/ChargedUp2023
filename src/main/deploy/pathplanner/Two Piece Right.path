@@ -16,10 +16,13 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "names": [
+          "Score Piece High",
+          "Retract Intake"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "deadline",
+        "waitTime": 3.0
       }
     },
     {
@@ -39,12 +42,15 @@
       "isReversal": true,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "names": [
+          "Intake Piece",
+          "Retract Intake"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "deadline",
+        "waitTime": 2.0
       }
     },
     {
@@ -63,34 +69,17 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "names": [
+          "Score Piece High"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "deadline",
+        "waitTime": 2.0
       }
     }
   ],
   "maxVelocity": null,
   "maxAcceleration": null,
   "isReversed": true,
-  "markers": [
-    {
-      "position": 0.0,
-      "names": [
-        "Score Piece High"
-      ]
-    },
-    {
-      "position": 1.039701704545455,
-      "names": [
-        "Intake Piece"
-      ]
-    },
-    {
-      "position": 2.0,
-      "names": [
-        "Score Piece High"
-      ]
-    }
-  ]
+  "markers": []
 }

@@ -1,7 +1,5 @@
 package frc.robot.subsystems.drive;
 
-import javax.swing.text.AbstractDocument.LeafElement;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
@@ -43,8 +41,10 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private double currentTimeStamp;
 
   public DriveBaseSubsystem() {
-    StatorCurrentLimitConfiguration statorCurrentLimitConfiguration = new StatorCurrentLimitConfiguration(true, 100, 0, 0);
-    SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 35, 0,0);
+    StatorCurrentLimitConfiguration statorCurrentLimitConfiguration =
+        new StatorCurrentLimitConfiguration(true, 100, 0, 0);
+    SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration =
+        new SupplyCurrentLimitConfiguration(true, 35, 0, 0);
     SmartDashboard.putData("Field", field);
     leftLeader = new TalonFX(DeviceIDs.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(DeviceIDs.CanIds.leftFalcon2.id);
@@ -59,22 +59,22 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
     leftLeader.configVoltageCompSaturation(11);
     leftLeader.enableVoltageCompensation(true);
-    leftLeader.configStatorCurrentLimit(statorCurrentLimitConfiguration , 5);
+    leftLeader.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);
     leftLeader.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
 
     leftFollower.configVoltageCompSaturation(11);
     leftFollower.enableVoltageCompensation(true);
-    leftFollower.configStatorCurrentLimit(statorCurrentLimitConfiguration , 5);
+    leftFollower.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);
     leftFollower.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
 
     rightLeader.configVoltageCompSaturation(11);
     rightLeader.enableVoltageCompensation(true);
-    rightLeader.configStatorCurrentLimit(statorCurrentLimitConfiguration , 5);
+    rightLeader.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);
     rightLeader.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
 
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
-    rightFollower.configStatorCurrentLimit(statorCurrentLimitConfiguration , 5);
+    rightFollower.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);
     rightFollower.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
 
     poseEstimation = new DrivetrainPoseEstimator(new GyroSubsystem());

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.actions.AutoIntakePiece;
 import frc.robot.commands.actions.AutoScorePiece;
+import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.autopaths.TwoPiecePath;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.constants.RobotConstants;
@@ -35,13 +36,17 @@ public class TwoPiece extends SequentialCommandGroup {
     Alliance alliance = RobotConstants.currentAlliance;
     String allianceSide = RobotConstants.currentAllianceSide;
     String pathName = "Two Piece" + allianceSide;
+
     eventMap.put(
         "Intake Piece",
-        new AutoIntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.RESET));
+        new AutoIntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.GROUND));
 
     eventMap.put(
         "Score Piece High",
         new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
+
+    eventMap.put(
+        "Retract Intake", new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem));
 
     PathPlannerTrajectory twoPiece =
         PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));

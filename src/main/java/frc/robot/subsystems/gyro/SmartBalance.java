@@ -35,7 +35,7 @@ public class SmartBalance extends CommandBase {
   public void execute() {
     lastTimeStamp = currentTimeStamp;
     currentTimeStamp = Timer.getFPGATimestamp();
-    double timePassed = currentTimeStamp - lastTimeStamp; //HOPEFULLY constant but goofy ah
+    double timePassed = currentTimeStamp - lastTimeStamp; // HOPEFULLY constant but goofy ah
     double previousPitch = robotPitch;
     robotPitch = gyroSubsystem.getPitch();
     double changeInPitch = (robotPitch - previousPitch) / (timePassed);

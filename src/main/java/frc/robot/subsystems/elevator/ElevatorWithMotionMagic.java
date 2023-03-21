@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ElevatorWithMotionMagic extends CommandBase {
   ElevatorSubsystem elevatorSubsystem;
   private double setpoint;
+
   public ElevatorWithMotionMagic(ElevatorSubsystem elevatorSubsystem, double setpoint) {
     this.elevatorSubsystem = elevatorSubsystem;
     this.setpoint = setpoint;

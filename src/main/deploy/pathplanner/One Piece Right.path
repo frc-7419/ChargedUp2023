@@ -17,11 +17,12 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "Score Piece"
+          "Score Piece High",
+          "Retract Intake"
         ],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "executionBehavior": "sequential",
+        "waitBehavior": "deadline",
+        "waitTime": 3.0
       }
     },
     {
@@ -43,21 +44,14 @@
         "names": [
           "Intake Piece"
         ],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "executionBehavior": "sequential",
+        "waitBehavior": "deadline",
+        "waitTime": 2.0
       }
     }
   ],
   "maxVelocity": null,
   "maxAcceleration": null,
   "isReversed": true,
-  "markers": [
-    {
-      "position": 0.0,
-      "names": [
-        "Score Piece High"
-      ]
-    }
-  ]
+  "markers": []
 }
