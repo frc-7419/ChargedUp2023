@@ -24,9 +24,4 @@ public final class RobotConstants {
   public static double joystickDeadZone = 0.07;
 
   public static double maxVoltage = 12;
-  
-  public static Transform3d kScoringCameraToRobot;
-
-  public static Transform3d kAuxiliaryCameraToRobot;
-
 }
