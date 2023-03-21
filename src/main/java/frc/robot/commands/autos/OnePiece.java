@@ -10,7 +10,9 @@ import com.pathplanner.lib.commands.FollowPathWithEvents;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.actions.AutoIntakePiece;
 import frc.robot.commands.actions.AutoScorePiece;
+import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.autopaths.OnePiecePath;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.constants.RobotConstants;
@@ -31,12 +33,19 @@ public class OnePiece extends SequentialCommandGroup {
       ArmSubsystem armSubsystem,
       GripperSubsystem gripperSubsystem) {
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
+
     Alliance alliance = RobotConstants.currentAlliance;
     String allianceSide = RobotConstants.currentAllianceSide;
     String pathName = "One Piece " + allianceSide;
+
     eventMap.put(
         "Score Piece High",
         new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
+    eventMap.put(
+        "Retract Intake", new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem));
+    eventMap.put(
+        "Intake Piece",
+        new AutoIntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.GROUND));
 
     PathPlannerTrajectory onePiece =
         PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));

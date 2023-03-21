@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.AnalogEncoder;
@@ -35,7 +34,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     // elevatorMotor.set(ControlMode.PercentOutput, 0);
 
     TalonFXConfiguration config = new TalonFXConfiguration();
-    config.primaryPID.selectedFeedbackSensor = TalonFXFeedbackDevice.IntegratedSensor.toFeedbackDevice();
+    config.primaryPID.selectedFeedbackSensor =
+        TalonFXFeedbackDevice.IntegratedSensor.toFeedbackDevice();
     config.slot0.kP = ElevatorConstants.elevatorKP;
     config.slot0.kI = ElevatorConstants.elevatorKI;
     config.slot0.kD = ElevatorConstants.elevatorKD;
@@ -43,7 +43,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // config.slot0.integralZone = // idk what this does
     config.slot0.closedLoopPeakOutput = ElevatorConstants.closedLoopPeakOutput;
     config.voltageCompSaturation = 11;
-    
+
     // Soft Limits
     /*
     config.forwardSoftLimitEnable = true;
@@ -56,7 +56,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setMotionMagic(double ticks) {
-    elevatorMotor.set(TalonFXControlMode.MotionMagic, ticks, DemandType.ArbitraryFeedForward, ElevatorConstants.elevatorFeedForward);
+    elevatorMotor.set(
+        TalonFXControlMode.MotionMagic,
+        ticks,
+        DemandType.ArbitraryFeedForward,
+        ElevatorConstants.elevatorFeedForward);
   }
 
   /**

@@ -17,21 +17,22 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "Score Piece"
+          "Score Piece High",
+          "Retract Intake"
         ],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "executionBehavior": "sequential",
+        "waitBehavior": "deadline",
+        "waitTime": 3.0
       }
     },
     {
       "anchorPoint": {
-        "x": 6.807574752590265,
-        "y": 4.691979241778389
+        "x": 6.74270700568931,
+        "y": 4.615638432355734
       },
       "prevControl": {
-        "x": 5.6488268426773836,
-        "y": 4.672983374402768
+        "x": 5.583959095776429,
+        "y": 4.596642564980113
       },
       "nextControl": null,
       "holonomicAngle": 0,
@@ -40,10 +41,13 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "names": [
+          "Intake Piece",
+          "Retract Intake"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "deadline",
+        "waitTime": 3.0
       }
     }
   ],

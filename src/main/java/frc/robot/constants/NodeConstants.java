@@ -3,6 +3,7 @@ package frc.robot.constants;
 public final class NodeConstants {
   public static enum NodeState {
     RESET(4, 0, 0),
+    GROUND(0, 20, 100),
     SUBSTATION(20, 30, 150),
     LOW(35, 50, 130),
     HIGH(30, 80, 100);
