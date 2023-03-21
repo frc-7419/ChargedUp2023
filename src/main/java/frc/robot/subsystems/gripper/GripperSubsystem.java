@@ -15,6 +15,8 @@ public class GripperSubsystem extends SubsystemBase {
   /** Creates a new gripper. */
   private CANSparkMax gripper;
 
+  public boolean isHolding;
+
   public GripperSubsystem() {
     this.gripper = new CANSparkMax(DeviceIDs.CanIds.gripperNeo.id, MotorType.kBrushless);
   }

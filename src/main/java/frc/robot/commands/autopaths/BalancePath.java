@@ -6,21 +6,24 @@ package frc.robot.commands.autopaths;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GenerateTrajectory;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TwoPieceMobilityPath extends SequentialCommandGroup {
-  /** Creates a new OnePieceMobilityPath. */
-  public TwoPieceMobilityPath(DriveBaseSubsystem driveBaseSubsystem) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    PathPlannerTrajectory twoPieceMoblity =
-        PathPlanner.loadPath(
-            "Two Piece + Mobility", PathPlanner.getConstraintsFromPath("Two Piece + Mobility"));
-    addCommands(new GenerateTrajectory(driveBaseSubsystem, twoPieceMoblity));
+public class BalancePath extends SequentialCommandGroup {
+  public BalancePath(DriveBaseSubsystem driveBaseSubsystem) {
+    String allianceSide = RobotConstants.currentAllianceSide;
+    String pathName = "Balance" + allianceSide;
+    Alliance currentAlliance = RobotConstants.currentAlliance;
+    PathPlannerTrajectory balancePath =
+        PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));
+    PathPlannerTrajectory.transformTrajectoryForAlliance(balancePath, currentAlliance);
+
+    addCommands(new GenerateTrajectory(driveBaseSubsystem, balancePath));
   }
 }

@@ -70,6 +70,7 @@ public class DrivetrainPoseEstimator {
     this.gyroSubsystem = gyroSubsystem;
     scoringCamera = new PhotonCamera("terima");
     auxiliaryCamera = new PhotonCamera("teripaapa");
+    
     poses.put(1, AprilTagPositionConstants.kAprilTagOnePose);
     poses.put(2, AprilTagPositionConstants.kAprilTagTwoPose);
     poses.put(3, AprilTagPositionConstants.kAprilTagThreePose);

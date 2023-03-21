@@ -103,7 +103,7 @@ public class ArmSubsystem extends SubsystemBase {
    * @return The position of the main arm, in units of rotations.
    */
   public double getPosition() {
-    return absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset;
+    return absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset; // 0 should = horizontal
   }
 
   /**
