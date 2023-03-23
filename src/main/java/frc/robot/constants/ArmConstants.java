@@ -1,7 +1,7 @@
 package frc.robot.constants;
 
 public final class ArmConstants {
-  public static final double armPower = 0.7;
+  public static final double armPower = 0.4;
   public static final double armFeedforward = 0.05;
   public static final double armOffset = 0.5;
 

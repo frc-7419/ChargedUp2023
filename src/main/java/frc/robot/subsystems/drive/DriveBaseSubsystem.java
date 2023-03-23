@@ -35,16 +35,17 @@ public class DriveBaseSubsystem extends SubsystemBase {
   PIDController leftPIDController = new PIDController(8.5, 0, 0);
   PIDController rightPIDController = new PIDController(8.5, 0, 0);
 
+  StatorCurrentLimitConfiguration statorCurrentLimitConfiguration =
+      new StatorCurrentLimitConfiguration(true, 100, 0, 0);
+  SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration =
+      new SupplyCurrentLimitConfiguration(true, 35, 0, 0);
+
   private double leftDistance = 0;
   private double rightDistance = 0;
   private double previousTimeStamp = 0;
   private double currentTimeStamp;
 
   public DriveBaseSubsystem() {
-    StatorCurrentLimitConfiguration statorCurrentLimitConfiguration =
-        new StatorCurrentLimitConfiguration(true, 100, 0, 0);
-    SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration =
-        new SupplyCurrentLimitConfiguration(true, 35, 0, 0);
     SmartDashboard.putData("Field", field);
     leftLeader = new TalonFX(DeviceIDs.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(DeviceIDs.CanIds.leftFalcon2.id);
@@ -59,25 +60,22 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
     leftLeader.configVoltageCompSaturation(11);
     leftLeader.enableVoltageCompensation(true);
-    leftLeader.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);
-    leftLeader.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
 
     leftFollower.configVoltageCompSaturation(11);
     leftFollower.enableVoltageCompensation(true);
-    leftFollower.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);
-    leftFollower.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
 
     rightLeader.configVoltageCompSaturation(11);
     rightLeader.enableVoltageCompensation(true);
-    rightLeader.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);
-    rightLeader.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
 
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
-    rightFollower.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);
-    rightFollower.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
 
     poseEstimation = new DrivetrainPoseEstimator(new GyroSubsystem());
+  }
+
+  private void configCurrentLimits(TalonFX motorController) {
+    motorController.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
+    motorController.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);
   }
 
   public enum TurnDirection {

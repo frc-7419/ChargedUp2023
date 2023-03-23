@@ -36,8 +36,8 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   @Override
   public void initialize() {
     armSubsystem.setGoal(setpoint);
-    armSubsystem.setSetpoint(
-        new TrapezoidProfile.State(armSubsystem.getPosition() * 2 * Math.PI, 0));
+    double armPosition = armSubsystem.getPosition() * 2 * Math.PI;
+    armSubsystem.setSetpoint(new TrapezoidProfile.State(armPosition, 0));
 
     SmartDashboard.putNumber("Arm Goal Position", armSubsystem.getGoal().position);
     SmartDashboard.putNumber("Arm Setpoint Position", armSubsystem.getSetpoint().position);

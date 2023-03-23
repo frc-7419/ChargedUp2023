@@ -9,19 +9,20 @@ public final class DeviceIDs {
     rightFalcon2(3),
 
     // Arm CAN IDs
-    armFalcon(12),
+    armFalcon(13),
 
     // Gripper CAN IDs
-    gripperNeo(14), // change later
+    gripperNeo(15), // change later
 
     // Elevator CAN IDs
-    mainElevatorMotor(13),
+    mainElevatorMotor(12
+    ),
 
     // Gyro CAN IDss
     pigeon(0),
     extendedPigeon(51),
 
-    wristSpark(100), // unknown
+    wristSpark(14), // unknown
     ;
 
     public final int id;

@@ -57,6 +57,10 @@ public class RunGripperWithJoystick extends CommandBase {
         // speed
         holdMode = true;
       }
+    } else if (joystick.getBButton()){
+      gripperSubsystem.coast();
+      gripperSubsystem.setOuttakePower(1);
+      holdMode = false;
     } else if (leftTriggerActivated) {
       gripperSubsystem.coast();
       gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);

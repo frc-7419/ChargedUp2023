@@ -5,12 +5,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.autos.Mobility;
-// import frc.robot.commands.autos.OnePiece;
-// import frc.robot.commands.autos.ThreePiece;
-// import frc.robot.commands.autos.TwoPiece;
+import frc.robot.subsystems.arm.ArmSubsystem;
+import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.gyro.GyroSubsystem;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
+import frc.robot.subsystems.gripper.GripperSubsystem;
+import frc.robot.subsystems.gripper.RunGripperWithJoystick;
+import frc.robot.subsystems.led.LedSubsystem;
+import frc.robot.subsystems.wrist.MoveWristWithJoystick;
+import frc.robot.subsystems.wrist.WristSubsystem;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -18,16 +23,31 @@ public class RobotContainer {
 
   // Subsystems
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
-  // private final ArmSubsystem armSubsystem = new ArmSubsystem();
-  // private final WristSubsystem wristSubsystem = new WristSubsystem();
-  private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
-  // // private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-  // private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
-  // private final LedSubsystem ledSubsystem = new LedSubsystem();
+  // private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
+
+  private final WristSubsystem wristSubsystem = new WristSubsystem();
+  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  private final ArmSubsystem armSubsystem = new ArmSubsystem();
+  private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
+
+  private final LedSubsystem ledSubsystem = new LedSubsystem();
 
   // // Commands
 
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem);
+
+  private final MoveWristWithJoystick moveWristWithJoystick =
+      new MoveWristWithJoystick(wristSubsystem, driverJoystick);
+
+  private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
+      new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
+
+  private final RunGripperWithJoystick runGripperWithJoystick =
+      new RunGripperWithJoystick(gripperSubsystem, operatorJoystick, ledSubsystem);
+
+  private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
+      new MoveArmWithJoystickAnalog(armSubsystem, wristSubsystem, operatorJoystick);
+
   // private final SmartBalance smartBalance = new SmartBalance(driveBaseSubsystem, gyroSubsystem);
 
   // // private final ArmToSetpoint armToIntakeSetpoint =
@@ -44,8 +64,7 @@ public class RobotContainer {
   // // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
   // // //   private final ElevatorToSetpoint elevatorToHigh =
   // // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
-  // private final MoveWristWithJoystick moveWristWithJoystick =
-  //     new MoveWristWithJoystick(wristSubsystem, driverJoystick);
+
   // // // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
 
   // private final RunGripperWithJoystick runGripperWithJoystick =
@@ -73,10 +92,7 @@ public class RobotContainer {
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
   // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.GROUND);
-  // private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog =
-  //     new MoveElevatorWithJoystickAnalog(elevatorSubsystem, operatorJoystick);
-  // private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
-  //     new MoveArmWithJoystickAnalog(armSubsystem, operatorJoystick);
+
   // private final IntakePiece intakePieceGround =
   //     new IntakePiece(elevatorSubsystem, armSubsystem, NodeState.RESET);
 
@@ -139,10 +155,9 @@ public class RobotContainer {
 
   public void setDefaultCommands() {
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);
-    // gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
-    // ledSubsystem.setDefaultCommand(runLed);ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppojjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj2
-    // wristSubsystem.setDefaultCommand(moveWristWithJoystick);
-    // armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
-    // elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
+    gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
+    wristSubsystem.setDefaultCommand(moveWristWithJoystick);
+    armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
+    elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
   }
 }
