@@ -56,4 +56,4 @@ public class MoveArmWithJoystickAnalog extends CommandBase {
   public boolean isFinished() {
     return false;
   }
-}
+} 

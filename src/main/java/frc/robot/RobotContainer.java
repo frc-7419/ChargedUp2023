@@ -1,15 +1,20 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.autos.Mobility;
+import frc.robot.constants.NodeConstants;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
+import frc.robot.subsystems.elevator.ElevatorWithMotionMagic;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
@@ -75,8 +80,10 @@ public class RobotContainer {
   // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.RES);
 
-  // //   private final ElevatorToSetpoint elevatorToGround =
-  // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND);
+    private final ElevatorToSetpointWithFeedForward elevatorToHigh =
+        new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeConstants.NodeState.HIGH);
+    // private final ElevatorWithMotionMagic elevatorToHigh =
+    //     new ElevatorWithMotionMagic(elevatorSubsystem, NodeConstants.NodeState.HIGH.elevatorSetpoint);
   // //   private final ElevatorToSetpoint elevatorToSubstation =
   // //       new ElevatorToSetpoint(elevatorSubsystem, NodeState.SUBSTATION);
   // //   private final ElevatorToSetpoint elevatorToLow =
@@ -130,7 +137,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    // new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(scorePieceLow);
+    new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(elevatorToHigh);
     // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
 
     // new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceGround);
@@ -154,7 +161,7 @@ public class RobotContainer {
   }
 
   public void setDefaultCommands() {
-    driveBaseSubsystem.setDefaultCommand(arcadeDrive);
+    // driveBaseSubsystem.setDefaultCommand(arcadeDrive);
     gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
     wristSubsystem.setDefaultCommand(moveWristWithJoystick);
     armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);

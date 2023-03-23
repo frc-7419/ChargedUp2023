@@ -13,14 +13,17 @@ public final class ElevatorConstants {
   public static final double intakeSetpoint = 5;
   public static final double elevatorFeedForward = 0.05;
 
-  public static final double elevatorKs = 0.085469;
-  public static final double elevatorKv = 25.285;
+  public static final double elevatorKs = 0.097621;
+  public static final double elevatorKv = 32.379;
   // public static final double elevatorKv = 28.285;
-  public static final double elevatorKa = 1.2056;
+  public static final double elevatorKa = 0.41017;
   // public static final double elevatorKa = 2.3;
-  public static final double elevatorKg = 0.073137;
+  public static final double elevatorKg = -0.12105;
 
-  public static final double elevatorKP = 0.01;
+  public static final double elevatorKP = 0.64878;
+
+  public static final double elevatorMaxVelocity = 200;
+  public static final double elevatorMaxAcceleration = 20;
   public static final double elevatorKI = 0;
   public static final double elevatorKD = 0;
   public static final double elevatorKF = 0;

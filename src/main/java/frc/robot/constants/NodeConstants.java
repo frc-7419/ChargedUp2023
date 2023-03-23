@@ -6,7 +6,7 @@ public final class NodeConstants {
     GROUND(0, 20, 100),
     SUBSTATION(20, 30, 150),
     LOW(35, 50, 130),
-    HIGH(30, 80, 100);
+    HIGH(-40, 80, 100);
 
     public final double elevatorSetpoint;
     public final double armSetpoint;

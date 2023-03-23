@@ -18,7 +18,7 @@ import frc.robot.constants.ElevatorConstants;
 public class ElevatorSubsystem extends SubsystemBase {
 
   private final TrapezoidProfile.Constraints constraints =
-      new TrapezoidProfile.Constraints(300, 150);
+      new TrapezoidProfile.Constraints(ElevatorConstants.elevatorMaxVelocity, ElevatorConstants.elevatorMaxAcceleration);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
 
