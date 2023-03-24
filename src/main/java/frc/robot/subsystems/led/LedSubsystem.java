@@ -16,14 +16,11 @@ public class LedSubsystem extends SubsystemBase {
   public AddressableLEDBuffer ledBuffer;
 
   public LedSubsystem() {
-    led = new AddressableLED(0);
-    ledBuffer = new AddressableLEDBuffer(2);
+    led = new AddressableLED(1);
+    ledBuffer = new AddressableLEDBuffer(50);
     led.setLength(ledBuffer.getLength());
     led.setData(ledBuffer);
     led.start();
-    // led1 = new AddressableLED(1);
-    // ledBuffer1 = new AddressableLEDBuffer(60);
-    // led1.setLength(ledBuffer1.getLength());
   }
 
   @Override
@@ -56,11 +53,7 @@ public class LedSubsystem extends SubsystemBase {
       ledBuffer.setHSV(i, hue, 255, 128);
     }
     led.setData(ledBuffer);
-    // Increase by certain number to make the rainbow "move" (change from 3 to greater number if
-    // needed)
   }
-
-  // public void ukraineLED()
 
   public void setLEDColor(int h, int s, int v) {
     for (var i = 0; i < ledBuffer.getLength(); i++) {

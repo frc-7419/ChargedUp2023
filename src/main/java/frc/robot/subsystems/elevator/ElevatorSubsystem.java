@@ -7,6 +7,8 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.AnalogEncoder;
@@ -25,12 +27,23 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final TalonFX elevatorMotor;
 
   private AnalogEncoder absoluteEncoder;
+  private ElevatorFeedforward elevatorFeedforward;
 
   public ElevatorSubsystem() {
     elevatorMotor = new TalonFX(DeviceIDs.CanIds.mainElevatorMotor.id);
+    elevatorMotor.configFactoryDefault();
+    elevatorMotor.configMotionCruiseVelocity(100);
+    elevatorMotor.configMotionAcceleration(100);
+
     elevatorMotor.setSelectedSensorPosition(0);
 
-    absoluteEncoder = new AnalogEncoder(2);
+    absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.elevatorAbsoluteEncoder.id);
+
+    elevatorFeedforward = new ElevatorFeedforward(
+      ElevatorConstants.elevatorKs,
+      ElevatorConstants.elevatorKg,
+      ElevatorConstants.elevatorKv
+    );
     // elevatorMotor.set(ControlMode.PercentOutput, 0);
 
     TalonFXConfiguration config = new TalonFXConfiguration();
@@ -55,12 +68,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotor.configAllSettings(config);
   }
 
+
   public void setMotionMagic(double ticks) {
+    double currentVelocity = elevatorMotor.getSelectedSensorVelocity(0);
+    double calculatedFeedforward = elevatorFeedforward.calculate(currentVelocity);
     elevatorMotor.set(
         TalonFXControlMode.MotionMagic,
         ticks,
         DemandType.ArbitraryFeedForward,
-        ElevatorConstants.elevatorFeedForward);
+        calculatedFeedforward);
   }
 
   /**

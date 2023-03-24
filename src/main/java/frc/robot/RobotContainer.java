@@ -20,6 +20,7 @@ import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
 import frc.robot.subsystems.led.LedSubsystem;
+import frc.robot.subsystems.led.RunLed;
 import frc.robot.subsystems.wrist.MoveWristWithJoystick;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.subsystems.wrist.WristToSetpointWithFeedforward;
@@ -123,7 +124,7 @@ public class RobotContainer {
   // private final SmartRetract smartRetract =
   //     new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
 
-  // private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
+  private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
 
   // // Autonomous
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
@@ -157,10 +158,10 @@ public class RobotContainer {
     // new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(wristToSetpointWithFeedforwardReset);
     // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(wristToSetpointWithFeedforwardReset);
     // new JoystickButton(operatorJoy)
-    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(wristToSetpointWithFeedforwardReset);
-    new JoystickButton(operatorJoystick, Button.kY.value).onTrue(wristToSetpointWithFeedforwardLow);
-    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(wristToSetpointWithFeedforwardHigh);
-    new JoystickButton(operatorJoystick, Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
+    // new JoystickButton(operatorJoystick, Button.kB.value).onTrue(wristToSetpointWithFeedforwardReset);
+    // new JoystickButton(operatorJoystick, Button.kY.value).onTrue(wristToSetpointWithFeedforwardLow);
+    // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(wristToSetpointWithFeedforwardHigh);
+    // new JoystickButton(operatorJoystick, Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
   }
 
   private void configureAutoSelector() {
@@ -178,10 +179,11 @@ public class RobotContainer {
   }
 
   public void setDefaultCommands() {
-    driveBaseSubsystem.setDefaultCommand(arcadeDrive);
-    gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
-    wristSubsystem.setDefaultCommand(moveWristWithJoystick);
-    armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
-    elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
+    // driveBaseSubsystem.setDefaultCommand(arcadeDrive);
+    // gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
+    // wristSubsystem.setDefaultCommand(moveWristWithJoystick);
+    // armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
+    // elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
+    ledSubsystem.setDefaultCommand(runLed);
   }
 }

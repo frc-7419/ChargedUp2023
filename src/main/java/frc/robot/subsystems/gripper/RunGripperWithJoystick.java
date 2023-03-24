@@ -16,7 +16,7 @@ public class RunGripperWithJoystick extends CommandBase {
   private XboxController joystick;
   private LedSubsystem ledSubsystem;
   private double lastTimeStamp;
-  private Boolean holdMode = false;
+  private Boolean holdMode = false; 
 
   public RunGripperWithJoystick(
       GripperSubsystem gripperSubsystem, XboxController joystick, LedSubsystem ledSubsystem) {
@@ -41,12 +41,12 @@ public class RunGripperWithJoystick extends CommandBase {
 
     boolean leftTriggerActivated = joystick.getLeftTriggerAxis() >= RobotConstants.joystickDeadZone;
     boolean rightTriggerActivated =
-        joystick.getRightTriggerAxis() >= RobotConstants.joystickDeadZone;
-
+    joystick.getRightTriggerAxis() >= RobotConstants.joystickDeadZone;
     if (rightTriggerActivated && !holdMode) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
       ledSubsystem.setLEDRed();
+      
 
       double currentTimeStamp = Timer.getFPGATimestamp();
       double timePassed = currentTimeStamp - lastTimeStamp;
@@ -79,7 +79,8 @@ public class RunGripperWithJoystick extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
