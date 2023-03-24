@@ -32,7 +32,7 @@ public final class PIDConstants {
   public static final double BalanceSpeedkF = 0;
 
   // wrist PID
-  public static final double wristkP = 0.001;
+  public static final double wristkP = 0.032829;
   public static final double wristkI = 0;
   public static final double wristkD = 0;
   public static final double wristTolerance = 0.1;

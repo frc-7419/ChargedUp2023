@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.autos.Mobility;
 import frc.robot.constants.NodeConstants;
+import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
 import frc.robot.subsystems.drive.ArcadeDrive;
@@ -21,6 +22,7 @@ import frc.robot.subsystems.gripper.RunGripperWithJoystick;
 import frc.robot.subsystems.led.LedSubsystem;
 import frc.robot.subsystems.wrist.MoveWristWithJoystick;
 import frc.robot.subsystems.wrist.WristSubsystem;
+import frc.robot.subsystems.wrist.WristToSetpointWithFeedforward;
 
 public class RobotContainer {
   private final XboxController driverJoystick = new XboxController(0);
@@ -52,6 +54,13 @@ public class RobotContainer {
 
   private final MoveArmWithJoystickAnalog moveArmWithJoystickAnalog =
       new MoveArmWithJoystickAnalog(armSubsystem, wristSubsystem, operatorJoystick);
+
+  private final WristToSetpointWithFeedforward wristToSetpointWithFeedforwardReset = new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, NodeState.RESET);
+  private final WristToSetpointWithFeedforward wristToSetpointWithFeedforwardLow = new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, NodeState.LOW);
+  private final WristToSetpointWithFeedforward wristToSetpointWithFeedforwardHigh = new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, NodeState.HIGH);
+  private final WristToSetpointWithFeedforward wristToSetpointWithFeedforwardSubstation = new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, NodeState.SUBSTATION);
+
+
 
   // private final SmartBalance smartBalance = new SmartBalance(driveBaseSubsystem, gyroSubsystem);
 
@@ -137,13 +146,21 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(elevatorToHigh);
+    // new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(elevatorToHigh);
     // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
 
     // new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceGround);
     // new JoystickButton(operatorJoystick, Button.kY.value).onTrue(intakePieceSubstation);
 
     // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(smartRetract);
+
+    // new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(wristToSetpointWithFeedforwardReset);
+    // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(wristToSetpointWithFeedforwardReset);
+    // new JoystickButton(operatorJoy)
+    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(wristToSetpointWithFeedforwardReset);
+    new JoystickButton(operatorJoystick, Button.kY.value).onTrue(wristToSetpointWithFeedforwardLow);
+    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(wristToSetpointWithFeedforwardHigh);
+    new JoystickButton(operatorJoystick, Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
   }
 
   private void configureAutoSelector() {
@@ -161,7 +178,7 @@ public class RobotContainer {
   }
 
   public void setDefaultCommands() {
-    // driveBaseSubsystem.setDefaultCommand(arcadeDrive);
+    driveBaseSubsystem.setDefaultCommand(arcadeDrive);
     gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
     wristSubsystem.setDefaultCommand(moveWristWithJoystick);
     armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
