@@ -39,7 +39,7 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
   public void initialize() {
     elevatorSubsystem.setGoal(setpoint);
     elevatorSubsystem.setSetpoint(
-        new TrapezoidProfile.State(elevatorSubsystem.getElevatorPosition(), 0));
+        new TrapezoidProfile.State(elevatorSubsystem.getElevatorIntegratedPosition(), 0));
 
     SmartDashboard.putNumber("Elevator Goal Position", elevatorSubsystem.getGoal().position);
     SmartDashboard.putNumber(
@@ -55,7 +55,7 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
             elevatorSubsystem.getGoal(),
             elevatorSubsystem.getSetpoint());
 
-    double currentPosition = elevatorSubsystem.getElevatorPosition();
+    double currentPosition = elevatorSubsystem.getElevatorIntegratedPosition();
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 

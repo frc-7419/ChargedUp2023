@@ -26,18 +26,16 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private final TalonFX elevatorMotor;
 
-  private AnalogEncoder absoluteEncoder;
   private ElevatorFeedforward elevatorFeedforward;
 
   public ElevatorSubsystem() {
     elevatorMotor = new TalonFX(DeviceIDs.CanIds.mainElevatorMotor.id);
     elevatorMotor.configFactoryDefault();
-    elevatorMotor.configMotionCruiseVelocity(100);
-    elevatorMotor.configMotionAcceleration(100);
+    elevatorMotor.configMotionCruiseVelocity(750);
+    elevatorMotor.configMotionAcceleration(750);
 
     elevatorMotor.setSelectedSensorPosition(0);
 
-    absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.elevatorAbsoluteEncoder.id);
 
     elevatorFeedforward = new ElevatorFeedforward(
       ElevatorConstants.elevatorKs,
@@ -75,7 +73,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotor.set(
         TalonFXControlMode.MotionMagic,
         ticks,
-        DemandType.ArbitraryFeedForward,
+        DemandType.ArbitraryFeedForward, 
         calculatedFeedforward);
   }
 
@@ -138,10 +136,10 @@ public class ElevatorSubsystem extends SubsystemBase {
    *
    * @return the current position of the elevator
    */
-  public double getElevatorPosition() {
-    return Units.rotationsToRadians(
-        absoluteEncoder.getAbsolutePosition() * ElevatorConstants.drumRadius / (2048 * 25));
-  }
+  // public double getElevatorPosition() {
+  //   return Units.rotationsToRadians(
+  //       absoluteEncoder.getAbsolutePosition() * ElevatorConstants.drumRadius / (2048 * 25));
+  // }
 
   public double getElevatorIntegratedPosition() {
     return elevatorMotor.getSelectedSensorPosition();
@@ -153,7 +151,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("elevator position", getElevatorPosition());
+    SmartDashboard.putNumber("elevator position", getElevatorIntegratedPosition());
   }
 
   /** Sets the elevator to brake mode. */
