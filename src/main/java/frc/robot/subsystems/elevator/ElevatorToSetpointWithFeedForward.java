@@ -30,7 +30,7 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
             ElevatorConstants.elevatorKg,
             ElevatorConstants.elevatorKv,
             ElevatorConstants.elevatorKa);
-    this.elevatorPIDController = new PIDController(0.3, 0, 0);
+    this.elevatorPIDController = new PIDController(ElevatorConstants.elevatorKP, ElevatorConstants.elevatorKI, ElevatorConstants.elevatorKD);
     addRequirements(elevatorSubsystem);
   }
 
