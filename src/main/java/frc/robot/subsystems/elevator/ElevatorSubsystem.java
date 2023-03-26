@@ -77,6 +77,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         calculatedFeedforward);
   }
 
+
   /**
    * Sets the elevator power.
    *
@@ -143,6 +144,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public double getElevatorIntegratedPosition() {
     return elevatorMotor.getSelectedSensorPosition();
+  }
+
+  public double getSetpointVelocity() {
+    return elevatorMotor.getActiveTrajectoryVelocity();
   }
 
   public double getElevatorOutput() {
