@@ -28,9 +28,8 @@ public class MoveElevatorWithJoystickAnalog extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSubsystem.setPower(
-        joystick.getRightY() * ElevatorConstants.elevatorPower
-            + ElevatorConstants.elevatorFeedForward);
+    double joystickElevatorPower = joystick.getRightY() * ElevatorConstants.elevatorPower;
+    elevatorSubsystem.setPower(joystickElevatorPower - ElevatorConstants.elevatorFeedForward);
   }
   // Called once the command ends or is interrupted.
   @Override

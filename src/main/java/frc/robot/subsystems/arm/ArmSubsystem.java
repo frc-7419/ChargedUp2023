@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.ArmConstants;
@@ -14,6 +15,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   private TalonFX armMotor;
   private DutyCycleEncoder absoluteEncoder;
+  private Encoder relativeEncoder;
+  private double relativeEncoderOffset;
 
   private final TrapezoidProfile.Constraints constraints =
       new TrapezoidProfile.Constraints(300, 150);
@@ -24,6 +27,8 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     armMotor = new TalonFX(DeviceIDs.CanIds.armFalcon.id);
     absoluteEncoder = new DutyCycleEncoder(DeviceIDs.SensorIds.armAbsoluteEncoder.id);
+    relativeEncoder = new Encoder(DeviceIDs.SensorIds.armRelativeEncoder1.id, DeviceIDs.SensorIds.armRelativeEncoder2.id);
+    relativeEncoderOffset = absoluteEncoder.getAbsolutePosition();
     configureMotorControllers();
   }
 
@@ -34,7 +39,13 @@ public class ArmSubsystem extends SubsystemBase {
   public void configureMotorControllers() {
     armMotor.setInverted(false);
   }
-
+  /**
+   * Sets default inversions of left and right main motorcontrollers, and sets the conversion factor
+   * for motorcontroller encoder
+   */
+  public void configureRelativeEncoder() {
+    
+  } 
   /**
    * Sets the desired goal state of the arm.
    *
@@ -128,7 +139,9 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // outputting arm positions to smart dashboard and homing status
-    SmartDashboard.putNumber("Arm Position", getPosition());
+    SmartDashboard.putNumber("Arm Relative Position", relativeEncoder.getDistance());
+    SmartDashboard.putNumber("Arm Absolute Position", absoluteEncoder.getAbsolutePosition());
+
     SmartDashboard.putNumber("Arm Angle", getAngle());
   }
 }

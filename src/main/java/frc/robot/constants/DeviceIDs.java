@@ -42,10 +42,13 @@ public final class DeviceIDs {
 
     // Arm Through Bore Encoder DIO ID
     armAbsoluteEncoder(0),
+    armRelativeEncoder1(1),
+    armRelativeEncoder2(2),
+    elevatorAbsoluteEncoder(3);
 
     // Wrist Through Bore Encoder DIO ID
-    wristAbsoluteEncoder(1), 
-    elevatorAbsoluteEncoder(1);
+    // wristAbsoluteEncoder(1), 
+    // elevatorAbsoluteEncoder(1);
 
     public final int id;
 

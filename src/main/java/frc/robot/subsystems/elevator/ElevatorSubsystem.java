@@ -153,7 +153,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("elevator position", getElevatorPosition());
+    SmartDashboard.putNumber("elevator position", getElevatorIntegratedPosition());
   }
 
   /** Sets the elevator to brake mode. */

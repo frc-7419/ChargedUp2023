@@ -147,7 +147,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    // new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(elevatorToHigh);
+    new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(elevatorToHigh);
     // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
 
     // new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceGround);
@@ -158,10 +158,10 @@ public class RobotContainer {
     // new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(wristToSetpointWithFeedforwardReset);
     // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(wristToSetpointWithFeedforwardReset);
     // new JoystickButton(operatorJoy)
-    // new JoystickButton(operatorJoystick, Button.kB.value).onTrue(wristToSetpointWithFeedforwardReset);
-    // new JoystickButton(operatorJoystick, Button.kY.value).onTrue(wristToSetpointWithFeedforwardLow);
-    // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(wristToSetpointWithFeedforwardHigh);
-    // new JoystickButton(operatorJoystick, Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
+    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(wristToSetpointWithFeedforwardReset);
+    new JoystickButton(operatorJoystick, Button.kY.value).onTrue(wristToSetpointWithFeedforwardLow);
+    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(wristToSetpointWithFeedforwardHigh);
+    new JoystickButton(operatorJoystick, Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
   }
 
   private void configureAutoSelector() {
@@ -179,11 +179,11 @@ public class RobotContainer {
   }
 
   public void setDefaultCommands() {
-    // driveBaseSubsystem.setDefaultCommand(arcadeDrive);
-    // gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
-    // wristSubsystem.setDefaultCommand(moveWristWithJoystick);
-    // armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
-    // elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
+    driveBaseSubsystem.setDefaultCommand(arcadeDrive);
+    gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
+    wristSubsystem.setDefaultCommand(moveWristWithJoystick);
+    armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
+    elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
     ledSubsystem.setDefaultCommand(runLed);
   }
 }

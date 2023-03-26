@@ -5,7 +5,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 
 public final class ElevatorConstants {
   // setpoints for scoring (arbitrary values until we get elevator to tune)
-  public static final double elevatorPower = 0.5;
+  public static final double elevatorPower = 1;
   public static final double carriageMass = 8.381376;
   public static final double drumRadius = 1.44;
   public static final double elevatorGearing = 25;
