@@ -7,20 +7,20 @@ public final class ElevatorConstants {
   // setpoints for scoring (arbitrary values until we get elevator to tune)
   public static final double elevatorPower = 1;
   public static final double carriageMass = 8.381376;
-  public static final double drumRadius = 1.44;
+  public static final double metersPerRotation = 0.102255;
   public static final double elevatorGearing = 25;
   public static final Constraints m_constraints = new TrapezoidProfile.Constraints(8.6, 4.3);
   public static final double intakeSetpoint = 5;
   public static final double elevatorFeedForward = 0.05;
 
-  public static final double elevatorKs = 0.097621;
-  public static final double elevatorKv = 32.379;
+  public static final double elevatorKs = 0.072689  ;
+  public static final double elevatorKv = 33.241;
   // public static final double elevatorKv = 28.285;
-  public static final double elevatorKa = 0.41017;
+  public static final double elevatorKa = 0.41518;
   // public static final double elevatorKa = 2.3;
-  public static final double elevatorKg = -0.12105;
+  public static final double elevatorKg = 0.12313;
 
-  public static final double elevatorKP = 0.64878;
+  public static final double elevatorKP = 0.3;
 
   public static final double elevatorMaxVelocity = 200;
   public static final double elevatorMaxAcceleration = 20;

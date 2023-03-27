@@ -20,10 +20,12 @@ public final class ArmConstants {
   public static final double resetSetpoint = 0;
 
   public static double initialPosition;
-  public static double ks;
-  public static double kg;
-  public static double kv;
-  public static double ka;
+  public static double ks = 0.19169;
+  public static double kg = 0.32053;
+  public static double kv = 12.345;
+  public static double ka = 0.58072;
+
+  public static double kP = 0.89164;
   public static double armElevatorDelay;
 
   public static enum ArmState {

@@ -26,8 +26,8 @@ public class ArmSubsystem extends SubsystemBase {
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
     armMotor = new TalonFX(DeviceIDs.CanIds.armFalcon.id);
-    absoluteEncoder = new DutyCycleEncoder(DeviceIDs.SensorIds.armAbsoluteEncoder.id);
-    relativeEncoder = new Encoder(DeviceIDs.SensorIds.armRelativeEncoder1.id, DeviceIDs.SensorIds.armRelativeEncoder2.id);
+    absoluteEncoder = new DutyCycleEncoder(3);
+    relativeEncoder = new Encoder(5,4);
     relativeEncoderOffset = absoluteEncoder.getAbsolutePosition();
     configureMotorControllers();
   }

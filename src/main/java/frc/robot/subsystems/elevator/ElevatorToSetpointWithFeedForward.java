@@ -10,6 +10,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.ElevatorConstants;
+import frc.robot.constants.RobotConstants;
 import frc.robot.constants.NodeConstants.NodeState;
 
 public class ElevatorToSetpointWithFeedForward extends CommandBase {
@@ -24,12 +25,11 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
       ElevatorSubsystem elevatorSubsystem, NodeState nodeState) {
     this.elevatorSubsystem = elevatorSubsystem;
     this.setpoint = nodeState.elevatorSetpoint;
-    this.feedforward =
-        new ElevatorFeedforward(
-            ElevatorConstants.elevatorKs,
-            ElevatorConstants.elevatorKg,
-            ElevatorConstants.elevatorKv,
-            ElevatorConstants.elevatorKa);
+    this.feedforward = new ElevatorFeedforward(
+        ElevatorConstants.elevatorKs,
+        ElevatorConstants.elevatorKg,
+        ElevatorConstants.elevatorKv,
+        ElevatorConstants.elevatorKa);
     this.elevatorPIDController = new PIDController(0.3, 0, 0);
     addRequirements(elevatorSubsystem);
   }
@@ -49,35 +49,49 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
   // Called every time the schseduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentProfile =
-        new TrapezoidProfile(
-            elevatorSubsystem.getConstraints(),
-            elevatorSubsystem.getGoal(),
-            elevatorSubsystem.getSetpoint());
+    currentProfile = new TrapezoidProfile(
+        elevatorSubsystem.getConstraints(),
+        elevatorSubsystem.getGoal(),
+        elevatorSubsystem.getSetpoint());
 
     double currentPosition = elevatorSubsystem.getElevatorIntegratedPosition();
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
-    double feedForwardPower = feedforward.calculate(nextSetpoint.velocity) / 12;
+    double feedForwardVoltage = feedforward.calculate(nextSetpoint.velocity);
+
+    double feedForwardPower = feedForwardVoltage / RobotConstants.maxVoltage;
+
+    SmartDashboard.putNumber("Feedforward Power", feedForwardPower);
+
+    SmartDashboard.putNumber("Current Position", currentPosition);
+
+    SmartDashboard.putNumber("Predicted Position", nextSetpoint.position);
+
 
     elevatorSubsystem.setSetpoint(nextSetpoint);
-
-    SmartDashboard.putNumber("Trapezoid Position", nextSetpoint.position);
 
     elevatorPIDController.setSetpoint(nextSetpoint.position);
 
     double elevatorPower = elevatorPIDController.calculate(currentPosition);
-    elevatorSubsystem.setPower(elevatorPower + feedForwardPower);
+
+    SmartDashboard.putNumber("PID Power", elevatorPower);
+
+
+    double pidFeedforwardPower = elevatorPower + feedForwardPower;
+
+    elevatorSubsystem.setPower(pidFeedforwardPower);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // return false;
     return (elevatorSubsystem.getSetpoint().position == elevatorSubsystem.getGoal().position);
   }
 }

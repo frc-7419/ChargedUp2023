@@ -2,11 +2,11 @@ package frc.robot.constants;
 
 public final class NodeConstants {
   public static enum NodeState {
-    RESET(9, 0, 0),
+    RESET(0, 0, 0),
     GROUND(9, 20, 100),
     SUBSTATION(9, 30, -70),
-    LOW(-30000, 50, 130),
-    HIGH(-6000, 80, -55);
+    LOW(0.3, 50, 130),
+    HIGH(0.5, 80, -4.3);
 
     public final double elevatorSetpoint;
     public final double armSetpoint;

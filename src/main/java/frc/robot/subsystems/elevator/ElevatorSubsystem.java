@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.DeviceIDs;
@@ -20,24 +19,25 @@ import frc.robot.constants.ElevatorConstants;
 public class ElevatorSubsystem extends SubsystemBase {
 
   private final TrapezoidProfile.Constraints constraints =
-      new TrapezoidProfile.Constraints(ElevatorConstants.elevatorMaxVelocity, ElevatorConstants.elevatorMaxAcceleration);
+      new TrapezoidProfile.Constraints(2, 1);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
 
   private final TalonFX elevatorMotor;
 
-  private AnalogEncoder absoluteEncoder;
+  // private AnalogEncoder absoluteEncoder;
   private ElevatorFeedforward elevatorFeedforward;
 
   public ElevatorSubsystem() {
     elevatorMotor = new TalonFX(DeviceIDs.CanIds.mainElevatorMotor.id);
-    elevatorMotor.configFactoryDefault();
-    elevatorMotor.configMotionCruiseVelocity(100);
-    elevatorMotor.configMotionAcceleration(100);
+    elevatorMotor.setInverted(true);
+    // elevatorMotor.configFactoryDefault();
+    // elevatorMotor.configMotionCruiseVelocity(100);
+    // elevatorMotor.configMotionAcceleration(100);
 
     elevatorMotor.setSelectedSensorPosition(0);
 
-    absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.elevatorAbsoluteEncoder.id);
+    // absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.elevatorAbsoluteEncoder.id);
 
     elevatorFeedforward = new ElevatorFeedforward(
       ElevatorConstants.elevatorKs,
@@ -46,16 +46,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     );
     // elevatorMotor.set(ControlMode.PercentOutput, 0);
 
-    TalonFXConfiguration config = new TalonFXConfiguration();
-    config.primaryPID.selectedFeedbackSensor =
-        TalonFXFeedbackDevice.IntegratedSensor.toFeedbackDevice();
-    config.slot0.kP = ElevatorConstants.elevatorKP;
-    config.slot0.kI = ElevatorConstants.elevatorKI;
-    config.slot0.kD = ElevatorConstants.elevatorKD;
-    config.slot0.kF = ElevatorConstants.elevatorKF;
-    // config.slot0.integralZone = // idk what this does
-    config.slot0.closedLoopPeakOutput = ElevatorConstants.closedLoopPeakOutput;
-    config.voltageCompSaturation = 11;
+    // TalonFXConfiguration config = new TalonFXConfiguration();
+    // config.primaryPID.selectedFeedbackSensor =
+    //     TalonFXFeedbackDevice.IntegratedSensor.toFeedbackDevice();
+    // config.slot0.kP = ElevatorConstants.elevatorKP;
+    // config.slot0.kI = ElevatorConstants.elevatorKI;
+    // config.slot0.kD = ElevatorConstants.elevatorKD;
+    // config.slot0.kF = ElevatorConstants.elevatorKF;
+    // // config.slot0.integralZone = // idk what this does
+    // config.slot0.closedLoopPeakOutput = ElevatorConstants.closedLoopPeakOutput;
+    // config.voltageCompSaturation = 11;
 
     // Soft Limits
     /*
@@ -65,7 +65,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     config.reverseSoftLimitThreshold = 0;
     */
 
-    elevatorMotor.configAllSettings(config);
+    // elevatorMotor.configAllSettings(config);
   }
 
 
@@ -133,18 +133,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     return constraints;
   }
 
-  /**
-   * Gets the elevator position.
-   *
-   * @return the current position of the elevator
-   */
-  public double getElevatorPosition() {
-    return Units.rotationsToRadians(
-        absoluteEncoder.getAbsolutePosition() * ElevatorConstants.drumRadius / (2048 * 25));
-  }
-
   public double getElevatorIntegratedPosition() {
-    return elevatorMotor.getSelectedSensorPosition();
+    return elevatorMotor.getSelectedSensorPosition() * ElevatorConstants.metersPerRotation / (ElevatorConstants.elevatorGearing * 2048);
   }
 
   public double getElevatorOutput() {

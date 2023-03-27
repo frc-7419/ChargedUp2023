@@ -89,6 +89,11 @@ public class RobotContainer {
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
   // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.RES);
+  private final ElevatorToSetpointWithFeedForward elevatorToReset =
+  new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeConstants.NodeState.RESET);
+
+  private final ElevatorToSetpointWithFeedForward elevatorToLow =
+  new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeConstants.NodeState.LOW);
 
     private final ElevatorToSetpointWithFeedForward elevatorToHigh =
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeConstants.NodeState.HIGH);
@@ -147,7 +152,10 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(operatorJoystick, Button.kRightBumper.value).onTrue(elevatorToHigh);
+    new JoystickButton(operatorJoystick, Button.kX.value).onTrue(elevatorToHigh);
+    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(elevatorToLow);
+    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(elevatorToReset);
+
     // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
 
     // new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceGround);
@@ -160,8 +168,8 @@ public class RobotContainer {
     // new JoystickButton(operatorJoy)
     new JoystickButton(operatorJoystick, Button.kB.value).onTrue(wristToSetpointWithFeedforwardReset);
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(wristToSetpointWithFeedforwardLow);
-    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(wristToSetpointWithFeedforwardHigh);
-    new JoystickButton(operatorJoystick, Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
+    // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(wristToSetpointWithFeedforwardHigh);
+    // new JoystickButton(operatorJoystick, Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
   }
 
   private void configureAutoSelector() {
