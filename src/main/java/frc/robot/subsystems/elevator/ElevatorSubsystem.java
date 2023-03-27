@@ -75,9 +75,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotor.set(
         TalonFXControlMode.MotionMagic,
         ticks,
-        DemandType.ArbitraryFeedForward,
+        DemandType.ArbitraryFeedForward, 
         calculatedFeedforward);
   }
+
 
   /**
    * Sets the elevator power.
@@ -133,8 +134,22 @@ public class ElevatorSubsystem extends SubsystemBase {
     return constraints;
   }
 
+  /**
+   * Gets the elevator position.
+   *
+   * @return the current position of the elevator
+   */
+  // public double getElevatorPosition() {
+  //   return Units.rotationsToRadians(
+  //       absoluteEncoder.getAbsolutePosition() * ElevatorConstants.drumRadius / (2048 * 25));
+  // }
+
   public double getElevatorIntegratedPosition() {
-    return elevatorMotor.getSelectedSensorPosition() * ElevatorConstants.metersPerRotation / (ElevatorConstants.elevatorGearing * 2048);
+    return elevatorMotor.getSelectedSensorPosition() * (ElevatorConstants.metersPerRotation) / (2048 * ElevatorConstants.elevatorGearing);
+  }
+
+  public double getSetpointVelocity() {
+    return elevatorMotor.getActiveTrajectoryVelocity();
   }
 
   public double getElevatorOutput() {

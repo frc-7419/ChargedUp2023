@@ -20,10 +20,15 @@ public final class ElevatorConstants {
   // public static final double elevatorKa = 2.3;
   public static final double elevatorKg = 0.12313;
 
+<<<<<<< HEAD
   public static final double elevatorKP = 0.3;
 
+=======
+>>>>>>> 0d4eb19bb2b8631eb429760e04d769fd8840afd5
   public static final double elevatorMaxVelocity = 200;
   public static final double elevatorMaxAcceleration = 20;
+  
+  public static final double elevatorKP = 0.64878;
   public static final double elevatorKI = 0;
   public static final double elevatorKD = 0;
   public static final double elevatorKF = 0;
