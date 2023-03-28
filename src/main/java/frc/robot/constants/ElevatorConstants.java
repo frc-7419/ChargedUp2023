@@ -8,30 +8,19 @@ public final class ElevatorConstants {
   public static final double elevatorPower = 1;
   public static final double carriageMass = 8.381376;
   public static final double metersPerRotation = 0.102255;
-  public static final double elevatorGearing = 25;
-  public static final Constraints m_constraints = new TrapezoidProfile.Constraints(8.6, 4.3);
+  public static final double elevatorGearing = 31.11;
+  public static final Constraints constraints = new TrapezoidProfile.Constraints(300, 500);
   public static final double intakeSetpoint = 5;
   public static final double elevatorFeedForward = 0.05;
 
-  public static final double elevatorKs = 0.072689  ;
+  public static final double elevatorKs = 0.072689;
   public static final double elevatorKv = 33.241;
-  // public static final double elevatorKv = 28.285;
   public static final double elevatorKa = 0.41518;
-  // public static final double elevatorKa = 2.3;
   public static final double elevatorKg = 0.12313;
 
-<<<<<<< HEAD
-  public static final double elevatorKP = 0.3;
-
-=======
->>>>>>> 0d4eb19bb2b8631eb429760e04d769fd8840afd5
-  public static final double elevatorMaxVelocity = 200;
-  public static final double elevatorMaxAcceleration = 20;
-  
-  public static final double elevatorKP = 0.64878;
-  public static final double elevatorKI = 0;
-  public static final double elevatorKD = 0;
-  public static final double elevatorKF = 0;
+  public static final double elevatorKp = 6;
+  public static final double elevatorKi = 0.06;
+  public static final double elevatorKd = 0.06;
 
   public static final double closedLoopPeakOutput = 0.8;
 

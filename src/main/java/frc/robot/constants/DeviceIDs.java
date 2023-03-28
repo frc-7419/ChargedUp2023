@@ -41,9 +41,9 @@ public final class DeviceIDs {
     limitSwitch(0),
 
     // Arm Through Bore Encoder DIO ID
-    armAbsoluteEncoder(0),
-    armRelativeEncoder1(1),
-    armRelativeEncoder2(2),
+    armAbsoluteEncoder(3),
+    armRelativeEncoder1(5),
+    armRelativeEncoder2(4),
     elevatorAbsoluteEncoder(3);
 
     // Wrist Through Bore Encoder DIO ID

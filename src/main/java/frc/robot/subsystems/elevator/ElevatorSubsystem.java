@@ -17,9 +17,6 @@ import frc.robot.constants.DeviceIDs;
 import frc.robot.constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
-
-  private final TrapezoidProfile.Constraints constraints =
-      new TrapezoidProfile.Constraints(2, 1);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
 
@@ -31,11 +28,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
     elevatorMotor = new TalonFX(DeviceIDs.CanIds.mainElevatorMotor.id);
     elevatorMotor.setInverted(true);
+    
     // elevatorMotor.configFactoryDefault();
+    
     // elevatorMotor.configMotionCruiseVelocity(100);
     // elevatorMotor.configMotionAcceleration(100);
-
-    elevatorMotor.setSelectedSensorPosition(0);
 
     // absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.elevatorAbsoluteEncoder.id);
 
@@ -46,7 +43,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     );
     // elevatorMotor.set(ControlMode.PercentOutput, 0);
 
-    // TalonFXConfiguration config = new TalonFXConfiguration();
+    TalonFXConfiguration config = new TalonFXConfiguration();
     // config.primaryPID.selectedFeedbackSensor =
     //     TalonFXFeedbackDevice.IntegratedSensor.toFeedbackDevice();
     // config.slot0.kP = ElevatorConstants.elevatorKP;
@@ -57,15 +54,19 @@ public class ElevatorSubsystem extends SubsystemBase {
     // config.slot0.closedLoopPeakOutput = ElevatorConstants.closedLoopPeakOutput;
     // config.voltageCompSaturation = 11;
 
-    // Soft Limits
-    /*
-    config.forwardSoftLimitEnable = true;
-    config.forwardSoftLimitThreshold = 50000;
-    config.reverseSoftLimitEnable = true;
-    config.reverseSoftLimitThreshold = 0;
-    */
+    // // Soft Limits
 
-    // elevatorMotor.configAllSettings(config);
+    // config.forwardSoftLimitEnable = true;
+    // config.forwardSoftLimitThreshold = 50000;
+    // config.reverseSoftLimitEnable = true;
+    // config.reverseSoftLimitThreshold = 0;
+
+
+    elevatorMotor.configAllSettings(config);
+    elevatorMotor.configReverseSoftLimitThreshold(5000);
+    elevatorMotor.configForwardSoftLimitThreshold(330000);
+    elevatorMotor.configReverseSoftLimitEnable(true);
+    elevatorMotor.configForwardSoftLimitEnable(true);
   }
 
 
@@ -78,7 +79,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         DemandType.ArbitraryFeedForward, 
         calculatedFeedforward);
   }
-
 
   /**
    * Sets the elevator power.
@@ -131,7 +131,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @return the constraints (velocity and acceleration) for the trapezoidal profiling
    */
   public TrapezoidProfile.Constraints getConstraints() {
-    return constraints;
+    return ElevatorConstants.constraints;
   }
 
   /**
@@ -158,7 +158,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("elevator position", getElevatorIntegratedPosition());
+    SmartDashboard.putNumber("elevator position in ticks", elevatorMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("elevator position in meters", getElevatorIntegratedPosition());
   }
 
   /** Sets the elevator to brake mode. */

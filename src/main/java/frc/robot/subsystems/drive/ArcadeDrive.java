@@ -38,14 +38,14 @@ public class ArcadeDrive extends CommandBase {
   /** In the execute method, move the joystick to make the robot move. */
   @Override
   public void execute() {
-    if (joystick.getRightBumper()) {
-      slowMode = !slowMode;
+    if (joystick.getXButtonPressed()){
+      this.slowMode = !this.slowMode;
     }
-    double straightCoefficient = getStraightCoefficient();
+    double straightCoefficient = getStraightCoefficient(this.slowMode);
     double joystickInputPower = joystick.getLeftY() * straightCoefficient;
     double xAxisSpeed = -speedLimiter.calculate(joystickInputPower);
 
-    double turnCoefficient = getTurnCoefficient();
+    double turnCoefficient = getTurnCoefficient(this.slowMode);
     double joystickInputPowerTurn = joystick.getRightX() * turnCoefficient;
     double zAxisRotation = joystickInputPowerTurn;
     driveBaseSubsystem.drive(xAxisSpeed, zAxisRotation);
@@ -60,20 +60,16 @@ public class ArcadeDrive extends CommandBase {
     // driveBaseSubsystem.setRightPower(rightPower);
   }
 
-  private double getStraightCoefficient() {
-    if (slowMode) {
+  private double getStraightCoefficient(boolean slowModeOn) {
+    if (slowModeOn) 
       return DriveConstants.slowStraight;
-    } else {
-      return DriveConstants.driveStraight;
-    }
+    return DriveConstants.driveStraight;
   }
 
-  private double getTurnCoefficient() {
-    if (slowMode) {
+  private double getTurnCoefficient(boolean slowModeOn) {
+    if (slowModeOn) 
       return DriveConstants.slowTurn;
-    } else {
-      return DriveConstants.driveTurn;
-    }
+    return DriveConstants.driveTurn;
   }
 
   @Override

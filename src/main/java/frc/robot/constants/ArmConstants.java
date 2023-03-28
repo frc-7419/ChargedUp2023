@@ -2,12 +2,13 @@ package frc.robot.constants;
 
 public final class ArmConstants {
   public static final double armPower = 0.4;
-  public static final double armFeedforward = 0.05;
-  public static final double armOffset = 0.5;
+  public static final double armFeedforward = 0.2;
+  public static final double armOffset = 0.404;
 
   public static final double armMomentofInertia = 69.420;
 
   public static final double armGearing = (double) (64) / 16 * (double) (64) / 14 * 3;
+  public static final double armEncoderGearing = (double) 22/72;
 
   // testing purposes
   public static final double mainArmPowerCoefficient = 0.5;

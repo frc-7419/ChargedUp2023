@@ -16,7 +16,9 @@ public class RunGripperWithJoystick extends CommandBase {
   private XboxController joystick;
   private LedSubsystem ledSubsystem;
   private double lastTimeStamp;
-  private Boolean holdMode = false; 
+  private boolean holdMode = false; 
+  private boolean isIntaking = false;
+  private boolean isOuttaking = false;
 
   public RunGripperWithJoystick(
       GripperSubsystem gripperSubsystem, XboxController joystick, LedSubsystem ledSubsystem) {
@@ -39,37 +41,36 @@ public class RunGripperWithJoystick extends CommandBase {
   public void execute() {
     gripperSubsystem.isHolding = holdMode;
 
-    boolean leftTriggerActivated = joystick.getLeftTriggerAxis() >= RobotConstants.joystickDeadZone;
-    boolean rightTriggerActivated =
-    joystick.getRightTriggerAxis() >= RobotConstants.joystickDeadZone;
-    if (rightTriggerActivated && !holdMode) {
+    if (!isOuttaking && joystick.getRightBumperPressed()){
+      isIntaking = !isIntaking;
+    }
+    if (!isIntaking && joystick.getLeftBumperPressed()){
+      isOuttaking = !isOuttaking;
+      if(isOuttaking){
+        holdMode = false;
+      }
+    }
+
+    if (holdMode) {
+      gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);
+      gripperSubsystem.brake();
+      ledSubsystem.setLEDGreen();
+    }  else if (isIntaking) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
       ledSubsystem.setLEDRed();
-      
-
       double currentTimeStamp = Timer.getFPGATimestamp();
       double timePassed = currentTimeStamp - lastTimeStamp;
       boolean isStalling = gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold;
       boolean didDelay = timePassed > GripperConstants.gripperDelaySeconds;
       if (isStalling && didDelay) {
-        // Hold mode won't be set to true unless we run it for 0.5 seconds to get the motor up to
-        // speed
+        // Hold mode won't be set to true unless we run it for 0.5 seconds to get the motor up to speed
         holdMode = true;
       }
-    } else if (joystick.getBButton()){
-      gripperSubsystem.coast();
-      gripperSubsystem.setOuttakePower(1);
-      holdMode = false;
-    } else if (leftTriggerActivated) {
+    } else if (isOuttaking) {
       gripperSubsystem.coast();
       gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);
       ledSubsystem.setLEDBlue();
-      holdMode = false;
-    } else if (holdMode) {
-      gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);
-      gripperSubsystem.brake();
-      ledSubsystem.setLEDGreen();
     } else {
       gripperSubsystem.setPower(0);
       lastTimeStamp = Timer.getFPGATimestamp();

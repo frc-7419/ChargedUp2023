@@ -15,7 +15,7 @@ import frc.robot.constants.NodeConstants.NodeState;
 
 public class ElevatorToSetpointWithFeedForward extends CommandBase {
   private ElevatorSubsystem elevatorSubsystem;
-  private double setpoint;
+  private double desiredPosition;
   private TrapezoidProfile currentProfile;
   private ElevatorFeedforward feedforward;
   private PIDController elevatorPIDController;
@@ -24,20 +24,20 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
   public ElevatorToSetpointWithFeedForward(
       ElevatorSubsystem elevatorSubsystem, NodeState nodeState) {
     this.elevatorSubsystem = elevatorSubsystem;
-    this.setpoint = nodeState.elevatorSetpoint;
+    this.desiredPosition = nodeState.elevatorSetpoint;
     this.feedforward = new ElevatorFeedforward(
         ElevatorConstants.elevatorKs,
         ElevatorConstants.elevatorKg,
         ElevatorConstants.elevatorKv,
         ElevatorConstants.elevatorKa);
-    this.elevatorPIDController = new PIDController(0.3, 0, 0);
+    this.elevatorPIDController = new PIDController(ElevatorConstants.elevatorKp, ElevatorConstants.elevatorKi, ElevatorConstants.elevatorKd);
     addRequirements(elevatorSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    elevatorSubsystem.setGoal(setpoint);
+    elevatorSubsystem.setGoal(desiredPosition);
     elevatorSubsystem.setSetpoint(
         new TrapezoidProfile.State(elevatorSubsystem.getElevatorIntegratedPosition(), 0));
 
@@ -50,7 +50,7 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
   @Override
   public void execute() {
     currentProfile = new TrapezoidProfile(
-        elevatorSubsystem.getConstraints(),
+        ElevatorConstants.constraints,
         elevatorSubsystem.getGoal(),
         elevatorSubsystem.getSetpoint());
 
@@ -62,11 +62,11 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
 
     double feedForwardPower = feedForwardVoltage / RobotConstants.maxVoltage;
 
-    SmartDashboard.putNumber("Feedforward Power", feedForwardPower);
+    SmartDashboard.putNumber("Elevator Feedforward Power", feedForwardPower);
 
-    SmartDashboard.putNumber("Current Position", currentPosition);
+    SmartDashboard.putNumber("Elevator Current Position", currentPosition);
 
-    SmartDashboard.putNumber("Predicted Position", nextSetpoint.position);
+    SmartDashboard.putNumber("Elevator Predicted Position", nextSetpoint.position);
 
 
     elevatorSubsystem.setSetpoint(nextSetpoint);
@@ -75,7 +75,7 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
 
     double elevatorPower = elevatorPIDController.calculate(currentPosition);
 
-    SmartDashboard.putNumber("PID Power", elevatorPower);
+    SmartDashboard.putNumber("Elevator PID Power", elevatorPower);
 
 
     double pidFeedforwardPower = elevatorPower + feedForwardPower;
@@ -91,7 +91,8 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // return false;
-    return (elevatorSubsystem.getSetpoint().position == elevatorSubsystem.getGoal().position);
+    double error = elevatorSubsystem.getGoal().position-elevatorSubsystem.getElevatorIntegratedPosition();
+    boolean isAtSetpoint = Math.abs(error) <= 0.01;
+    return isAtSetpoint;
   }
 }
