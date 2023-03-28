@@ -19,7 +19,7 @@ public final class DeviceIDs {
     ),
 
     // Gyro CAN IDss
-    pigeon(0),
+    pigeon(16),
     extendedPigeon(51),
 
     wristSpark(14), // unknown

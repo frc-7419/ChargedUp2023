@@ -10,35 +10,40 @@ import com.pathplanner.lib.PathPoint;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
 import frc.robot.constants.WaypointPositionConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.drive.GenerateTrajectory;
+import frc.robot.subsystems.drive.GenerateTrajectoryFromCurrentPose;
+import frc.robot.subsystems.gyro.SmartBalance;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurnToAngle extends SequentialCommandGroup {
+public class TurnToAngleRobotRelative extends SequentialCommandGroup {
   private double angleToRotate;
   private double currentXPose;
   private double currentYPose;
   private double currentRotationDegrees;
   List<PathPoint> waypoints;
-  public TurnToAngle(DriveBaseSubsystem driveBaseSubsystem, double angle) {
+  public TurnToAngleRobotRelative(DriveBaseSubsystem driveBaseSubsystem, double angle) {
     currentXPose = driveBaseSubsystem.getCtrlsPoseEstimate().getX();
     currentYPose = driveBaseSubsystem.getCtrlsPoseEstimate().getY();
     currentRotationDegrees = driveBaseSubsystem.getCtrlsPoseEstimate().getRotation().getDegrees();
+    SmartDashboard.putNumber("turn odo x", currentXPose);
+    SmartDashboard.putNumber("turn odo y", currentYPose);
+    SmartDashboard.putNumber("turn odo theta", currentRotationDegrees);
     waypoints = new ArrayList<PathPoint>();
     angleToRotate = (angle + currentRotationDegrees) % 360;
-    
     waypoints.add(new PathPoint(
-      new Translation2d(currentXPose, currentYPose), Rotation2d.fromDegrees(currentRotationDegrees)));
-      waypoints.add(new PathPoint(
-      new Translation2d(currentXPose, currentYPose),
-      Rotation2d.fromDegrees(angleToRotate)));
+    new Translation2d(currentXPose, currentYPose),
+    Rotation2d.fromDegrees(currentRotationDegrees)));
+    waypoints.add(new PathPoint(
+    new Translation2d(currentXPose, currentYPose),
+    Rotation2d.fromDegrees(angleToRotate)));
 
     addCommands(
-        new GenerateTrajectory(
-            driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)));
+        new GenerateTrajectoryFromCurrentPose(driveBaseSubsystem, waypoints));
   }
 }

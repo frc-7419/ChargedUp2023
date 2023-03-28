@@ -45,7 +45,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private double previousTimeStamp = 0;
   private double currentTimeStamp;
 
-  public DriveBaseSubsystem() {
+  public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
     SmartDashboard.putData("Field", field);
     leftLeader = new TalonFX(DeviceIDs.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(DeviceIDs.CanIds.leftFalcon2.id);
@@ -70,7 +70,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     rightFollower.configVoltageCompSaturation(11);
     rightFollower.enableVoltageCompensation(true);
 
-    poseEstimation = new DrivetrainPoseEstimator(new GyroSubsystem());
+    poseEstimation = new DrivetrainPoseEstimator(gyroSubsystem);
   }
 
   private void configCurrentLimits(TalonFX motorController) {

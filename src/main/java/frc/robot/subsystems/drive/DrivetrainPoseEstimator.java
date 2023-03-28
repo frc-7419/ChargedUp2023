@@ -91,9 +91,7 @@ public class DrivetrainPoseEstimator {
             getRotation2d(),
             0, // Assume zero encoder counts at start
             0,
-            new Pose2d(),
-            localMeasurementStdDevs,
-            visionMeasurementStdDevs);
+            new Pose2d(), localMeasurementStdDevs, visionMeasurementStdDevs);
   }
 
   /**
