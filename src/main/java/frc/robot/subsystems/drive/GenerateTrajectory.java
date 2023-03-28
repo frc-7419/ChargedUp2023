@@ -21,8 +21,8 @@ public class GenerateTrajectory extends RamseteCommand {
         new SimpleMotorFeedforward(DriveConstants.ks, DriveConstants.kv, DriveConstants.ka),
         DriveConstants.driveKinematics,
         drivetrain::getWheelSpeeds,
-        new PIDController(DriveConstants.kPDriveVelocity, 0, 0),
-        new PIDController(DriveConstants.kPDriveVelocity, 0, 0),
+        new PIDController(DriveConstants.kPDriveVelocity, DriveConstants.kIDriveVelocity, DriveConstants.kDDriveVelocity),
+        new PIDController(DriveConstants.kPDriveVelocity, DriveConstants.kIDriveVelocity, DriveConstants.kDDriveVelocity),
         drivetrain::tankDriveVolts,
         drivetrain);
     this.drivetrain = drivetrain;

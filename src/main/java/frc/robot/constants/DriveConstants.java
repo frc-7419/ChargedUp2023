@@ -23,6 +23,8 @@ public final class DriveConstants {
   public static final DifferentialDriveKinematics driveKinematics =
       new DifferentialDriveKinematics(trackWidth);
   public static final double kPDriveVelocity = 0.37841;
+  public static final double kIDriveVelocity = 0;
+  public static final double kDDriveVelocity = 0;
   public static final double maxVelocity = Units.feetToMeters(20);
   public static final double maxAcceleration = Units.feetToMeters(3);
   public static final DifferentialDriveKinematics kDriveKinematics =
