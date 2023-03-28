@@ -41,8 +41,11 @@ public class RunGripperWithJoystick extends CommandBase {
   public void execute() {
     gripperSubsystem.isHolding = holdMode;
 
-    if (!isOuttaking && joystick.getRightBumperPressed()){
+    if (!isOuttaking && joystick.getRightBumperPressed() && !holdMode){
       isIntaking = !isIntaking;
+      if (isIntaking){
+        holdMode = false;
+      }
     }
     if (!isIntaking && joystick.getLeftBumperPressed()){
       isOuttaking = !isOuttaking;
@@ -66,6 +69,7 @@ public class RunGripperWithJoystick extends CommandBase {
       if (isStalling && didDelay) {
         // Hold mode won't be set to true unless we run it for 0.5 seconds to get the motor up to speed
         holdMode = true;
+        isIntaking = false;
       }
     } else if (isOuttaking) {
       gripperSubsystem.coast();
