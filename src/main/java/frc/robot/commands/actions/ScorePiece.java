@@ -25,6 +25,7 @@ public class ScorePiece extends SequentialCommandGroup {
    * @param elevatorSubsystem for controlling position of the elevator.
    * @param armSubsystem for controlling position of the arms.
    * @param gripperSubsystem for controlling orientation of the gripper.
+   * @param scoreLocation to give the robot instructions about where the score location is
    */
   public ScorePiece(
       ElevatorSubsystem elevatorSubsystem,

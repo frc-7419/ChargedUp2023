@@ -38,6 +38,14 @@ public class RunLed extends CommandBase {
     if (joystick.getPOV() == LEDConstants.cubePOV) { // 0 represents up
       ledSubsystem.setLEDColor(LEDConstants.purpleH, LEDConstants.purpleS, LEDConstants.purpleV);
     }
+    if (joystick.getPOV() == LEDConstants.defensePOV) { // 90 should mean left (untested)
+      ledSubsystem.setLEDColor(LEDConstants.aquaH, LEDConstants.aquaS, LEDConstants.aquaV);
+    }
+    if (joystick.getPOV()
+        == LEDConstants
+            .issuesPOV) { // 270 should mean right (untested), this is for if our robot breaks down
+      ledSubsystem.setLEDColor(LEDConstants.redH, LEDConstants.redS, LEDConstants.redV);
+    }
   }
 
   // Called once the command ends or is interrupted.

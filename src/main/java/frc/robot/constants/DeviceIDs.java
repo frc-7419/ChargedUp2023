@@ -15,8 +15,7 @@ public final class DeviceIDs {
     gripperNeo(15), // change later
 
     // Elevator CAN IDs
-    mainElevatorMotor(12
-    ),
+    mainElevatorMotor(12),
 
     // Gyro CAN IDss
     pigeon(16),
@@ -47,7 +46,7 @@ public final class DeviceIDs {
     elevatorAbsoluteEncoder(3);
 
     // Wrist Through Bore Encoder DIO ID
-    // wristAbsoluteEncoder(1), 
+    // wristAbsoluteEncoder(1),
     // elevatorAbsoluteEncoder(1);
 
     public final int id;

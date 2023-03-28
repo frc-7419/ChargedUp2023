@@ -8,17 +8,27 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
+import frc.robot.commands.actions.IntakePiece;
+import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.constants.WaypointPositionConstants;
+import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GenerateTrajectory;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.wrist.WristSubsystem;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoveToSingleSubstation extends SequentialCommandGroup {
   private String teamColorAccordingToPath = "";
 
-  public MoveToSingleSubstation(DriveBaseSubsystem driveBaseSubsystem) {
+  public MoveToSingleSubstation(
+      DriveBaseSubsystem driveBaseSubsystem,
+      ArmSubsystem armSubsystem,
+      ElevatorSubsystem elevatorSubsystem,
+      WristSubsystem wristSubsystem) {
     String allianceColor = Robot.getAllianceColor();
     List<PathPoint> waypoints = new ArrayList<PathPoint>();
 
@@ -39,6 +49,8 @@ public class MoveToSingleSubstation extends SequentialCommandGroup {
             driveBaseSubsystem,
             PathPlanner.loadPath(
                 teamColorAccordingToPath,
-                PathPlanner.getConstraintsFromPath(teamColorAccordingToPath))));
+                PathPlanner.getConstraintsFromPath(teamColorAccordingToPath))),
+        new WaitCommand(1),
+        new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SUBSTATION));
   }
 }

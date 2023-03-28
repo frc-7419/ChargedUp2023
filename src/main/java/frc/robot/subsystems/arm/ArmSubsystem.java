@@ -27,7 +27,9 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     armMotor = new TalonFX(DeviceIDs.CanIds.armFalcon.id);
     absoluteEncoder = new DutyCycleEncoder(DeviceIDs.SensorIds.armAbsoluteEncoder.id);
-    relativeEncoder = new Encoder(DeviceIDs.SensorIds.armRelativeEncoder1.id,DeviceIDs.SensorIds.armRelativeEncoder2.id);
+    relativeEncoder =
+        new Encoder(
+            DeviceIDs.SensorIds.armRelativeEncoder1.id, DeviceIDs.SensorIds.armRelativeEncoder2.id);
     relativeEncoderOffset = absoluteEncoder.getAbsolutePosition();
     configureMotorControllers();
   }
@@ -43,9 +45,8 @@ public class ArmSubsystem extends SubsystemBase {
    * Sets default inversions of left and right main motorcontrollers, and sets the conversion factor
    * for motorcontroller encoder
    */
-  public void configureRelativeEncoder() {
-    
-  } 
+  public void configureRelativeEncoder() {}
+
   /**
    * Sets the desired goal state of the arm.
    *
@@ -114,7 +115,8 @@ public class ArmSubsystem extends SubsystemBase {
    * @return The position of the main arm, in units of rotations.
    */
   public double getPosition() {
-    double rawPosition = absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset; // 0 should = horizontal
+    double rawPosition =
+        absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset; // 0 should = horizontal
     return rawPosition * ArmConstants.armEncoderGearing;
   }
 

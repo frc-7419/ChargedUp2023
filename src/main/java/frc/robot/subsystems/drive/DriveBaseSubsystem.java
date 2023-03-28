@@ -19,6 +19,7 @@ import frc.robot.constants.DeviceIDs;
 import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 
+/** Subsystem that manages the drivetrain */
 public class DriveBaseSubsystem extends SubsystemBase {
   private TalonFX leftLeader;
   private TalonFX leftFollower;
@@ -44,7 +45,12 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private double rightDistance = 0;
   private double previousTimeStamp = 0;
   private double currentTimeStamp;
-
+  /**
+   * Constructor of the robot. Includes a voltage saturation and voltage compensation command to
+   * ensure consistent voltage
+   *
+   * @param gyroSubsystem
+   */
   public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
     SmartDashboard.putData("Field", field);
     leftLeader = new TalonFX(DeviceIDs.CanIds.leftFalcon1.id);
@@ -57,7 +63,6 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
     leftFollower.follow(leftLeader);
     rightFollower.follow(rightLeader);
-
     leftLeader.configVoltageCompSaturation(11);
     leftLeader.enableVoltageCompensation(true);
 
@@ -72,7 +77,11 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
     poseEstimation = new DrivetrainPoseEstimator(gyroSubsystem);
   }
-
+  /**
+   * Current limits so that our drivetrain doesn't have any electrical overloads.
+   *
+   * @param motorController
+   */
   private void configCurrentLimits(TalonFX motorController) {
     motorController.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
     motorController.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);

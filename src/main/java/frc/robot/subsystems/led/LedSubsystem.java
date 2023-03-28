@@ -89,6 +89,10 @@ public class LedSubsystem extends SubsystemBase {
     setLEDColor(LEDConstants.greenH, LEDConstants.greenS, LEDConstants.greenV);
   }
 
+  public void setLEDOrange() {
+    setLEDColor(LEDConstants.orangeH, LEDConstants.orangeS, LEDConstants.orangeV);
+  }
+
   // public AddressableLED getLed1(){
   //   return led1;
   // }

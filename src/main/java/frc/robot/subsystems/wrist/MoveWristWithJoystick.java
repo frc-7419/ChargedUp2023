@@ -22,15 +22,13 @@ public class MoveWristWithJoystick extends CommandBase {
 
   @Override
   public void execute() {
-    if(joystick.getLeftBumper()) {
+    if (joystick.getLeftBumper()) {
       wristSubsystem.coast();
       wristSubsystem.setPower(-0.2);
-    }
-    else if(joystick.getRightBumper()) {
+    } else if (joystick.getRightBumper()) {
       wristSubsystem.coast();
       wristSubsystem.setPower(0.2);
-    }
-    else {
+    } else {
       wristSubsystem.brake();
       wristSubsystem.setPower(0);
     }
@@ -45,5 +43,5 @@ public class MoveWristWithJoystick extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
-  } 
+  }
 }

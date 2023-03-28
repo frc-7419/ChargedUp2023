@@ -4,13 +4,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.DeviceIDs;
@@ -28,19 +25,19 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
     elevatorMotor = new TalonFX(DeviceIDs.CanIds.mainElevatorMotor.id);
     elevatorMotor.setInverted(true);
-    
+
     // elevatorMotor.configFactoryDefault();
-    
+
     // elevatorMotor.configMotionCruiseVelocity(100);
     // elevatorMotor.configMotionAcceleration(100);
 
     // absoluteEncoder = new AnalogEncoder(DeviceIDs.SensorIds.elevatorAbsoluteEncoder.id);
 
-    elevatorFeedforward = new ElevatorFeedforward(
-      ElevatorConstants.elevatorKs,
-      ElevatorConstants.elevatorKg,
-      ElevatorConstants.elevatorKv
-    );
+    elevatorFeedforward =
+        new ElevatorFeedforward(
+            ElevatorConstants.elevatorKs,
+            ElevatorConstants.elevatorKg,
+            ElevatorConstants.elevatorKv);
     // elevatorMotor.set(ControlMode.PercentOutput, 0);
 
     TalonFXConfiguration config = new TalonFXConfiguration();
@@ -61,7 +58,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     // config.reverseSoftLimitEnable = true;
     // config.reverseSoftLimitThreshold = 0;
 
-
     elevatorMotor.configAllSettings(config);
     elevatorMotor.configReverseSoftLimitThreshold(5000);
     elevatorMotor.configForwardSoftLimitThreshold(330000);
@@ -69,14 +65,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotor.configForwardSoftLimitEnable(true);
   }
 
-
   public void setMotionMagic(double ticks) {
     double currentVelocity = elevatorMotor.getSelectedSensorVelocity(0);
     double calculatedFeedforward = elevatorFeedforward.calculate(currentVelocity);
     elevatorMotor.set(
         TalonFXControlMode.MotionMagic,
         ticks,
-        DemandType.ArbitraryFeedForward, 
+        DemandType.ArbitraryFeedForward,
         calculatedFeedforward);
   }
 
@@ -145,7 +140,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   // }
 
   public double getElevatorIntegratedPosition() {
-    return elevatorMotor.getSelectedSensorPosition() * (ElevatorConstants.metersPerRotation) / (2048 * ElevatorConstants.elevatorGearing);
+    return elevatorMotor.getSelectedSensorPosition()
+        * (ElevatorConstants.metersPerRotation)
+        / (2048 * ElevatorConstants.elevatorGearing);
   }
 
   public double getSetpointVelocity() {
@@ -158,7 +155,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("elevator position in ticks", elevatorMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber(
+        "elevator position in ticks", elevatorMotor.getSelectedSensorPosition());
     SmartDashboard.putNumber("elevator position in meters", getElevatorIntegratedPosition());
   }
 

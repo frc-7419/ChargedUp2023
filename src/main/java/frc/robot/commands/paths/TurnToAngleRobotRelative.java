@@ -4,20 +4,13 @@
 
 package frc.robot.commands.paths;
 
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPoint;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Robot;
-import frc.robot.constants.WaypointPositionConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GenerateTrajectoryFromCurrentPose;
-import frc.robot.subsystems.gyro.SmartBalance;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +20,7 @@ public class TurnToAngleRobotRelative extends SequentialCommandGroup {
   private double currentYPose;
   private double currentRotationDegrees;
   List<PathPoint> waypoints;
+
   public TurnToAngleRobotRelative(DriveBaseSubsystem driveBaseSubsystem, double angle) {
     currentXPose = driveBaseSubsystem.getCtrlsPoseEstimate().getX();
     currentYPose = driveBaseSubsystem.getCtrlsPoseEstimate().getY();
@@ -36,14 +30,14 @@ public class TurnToAngleRobotRelative extends SequentialCommandGroup {
     SmartDashboard.putNumber("turn odo theta", currentRotationDegrees);
     waypoints = new ArrayList<PathPoint>();
     angleToRotate = (angle + currentRotationDegrees) % 360;
-    waypoints.add(new PathPoint(
-    new Translation2d(currentXPose, currentYPose),
-    Rotation2d.fromDegrees(currentRotationDegrees)));
-    waypoints.add(new PathPoint(
-    new Translation2d(currentXPose, currentYPose),
-    Rotation2d.fromDegrees(angleToRotate)));
+    waypoints.add(
+        new PathPoint(
+            new Translation2d(currentXPose, currentYPose),
+            Rotation2d.fromDegrees(currentRotationDegrees)));
+    waypoints.add(
+        new PathPoint(
+            new Translation2d(currentXPose, currentYPose), Rotation2d.fromDegrees(angleToRotate)));
 
-    addCommands(
-        new GenerateTrajectoryFromCurrentPose(driveBaseSubsystem, waypoints));
+    addCommands(new GenerateTrajectoryFromCurrentPose(driveBaseSubsystem, waypoints));
   }
 }

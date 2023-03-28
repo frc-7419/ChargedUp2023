@@ -4,6 +4,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.DriveConstants;
+import frc.robot.subsystems.led.LedSubsystem;
 
 /**
  * Command to arcade drive the robot (left joystick corresponds to straight, right joystick
@@ -12,6 +13,7 @@ import frc.robot.constants.DriveConstants;
 public class ArcadeDrive extends CommandBase {
 
   private DriveBaseSubsystem driveBaseSubsystem;
+  private LedSubsystem ledSubsystem;
   private XboxController joystick;
   private boolean slowMode = false;
 
@@ -23,9 +25,11 @@ public class ArcadeDrive extends CommandBase {
    * @param joystick
    * @param driveBaseSubsystem
    */
-  public ArcadeDrive(XboxController joystick, DriveBaseSubsystem driveBaseSubsystem) {
+  public ArcadeDrive(
+      XboxController joystick, DriveBaseSubsystem driveBaseSubsystem, LedSubsystem ledSubsystem) {
     this.joystick = joystick;
     this.driveBaseSubsystem = driveBaseSubsystem;
+    this.ledSubsystem = ledSubsystem;
     addRequirements(driveBaseSubsystem);
   }
   /** Initializes the arcadedrive to reset all motors to default values */
@@ -38,7 +42,7 @@ public class ArcadeDrive extends CommandBase {
   /** In the execute method, move the joystick to make the robot move. */
   @Override
   public void execute() {
-    if (joystick.getXButtonPressed()){
+    if (joystick.getXButtonPressed()) {
       this.slowMode = !this.slowMode;
     }
     double straightCoefficient = getStraightCoefficient(this.slowMode);
@@ -61,14 +65,16 @@ public class ArcadeDrive extends CommandBase {
   }
 
   private double getStraightCoefficient(boolean slowModeOn) {
-    if (slowModeOn) 
+    if (slowModeOn) {
+      ledSubsystem.setLEDOrange();
       return DriveConstants.slowStraight;
+    }
+    ledSubsystem.setLEDGreen();
     return DriveConstants.driveStraight;
   }
 
   private double getTurnCoefficient(boolean slowModeOn) {
-    if (slowModeOn) 
-      return DriveConstants.slowTurn;
+    if (slowModeOn) return DriveConstants.slowTurn;
     return DriveConstants.driveTurn;
   }
 

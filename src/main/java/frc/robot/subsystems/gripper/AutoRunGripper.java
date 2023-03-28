@@ -5,27 +5,29 @@
 package frc.robot.subsystems.gripper;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.GripperConstants;
+import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.subsystems.led.LedSubsystem;
 
-public class RunGripperWithJoystick extends CommandBase {
-  private GripperSubsystem gripperSubsystem;
-  private XboxController joystick;
-  private LedSubsystem ledSubsystem;
+public class AutoRunGripper extends CommandBase {
+  /** Creates a new SmartRunGripper. */
+  GripperSubsystem gripperSubsystem;
+
+  GripperState mode;
+  LedSubsystem ledSubsystem;
   private double lastTimeStamp;
   private boolean holdMode = false;
   private boolean isIntaking = false;
   private boolean isOuttaking = false;
 
-  public RunGripperWithJoystick(
-      GripperSubsystem gripperSubsystem, XboxController joystick, LedSubsystem ledSubsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public AutoRunGripper(
+      GripperSubsystem gripperSubsystem, GripperState mode, LedSubsystem ledSubsystem) {
+    this.mode = mode;
     this.gripperSubsystem = gripperSubsystem;
-    this.joystick = joystick;
     this.ledSubsystem = ledSubsystem;
-    addRequirements(gripperSubsystem, ledSubsystem);
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(gripperSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -40,13 +42,13 @@ public class RunGripperWithJoystick extends CommandBase {
   public void execute() {
     gripperSubsystem.isHolding = holdMode;
 
-    if (!isOuttaking && joystick.getRightBumperPressed() && !holdMode) {
+    if (!isOuttaking && mode == GripperState.INTAKE && !holdMode) {
       isIntaking = !isIntaking;
       if (isIntaking) {
         holdMode = false;
       }
     }
-    if (!isIntaking && joystick.getLeftBumperPressed()) {
+    if (!isIntaking && mode == GripperState.SCORE) {
       isOuttaking = !isOuttaking;
       if (isOuttaking) {
         holdMode = false;
