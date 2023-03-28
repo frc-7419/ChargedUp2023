@@ -29,12 +29,12 @@ public class TurnToAngle extends SequentialCommandGroup {
     currentYPose = driveBaseSubsystem.getCtrlsPoseEstimate().getY();
     currentRotationDegrees = driveBaseSubsystem.getCtrlsPoseEstimate().getRotation().getDegrees();
     waypoints = new ArrayList<PathPoint>();
-    angleToRotate = angle + currentRotationDegrees;
+    angleToRotate = (angle + currentRotationDegrees) % 360;
     
     waypoints.add(new PathPoint(
       new Translation2d(currentXPose, currentYPose), Rotation2d.fromDegrees(currentRotationDegrees)));
       waypoints.add(new PathPoint(
-      new Translation2d(driveBaseSubsystem.getCtrlsPoseEstimate().getX(), driveBaseSubsystem.getCtrlsPoseEstimate().getY()),
+      new Translation2d(currentXPose, currentYPose),
       Rotation2d.fromDegrees(angleToRotate)));
 
     addCommands(
