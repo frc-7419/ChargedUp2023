@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.autos.Mobility;
+import frc.robot.commands.paths.TurnToAngle;
 import frc.robot.constants.NodeConstants;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
@@ -145,6 +146,7 @@ public class RobotContainer {
 
   // TODO will use when testing path planning
   // private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
+  private final TurnToAngle turn180 = new TurnToAngle(driveBaseSubsystem, 180);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -155,6 +157,7 @@ public class RobotContainer {
     new JoystickButton(operatorJoystick, Button.kX.value).onTrue(elevatorToHigh);
     new JoystickButton(operatorJoystick, Button.kA.value).onTrue(elevatorToLow);
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(elevatorToReset);
+    new JoystickButton(driverJoystick, Button.kA.value).onTrue(turn180);
 
     // new JoystickButton(operatorJoystick, Button.kLeftBumper.value).onTrue(scorePieceHigh);
 
