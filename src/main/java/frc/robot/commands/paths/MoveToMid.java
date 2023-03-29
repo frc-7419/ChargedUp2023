@@ -9,6 +9,7 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
+import frc.robot.constants.PathConstants;
 import frc.robot.constants.WaypointPositionConstants;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.GenerateTrajectory;
@@ -36,7 +37,7 @@ public class MoveToMid extends SequentialCommandGroup {
 
     addCommands(
         new GenerateTrajectory(
-            driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
+            driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(PathConstants.maxVelocity, PathConstants.maxAcceleration), waypoints)),
         new GenerateTrajectory(
             driveBaseSubsystem,
             PathPlanner.loadPath(

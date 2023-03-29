@@ -20,6 +20,9 @@ public final class ArmConstants {
   public static final double scoreSetpoint = 0;
   public static final double resetSetpoint = 0;
 
+  public static final double maxVelocity = 300;
+  public static final double maxAcceleration = 150;
+
   public static double initialPosition;
   public static double ks = 0.19169;
   public static double kg = 0.32053;

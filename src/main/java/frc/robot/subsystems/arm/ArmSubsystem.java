@@ -19,7 +19,7 @@ public class ArmSubsystem extends SubsystemBase {
   private double relativeEncoderOffset;
 
   private final TrapezoidProfile.Constraints constraints =
-      new TrapezoidProfile.Constraints(300, 150);
+      new TrapezoidProfile.Constraints(ArmConstants.maxVelocity, ArmConstants.maxAcceleration);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
 

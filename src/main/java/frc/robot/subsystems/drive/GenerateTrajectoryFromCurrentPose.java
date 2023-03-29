@@ -8,6 +8,8 @@ import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.constants.DriveConstants;
+import frc.robot.constants.PathConstants;
+
 import java.util.List;
 
 public class GenerateTrajectoryFromCurrentPose extends RamseteCommand {
@@ -19,7 +21,7 @@ public class GenerateTrajectoryFromCurrentPose extends RamseteCommand {
   public GenerateTrajectoryFromCurrentPose(
       DriveBaseSubsystem drivetrain, List<PathPoint> waypoints) {
     super(
-        PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints),
+        PathPlanner.generatePath(new PathConstraints(PathConstants.maxVelocity, PathConstants.maxAcceleration), waypoints),
         drivetrain::getCtrlsPoseEstimate,
         new RamseteController(DriveConstants.kRamseteB, DriveConstants.kRamseteZeta),
         new SimpleMotorFeedforward(DriveConstants.ks, DriveConstants.kv, DriveConstants.ka),
@@ -42,7 +44,7 @@ public class GenerateTrajectoryFromCurrentPose extends RamseteCommand {
   @Override
   public void initialize() {
     drivetrain.resetOdometry(
-        PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints).getInitialPose());
+        PathPlanner.generatePath(new PathConstraints(PathConstants.maxVelocity, PathConstants.maxAcceleration), waypoints).getInitialPose());
     super.initialize();
   }
 

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.commands.actions.IntakePiece;
 import frc.robot.constants.NodeConstants.NodeState;
+import frc.robot.constants.PathConstants;
 import frc.robot.constants.WaypointPositionConstants;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -44,7 +45,7 @@ public class MoveToSingleSubstation extends SequentialCommandGroup {
 
     addCommands(
         new GenerateTrajectory(
-            driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(2, 0.5), waypoints)),
+            driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(PathConstants.maxVelocity, PathConstants.maxAcceleration), waypoints)),
         new GenerateTrajectory(
             driveBaseSubsystem,
             PathPlanner.loadPath(
