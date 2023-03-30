@@ -45,7 +45,10 @@ public class MoveToSingleSubstation extends SequentialCommandGroup {
 
     addCommands(
         new GenerateTrajectory(
-            driveBaseSubsystem, PathPlanner.generatePath(new PathConstraints(PathConstants.maxVelocity, PathConstants.maxAcceleration), waypoints)),
+            driveBaseSubsystem,
+            PathPlanner.generatePath(
+                new PathConstraints(PathConstants.maxVelocity, PathConstants.maxAcceleration),
+                waypoints)),
         new GenerateTrajectory(
             driveBaseSubsystem,
             PathPlanner.loadPath(
