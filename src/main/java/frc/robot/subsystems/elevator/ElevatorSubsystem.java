@@ -82,13 +82,13 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setMotionMagic(double ticks) {
-    // double currentVelocity = elevatorMotor.getSelectedSensorVelocity(0);
-    // double calculatedFeedforward = elevatorFeedforward.calculate(currentVelocity);
+    double currentVelocity = elevatorMotor.getSelectedSensorVelocity(0);
+    double calculatedFeedforward = elevatorFeedforward.calculate(currentVelocity);
     elevatorMotor.set(
         TalonFXControlMode.MotionMagic,
         ticks,
         DemandType.ArbitraryFeedForward,
-        ElevatorConstants.elevatorFeedForward);
+        calculatedFeedforward);
   }
 
   /**
