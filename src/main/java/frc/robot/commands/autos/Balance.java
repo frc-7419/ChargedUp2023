@@ -26,7 +26,7 @@ public class Balance extends SequentialCommandGroup {
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
     Alliance alliance = RobotConstants.currentAlliance;
     String allianceSide = RobotConstants.currentAllianceSide;
-    String pathName = "Balance " + allianceSide;
+    String pathName = "Balance Mid";
 
     eventMap.put("Auto Balance", new SmartBalance(driveBaseSubsystem, gyroSubsystem));
 

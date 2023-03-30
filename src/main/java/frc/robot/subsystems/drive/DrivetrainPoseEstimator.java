@@ -62,7 +62,7 @@ public class DrivetrainPoseEstimator {
    */
   public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
     this.gyroSubsystem = gyroSubsystem;
-    cam = new PhotonCamera(VisionConstants.name2);
+    cam = new PhotonCamera(VisionConstants.name1);
     
 
     /*

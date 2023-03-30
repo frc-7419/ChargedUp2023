@@ -21,6 +21,10 @@ public class WristSubsystem extends SubsystemBase {
     wrist = new CANSparkMax(CanIds.wristSpark.id, MotorType.kBrushless); // find canid
   }
 
+  public void zeroEncoder(){
+    wrist.getEncoder().setPosition(0);
+  }
+
   /**
    * Sets the speed of the wrist motors to specified value.
    *

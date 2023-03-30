@@ -18,6 +18,7 @@ public class TurnWithGyro extends CommandBase {
   private GyroSubsystem gyroSubsystem;
   private double desiredAngle;
   private double tolerance;
+  private String turnDirection;
   private PIDController pidController;
   public TurnWithGyro(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem, double desiredAngle, double tolerance) {
     this.driveBaseSubsystem = driveBaseSubsystem;
@@ -34,6 +35,19 @@ public class TurnWithGyro extends CommandBase {
     pidController = new PIDController(GyroConstants.kp, GyroConstants.ki, GyroConstants.kd);
     double currentAngle = gyroSubsystem.getYaw();
     double deltaTheta = desiredAngle - currentAngle;
+    if (deltaTheta < 0) {
+      deltaTheta += 360;
+    }
+    if (deltaTheta > 180) {
+      deltaTheta = deltaTheta - 180;
+      turnDirection = "Left";
+    }
+    else if (deltaTheta == 180) {
+      turnDirection = "Right";
+    }
+    else if(deltaTheta < 180) {
+      turnDirection = "Right";
+    }
     pidController.setSetpoint(deltaTheta);
     pidController.setTolerance(tolerance);
  
@@ -43,8 +57,14 @@ public class TurnWithGyro extends CommandBase {
   @Override
   public void execute() {
     double output = pidController.calculate(gyroSubsystem.getYaw());
-    driveBaseSubsystem.setLeftPower(output);
-    driveBaseSubsystem.setRightPower(-output);
+    if (turnDirection.equals("Right")) {
+      driveBaseSubsystem.setLeftPower(output);
+      driveBaseSubsystem.setRightPower(-output);
+    }
+    else if (turnDirection.equals("Left")) {
+      driveBaseSubsystem.setLeftPower(-output);
+      driveBaseSubsystem.setRightPower(output);
+    }
   }
 
   // Called once the command ends or is interrupted.

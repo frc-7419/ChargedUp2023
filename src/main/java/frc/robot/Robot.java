@@ -51,6 +51,7 @@ public class Robot extends TimedRobot {
     locationMap.put(3, "Right");
     allianceSide = locationMap.get(DriverStation.getLocation()); // 1 - left 2 - mid 3 - right
     SmartDashboard.putString("currentAllianceColor", getAllianceColor());
+    robotContainer.zeroSensor(getAllianceColor(), allianceSide);
   }
 
   public static String getAllianceColor() {

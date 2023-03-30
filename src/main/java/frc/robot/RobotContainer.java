@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.actions.IntakePiece;
 import frc.robot.commands.actions.ScorePiece;
@@ -153,8 +154,8 @@ public class RobotContainer {
 //       armSubsystem, gripperSubsystem);
 //   private final ThreePiece threePiece = new ThreePiece(driveBaseSubsystem, elevatorSubsystem,
 //       armSubsystem, gripperSubsystem);
-//   private final Balance balance = new Balance(driveBaseSubsystem, gyroSubsystem);
-  private final Mobility mobility = new Mobility(driveBaseSubsystem);
+  // private final Balance balance = new Balance(driveBaseSubsystem, gyroSubsystem);
+  // private final Mobility mobility = new Mobility(driveBaseSubsystem);
   private final TurnWithGyro turnWithGyro180 = new TurnWithGyro(driveBaseSubsystem, gyroSubsystem, 180, 0.5);
   // Path Planning Commands
 
@@ -198,18 +199,22 @@ public class RobotContainer {
     // Button.kY.value).onTrue(wristToSetpointWithFeedforwardLow);
     // new JoystickButton(operatorJoystick,
     // Button.kA.value).onTrue(wristToSetpointWithFeedforwardHigh);
-    // new JoystickButton(operatorJoystick,
+    // new JoystickButton(operatorJoystick, 
     // Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
 
     new JoystickButton(operatorJoystick, XboxController.Button.kA.value)
         .and(new JoystickButton(driverJoystick, XboxController.Button.kA.value))
         .onTrue(new InstantCommand(elevatorSubsystem::zeroEncoder));
 
-    // new JoystickButton(driverJoystick, XboxController.Button.kB.value).onTrue(turnWithGyro180);
+    new JoystickButton(driverJoystick, XboxController.Button.kB.value).onTrue(turnWithGyro180);
+
+    new JoystickButton(operatorJoystick, XboxController.Button.kX.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 150000));
+    new JoystickButton(operatorJoystick, XboxController.Button.kB.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 7500));
+    new JoystickButton(operatorJoystick, XboxController.Button.kX.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 320000));
   }
 
   private void configureAutoSelector() {
-    autonomousChooser.setDefaultOption("Mobility", mobility);
+    // autonomousChooser.setDefaultOption("Mobility", mobility);
     // autonomousChooser.setDefaultOption("Balance", balance);
     // autonomousChooser.addOption("One Piece", onePiece);
     // autonomousChooser.addOption("Two Piece", twoPiece);
@@ -220,6 +225,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // ledSubsystem.rainbowLED(0);
     // return autonomousChooser.getSelected();
+    // return balance;
     return new Mobility(driveBaseSubsystem);
     // return new WaitCommand(5);
   }
@@ -231,5 +237,15 @@ public class RobotContainer {
     armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
     elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
     // ledSubsystem.setDefaultCommand(runLed);
+  }
+
+  public void zeroSensor(String allianceColor, String allianceSide){
+    
+    gyroSubsystem.zeroPitch();
+    gyroSubsystem.zeroRoll();
+    gyroSubsystem.zeroYaw(allianceColor);
+    elevatorSubsystem.zeroEncoder();
+    armSubsystem.zeroEncoder();
+    wristSubsystem.zeroEncoder();
   }
 }

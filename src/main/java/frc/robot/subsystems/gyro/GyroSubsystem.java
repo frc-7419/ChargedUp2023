@@ -8,17 +8,11 @@ import frc.robot.constants.RobotConstants;
 
 public class GyroSubsystem extends SubsystemBase {
   private Pigeon2 gyro;
-  private String allianceSide;
+  private double pitchOffset;
+  private double rollOffset;
   /** Instatiates the pigeon and resets its yaw to 0 degrees. */
   public GyroSubsystem() {
-    allianceSide =  RobotConstants.currentAllianceSide;
     this.gyro = new Pigeon2(DeviceIDs.CanIds.pigeon.id);
-    if (allianceSide.equals("Blue")) {
-      gyro.setYaw(0);
-    }
-    else {
-      gyro.setYaw(180);
-    }
   }
 
   @Override
@@ -43,7 +37,7 @@ public class GyroSubsystem extends SubsystemBase {
    * @return The pigeon's measured pitch in degrees
    */
   public double getPitch() {
-    return gyro.getPitch();
+    return gyro.getPitch() - pitchOffset;
   }
 
   /**
@@ -52,6 +46,27 @@ public class GyroSubsystem extends SubsystemBase {
    * @return The pigeon's measured roll in degrees
    */
   public double getRoll() {
-    return gyro.getRoll();
+    return gyro.getRoll()-rollOffset;
   }
+
+  public void setYaw(double yaw){
+    gyro.setYaw(yaw);
+  }
+
+  public void zeroPitch(){
+    pitchOffset = gyro.getPitch();
+  }
+
+  public void zeroRoll(){
+    rollOffset = gyro.getRoll();
+  }
+
+  public void zeroYaw(String allianceColor){
+    if (allianceColor=="Blue"){
+      gyro.setYaw(0);
+    } else {
+      gyro.setYaw(180);
+    }
+  }
+
 }
