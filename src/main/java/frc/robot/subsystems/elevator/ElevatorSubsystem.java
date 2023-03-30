@@ -32,12 +32,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // elevatorMotor.configFactoryDefault();
 
-    // elevatorMotor.configMotionCruiseVelocity(100);
-    // elevatorMotor.configMotionAcceleration(100);
-
-    // absoluteEncoder = new
-    // AnalogEncoder(DeviceIDs.SensorIds.elevatorAbsoluteEncoder.id);
-
     elevatorFeedforward = new ElevatorFeedforward(
         ElevatorConstants.elevatorKs,
         ElevatorConstants.elevatorKg,
@@ -56,6 +50,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     config.motionAcceleration = 10000;
     config.motionCruiseVelocity = 10000;
+    config.forwardSoftLimitThreshold = 330000;
+    config.reverseSoftLimitThreshold = 5000;
+    config.forwardSoftLimitEnable = true;
+    config.reverseSoftLimitEnable = true;
 
     // // Soft Limits
 
@@ -70,11 +68,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotor.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20);
     elevatorMotor.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20);
     elevatorMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_Targets, 10);
-
-    // elevatorMotor.configReverseSoftLimitThreshold(5000);
-    // elevatorMotor.configForwardSoftLimitThreshold(330000);
-    // elevatorMotor.configReverseSoftLimitEnable(true);
-    // elevatorMotor.configForwardSoftLimitEnable(true);
   }
 
   public void zeroEncoder() {

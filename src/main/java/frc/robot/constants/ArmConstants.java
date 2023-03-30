@@ -25,6 +25,7 @@ public final class ArmConstants {
 
   public static double initialPosition;
   // ff without cone
+
   public static double withoutConeks = 0.19169;
   public static double withoutConekg = 0.32053;
   public static double withoutConekv = 12.345;
@@ -35,8 +36,11 @@ public final class ArmConstants {
   public static double withConekv = 12.345;
   public static double withConeka = 0.58072;
 
-  public static double kP = 0.89164;
+  public static double armKp = 0.89164;
+  public static double armKi = 0;
+  public static double armKd = 0;
   public static double armElevatorDelay;
+  public static double closedLoopPeakOutput;
 
   public static enum ArmState {
     RESET(0),

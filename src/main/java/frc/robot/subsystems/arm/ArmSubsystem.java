@@ -1,15 +1,23 @@
 package frc.robot.subsystems.arm;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.ArmConstants;
 import frc.robot.constants.DeviceIDs;
+import frc.robot.constants.RobotConstants;
 
 public class ArmSubsystem extends SubsystemBase {
 
@@ -17,11 +25,16 @@ public class ArmSubsystem extends SubsystemBase {
   private DutyCycleEncoder absoluteEncoder;
   private Encoder relativeEncoder;
   private double offset = 0;
+  private double ks = ArmConstants.withoutConeks;
+  private double kg = ArmConstants.withoutConekg;
+  private double kv = ArmConstants.withoutConekv;
+  private double ka = ArmConstants.withoutConeka;
 
   private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(ArmConstants.maxVelocity,
       ArmConstants.maxAcceleration);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
+  private ArmFeedforward armFeedforward = new ArmFeedforward(ks, kg, kv);
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
@@ -31,6 +44,22 @@ public class ArmSubsystem extends SubsystemBase {
 
     offset = absoluteEncoder.getAbsolutePosition();
     armMotor.setSelectedSensorPosition(offset * ArmConstants.armGearing * 2048);
+
+    TalonFXConfiguration config = new TalonFXConfiguration();
+    config.primaryPID.selectedFeedbackSensor = TalonFXFeedbackDevice.IntegratedSensor.toFeedbackDevice();
+    config.slot0.kP = ArmConstants.armKp;
+    config.slot0.kI = ArmConstants.armKi;
+    config.slot0.kD = ArmConstants.armKd;
+    config.slot0.kF = armFeedforward.calculate(Units.degreesToRadians(getAngle()), 0);
+    // config.slot0.integralZone = // idk what this does
+    config.slot0.closedLoopPeakOutput = ArmConstants.closedLoopPeakOutput;
+    config.voltageCompSaturation = RobotConstants.voltageCompSaturation;
+    config.motionAcceleration = 10000;
+    config.motionCruiseVelocity = 10000;
+    config.forwardSoftLimitThreshold = 330000;
+    config.reverseSoftLimitThreshold = 5000;
+    config.forwardSoftLimitEnable = true;
+    config.reverseSoftLimitEnable = true;
   }
 
   /**
@@ -40,6 +69,18 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void configureMotorControllers() {
     armMotor.setInverted(false);
+  }
+
+  public void setMotionMagic(double ticks) {
+
+    double currentPositionRadians = Units.degreesToRadians(getAngle());
+    double currentVelocity = armMotor.getSelectedSensorVelocity(0);
+    double calculatedFeedforward = armFeedforward.calculate(currentPositionRadians,currentVelocity);
+    armMotor.set(
+        TalonFXControlMode.MotionMagic,
+        ticks,
+        DemandType.ArbitraryFeedForward,
+        calculatedFeedforward);
   }
 
   /**
