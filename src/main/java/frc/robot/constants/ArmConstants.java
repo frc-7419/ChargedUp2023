@@ -24,10 +24,16 @@ public final class ArmConstants {
   public static final double maxAcceleration = 150;
 
   public static double initialPosition;
-  public static double ks = 0.19169;
-  public static double kg = 0.32053;
-  public static double kv = 12.345;
-  public static double ka = 0.58072;
+  // ff without cone
+  public static double withoutConeks = 0.19169;
+  public static double withoutConekg = 0.32053;
+  public static double withoutConekv = 12.345;
+  public static double withoutConeka = 0.58072;
+  // ff with cone
+  public static double withConeks = 0.19169;
+  public static double withConekg = 0.32053;
+  public static double withConekv = 12.345;
+  public static double withConeka = 0.58072;
 
   public static double kP = 0.89164;
   public static double armElevatorDelay;
