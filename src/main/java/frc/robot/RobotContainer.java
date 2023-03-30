@@ -119,11 +119,11 @@ public class RobotContainer {
   // new ElevatorToSetpoint(elevatorSubsystem, NodeState.LOW);
   // private final ElevatorToSetpoint elevatorToHigh =
   // new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
-  // private final MoveWristWithJoystick moveWristWithJoystick =
-  // new MoveWristWithJoystick(wristSubsystem, driverJoystick);
+  private final MoveWristWithJoystick moveWristWithJoystick =
+  new MoveWristWithJoystick(wristSubsystem, driverJoystick);
   // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
-  // private final RunGripperWithJoystick runGripperWithJoystick =
-  // new RunGripperWithJoystick(gripperSubsystem, operatorJoystick);
+  private final RunGripperWithJoystick runGripperWithJoystick =
+  new RunGripperWithJoystick(gripperSubsystem, operatorJoystick, ledSubsystem);
   // private final ElevatorToSetpointWithFeedForward elevatorPIDHigh = new
   // ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.HIGH);
   // private final ElevatorToSetpointWithFeedForward elevatorPIDGround = new
@@ -205,8 +205,9 @@ public class RobotContainer {
 
   private void configureAutoSelector() {
     autonomousChooser.setDefaultOption("Mobility", mobility);
-    // autonomousChooser.addOption("One Piece", onePiece);
-    // autonomousChooser.addOption("Three Piece", threePiece);
+    autonomousChooser.addOption("One Piece", onePiece);
+    autonomousChooser.addOption("Two Piece", twoPiece);
+    autonomousChooser.addOption("Three Piece", threePiece);
     SmartDashboard.putData(autonomousChooser);
   }
 
@@ -219,10 +220,10 @@ public class RobotContainer {
 
   public void setDefaultCommands() {
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);
-    // gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
-    // wristSubsystem.setDefaultCommand(moveWristWithJoystick);
-    // armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
-    // elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
+    gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
+    wristSubsystem.setDefaultCommand(moveWristWithJoystick);
+    armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
+    elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
     // ledSubsystem.setDefaultCommand(runLed);
   }
 }

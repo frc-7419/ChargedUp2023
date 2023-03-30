@@ -37,10 +37,10 @@ public class AutoScorePiece extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        Commands.parallel(
-                new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation),
-                new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation))
-            .withTimeout(RobotConstants.armElevatorDelay),
+        // Commands.parallel(
+        //         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation),
+        //         new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation))
+        //     .withTimeout(RobotConstants.autoScoreDelaySeconds),
         new RunGripper(gripperSubsystem, GripperState.SCORE));
   }
 }
