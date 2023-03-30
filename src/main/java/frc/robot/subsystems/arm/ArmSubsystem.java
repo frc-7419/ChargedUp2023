@@ -16,10 +16,10 @@ public class ArmSubsystem extends SubsystemBase {
   private TalonFX armMotor;
   private DutyCycleEncoder absoluteEncoder;
   private Encoder relativeEncoder;
-  private double relativeEncoderOffset;
+  private double offset = 0;
 
-  private final TrapezoidProfile.Constraints constraints =
-      new TrapezoidProfile.Constraints(ArmConstants.maxVelocity, ArmConstants.maxAcceleration);
+  private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(ArmConstants.maxVelocity,
+      ArmConstants.maxAcceleration);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
 
@@ -27,25 +27,20 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     armMotor = new TalonFX(DeviceIDs.CanIds.armFalcon.id);
     absoluteEncoder = new DutyCycleEncoder(DeviceIDs.SensorIds.armAbsoluteEncoder.id);
-    relativeEncoder =
-        new Encoder(
-            DeviceIDs.SensorIds.armRelativeEncoder1.id, DeviceIDs.SensorIds.armRelativeEncoder2.id);
-    relativeEncoderOffset = absoluteEncoder.getAbsolutePosition();
     configureMotorControllers();
+
+    offset = absoluteEncoder.getAbsolutePosition();
+    armMotor.setSelectedSensorPosition(offset * ArmConstants.armGearing * 2048);
   }
 
   /**
-   * Sets default inversions of left and right main motorcontrollers, and sets the conversion factor
+   * Sets default inversions of left and right main motorcontrollers, and sets the
+   * conversion factor
    * for motorcontroller encoder
    */
   public void configureMotorControllers() {
     armMotor.setInverted(false);
   }
-  /**
-   * Sets default inversions of left and right main motorcontrollers, and sets the conversion factor
-   * for motorcontroller encoder
-   */
-  public void configureRelativeEncoder() {}
 
   /**
    * Sets the desired goal state of the arm.
@@ -86,14 +81,16 @@ public class ArmSubsystem extends SubsystemBase {
   /**
    * Gets the arm constraints.
    *
-   * @return the constraints (velocity and acceleration) for the trapezoidal profiling
+   * @return the constraints (velocity and acceleration) for the trapezoidal
+   *         profiling
    */
   public TrapezoidProfile.Constraints getConstraints() {
     return constraints;
   }
 
   /**
-   * Sets position offset for the absolute encoder (i.e. after the offset, the absolute position
+   * Sets position offset for the absolute encoder (i.e. after the offset, the
+   * absolute position
    * reading will be 0 when the arm is parallel to the ground)
    */
   public void configureEncoder() {
@@ -115,8 +112,7 @@ public class ArmSubsystem extends SubsystemBase {
    * @return The position of the main arm, in units of rotations.
    */
   public double getPosition() {
-    double rawPosition =
-        absoluteEncoder.getAbsolutePosition() - ArmConstants.armOffset; // 0 should = horizontal
+    double rawPosition = armMotor.getSelectedSensorPosition();
     return rawPosition * ArmConstants.armEncoderGearing;
   }
 
