@@ -27,13 +27,13 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   public ArmToSetpointWithFeedforward(ArmSubsystem armSubsystem, NodeState armState) {
     this.armSubsystem = armSubsystem;
     this.setpoint = armState.armSetpoint;
-    if (!gripperSubsystem.isHolding) {
-      this.feedforward =
-          new ArmFeedforward(ArmConstants.withoutConeks, ArmConstants.withoutConekg, ArmConstants.withoutConekv, ArmConstants.withoutConeka);
-        } else if (gripperSubsystem.isHolding) {
-      this.feedforward =
-          new ArmFeedforward(ArmConstants.withConeks, ArmConstants.withConekg, ArmConstants.withConekv, ArmConstants.withConeka);
-    }
+    // if (!gripperSubsystem.isHolding) {
+    //   this.feedforward =
+    //       new ArmFeedforward(ArmConstants.withoutConeks, ArmConstants.withoutConekg, ArmConstants.withoutConekv, ArmConstants.withoutConeka);
+    //     } else if (gripperSubsystem.isHolding) {
+    //   this.feedforward =
+    //       new ArmFeedforward(ArmConstants.withConeks, ArmConstants.withConekg, ArmConstants.withConekv, ArmConstants.withConeka);
+    // }
     this.armPIDController =
         new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
     addRequirements(armSubsystem);

@@ -19,6 +19,7 @@ public class GripperSubsystem extends SubsystemBase {
 
   public GripperSubsystem() {
     this.gripper = new CANSparkMax(DeviceIDs.CanIds.gripperNeo.id, MotorType.kBrushless);
+    gripper.setSmartCurrentLimit(60, 30);
   }
 
   @Override

@@ -36,7 +36,8 @@ public class MoveElevatorWithJoystickAnalog extends CommandBase {
     } else {
       elevatorSubsystem.brake();
     }
-    elevatorSubsystem.setPower(joystickElevatorPower + ElevatorConstants.elevatorFeedForward);
+    double elevatorFeedForward = -Math.copySign(ElevatorConstants.elevatorFeedForward, joystickElevatorPower);
+    elevatorSubsystem.setPower(joystickElevatorPower + elevatorFeedForward);
   }
 
   // Called once the command ends or is interrupted.

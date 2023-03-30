@@ -63,6 +63,7 @@ public class DrivetrainPoseEstimator {
   public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
     this.gyroSubsystem = gyroSubsystem;
     cam = new PhotonCamera(VisionConstants.name2);
+    
 
     /*
     ________                    __        __       __
@@ -84,7 +85,7 @@ public class DrivetrainPoseEstimator {
     poses.put(6, AprilTagPositionConstants.kAprilTagSixPose);
     poses.put(7, AprilTagPositionConstants.kAprilTagSevenPose);
     poses.put(8, AprilTagPositionConstants.kAprilTagEightPose);
-
+    if (cam.isConnected()){
     m_poseEstimator =
         new DifferentialDrivePoseEstimator(
             DriveConstants.kDriveKinematics,
@@ -93,7 +94,17 @@ public class DrivetrainPoseEstimator {
             0,
             new Pose2d(),
             localMeasurementStdDevs,
-            visionMeasurementStdDevs);
+            visionMeasurementStdDevs);}
+  
+    else {
+      m_poseEstimator =
+      new DifferentialDrivePoseEstimator(
+          DriveConstants.kDriveKinematics,
+          getRotation2d(),
+          0, // Assume zero encoder counts at start
+          0,
+          new Pose2d());
+    }
   }
 
   /**

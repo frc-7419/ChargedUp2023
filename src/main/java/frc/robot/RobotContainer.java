@@ -77,9 +77,9 @@ public class RobotContainer {
   private final SmartBalance smartBalance = new SmartBalance(driveBaseSubsystem,
       gyroSubsystem);
 
-  private final ArmToSetpoint armToIntakeSetpoint = new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint);
+//   private final ArmToSetpoint armToIntakeSetpoint = new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint);
 
-  private final ArmToSetpoint armToScoreSetpoint = new ArmToSetpoint(armSubsystem, ArmConstants.scoreSetpoint);
+//   private final ArmToSetpoint armToScoreSetpoint = new ArmToSetpoint(armSubsystem, ArmConstants.scoreSetpoint);
 
   // private final ElevatorToSetpoint elevatorToGround =
   // new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND);
@@ -135,24 +135,24 @@ public class RobotContainer {
   // private final IntakePiece intakePieceSubstation =
   // new IntakePiece(elevatorSubsystem, armSubsystem, NodeState.SUBSTATION);
 
-  private final ScorePiece scorePieceLow = new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem,
-      NodeState.LOW);
-  private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem,
-      NodeState.HIGH);
+//   private final ScorePiece scorePieceLow = new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem,
+//       NodeState.LOW);
+//   private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem,
+//       NodeState.HIGH);
 
-  private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
+//   private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
 
   private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
 
   // // Autonomous
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
-  private final OnePiece onePiece = new OnePiece(driveBaseSubsystem, elevatorSubsystem,
-      armSubsystem, gripperSubsystem);
-  private final TwoPiece twoPiece = new TwoPiece(driveBaseSubsystem, elevatorSubsystem,
-      armSubsystem, gripperSubsystem);
-  private final ThreePiece threePiece = new ThreePiece(driveBaseSubsystem, elevatorSubsystem,
-      armSubsystem, gripperSubsystem);
-  private final Balance balance = new Balance(driveBaseSubsystem, gyroSubsystem);
+//   private final OnePiece onePiece = new OnePiece(driveBaseSubsystem, elevatorSubsystem,
+//       armSubsystem, gripperSubsystem);
+//   private final TwoPiece twoPiece = new TwoPiece(driveBaseSubsystem, elevatorSubsystem,
+//       armSubsystem, gripperSubsystem);
+//   private final ThreePiece threePiece = new ThreePiece(driveBaseSubsystem, elevatorSubsystem,
+//       armSubsystem, gripperSubsystem);
+//   private final Balance balance = new Balance(driveBaseSubsystem, gyroSubsystem);
   private final Mobility mobility = new Mobility(driveBaseSubsystem);
   // Path Planning Commands
 
@@ -167,6 +167,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
     // new JoystickButton(operatorJoystick, Button.kX.value).onTrue(elevatorToHigh);
     // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(elevatorToLow);
     // new JoystickButton(operatorJoystick,
@@ -205,9 +206,10 @@ public class RobotContainer {
 
   private void configureAutoSelector() {
     autonomousChooser.setDefaultOption("Mobility", mobility);
-    autonomousChooser.addOption("One Piece", onePiece);
-    autonomousChooser.addOption("Two Piece", twoPiece);
-    autonomousChooser.addOption("Three Piece", threePiece);
+    // autonomousChooser.setDefaultOption("Balance", balance);
+    // autonomousChooser.addOption("One Piece", onePiece);
+    // autonomousChooser.addOption("Two Piece", twoPiece);
+    // autonomousChooser.addOption("Three Piece", threePiece);
     SmartDashboard.putData(autonomousChooser);
   }
 

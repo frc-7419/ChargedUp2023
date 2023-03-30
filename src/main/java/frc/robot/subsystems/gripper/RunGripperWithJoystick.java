@@ -73,7 +73,7 @@ public class RunGripperWithJoystick extends CommandBase {
       }
     } else if (isOuttaking) {
       gripperSubsystem.coast();
-      gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);
+      gripperSubsystem.setOuttakePower(GripperConstants.gripperOuttakePower);
       ledSubsystem.setLEDBlue();
     } else {
       gripperSubsystem.setPower(0);

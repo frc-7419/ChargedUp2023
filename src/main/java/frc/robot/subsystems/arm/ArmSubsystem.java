@@ -22,8 +22,8 @@ import frc.robot.constants.RobotConstants;
 public class ArmSubsystem extends SubsystemBase {
 
   private TalonFX armMotor;
-  private DutyCycleEncoder absoluteEncoder;
-  private Encoder relativeEncoder;
+  // private DutyCycleEncoder absoluteEncoder;
+  // private Encoder relativeEncoder;
   private double offset = 0;
   private double ks = ArmConstants.withoutConeks;
   private double kg = ArmConstants.withoutConekg;
@@ -39,11 +39,11 @@ public class ArmSubsystem extends SubsystemBase {
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
     armMotor = new TalonFX(DeviceIDs.CanIds.armFalcon.id);
-    absoluteEncoder = new DutyCycleEncoder(DeviceIDs.SensorIds.armAbsoluteEncoder.id);
+    // absoluteEncoder = new DutyCycleEncoder(DeviceIDs.SensorIds.armAbsoluteEncoder.id);
     configureMotorControllers();
 
-    offset = absoluteEncoder.getAbsolutePosition();
-    armMotor.setSelectedSensorPosition(offset * ArmConstants.armGearing * 2048);
+    // offset = absoluteEncoder.getAbsolutePosition();
+    // armMotor.setSelectedSensorPosition(offset * ArmConstants.armGearing * 2048);
 
     TalonFXConfiguration config = new TalonFXConfiguration();
     config.primaryPID.selectedFeedbackSensor = TalonFXFeedbackDevice.IntegratedSensor.toFeedbackDevice();
@@ -134,9 +134,9 @@ public class ArmSubsystem extends SubsystemBase {
    * absolute position
    * reading will be 0 when the arm is parallel to the ground)
    */
-  public void configureEncoder() {
-    absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
-  }
+  // public void configureEncoder() {
+  //   absoluteEncoder.setPositionOffset(ArmConstants.armOffset);
+  // }
 
   /**
    * Sets power to the motors on the main arm.
@@ -179,8 +179,8 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // outputting arm positions to smart dashboard and homing status
-    SmartDashboard.putNumber("Arm Relative Position", relativeEncoder.getDistance());
-    SmartDashboard.putNumber("Arm Absolute Position", absoluteEncoder.getAbsolutePosition());
+    // SmartDashboard.putNumber("Arm Relative Position", relativeEncoder.getDistance());
+    // SmartDashboard.putNumber("Arm Absolute Position", absoluteEncoder.getAbsolutePosition());
 
     SmartDashboard.putNumber("Arm Angle", getAngle());
   }

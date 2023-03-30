@@ -11,7 +11,7 @@ public final class ElevatorConstants {
   public static final double elevatorGearing = 31.11;
   public static final Constraints constraints = new TrapezoidProfile.Constraints(300, 500);
   public static final double intakeSetpoint = 5;
-  public static final double elevatorFeedForward = 0.05;
+  public static final double elevatorFeedForward = 0.06;
 
   public static final double elevatorKs = 0.072689;
   public static final double elevatorKv = 33.241;
