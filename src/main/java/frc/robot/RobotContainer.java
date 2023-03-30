@@ -205,7 +205,7 @@ public class RobotContainer {
         .and(new JoystickButton(driverJoystick, XboxController.Button.kA.value))
         .onTrue(new InstantCommand(elevatorSubsystem::zeroEncoder));
 
-    new JoystickButton(driverJoystick, XboxController.Button.kY.value).onTrue(turnWithGyro180);
+    // new JoystickButton(driverJoystick, XboxController.Button.kB.value).onTrue(turnWithGyro180);
   }
 
   private void configureAutoSelector() {

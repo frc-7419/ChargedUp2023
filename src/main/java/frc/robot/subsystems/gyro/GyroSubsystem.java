@@ -8,9 +8,10 @@ import frc.robot.constants.RobotConstants;
 
 public class GyroSubsystem extends SubsystemBase {
   private Pigeon2 gyro;
-  private String allianceSide = RobotConstants.currentAllianceSide;
+  private String allianceSide;
   /** Instatiates the pigeon and resets its yaw to 0 degrees. */
   public GyroSubsystem() {
+    allianceSide =  RobotConstants.currentAllianceSide;
     this.gyro = new Pigeon2(DeviceIDs.CanIds.pigeon.id);
     if (allianceSide.equals("Blue")) {
       gyro.setYaw(0);

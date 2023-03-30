@@ -36,7 +36,7 @@ public class TurnWithGyro extends CommandBase {
     double deltaTheta = desiredAngle - currentAngle;
     pidController.setSetpoint(deltaTheta);
     pidController.setTolerance(tolerance);
-
+ 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,8 +50,8 @@ public class TurnWithGyro extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveBaseSubsystem.brake();
     driveBaseSubsystem.stop();
+    driveBaseSubsystem.brake();
   }
 
   // Returns true when the command should end.
