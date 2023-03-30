@@ -33,6 +33,7 @@ import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.SmartBalance;
+import frc.robot.subsystems.gyro.TurnWithGyro;
 import frc.robot.subsystems.led.LedSubsystem;
 import frc.robot.subsystems.led.RunLed;
 import frc.robot.subsystems.wrist.MoveWristWithJoystick;
@@ -154,6 +155,7 @@ public class RobotContainer {
       armSubsystem, gripperSubsystem);
   private final Balance balance = new Balance(driveBaseSubsystem, gyroSubsystem);
   private final Mobility mobility = new Mobility(driveBaseSubsystem);
+  private final TurnWithGyro turnWithGyro180 = new TurnWithGyro(driveBaseSubsystem, gyroSubsystem, 180, 0.5);
   // Path Planning Commands
 
   // TODO will use when testing path planning
@@ -201,6 +203,8 @@ public class RobotContainer {
     new JoystickButton(operatorJoystick, XboxController.Button.kA.value)
         .and(new JoystickButton(driverJoystick, XboxController.Button.kA.value))
         .onTrue(new InstantCommand(elevatorSubsystem::zeroEncoder));
+
+    new JoystickButton(driverJoystick, XboxController.Button.kY.value).onTrue(turnWithGyro180);
   }
 
   private void configureAutoSelector() {

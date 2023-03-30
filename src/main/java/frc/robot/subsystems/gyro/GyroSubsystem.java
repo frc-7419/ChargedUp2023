@@ -4,14 +4,20 @@ import com.ctre.phoenix.sensors.Pigeon2;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.DeviceIDs;
+import frc.robot.constants.RobotConstants;
 
 public class GyroSubsystem extends SubsystemBase {
   private Pigeon2 gyro;
-
+  private String allianceSide = RobotConstants.currentAllianceSide;
   /** Instatiates the pigeon and resets its yaw to 0 degrees. */
   public GyroSubsystem() {
     this.gyro = new Pigeon2(DeviceIDs.CanIds.pigeon.id);
-    gyro.setYaw(0);
+    if (allianceSide.equals("Blue")) {
+      gyro.setYaw(0);
+    }
+    else {
+      gyro.setYaw(180);
+    }
   }
 
   @Override
