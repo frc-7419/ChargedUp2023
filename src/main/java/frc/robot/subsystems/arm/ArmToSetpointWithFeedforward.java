@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.ArmConstants;
 import frc.robot.constants.NodeConstants.NodeState;
+import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.constants.PIDConstants;
 
 public class ArmToSetpointWithFeedforward extends CommandBase {
@@ -21,12 +22,18 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   private TrapezoidProfile currentProfile;
   private ArmFeedforward feedforward;
   private PIDController armPIDController;
+  private GripperSubsystem gripperSubsystem;
 
   public ArmToSetpointWithFeedforward(ArmSubsystem armSubsystem, NodeState armState) {
     this.armSubsystem = armSubsystem;
     this.setpoint = armState.armSetpoint;
-    this.feedforward =
-        new ArmFeedforward(ArmConstants.ks, ArmConstants.kg, ArmConstants.kv, ArmConstants.ka);
+    if (!gripperSubsystem.isHolding) {
+      this.feedforward =
+          new ArmFeedforward(ArmConstants.withoutConeks, ArmConstants.withoutConekg, ArmConstants.withoutConekv, ArmConstants.withoutConeka);
+        } else if (gripperSubsystem.isHolding) {
+      this.feedforward =
+          new ArmFeedforward(ArmConstants.withConeks, ArmConstants.withConekg, ArmConstants.withConekv, ArmConstants.withConeka);
+    }
     this.armPIDController =
         new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
     addRequirements(armSubsystem);
