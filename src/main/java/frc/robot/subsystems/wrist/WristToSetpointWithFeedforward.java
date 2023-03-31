@@ -63,7 +63,7 @@ public class WristToSetpointWithFeedforward extends CommandBase {
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
     double wristPositionWithArmOffset =
-        nextSetpoint.position + armSubsystem.getPosition() * 2 * Math.PI;
+        nextSetpoint.position + armSubsystem.getPositionInRotations() * 2 * Math.PI;
 
     double feedForwardVoltage =
         feedforward.calculate(wristPositionWithArmOffset, nextSetpoint.velocity);

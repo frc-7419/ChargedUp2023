@@ -1,5 +1,7 @@
 package frc.robot.subsystems.arm;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.ArmConstants;
@@ -10,6 +12,7 @@ public class MoveArmWithJoystickAnalog extends CommandBase {
   private ArmSubsystem armSubsystem;
   private XboxController joystick;
   private WristSubsystem wristSubsystem;
+  private ArmFeedforward armFeedforward;
   /**
    * Constructs the class with the parameters.
    *
@@ -21,6 +24,7 @@ public class MoveArmWithJoystickAnalog extends CommandBase {
     this.armSubsystem = armSubsystem;
     this.joystick = joystick;
     this.wristSubsystem = wristSubsystem;
+    armFeedforward = ArmConstants.armFeedforward;
     addRequirements(armSubsystem);
   }
 
@@ -39,8 +43,10 @@ public class MoveArmWithJoystickAnalog extends CommandBase {
       armSubsystem.coast();
       double joystickArmPower = joystick.getLeftY() * ArmConstants.armPower;
       double armAngle = armSubsystem.getAngle();
-      double armFeedforwardPower = ArmConstants.armFeedforward * Math.cos(Math.toRadians(armAngle));
-      double armPower = joystickArmPower;
+      double armVelocity = armSubsystem.getVelocityInRadians();
+      // double armFeedforwardPower = Math.copySign(armFeedforward.calculate(Units.degreesToRadians(armAngle), 0), joystickArmPower);
+      double armFeedforwardPower = Math.copySign(0.08 * Math.cos(Units.degreesToRadians(armAngle)), joystickArmPower);
+      double armPower = joystickArmPower + armFeedforwardPower;
       armSubsystem.setPower(armPower);
       // wristSubsystem.setPower(0.5*joystickArmPower);
     }

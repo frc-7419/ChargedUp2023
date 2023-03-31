@@ -22,7 +22,6 @@ import frc.robot.constants.ArmConstants;
 import frc.robot.constants.NodeConstants;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
-import frc.robot.subsystems.arm.ArmToSetpoint;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -170,7 +169,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
+    // new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
     // new JoystickButton(operatorJoystick, Button.kX.value).onTrue(elevatorToHigh);
     // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(elevatorToLow);
     // new JoystickButton(operatorJoystick,
@@ -202,15 +201,13 @@ public class RobotContainer {
     // new JoystickButton(operatorJoystick, 
     // Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
 
-    new JoystickButton(operatorJoystick, XboxController.Button.kA.value)
-        .and(new JoystickButton(driverJoystick, XboxController.Button.kA.value))
-        .onTrue(new InstantCommand(elevatorSubsystem::zeroEncoder));
+    new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(new InstantCommand(armSubsystem::zeroEncoder));
 
     new JoystickButton(driverJoystick, XboxController.Button.kB.value).onTrue(turnWithGyro180);
 
-    new JoystickButton(operatorJoystick, XboxController.Button.kX.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 150000));
-    new JoystickButton(operatorJoystick, XboxController.Button.kB.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 7500));
-    new JoystickButton(operatorJoystick, XboxController.Button.kX.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 320000));
+    // new JoystickButton(operatorJoystick, XboxController.Button.kX.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 150000));
+    // new JoystickButton(operatorJoystick, XboxController.Button.kB.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 7500));
+    // new JoystickButton(operatorJoystick, XboxController.Button.kX.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 320000));
   }
 
   private void configureAutoSelector() {
@@ -244,6 +241,13 @@ public class RobotContainer {
     gyroSubsystem.zeroPitch();
     gyroSubsystem.zeroRoll();
     gyroSubsystem.zeroYaw(allianceColor);
+    elevatorSubsystem.zeroEncoder();
+    armSubsystem.zeroEncoder();
+    wristSubsystem.zeroEncoder();
+  }
+  public void zeroSensor(){
+    gyroSubsystem.zeroPitch();
+    gyroSubsystem.zeroRoll();
     elevatorSubsystem.zeroEncoder();
     armSubsystem.zeroEncoder();
     wristSubsystem.zeroEncoder();

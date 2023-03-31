@@ -23,6 +23,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   private TalonFX armMotor;
   private DutyCycleEncoder absoluteEncoder;
+  private double zeroAngleOffset;
   // private Encoder relativeEncoder;
   private double offset = 0;
   private double ks = ArmConstants.withoutConeks;
@@ -34,7 +35,7 @@ public class ArmSubsystem extends SubsystemBase {
       ArmConstants.maxAcceleration);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
-  private ArmFeedforward armFeedforward = new ArmFeedforward(ks, kg, kv);
+  private ArmFeedforward armFeedforward = ArmConstants.armFeedforward;
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
@@ -83,6 +84,9 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void zeroEncoder(){
+    // double absolutePositionInTicks = getAbsolutePositionRotations();
+    // armMotor.setSelectedSensorPosition(absolutePositionInTicks);
+    zeroAngleOffset = getAbsolutePositionInDegrees();
     armMotor.setSelectedSensorPosition(0);
   }
   /**
@@ -121,6 +125,9 @@ public class ArmSubsystem extends SubsystemBase {
     return setpoint;
   }
 
+  public double getVelocityInRadians(){
+    return Units.degreesToRadians(getVelocityInDegrees());
+  }
   /**
    * Gets the arm constraints.
    *
@@ -154,10 +161,38 @@ public class ArmSubsystem extends SubsystemBase {
    *
    * @return The position of the main arm, in units of rotations.
    */
-  public double getPosition() {
-    double rawPosition = armMotor.getSelectedSensorPosition();
-    return rawPosition / (ArmConstants.armEncoderGearing * 2048);
+  public double getPositionInRotations() {
+    double rawPosition = armMotor.getSelectedSensorPosition()/ 114.55;
+    return (rawPosition%2048)/2048;
   }
+
+  public double getVelocityInRotations() {
+    double rawVelocity = armMotor.getSelectedSensorVelocity()/ 114.55;
+    return (rawVelocity%2048)/2048;
+  }
+
+  public double getPositionInDegrees() {
+    return Units.rotationsToDegrees(getPositionInRotations());
+  }
+
+  public double getVelocityInDegrees() {
+    return Units.rotationsToDegrees(getVelocityInRotations());
+  }
+
+
+  // (raw/114,55 % 2048)/2048 = x
+  // raw/114.55 % 2048 = 2048*x
+
+  public double getAbsolutePositionRotations(){
+    double nativePosition = absoluteEncoder.getAbsolutePosition()*ArmConstants.armEncoderGearing;
+    return nativePosition - ArmConstants.armOffset;
+  }
+
+  public double getAbsolutePositionInDegrees(){
+    double absolutePositionRotations = getAbsolutePositionRotations();
+    return Units.rotationsToDegrees(absolutePositionRotations);
+  }
+
 
   /**
    * Gets the arm rotation in degrees.
@@ -165,7 +200,7 @@ public class ArmSubsystem extends SubsystemBase {
    * @return the position in degrees.
    */
   public double getAngle() {
-    return getPosition() * 360;
+    return getPositionInDegrees() - zeroAngleOffset;
   }
 
   /** Sets arm motor to coast mode, allowing arm to freely move */
@@ -182,7 +217,9 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     // outputting arm positions to smart dashboard and homing status
     SmartDashboard.putNumber("Arm Relative Position", armMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Arm Absolute Position", absoluteEncoder.getAbsolutePosition());
+    SmartDashboard.putNumber("Arm Absolute Position in Rotations", getAbsolutePositionRotations());
+    SmartDashboard.putNumber("ANGLE", getAngle());
+    SmartDashboard.putNumber("Arm Relative Position in Rotations", getPositionInRotations());
 
     SmartDashboard.putNumber("Arm Angle", getAngle());
   }

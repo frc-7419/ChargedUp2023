@@ -24,9 +24,9 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   private PIDController armPIDController;
   private GripperSubsystem gripperSubsystem;
 
-  public ArmToSetpointWithFeedforward(ArmSubsystem armSubsystem, NodeState armState) {
+  public ArmToSetpointWithFeedforward(ArmSubsystem armSubsystem, NodeState intakesetpoint) {
     this.armSubsystem = armSubsystem;
-    this.setpoint = armState.armSetpoint;
+    this.setpoint = intakesetpoint.armSetpoint;
     // if (!gripperSubsystem.isHolding) {
     //   this.feedforward =
     //       new ArmFeedforward(ArmConstants.withoutConeks, ArmConstants.withoutConekg, ArmConstants.withoutConekv, ArmConstants.withoutConeka);
@@ -43,7 +43,7 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   @Override
   public void initialize() {
     armSubsystem.setGoal(setpoint);
-    double armPosition = armSubsystem.getPosition() * 2 * Math.PI;
+    double armPosition = armSubsystem.getPositionInRotations() * 2 * Math.PI;
     armSubsystem.setSetpoint(new TrapezoidProfile.State(armPosition, 0));
 
     SmartDashboard.putNumber("Arm Goal Position", armSubsystem.getGoal().position);
@@ -57,7 +57,7 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
         new TrapezoidProfile(
             armSubsystem.getConstraints(), armSubsystem.getGoal(), armSubsystem.getSetpoint());
 
-    double currentPosition = armSubsystem.getPosition() * 2 * Math.PI;
+    double currentPosition = armSubsystem.getPositionInRotations() * 2 * Math.PI;
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
