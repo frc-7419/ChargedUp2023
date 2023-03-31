@@ -13,6 +13,7 @@ import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.autos.Balance;
 import frc.robot.commands.autos.Mobility;
+import frc.robot.commands.autos.MobilityBalance;
 import frc.robot.commands.autos.OnePiece;
 import frc.robot.commands.autos.ThreePiece;
 import frc.robot.commands.autos.TwoPiece;
@@ -22,6 +23,7 @@ import frc.robot.constants.ArmConstants;
 import frc.robot.constants.NodeConstants;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
+import frc.robot.subsystems.arm.ArmToSetpointWithFeedforward;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -81,6 +83,7 @@ public class RobotContainer {
 //   private final ArmToSetpoint armToIntakeSetpoint = new ArmToSetpoint(armSubsystem, ArmConstants.intakeSetpoint);
 
 //   private final ArmToSetpoint armToScoreSetpoint = new ArmToSetpoint(armSubsystem, ArmConstants.scoreSetpoint);
+private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpointWithFeedforward(armSubsystem, NodeState.SUBSTATION);
 
   // private final ElevatorToSetpoint elevatorToGround =
   // new ElevatorToSetpoint(elevatorSubsystem, NodeState.GROUND);
@@ -104,13 +107,14 @@ public class RobotContainer {
   // new ElevatorToSetpointWithFeedForward(elevatorSubsystem,
   // NodeConstants.NodeState.RESET);
 
-  // private final ElevatorToSetpointWithFeedForward elevatorToLow =
-  // new ElevatorToSetpointWithFeedForward(elevatorSubsystem,
-  // NodeConstants.NodeState.LOW);
+  private final IntakePiece intakePieceSub = new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SUBSTATION);
+  private final ElevatorToSetpointWithFeedForward elevatorToLow =
+  new ElevatorToSetpointWithFeedForward(elevatorSubsystem,
+  NodeConstants.NodeState.LOW);
 
-  // private final ElevatorToSetpointWithFeedForward elevatorToHigh =
-  // new ElevatorToSetpointWithFeedForward(elevatorSubsystem,
-  // NodeConstants.NodeState.HIGH);
+  private final ElevatorToSetpointWithFeedForward elevatorToHigh =
+  new ElevatorToSetpointWithFeedForward(elevatorSubsystem,
+  NodeConstants.NodeState.HIGH);
   // private final ElevatorWithMotionMagic elevatorToHigh =
   // new ElevatorWithMotionMagic(elevatorSubsystem,
   // NodeConstants.NodeState.HIGH.elevatorSetpoint);
@@ -162,16 +166,17 @@ public class RobotContainer {
   // private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
   private final TurnToAngleRobotRelative turn180RobotRelative = new TurnToAngleRobotRelative(driveBaseSubsystem, 180);
   private final TurnToAngleFieldRelative turn180FieldRelative = new TurnToAngleFieldRelative(driveBaseSubsystem, 180);
-
+  private final MobilityBalance mobilityBalance = new MobilityBalance(driveBaseSubsystem);
   public RobotContainer() {
     configureButtonBindings();
     configureAutoSelector();
   }
 
   private void configureButtonBindings() {
-    // new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
-    // new JoystickButton(operatorJoystick, Button.kX.value).onTrue(elevatorToHigh);
-    // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(elevatorToLow);
+    new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
+    new JoystickButton(operatorJoystick, Button.kX.value).onTrue(elevatorToHigh);
+    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(elevatorToLow);
+    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceSub);
     // new JoystickButton(operatorJoystick,
     // Button.kY.value).onTrue(elevatorToReset);
     // new JoystickButton(driverJoystick,
@@ -223,7 +228,8 @@ public class RobotContainer {
     // ledSubsystem.rainbowLED(0);
     // return autonomousChooser.getSelected();
     // return balance;
-    return new Mobility(driveBaseSubsystem);
+    // return new Mobility(driveBaseSubsystem);
+    return mobilityBalance;
     // return new WaitCommand(5);
   }
 

@@ -4,6 +4,7 @@
 
 package frc.robot.commands.actions;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.constants.ArmConstants;
 import frc.robot.constants.NodeConstants.NodeState;
@@ -29,6 +30,7 @@ public class IntakePiece extends SequentialCommandGroup {
    * @param wristSubsystem for controlling the orientation of the gripper
    */
   public IntakePiece(
+
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
       WristSubsystem wristSubsystem,
@@ -37,7 +39,7 @@ public class IntakePiece extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, intakeLocation),
-        new ArmToSetpointWithFeedforward(armSubsystem, intakeLocation),
-        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation));
+        Commands.parallel(new ArmToSetpointWithFeedforward(armSubsystem, intakeLocation).withTimeout(2),
+        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation).withTimeout(1)));
   }
 }

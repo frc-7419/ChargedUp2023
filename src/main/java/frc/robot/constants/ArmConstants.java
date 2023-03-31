@@ -23,30 +23,30 @@ public final class ArmConstants {
   public static final double scoreSetpoint = 0;
   public static final double resetSetpoint = 0;
 
-  public static final double maxVelocity = 300;
-  public static final double maxAcceleration = 150;
+  public static final double maxVelocity = 2;
+  public static final double maxAcceleration = 1;
 
   public static double initialPosition;
   // ff without cone
   
   
-  public static double withoutConeks = 0.19169;
-  public static double withoutConekg = 0.9053;
-  public static double withoutConekv = 12.345;
-  public static double withoutConeka = 0.58072;
+  public static double withoutConeks = 0.172129;
+  public static double withoutConekg = 0.3;
+  public static double withoutConekv = 12.106;
+  public static double withoutConeka = 0.65188;
   
   public static double ks = withoutConeks;
   public static double kg = withoutConekg;
   public static double kv = withoutConekv;
   public static double ka = withoutConeka;
   // ff with cone
-  public static final ArmFeedforward armFeedforward = new ArmFeedforward(ks, kg, kv);
+  public static final ArmFeedforward armFeedforward = new ArmFeedforward(ks, 3, kv);
   public static double withConeks = 0.19169;
   public static double withConekg = 0.32053;
   public static double withConekv = 12.345;
   public static double withConeka = 0.58072;
-
-  public static double armKp = 0.89164;
+  
+  public static double armKp = 0.4;
   public static double armKi = 0;
   public static double armKd = 0;
   public static double armElevatorDelay;

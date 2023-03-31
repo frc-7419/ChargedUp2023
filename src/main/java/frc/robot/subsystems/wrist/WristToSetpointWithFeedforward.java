@@ -91,6 +91,8 @@ public class WristToSetpointWithFeedforward extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return wristSubsystem.getSetpoint().position == wristSubsystem.getGoal().position;
+    double error = wristSubsystem.getGoal().position - wristSubsystem.getPosition();
+    boolean isAtSetpoint = Math.abs(error) <= 0.01;
+    return isAtSetpoint;
   }
 }

@@ -7,6 +7,7 @@ package frc.robot.subsystems.arm;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.ArmConstants;
@@ -22,11 +23,11 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   private TrapezoidProfile currentProfile;
   private ArmFeedforward feedforward;
   private PIDController armPIDController;
-  private GripperSubsystem gripperSubsystem;
 
   public ArmToSetpointWithFeedforward(ArmSubsystem armSubsystem, NodeState intakesetpoint) {
     this.armSubsystem = armSubsystem;
     this.setpoint = intakesetpoint.armSetpoint;
+    this.feedforward = ArmConstants.armFeedforward;
     // if (!gripperSubsystem.isHolding) {
     //   this.feedforward =
     //       new ArmFeedforward(ArmConstants.withoutConeks, ArmConstants.withoutConekg, ArmConstants.withoutConekv, ArmConstants.withoutConeka);
@@ -35,7 +36,7 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
     //       new ArmFeedforward(ArmConstants.withConeks, ArmConstants.withConekg, ArmConstants.withConekv, ArmConstants.withConeka);
     // }
     this.armPIDController =
-        new PIDController(PIDConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
+        new PIDController(ArmConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
     addRequirements(armSubsystem);
   }
 
@@ -43,7 +44,7 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   @Override
   public void initialize() {
     armSubsystem.setGoal(setpoint);
-    double armPosition = armSubsystem.getPositionInRotations() * 2 * Math.PI;
+    double armPosition = armSubsystem.getAngle();
     armSubsystem.setSetpoint(new TrapezoidProfile.State(armPosition, 0));
 
     SmartDashboard.putNumber("Arm Goal Position", armSubsystem.getGoal().position);
@@ -57,20 +58,22 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
         new TrapezoidProfile(
             armSubsystem.getConstraints(), armSubsystem.getGoal(), armSubsystem.getSetpoint());
 
-    double currentPosition = armSubsystem.getPositionInRotations() * 2 * Math.PI;
+    double currentPosition = armSubsystem.getAngle();
 
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
-    double feedForwardPower =
-        feedforward.calculate(nextSetpoint.position, nextSetpoint.velocity) / 12;
+    // double feedForwardPower =
+    //     feedforward.calculate(nextSetpoint.position, nextSetpoint.velocity) / 12;
 
     armSubsystem.setSetpoint(nextSetpoint);
-
+    
     armPIDController.setSetpoint(nextSetpoint.position);
-
+    
     double armPower = armPIDController.calculate(currentPosition);
+    double feedForwardPower = 
+    Math.copySign(ArmConstants.kg * Math.cos(Units.degreesToRadians(currentPosition)), armPower)/12;
 
-    armSubsystem.setPower(armPower + feedForwardPower);
+    armSubsystem.setPower(armPower);
   }
 
   // Called once the command ends or is interrupted.
@@ -83,6 +86,8 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return armSubsystem.getSetpoint().position == armSubsystem.getGoal().position;
+    double error = armSubsystem.getGoal().position - armSubsystem.getAngle();
+    boolean isAtSetpoint = Math.abs(error) <= 0.01;
+    return isAtSetpoint;
   }
 }
