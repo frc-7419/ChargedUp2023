@@ -39,9 +39,9 @@ public class IntakePiece extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new ElevatorToSetpointWithFeedForward(elevatorSubsystem, intakeLocation),
+        new ElevatorToSetpointWithFeedForward(elevatorSubsystem, intakeLocation).raceWith(new WaitCommand(1)),
         Commands.sequence(
-        new ArmToSetpointWithFeedforward(armSubsystem, intakeLocation).deadlineWith(new WaitCommand(2.5)),
-        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation).withTimeout(1)));
+        new ArmToSetpointWithFeedforward(armSubsystem, intakeLocation).raceWith(new WaitCommand(2.5)),
+        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation).raceWith(new WaitCommand(1))));
   }
 }

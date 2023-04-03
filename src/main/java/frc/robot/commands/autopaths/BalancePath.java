@@ -18,7 +18,7 @@ import frc.robot.subsystems.drive.GenerateTrajectory;
 public class BalancePath extends SequentialCommandGroup {
   public BalancePath(DriveBaseSubsystem driveBaseSubsystem) {
     String allianceSide = RobotConstants.currentAllianceSide;
-    String pathName = "Balance" + allianceSide;
+    String pathName = "Balance Mid";
     Alliance currentAlliance = RobotConstants.currentAlliance;
     PathPlannerTrajectory balancePath =
         PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));

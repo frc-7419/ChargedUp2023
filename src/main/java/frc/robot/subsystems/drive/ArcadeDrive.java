@@ -47,7 +47,7 @@ public class ArcadeDrive extends CommandBase {
     }
     double straightCoefficient = getStraightCoefficient(this.slowMode);
     double joystickInputPower = joystick.getLeftY() * straightCoefficient;
-    double xAxisSpeed = -speedLimiter.calculate(joystickInputPower);
+    double xAxisSpeed = speedLimiter.calculate(joystickInputPower);
 
     double turnCoefficient = getTurnCoefficient(this.slowMode);
     double joystickInputPowerTurn = joystick.getRightX() * turnCoefficient;

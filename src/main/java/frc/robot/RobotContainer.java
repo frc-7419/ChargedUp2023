@@ -14,6 +14,7 @@ import frc.robot.commands.actions.IntakePiece;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.autos.AutoHigh;
+import frc.robot.commands.autos.Balance;
 import frc.robot.commands.autos.Mobility;
 import frc.robot.commands.autos.MobilityBalance;
 import frc.robot.commands.paths.TurnToAngleFieldRelative;
@@ -139,6 +140,9 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
 //   private final ScorePiece scorePieceLow = new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem,
 //       NodeState.LOW);
   private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.HIGH);
+  private final ScorePiece scorePieceMid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.LOW);
+  private final IntakePiece intakePieceSingle = new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SINGLE_SUBSTATION);
+
 
   private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem);
 
@@ -171,6 +175,8 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
     new JoystickButton(operatorJoystick, Button.kX.value).onTrue(scorePieceHigh);
     new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceSub);
+    new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
+    new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceSingle);
     // new JoystickButton(operatorJoystick,
     // Button.kY.value).onTrue(elevatorToReset);
     // new JoystickButton(driverJoystick,
@@ -226,7 +232,8 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     // return new Mobility(driveBaseSubsystem);
     // return mobility;xxxxxxxxxxxxxxxxx
     // return new MobilityBalance(driveBaseSubsystem, gyroSubsystem);
-    return new AutoHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH);
+    // return new AutoHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH);
+    return new Balance(driveBaseSubsystem, gyroSubsystem);
     // return new WaitCommand(5);
   }
 
