@@ -36,7 +36,7 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
     //       new ArmFeedforward(ArmConstants.withConeks, ArmConstants.withConekg, ArmConstants.withConekv, ArmConstants.withConeka);
     // }
     this.armPIDController =
-        new PIDController(ArmConstants.armKp, PIDConstants.armKi, PIDConstants.armKd);
+        new PIDController(0.03, 0, 0);
     addRequirements(armSubsystem);
   }
 
@@ -87,7 +87,7 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
   @Override
   public boolean isFinished() {
     double error = armSubsystem.getGoal().position - armSubsystem.getAngle();
-    boolean isAtSetpoint = Math.abs(error) <= 0.01;
+    boolean isAtSetpoint = Math.abs(error) <= 1;
     return isAtSetpoint;
   }
 }

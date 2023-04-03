@@ -23,7 +23,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   private TalonFX armMotor;
   private DutyCycleEncoder absoluteEncoder;
-  private double zeroAngleOffset;
+  private double zeroAngleOffset = 60;
+  private double offsetInTicks = 34693;
   // private Encoder relativeEncoder;
   private double offset = 0;
   private double ks = ArmConstants.withoutConeks;
@@ -31,14 +32,15 @@ public class ArmSubsystem extends SubsystemBase {
   private double kv = ArmConstants.withoutConekv;
   private double ka = ArmConstants.withoutConeka;
 
-  private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(ArmConstants.maxVelocity,
-      ArmConstants.maxAcceleration);
+  private final TrapezoidProfile.Constraints constraints;
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
   private ArmFeedforward armFeedforward = ArmConstants.armFeedforward;
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
+    constraints  = new TrapezoidProfile.Constraints(ArmConstants.maxVelocity,
+    ArmConstants.maxAcceleration);
     armMotor = new TalonFX(DeviceIDs.CanIds.armFalcon.id);
     absoluteEncoder = new DutyCycleEncoder(DeviceIDs.SensorIds.armAbsoluteEncoder.id);
     configureMotorControllers();
@@ -86,8 +88,7 @@ public class ArmSubsystem extends SubsystemBase {
   public void zeroEncoder(){
     // double absolutePositionInTicks = getAbsolutePositionRotations();
     // armMotor.setSelectedSensorPosition(absolutePositionInTicks);
-    zeroAngleOffset = getAbsolutePositionInDegrees();
-    armMotor.setSelectedSensorPosition(0);
+    armMotor.setSelectedSensorPosition(offsetInTicks);
   }
   /**
    * Sets the desired goal state of the arm.
@@ -200,7 +201,7 @@ public class ArmSubsystem extends SubsystemBase {
    * @return the position in degrees.
    */
   public double getAngle() {
-    return getPositionInDegrees() - zeroAngleOffset;
+    return getPositionInDegrees();
   }
 
   /** Sets arm motor to coast mode, allowing arm to freely move */
@@ -217,10 +218,8 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     // outputting arm positions to smart dashboard and homing status
     SmartDashboard.putNumber("Arm Relative Position", armMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Arm Absolute Position in Rotations", getAbsolutePositionRotations());
     SmartDashboard.putNumber("ANGLE", getAngle());
     SmartDashboard.putNumber("Arm Relative Position in Rotations", getPositionInRotations());
-
-    SmartDashboard.putNumber("Arm Angle", getAngle());
+    SmartDashboard.putNumber("Arm Relative Position in Degrees", getPositionInDegrees());
   }
 }

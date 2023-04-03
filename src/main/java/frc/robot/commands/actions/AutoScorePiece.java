@@ -5,16 +5,20 @@
 package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.constants.ArmConstants;
 import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.constants.NodeConstants.NodeState;
-import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpointWithFeedforward;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripper;
+import frc.robot.subsystems.wrist.WristSubsystem;
+import frc.robot.subsystems.wrist.WristToSetpointWithFeedforward;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -26,21 +30,27 @@ public class AutoScorePiece extends SequentialCommandGroup {
    * This command will intake a game piece.
    *
    * @param elevatorSubsystem for controlling position of the elevator.
-   * @param armSubsystem for controlling position of the arms.
-   * @param gripperSubsystem for controlling orientation of the gripper.
+   * @param armSubsystem      for controlling position of the arms.
+   * @param gripperSubsystem  for controlling gripper power and direction.
+   * @param wristSubsystem    for controlling the orientation of the gripper
    */
   public AutoScorePiece(
+
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
+      WristSubsystem wristSubsystem,
       GripperSubsystem gripperSubsystem,
       NodeState scoreLocation) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        // Commands.parallel(
-        //         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation),
-        //         new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation))
-        //     .withTimeout(RobotConstants.autoScoreDelaySeconds),
-        new RunGripper(gripperSubsystem, GripperState.SCORE));
+        Commands.parallel(
+            new RunGripper(gripperSubsystem, GripperState.HOLD).withTimeout(5),
+            Commands.sequence(
+                new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation).deadlineWith(new WaitCommand(3)),
+                new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation).deadlineWith(new WaitCommand(2.5)),
+                new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, scoreLocation).withTimeout(1))),
+        new RunGripper(gripperSubsystem, GripperState.SCORE).withTimeout(1),
+        new InstantCommand(gripperSubsystem::stop));
   }
 }

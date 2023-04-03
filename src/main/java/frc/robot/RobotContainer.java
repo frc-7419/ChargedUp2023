@@ -1,25 +1,23 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.actions.IntakePiece;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
-import frc.robot.commands.autos.Balance;
+import frc.robot.commands.autos.AutoHigh;
 import frc.robot.commands.autos.Mobility;
 import frc.robot.commands.autos.MobilityBalance;
-import frc.robot.commands.autos.OnePiece;
-import frc.robot.commands.autos.ThreePiece;
-import frc.robot.commands.autos.TwoPiece;
 import frc.robot.commands.paths.TurnToAngleFieldRelative;
 import frc.robot.commands.paths.TurnToAngleRobotRelative;
-import frc.robot.constants.ArmConstants;
 import frc.robot.constants.NodeConstants;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
@@ -29,7 +27,6 @@ import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
-import frc.robot.subsystems.elevator.ElevatorWithMotionMagic;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
@@ -39,7 +36,6 @@ import frc.robot.subsystems.gyro.TurnWithGyro;
 import frc.robot.subsystems.led.LedSubsystem;
 import frc.robot.subsystems.led.RunLed;
 import frc.robot.subsystems.wrist.MoveWristWithJoystick;
-import frc.robot.subsystems.wrist.SmartWrist;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.subsystems.wrist.WristToSetpointWithFeedforward;
 
@@ -142,10 +138,9 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
 
 //   private final ScorePiece scorePieceLow = new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem,
 //       NodeState.LOW);
-//   private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem,
-//       NodeState.HIGH);
+  private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.HIGH);
 
-//   private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem);
+  private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem);
 
   private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
 
@@ -166,7 +161,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
   // private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
   private final TurnToAngleRobotRelative turn180RobotRelative = new TurnToAngleRobotRelative(driveBaseSubsystem, 180);
   private final TurnToAngleFieldRelative turn180FieldRelative = new TurnToAngleFieldRelative(driveBaseSubsystem, 180);
-  private final MobilityBalance mobilityBalance = new MobilityBalance(driveBaseSubsystem);
+  private final MobilityBalance mobilityBalance = new MobilityBalance(driveBaseSubsystem, gyroSubsystem);
   public RobotContainer() {
     configureButtonBindings();
     configureAutoSelector();
@@ -174,9 +169,8 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
 
   private void configureButtonBindings() {
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
-    new JoystickButton(operatorJoystick, Button.kX.value).onTrue(elevatorToHigh);
-    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(elevatorToLow);
-    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(intakePieceSub);
+    new JoystickButton(operatorJoystick, Button.kX.value).onTrue(scorePieceHigh);
+    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceSub);
     // new JoystickButton(operatorJoystick,
     // Button.kY.value).onTrue(elevatorToReset);
     // new JoystickButton(driverJoystick,
@@ -190,7 +184,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     // new JoystickButton(operatorJoystick,
     // Button.kY.value).onTrue(intakePieceSubstation);
 
-    // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(smartRetract);
+    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
 
     // new JoystickButton(operatorJoystick,
     // Button.kRightBumper.value).onTrue(wristToSetpointWithFeedforwardReset);
@@ -206,9 +200,10 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     // new JoystickButton(operatorJoystick, 
     // Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
 
-    new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(new InstantCommand(armSubsystem::zeroEncoder));
+    new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder)));
 
     new JoystickButton(driverJoystick, XboxController.Button.kB.value).onTrue(turnWithGyro180);
+    // new JoystickButton(driverJoystick, XboxController.Button.kX.value).onTrue(new InstantCommand(driveBaseSubsystem::brake));
 
     // new JoystickButton(operatorJoystick, XboxController.Button.kX.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 150000));
     // new JoystickButton(operatorJoystick, XboxController.Button.kB.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 7500));
@@ -229,7 +224,9 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     // return autonomousChooser.getSelected();
     // return balance;
     // return new Mobility(driveBaseSubsystem);
-    return mobilityBalance;
+    // return mobility;xxxxxxxxxxxxxxxxx
+    // return new MobilityBalance(driveBaseSubsystem, gyroSubsystem);
+    return new AutoHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH);
     // return new WaitCommand(5);
   }
 

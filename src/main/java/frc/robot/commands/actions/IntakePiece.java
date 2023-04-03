@@ -6,6 +6,7 @@ package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.constants.ArmConstants;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
@@ -39,7 +40,8 @@ public class IntakePiece extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, intakeLocation),
-        Commands.parallel(new ArmToSetpointWithFeedforward(armSubsystem, intakeLocation).withTimeout(2),
+        Commands.sequence(
+        new ArmToSetpointWithFeedforward(armSubsystem, intakeLocation).deadlineWith(new WaitCommand(2.5)),
         new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation).withTimeout(1)));
   }
 }

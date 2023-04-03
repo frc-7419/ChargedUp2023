@@ -23,8 +23,8 @@ public final class ArmConstants {
   public static final double scoreSetpoint = 0;
   public static final double resetSetpoint = 0;
 
-  public static final double maxVelocity = 2;
-  public static final double maxAcceleration = 1;
+  public static final double maxVelocity = 100;
+  public static final double maxAcceleration = 82;
 
   public static double initialPosition;
   // ff without cone

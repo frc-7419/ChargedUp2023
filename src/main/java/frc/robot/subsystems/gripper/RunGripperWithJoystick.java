@@ -18,6 +18,7 @@ public class RunGripperWithJoystick extends CommandBase {
   private boolean holdMode = false;
   private boolean isIntaking = false;
   private boolean isOuttaking = false;
+  private boolean isFast = true;
 
   public RunGripperWithJoystick(
       GripperSubsystem gripperSubsystem, XboxController joystick, LedSubsystem ledSubsystem) {
@@ -38,6 +39,15 @@ public class RunGripperWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (joystick.getStartButtonPressed()){
+      isFast = !isFast;
+    }
+    double gripperOuttakePower = GripperConstants.gripperOuttakePower;
+    if (isFast){
+      gripperOuttakePower = GripperConstants.gripperOuttakeFastPower;
+    } else {
+      gripperOuttakePower = GripperConstants.gripperOuttakePower;
+    }
     gripperSubsystem.isHolding = holdMode;
 
     if (!isOuttaking && joystick.getRightBumperPressed() && !holdMode) {
@@ -52,7 +62,6 @@ public class RunGripperWithJoystick extends CommandBase {
         holdMode = false;
       }
     }
-
     if (holdMode) {
       gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);
       gripperSubsystem.brake();
@@ -73,7 +82,7 @@ public class RunGripperWithJoystick extends CommandBase {
       }
     } else if (isOuttaking) {
       gripperSubsystem.coast();
-      gripperSubsystem.setOuttakePower(GripperConstants.gripperOuttakePower);
+      gripperSubsystem.setOuttakePower(gripperOuttakePower);
       ledSubsystem.setLEDBlue();
     } else {
       gripperSubsystem.setPower(0);

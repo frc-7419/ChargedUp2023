@@ -31,6 +31,11 @@ public class GripperSubsystem extends SubsystemBase {
     gripper.set(power);
   }
 
+  public void stop() {
+    gripper.set(0);
+  }
+
+
   public void setIntakePower(double power) {
     gripper.set(power);
   }

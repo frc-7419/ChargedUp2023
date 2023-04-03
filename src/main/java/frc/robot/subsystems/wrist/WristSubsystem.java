@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class WristSubsystem extends SubsystemBase {
   private CANSparkMax wrist;
   private final TrapezoidProfile.Constraints constraints =
-      new TrapezoidProfile.Constraints(300, 150);
+      new TrapezoidProfile.Constraints(200, 130);
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
 
