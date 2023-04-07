@@ -51,7 +51,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     config.motionAcceleration = 10000;
     config.motionCruiseVelocity = 10000;
     config.forwardSoftLimitThreshold = 340000;
-    config.reverseSoftLimitThreshold = 7500;
+    config.reverseSoftLimitThreshold = 40000;
     config.forwardSoftLimitEnable = true;
     config.reverseSoftLimitEnable = true;
 

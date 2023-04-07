@@ -1,7 +1,7 @@
 package frc.robot.constants;
 
 public final class GripperConstants {
-  public static final double gripperPower = 0.4;
+  public static final double gripperPower = 0.8;
   public static final double gripperOuttakePower = 0.4;
   public static final double gripperOuttakeFastPower = 0.4;
   public static final double gripperFeedforward = 0.07;

@@ -23,17 +23,17 @@ import frc.robot.subsystems.wrist.WristSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoHigh extends SequentialCommandGroup {
+public class AutoHighBalance extends SequentialCommandGroup {
   /** Creates a new AutoHigh. */
-  public AutoHigh(DriveBaseSubsystem driveBaseSubsystem, ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, GripperSubsystem gripperSubsystem, GyroSubsystem gyroSubsystem, NodeState scoreLocation) {
+  public AutoHighBalance(DriveBaseSubsystem driveBaseSubsystem, ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, GripperSubsystem gripperSubsystem, GyroSubsystem gyroSubsystem, NodeState scoreLocation) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, scoreLocation),
       new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
-      new RunDrive(driveBaseSubsystem, -0.35).withTimeout(3.2));
-        // // new RunDrive(driveBaseSubsystem, 0.28).withTimeout(2.8),
-        // new SmartBalance(driveBaseSubsystem, gyroSubsystem),
-        // new InstantCommand(driveBaseSubsystem::brake));
+      new RunDrive(driveBaseSubsystem, -0.35).withTimeout(3.2),
+        new RunDrive(driveBaseSubsystem, 0.28).withTimeout(2.8),
+        new SmartBalance(driveBaseSubsystem, gyroSubsystem),
+        new InstantCommand(driveBaseSubsystem::brake));
   }
 }

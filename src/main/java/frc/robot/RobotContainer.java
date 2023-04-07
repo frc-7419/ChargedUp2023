@@ -11,9 +11,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.actions.IntakePiece;
+import frc.robot.commands.actions.IntakePieceDouble;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.autos.AutoHigh;
+import frc.robot.commands.autos.AutoHighBalance;
 import frc.robot.commands.autos.Balance;
 import frc.robot.commands.autos.Mobility;
 import frc.robot.commands.autos.MobilityBalance;
@@ -103,8 +105,8 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
   // private final ElevatorToSetpointWithFeedForward elevatorToReset =
   // new ElevatorToSetpointWithFeedForward(elevatorSubsystem,
   // NodeConstants.NodeState.RESET);
-
-  private final IntakePiece intakePieceSub = new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SUBSTATION);
+  private final IntakePiece intakePieceSingleSub = new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SINGLE_SUBSTATION);
+  private final IntakePieceDouble intakePieceDoubleSub = new IntakePieceDouble(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SUBSTATION);
   private final ElevatorToSetpointWithFeedForward elevatorToLow =
   new ElevatorToSetpointWithFeedForward(elevatorSubsystem,
   NodeConstants.NodeState.LOW);
@@ -174,9 +176,11 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
   private void configureButtonBindings() {
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
     new JoystickButton(operatorJoystick, Button.kX.value).onTrue(scorePieceHigh);
-    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceSub);
+    new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceSingleSub);
+    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceDoubleSub);
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
-    new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceSingle);
+    // new JoystickButton(operatorJoystick, Button.kStart.value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ).onTrue(intakePieceSingle);
+    new JoystickButton(driverJoystick, Button.kRightStick.value).onTrue(new InstantCommand(gyroSubsystem::zeroYaw));
     // new JoystickButton(operatorJoystick,
     // Button.kY.value).onTrue(elevatorToReset);
     // new JoystickButton(driverJoystick,
@@ -217,9 +221,11 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
   }
 
   private void configureAutoSelector() {
-    // autonomousChooser.setDefaultOption("Mobility", mobility);
+    autonomousChooser.setDefaultOption("Auto High", new AutoHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH));
+    autonomousChooser.addOption("Auto High + Balance", new AutoHighBalance(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH));
     // autonomousChooser.setDefaultOption("Balance", balance);
-    // autonomousChooser.addOption("One Piece", onePiece);
+    autonomousChooser.addOption("Hybrid", new Mobility(driveBaseSubsystem));
+    autonomousChooser.addOption("Hybrid + Balance", new MobilityBalance(driveBaseSubsystem, gyroSubsystem));
     // autonomousChooser.addOption("Two Piece", twoPiece);
     // autonomousChooser.addOption("Three Piece", threePiece);
     SmartDashboard.putData(autonomousChooser);
@@ -227,13 +233,13 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
 
   public Command getAutonomousCommand() {
     // ledSubsystem.rainbowLED(0);
-    // return autonomousChooser.getSelected();
+    return autonomousChooser.getSelected();
     // return balance;
     // return new Mobility(driveBaseSubsystem);
     // return mobility;xxxxxxxxxxxxxxxxx
     // return new MobilityBalance(driveBaseSubsystem, gyroSubsystem);
     // return new AutoHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH);
-    return new Balance(driveBaseSubsystem, gyroSubsystem);
+    // return new Balance(driveBaseSubsystem, gyroSubsystem);
     // return new WaitCommand(5);
   }
 

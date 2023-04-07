@@ -69,4 +69,14 @@ public class GyroSubsystem extends SubsystemBase {
     }
   }
 
+  public void zeroYaw(){
+    String allianceColor = RobotConstants.currentAllianceColor;
+    if (allianceColor=="Blue"){
+      gyro.setYaw(0);
+    } else {
+      gyro.setYaw(180);
+    }
+  }
+
+
 }

@@ -51,7 +51,7 @@ public class DrivetrainPoseEstimator {
   // influence on the final pose estimate.
   Matrix<N5, N1> stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5), 0.05, 0.05);
   Matrix<N3, N1> localMeasurementStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(0.01));
-  Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(0.7, 0.7, Units.degreesToRadians(5));
+  Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(0.7, 0.7, Units.degreesToRadians(90));
 
   private final DifferentialDrivePoseEstimator m_poseEstimator;
   /**

@@ -20,10 +20,10 @@ public class MobilityBalance extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new RunDrive(driveBaseSubsystem, 0.8).withTimeout(0.2),
-        new RunDrive(driveBaseSubsystem, -0.4).withTimeout(1.5),
+        // new RunDrive(driveBaseSubsystem, 0.8).withTimeout(0.2),
+        // new RunDrive(driveBaseSubsystem, -0.4).withTimeout(1.5),
         new RunDrive(driveBaseSubsystem, 0.35).withTimeout(3.2),
-        new RunDrive(driveBaseSubsystem, -0.28).withTimeout(2.5),
+        new RunDrive(driveBaseSubsystem, -0.28).withTimeout(2.8),
         new SmartBalance(driveBaseSubsystem, gyroSubsystem),
         new InstantCommand(driveBaseSubsystem::brake));
   }

@@ -330,6 +330,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("left velocity", getLeftVelocityInMeters());
 
     field.setRobotPose(getCtrlsPoseEstimate());
+    SmartDashboard.putNumberArray("Odometry", new double[]{getCtrlsPoseEstimate().getX(), getCtrlsPoseEstimate().getY(), getCtrlsPoseEstimate().getRotation().getDegrees()});
     SmartDashboard.putNumber("Dist to Target", getDist());
     SmartDashboard.putNumber("Angle to Target", getAngle());
     poseEstimation.update(this.leftDistance, this.rightDistance);

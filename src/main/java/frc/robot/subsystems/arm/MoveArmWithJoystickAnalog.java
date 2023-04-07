@@ -53,7 +53,9 @@ public class MoveArmWithJoystickAnalog extends CommandBase {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    armSubsystem.coast();
+  }
 
   @Override
   public boolean isFinished() {

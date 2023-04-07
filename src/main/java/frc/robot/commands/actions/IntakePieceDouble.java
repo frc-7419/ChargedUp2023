@@ -19,7 +19,7 @@ import frc.robot.subsystems.wrist.WristToSetpointWithFeedforward;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakePiece extends SequentialCommandGroup {
+public class IntakePieceDouble extends SequentialCommandGroup {
   /** Creates a new IntakePiece. */
 
   /**
@@ -30,7 +30,7 @@ public class IntakePiece extends SequentialCommandGroup {
    * @param gripperSubsystem for controlling gripper power and direction.
    * @param wristSubsystem for controlling the orientation of the gripper
    */
-  public IntakePiece(
+  public IntakePieceDouble(
 
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
@@ -39,6 +39,9 @@ public class IntakePiece extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation).raceWith(new WaitCommand(0.6)));
+        new ElevatorToSetpointWithFeedForward(elevatorSubsystem, intakeLocation).raceWith(new WaitCommand(0.5)),
+        Commands.sequence(
+        new ArmToSetpointWithFeedforward(armSubsystem, intakeLocation).raceWith(new WaitCommand(2)),
+        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation).raceWith(new WaitCommand(0.6))));
   }
 }

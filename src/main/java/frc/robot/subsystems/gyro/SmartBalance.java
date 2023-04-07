@@ -28,6 +28,7 @@ public class SmartBalance extends CommandBase {
   @Override
   public void initialize() {
     lastTimeStamp = Timer.getFPGATimestamp();
+    stopCorrecting = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
