@@ -50,17 +50,32 @@ public class RunGripperWithJoystick extends CommandBase {
     }
     gripperSubsystem.isHolding = holdMode;
 
-    if (!isOuttaking && joystick.getRightBumperPressed() && !holdMode) {
-      isIntaking = !isIntaking;
-      if (isIntaking) {
-        holdMode = false;
-      }
+    // if (!isOuttaking && joystick.getRightBumperPressed() && !holdMode) {
+    //   isIntaking = !isIntaking;
+    //   if (isIntaking) {
+    //     holdMode = false;
+    //   }
+    // }
+    // if (!isIntaking && joystick.getLeftBumperPressed()) {
+    //   isOuttaking = !isOuttaking;
+    //   if (isOuttaking) {
+    //     holdMode = false;
+    //   }
+    // }
+
+    if (joystick.getRightTriggerAxis() > 0.05){
+      holdMode = false;
     }
-    if (!isIntaking && joystick.getLeftBumperPressed()) {
-      isOuttaking = !isOuttaking;
-      if (isOuttaking) {
-        holdMode = false;
-      }
+    if (joystick.getLeftBumper()){
+      isOuttaking = true;
+      isIntaking = false;
+      holdMode = false;
+    } else if (joystick.getRightBumper()){
+      isOuttaking = false;
+      isIntaking = true;
+    } else {
+      isOuttaking = false;
+      isIntaking = false;
     }
     if (holdMode) {
       gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);

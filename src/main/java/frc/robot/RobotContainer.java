@@ -16,6 +16,7 @@ import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.autos.AutoHigh;
 import frc.robot.commands.autos.AutoHighBalance;
+import frc.robot.commands.autos.AutoHighStop;
 import frc.robot.commands.autos.Balance;
 import frc.robot.commands.autos.Mobility;
 import frc.robot.commands.autos.MobilityBalance;
@@ -145,7 +146,6 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
   private final ScorePiece scorePieceMid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.LOW);
   private final IntakePiece intakePieceSingle = new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SINGLE_SUBSTATION);
 
-
   private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem);
 
   private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
@@ -226,6 +226,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     // autonomousChooser.setDefaultOption("Balance", balance);
     autonomousChooser.addOption("Hybrid", new Mobility(driveBaseSubsystem));
     autonomousChooser.addOption("Hybrid + Balance", new MobilityBalance(driveBaseSubsystem, gyroSubsystem));
+    autonomousChooser.addOption("Auto High Stop", new AutoHighStop(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH));
     // autonomousChooser.addOption("Two Piece", twoPiece);
     // autonomousChooser.addOption("Three Piece", threePiece);
     SmartDashboard.putData(autonomousChooser);
@@ -249,7 +250,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     wristSubsystem.setDefaultCommand(moveWristWithJoystick);
     armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
     elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
-    // ledSubsystem.setDefaultCommand(runLed);
+    ledSubsystem.setDefaultCommand(runLed);
   }
 
   public void zeroSensor(String allianceColor, String allianceSide){
