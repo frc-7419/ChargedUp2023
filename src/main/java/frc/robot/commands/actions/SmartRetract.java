@@ -4,7 +4,9 @@
 
 package frc.robot.commands.actions;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
@@ -14,6 +16,8 @@ import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
 // import frc.robot.subsystems.elevator.ElevatorToSetpoint;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripper;
+import frc.robot.subsystems.wrist.WristSubsystem;
+import frc.robot.subsystems.wrist.WristToSetpointWithFeedforward;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -30,13 +34,16 @@ public class SmartRetract extends SequentialCommandGroup {
    */
   public SmartRetract(
       ElevatorSubsystem elevatorSubsystem,
-      ArmSubsystem armSubsystem,
-      GripperSubsystem gripperSubsystem) {
+      ArmSubsystem armSubsystem, WristSubsystem wristSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.RESET),
-        new ArmToSetpointWithFeedforward(armSubsystem, NodeState.RESET),
-        new RunGripper(gripperSubsystem, GripperState.HOLD));
+      Commands.parallel(
+      new ArmToSetpointWithFeedforward(armSubsystem, NodeState.RESET).raceWith(new WaitCommand(1.5)),
+          new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, NodeState.RESET).raceWith(new WaitCommand(1)),
+        new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.RESET).raceWith(new WaitCommand(2))));
   }
 }
+
+
+

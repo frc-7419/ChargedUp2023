@@ -31,17 +31,22 @@ public class MoveElevatorWithJoystickAnalog extends CommandBase {
   @Override
   public void execute() {
     double joystickElevatorPower = -joystick.getRightY() * ElevatorConstants.elevatorPower;
-    if (Math.abs(joystickElevatorPower) > 0) {
+    if (Math.abs(joystickElevatorPower) > 0.05) {
       elevatorSubsystem.coast();
+      double elevatorFeedForward = -Math.copySign(ElevatorConstants.elevatorFeedForward, joystickElevatorPower);
+    elevatorSubsystem.setPower(joystickElevatorPower + elevatorFeedForward);
     } else {
+      elevatorSubsystem.setPower(0);
       elevatorSubsystem.brake();
     }
-    elevatorSubsystem.setPower(joystickElevatorPower + ElevatorConstants.elevatorFeedForward);
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    elevatorSubsystem.coast();
+  }
 
   // Returns true when the command should end.
   @Override

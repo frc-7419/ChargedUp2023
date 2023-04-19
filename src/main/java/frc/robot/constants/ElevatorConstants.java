@@ -9,9 +9,9 @@ public final class ElevatorConstants {
   public static final double carriageMass = 8.381376;
   public static final double metersPerRotation = 0.102255;
   public static final double elevatorGearing = 31.11;
-  public static final Constraints constraints = new TrapezoidProfile.Constraints(300, 500);
+  public static final Constraints constraints = new TrapezoidProfile.Constraints(10000, 50000);
   public static final double intakeSetpoint = 5;
-  public static final double elevatorFeedForward = 0.05;
+  public static final double elevatorFeedForward = 0.06;
 
   public static final double elevatorKs = 0.072689;
   public static final double elevatorKv = 33.241;
@@ -19,7 +19,7 @@ public final class ElevatorConstants {
   public static final double elevatorKg = 0.12313;
 
   public static final double elevatorKp = 6;
-  public static final double elevatorKi = 0.06;
+  public static final double elevatorKi = 0.1;
   public static final double elevatorKd = 0.06;
 
   public static final double closedLoopPeakOutput = 0.8;

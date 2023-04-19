@@ -9,24 +9,32 @@ package frc.robot;
 
 import com.pathplanner.lib.server.PathPlannerServer;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleArrayLogEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class Robot extends TimedRobot {
 
   private RobotContainer robotContainer;
   private static Alliance allianceColor;
   private static String allianceSide;
-
+  public DoubleArrayLogEntry odometryLog;
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
     PathPlannerServer.startServer(5811);
+    DataLogManager.start();
+    DataLog log = DataLogManager.getLog();
+    odometryLog = new DoubleArrayLogEntry(log, "/odometry");
   }
 
   @Override
@@ -42,6 +50,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    robotContainer.zeroSensor(getAllianceColor(), allianceSide);
     robotContainer.getAutonomousCommand().schedule();
     allianceColor = DriverStation.getAlliance();
     Map<Integer, String> locationMap = new HashMap<Integer, String>();
@@ -49,6 +58,7 @@ public class Robot extends TimedRobot {
     locationMap.put(2, "Mid");
     locationMap.put(3, "Right");
     allianceSide = locationMap.get(DriverStation.getLocation()); // 1 - left 2 - mid 3 - right
+    SmartDashboard.putString("currentAllianceColor", getAllianceColor());
   }
 
   public static String getAllianceColor() {
@@ -77,6 +87,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     CommandScheduler.getInstance().run();
+    odometryLog.append(SmartDashboard.getNumberArray("Odometry", new double[]{0,0,0}));
   }
 
   @Override

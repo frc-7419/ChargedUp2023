@@ -18,6 +18,7 @@ public class RunGripperWithJoystick extends CommandBase {
   private boolean holdMode = false;
   private boolean isIntaking = false;
   private boolean isOuttaking = false;
+  private boolean isFast = true;
 
   public RunGripperWithJoystick(
       GripperSubsystem gripperSubsystem, XboxController joystick, LedSubsystem ledSubsystem) {
@@ -38,21 +39,44 @@ public class RunGripperWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (joystick.getStartButtonPressed()){
+      isFast = !isFast;
+    }
+    double gripperOuttakePower = GripperConstants.gripperOuttakePower;
+    if (isFast){
+      gripperOuttakePower = GripperConstants.gripperOuttakeFastPower;
+    } else {
+      gripperOuttakePower = GripperConstants.gripperOuttakePower;
+    }
     gripperSubsystem.isHolding = holdMode;
 
-    if (!isOuttaking && joystick.getRightBumperPressed() && !holdMode) {
-      isIntaking = !isIntaking;
-      if (isIntaking) {
-        holdMode = false;
-      }
-    }
-    if (!isIntaking && joystick.getLeftBumperPressed()) {
-      isOuttaking = !isOuttaking;
-      if (isOuttaking) {
-        holdMode = false;
-      }
-    }
+    // if (!isOuttaking && joystick.getRightBumperPressed() && !holdMode) {
+    //   isIntaking = !isIntaking;
+    //   if (isIntaking) {
+    //     holdMode = false;
+    //   }
+    // }
+    // if (!isIntaking && joystick.getLeftBumperPressed()) {
+    //   isOuttaking = !isOuttaking;
+    //   if (isOuttaking) {
+    //     holdMode = false;
+    //   }
+    // }
 
+    if (joystick.getRightTriggerAxis() > 0.05){
+      holdMode = false;
+    }
+    if (joystick.getLeftBumper()){
+      isOuttaking = true;
+      isIntaking = false;
+      holdMode = false;
+    } else if (joystick.getRightBumper()){
+      isOuttaking = false;
+      isIntaking = true;
+    } else {
+      isOuttaking = false;
+      isIntaking = false;
+    }
     if (holdMode) {
       gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);
       gripperSubsystem.brake();
@@ -73,7 +97,7 @@ public class RunGripperWithJoystick extends CommandBase {
       }
     } else if (isOuttaking) {
       gripperSubsystem.coast();
-      gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);
+      gripperSubsystem.setOuttakePower(gripperOuttakePower);
       ledSubsystem.setLEDBlue();
     } else {
       gripperSubsystem.setPower(0);

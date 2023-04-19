@@ -96,7 +96,7 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
   public boolean isFinished() {
     double error =
         elevatorSubsystem.getGoal().position - elevatorSubsystem.getElevatorIntegratedPosition();
-    boolean isAtSetpoint = Math.abs(error) <= 0.01;
+    boolean isAtSetpoint = Math.abs(error) <= 0.02;
     return isAtSetpoint;
   }
 }

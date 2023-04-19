@@ -45,6 +45,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
   private double rightDistance = 0;
   private double previousTimeStamp = 0;
   private double currentTimeStamp;
+  private GyroSubsystem gyroSubsystem;
   /**
    * Constructor of the robot. Includes a voltage saturation and voltage compensation command to
    * ensure consistent voltage
@@ -53,6 +54,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
    */
   public DriveBaseSubsystem(GyroSubsystem gyroSubsystem) {
     SmartDashboard.putData("Field", field);
+    this.gyroSubsystem = gyroSubsystem;
     leftLeader = new TalonFX(DeviceIDs.CanIds.leftFalcon1.id);
     leftFollower = new TalonFX(DeviceIDs.CanIds.leftFalcon2.id);
     rightLeader = new TalonFX(DeviceIDs.CanIds.rightFalcon1.id);
@@ -330,6 +332,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("left velocity", getLeftVelocityInMeters());
 
     field.setRobotPose(getCtrlsPoseEstimate());
+    SmartDashboard.putNumberArray("Odometry", new double[]{getCtrlsPoseEstimate().getX(), getCtrlsPoseEstimate().getY(), gyroSubsystem.getYaw()});
     SmartDashboard.putNumber("Dist to Target", getDist());
     SmartDashboard.putNumber("Angle to Target", getAngle());
     poseEstimation.update(this.leftDistance, this.rightDistance);

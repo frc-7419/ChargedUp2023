@@ -4,21 +4,27 @@
 
 package frc.robot.commands.autos;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.drive.RunDrive;
+import frc.robot.subsystems.gyro.GyroSubsystem;
+import frc.robot.subsystems.gyro.SmartBalance;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Mobility extends SequentialCommandGroup {
+public class MobilityBalance extends SequentialCommandGroup {
   /** Creates a new Mobility. */
-  public Mobility(DriveBaseSubsystem driveBaseSubsystem) {
+  public MobilityBalance(DriveBaseSubsystem driveBaseSubsystem, GyroSubsystem gyroSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new RunDrive(driveBaseSubsystem, 0.8).withTimeout(0.2),
-        new RunDrive(driveBaseSubsystem, -0.4).withTimeout(1.5),
-        new RunDrive(driveBaseSubsystem, 0.35).withTimeout(3.4));
+        // new RunDrive(driveBaseSubsystem, 0.8).withTimeout(0.2),
+        // new RunDrive(driveBaseSubsystem, -0.4).withTimeout(1.5),
+        new RunDrive(driveBaseSubsystem, 0.35).withTimeout(3.2),
+        new RunDrive(driveBaseSubsystem, -0.28).withTimeout(2.8),
+        new SmartBalance(driveBaseSubsystem, gyroSubsystem),
+        new InstantCommand(driveBaseSubsystem::brake));
   }
 }

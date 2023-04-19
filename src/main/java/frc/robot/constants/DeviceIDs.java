@@ -40,7 +40,7 @@ public final class DeviceIDs {
     limitSwitch(0),
 
     // Arm Through Bore Encoder DIO ID
-    armAbsoluteEncoder(3),
+    armAbsoluteEncoder(2),
     armRelativeEncoder1(5),
     armRelativeEncoder2(4),
     elevatorAbsoluteEncoder(3);

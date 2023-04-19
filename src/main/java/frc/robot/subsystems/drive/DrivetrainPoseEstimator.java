@@ -50,8 +50,8 @@ public class DrivetrainPoseEstimator {
   // will have a stronger
   // influence on the final pose estimate.
   Matrix<N5, N1> stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5), 0.05, 0.05);
-  Matrix<N3, N1> localMeasurementStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(0.01));
-  Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(0.7, 0.7, Units.degreesToRadians(5));
+  Matrix<N3, N1> localMeasurementStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(0.01));
+  Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(5));
 
   private final DifferentialDrivePoseEstimator m_poseEstimator;
   /**
@@ -62,7 +62,8 @@ public class DrivetrainPoseEstimator {
    */
   public DrivetrainPoseEstimator(GyroSubsystem gyroSubsystem) {
     this.gyroSubsystem = gyroSubsystem;
-    cam = new PhotonCamera(VisionConstants.name2);
+    cam = new PhotonCamera(VisionConstants.name1);
+    
 
     /*
     ________                    __        __       __
@@ -84,7 +85,7 @@ public class DrivetrainPoseEstimator {
     poses.put(6, AprilTagPositionConstants.kAprilTagSixPose);
     poses.put(7, AprilTagPositionConstants.kAprilTagSevenPose);
     poses.put(8, AprilTagPositionConstants.kAprilTagEightPose);
-
+    if (cam.isConnected()){
     m_poseEstimator =
         new DifferentialDrivePoseEstimator(
             DriveConstants.kDriveKinematics,
@@ -93,7 +94,17 @@ public class DrivetrainPoseEstimator {
             0,
             new Pose2d(),
             localMeasurementStdDevs,
-            visionMeasurementStdDevs);
+            visionMeasurementStdDevs);}
+  
+    else {
+      m_poseEstimator =
+      new DifferentialDrivePoseEstimator(
+          DriveConstants.kDriveKinematics,
+          getRotation2d(),
+          0, // Assume zero encoder counts at start
+          0,
+          new Pose2d());
+    }
   }
 
   /**
@@ -114,6 +125,9 @@ public class DrivetrainPoseEstimator {
 
       if (target.getPoseAmbiguity() <= VisionConstants.visionAmbiguityThreshold) {
         Pose3d targetPose = poses.get(fiducialId);
+        if (targetPose == null){
+          return;
+        }
         Transform3d camToTargetTrans = target.getBestCameraToTarget();
         Pose3d camPose =
             targetPose.transformBy(camToTargetTrans.inverse()); // this lines uses where the target

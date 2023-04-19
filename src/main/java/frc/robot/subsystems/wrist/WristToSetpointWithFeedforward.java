@@ -45,8 +45,8 @@ public class WristToSetpointWithFeedforward extends CommandBase {
     wristSubsystem.setGoal(setpoint);
     wristSubsystem.setSetpoint(new TrapezoidProfile.State(wristSubsystem.getPosition(), 0));
 
-    SmartDashboard.putNumber("Arm Goal Position", wristSubsystem.getGoal().position);
-    SmartDashboard.putNumber("Arm Setpoint Position", wristSubsystem.getSetpoint().position);
+    SmartDashboard.putNumber("Wrist Goal Position", wristSubsystem.getGoal().position);
+    SmartDashboard.putNumber("Wrist Setpoint Position", wristSubsystem.getSetpoint().position);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -63,7 +63,7 @@ public class WristToSetpointWithFeedforward extends CommandBase {
     TrapezoidProfile.State nextSetpoint = currentProfile.calculate(0.02);
 
     double wristPositionWithArmOffset =
-        nextSetpoint.position + armSubsystem.getPosition() * 2 * Math.PI;
+        nextSetpoint.position + armSubsystem.getPositionInRotations() * 2 * Math.PI;
 
     double feedForwardVoltage =
         feedforward.calculate(wristPositionWithArmOffset, nextSetpoint.velocity);
@@ -91,6 +91,8 @@ public class WristToSetpointWithFeedforward extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return wristSubsystem.getSetpoint().position == wristSubsystem.getGoal().position;
+    double error = wristSubsystem.getGoal().position - wristSubsystem.getPosition();
+    boolean isAtSetpoint = Math.abs(error) <= 2;
+    return isAtSetpoint;
   }
 }

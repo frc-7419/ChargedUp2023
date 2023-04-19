@@ -20,6 +20,8 @@ import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.gripper.GripperSubsystem;
+import frc.robot.subsystems.wrist.WristSubsystem;
+
 import java.util.HashMap;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -31,7 +33,8 @@ public class TwoPiece extends SequentialCommandGroup {
       DriveBaseSubsystem driveBaseSubsystem,
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
-      GripperSubsystem gripperSubsystem) {
+      GripperSubsystem gripperSubsystem,
+      WristSubsystem wristSubsystem) {
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
     Alliance alliance = RobotConstants.currentAlliance;
     String allianceSide = RobotConstants.currentAllianceSide;
@@ -43,10 +46,10 @@ public class TwoPiece extends SequentialCommandGroup {
 
     eventMap.put(
         "Score Piece High",
-        new AutoScorePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.HIGH));
+        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH));
 
     eventMap.put(
-        "Retract Intake", new SmartRetract(elevatorSubsystem, armSubsystem, gripperSubsystem));
+        "Retract Intake", new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem));
 
     PathPlannerTrajectory twoPiece =
         PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));
