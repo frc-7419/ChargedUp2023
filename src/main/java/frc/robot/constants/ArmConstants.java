@@ -28,6 +28,7 @@ public final class ArmConstants {
 
   public static double initialPosition;
   // ff without cone
+
   
   
   public static double withoutConeks = 0.172129;
@@ -39,14 +40,17 @@ public final class ArmConstants {
   public static double kg = withoutConekg;
   public static double kv = withoutConekv;
   public static double ka = withoutConeka;
+
   // ff with cone
   public static final ArmFeedforward armFeedforward = new ArmFeedforward(ks, 3, kv);
   public static double withConeks = 0.19169;
   public static double withConekg = 0.32053;
   public static double withConekv = 12.345;
   public static double withConeka = 0.58072;
+
   
   public static double armKp = 0.4;
+
   public static double armKi = 0;
   public static double armKd = 0;
   public static double armElevatorDelay;

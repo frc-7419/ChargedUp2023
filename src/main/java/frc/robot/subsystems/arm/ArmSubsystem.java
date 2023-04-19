@@ -35,7 +35,9 @@ public class ArmSubsystem extends SubsystemBase {
   private final TrapezoidProfile.Constraints constraints;
   private TrapezoidProfile.State goal = new TrapezoidProfile.State();
   private TrapezoidProfile.State setpoint = new TrapezoidProfile.State();
+
   private ArmFeedforward armFeedforward = ArmConstants.armFeedforward;
+
 
   /** Constructs the extended arm and main arm subsystem corresponding to the arm mechanism. */
   public ArmSubsystem() {
@@ -59,7 +61,9 @@ public class ArmSubsystem extends SubsystemBase {
     config.voltageCompSaturation = RobotConstants.voltageCompSaturation;
     config.motionAcceleration = 10000;
     config.motionCruiseVelocity = 10000;
+
     config.forwardSoftLimitThreshold = 335000;
+
     config.reverseSoftLimitThreshold = 5000;
     config.forwardSoftLimitEnable = true;
     config.reverseSoftLimitEnable = true;
