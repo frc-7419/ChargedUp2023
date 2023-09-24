@@ -175,11 +175,11 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
 
   private void configureButtonBindings() {
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
-    new JoystickButton(operatorJoystick, Button.kX.value).onTrue(scorePieceHigh);
-    new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceSingleSub);
-    new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceDoubleSub);
-    new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
-    // new JoystickButton(operatorJoystick, Button.kStart.value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ).onTrue(intakePieceSingle);
+    // new JoystickButton(operatorJoystick, Button.kX.value).onTrue(scorePieceHigh);
+    // new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceSingleSub);
+    // new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceDoubleSub);
+    // new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
+    // // new JoystickButton(operatorJoystick, Button.kStart.value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ).onTrue(intakePieceSingle);
     new JoystickButton(driverJoystick, Button.kRightStick.value).onTrue(new InstantCommand(gyroSubsystem::zeroYaw));
     // new JoystickButton(operatorJoystick,
     // Button.kY.value).onTrue(elevatorToReset);
@@ -194,7 +194,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     // new JoystickButton(operatorJoystick,
     // Button.kY.value).onTrue(intakePieceSubstation);
 
-    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
+    // new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
 
     // new JoystickButton(operatorJoystick,
     // Button.kRightBumper.value).onTrue(wristToSetpointWithFeedforwardReset);
@@ -212,7 +212,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
 
     new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder)));
 
-    new JoystickButton(driverJoystick, XboxController.Button.kB.value).onTrue(turnWithGyro180);
+    // new JoystickButton(driverJoystick, XboxController.Button.kB.value).onTrue(turnWithGyro180);
     // new JoystickButton(driverJoystick, XboxController.Button.kX.value).onTrue(new InstantCommand(driveBaseSubsystem::brake));
 
     // new JoystickButton(operatorJoystick, XboxController.Button.kX.value).onTrue(new ElevatorWithMotionMagic(elevatorSubsystem, 150000));
@@ -246,11 +246,11 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
 
   public void setDefaultCommands() {
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);
-    gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
-    wristSubsystem.setDefaultCommand(moveWristWithJoystick);
-    armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
-    elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
-    ledSubsystem.setDefaultCommand(runLed);
+    // gripperSubsystem.setDefaultCommand(runGripperWithJoystick);
+    // wristSubsystem.setDefaultCommand(moveWristWithJoystick);
+    // armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
+    // elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
+    // ledSubsystem.setDefaultCommand(runLed);
   }
 
   public void zeroSensor(String allianceColor, String allianceSide){

@@ -39,7 +39,7 @@ public class SmartRetract extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       Commands.parallel(
-      new ArmToSetpointWithFeedforward(armSubsystem, NodeState.RESET).raceWith(new WaitCommand(1.5)),
+      new ArmToSetpointWithFeedforward(armSubsystem, NodeState.RESET).raceWith(new WaitCommand(3)),
           new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, NodeState.RESET).raceWith(new WaitCommand(1)),
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, NodeState.RESET).raceWith(new WaitCommand(2))));
   }

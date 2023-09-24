@@ -48,7 +48,7 @@ public class AutoScorePiece extends SequentialCommandGroup {
             new RunGripper(gripperSubsystem, GripperState.HOLD).raceWith(new WaitCommand(4)),
             new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation).raceWith(new WaitCommand(3)),
             new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation).raceWith(new WaitCommand(3))),
-        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, scoreLocation).raceWith(new WaitCommand(1.5)),
+        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, scoreLocation).raceWith(new WaitCommand(3)),
         new RunGripper(gripperSubsystem, GripperState.SCORE).withTimeout(1),
         new InstantCommand(gripperSubsystem::stop));
   }
