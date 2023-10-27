@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.constants.RobotConstants;
@@ -85,15 +86,20 @@ public class ElevatorToSetpointWithFeedForward extends CommandBase {
     double pidFeedforwardPower = elevatorPower + feedForwardPower;
 
     elevatorSubsystem.setPower(pidFeedforwardPower);
+    elevatorSubsystem.brake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    // elevatorSubsystem.coast();
+    elevatorSubsystem.brake();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    elevatorSubsystem.brake();
     double error =
         elevatorSubsystem.getGoal().position - elevatorSubsystem.getElevatorIntegratedPosition();
     boolean isAtSetpoint = Math.abs(error) <= 0.02;
