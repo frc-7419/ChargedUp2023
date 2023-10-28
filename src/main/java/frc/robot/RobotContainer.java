@@ -20,6 +20,7 @@ import frc.robot.commands.autos.AutoHighStop;
 import frc.robot.commands.autos.Balance;
 import frc.robot.commands.autos.Mobility;
 import frc.robot.commands.autos.MobilityBalance;
+import frc.robot.commands.autos.OuttakeMove;
 import frc.robot.commands.paths.TurnToAngleFieldRelative;
 import frc.robot.commands.paths.TurnToAngleRobotRelative;
 import frc.robot.constants.NodeConstants;
@@ -227,6 +228,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     autonomousChooser.addOption("Hybrid", new Mobility(driveBaseSubsystem));
     autonomousChooser.addOption("Hybrid + Balance", new MobilityBalance(driveBaseSubsystem, gyroSubsystem));
     autonomousChooser.addOption("Auto High Stop", new AutoHighStop(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH));
+    autonomousChooser.addOption("HybridMove", new OuttakeMove(driveBaseSubsystem, gripperSubsystem));
     // autonomousChooser.addOption("Two Piece", twoPiece);
     // autonomousChooser.addOption("Three Piece", threePiece);
     SmartDashboard.putData(autonomousChooser);

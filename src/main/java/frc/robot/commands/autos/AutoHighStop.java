@@ -47,8 +47,9 @@ public class AutoHighStop extends SequentialCommandGroup {
         ),
         new RunGripper(gripperSubsystem, GripperState.SCORE).withTimeout(1),
         new InstantCommand(gripperSubsystem::stop),
-    new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
-    new RunDrive(driveBaseSubsystem, 0.3).withTimeout(0.2));
+    new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem)
+    // new RunDrive(driveBaseSubsystem, 0.3).withTimeout(0.2)
+    );
     
   }
       
