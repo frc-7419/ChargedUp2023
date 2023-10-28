@@ -33,7 +33,7 @@ public class RunGripper extends CommandBase {
       gripperSubsystem.setIntakePower(1);
     } else if (mode == GripperState.SCORE) {
       gripperSubsystem.coast();
-      gripperSubsystem.setOuttakePower(0.5);
+      gripperSubsystem.setOuttakePower(1);
     } else if (mode == GripperState.HOLD) {
       gripperSubsystem.setIntakePower(0.1);
       gripperSubsystem.brake();

@@ -31,7 +31,7 @@ public class SmartWrist extends CommandBase {
   public void execute() {
     wristPosition = wristSubsystem.getPosition();
     output = wristController.calculate(wristPosition);
-    wristSubsystem.setPower(output);
+    wristSubsystem.setPower(output * 0.2);
   }
 
   @Override

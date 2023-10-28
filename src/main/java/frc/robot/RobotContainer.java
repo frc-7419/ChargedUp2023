@@ -17,6 +17,7 @@ import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.autos.AutoHigh;
 import frc.robot.commands.autos.AutoHighBalance;
 import frc.robot.commands.autos.AutoHighStop;
+import frc.robot.commands.autos.BackForwBack;
 import frc.robot.commands.autos.Balance;
 import frc.robot.commands.autos.Mobility;
 import frc.robot.commands.autos.MobilityBalance;
@@ -35,6 +36,8 @@ import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
+import frc.robot.subsystems.gyro.BalanceOnChargeStation;
+import frc.robot.subsystems.gyro.BalanceOnChargeStationNew;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.SmartBalance;
 import frc.robot.subsystems.gyro.TurnWithGyro;
@@ -56,6 +59,7 @@ public class RobotContainer {
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
+  private final BalanceOnChargeStationNew balanceOnChargeStationNew = new BalanceOnChargeStationNew(driveBaseSubsystem, gyroSubsystem);
 
   private final LedSubsystem ledSubsystem = new LedSubsystem();
 
@@ -180,6 +184,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceSingleSub);
     new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceDoubleSub);
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
+    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(balanceOnChargeStationNew);
     // new JoystickButton(operatorJoystick, Button.kStart.value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ).onTrue(intakePieceSingle);
     new JoystickButton(driverJoystick, Button.kRightStick.value).onTrue(new InstantCommand(gyroSubsystem::zeroYaw));
     // new JoystickButton(operatorJoystick,
@@ -195,7 +200,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     // new JoystickButton(operatorJoystick,
     // Button.kY.value).onTrue(intakePieceSubstation);
 
-    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
+    //IMP - new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
 
     // new JoystickButton(operatorJoystick,
     // Button.kRightBumper.value).onTrue(wristToSetpointWithFeedforwardReset);
@@ -228,7 +233,8 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     autonomousChooser.addOption("Hybrid", new Mobility(driveBaseSubsystem));
     autonomousChooser.addOption("Hybrid + Balance", new MobilityBalance(driveBaseSubsystem, gyroSubsystem));
     autonomousChooser.addOption("Auto High Stop", new AutoHighStop(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH));
-    autonomousChooser.addOption("HybridMove", new OuttakeMove(driveBaseSubsystem, gripperSubsystem));
+    autonomousChooser.addOption("HybridMove", new OuttakeMove(driveBaseSubsystem, gripperSubsystem, wristSubsystem));
+    autonomousChooser.addOption("backforwback", new BackForwBack(driveBaseSubsystem));
     // autonomousChooser.addOption("Two Piece", twoPiece);
     // autonomousChooser.addOption("Three Piece", threePiece);
     SmartDashboard.putData(autonomousChooser);
