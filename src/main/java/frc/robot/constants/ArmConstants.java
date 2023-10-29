@@ -3,7 +3,7 @@ package frc.robot.constants;
 import edu.wpi.first.math.controller.ArmFeedforward;
 
 public final class ArmConstants {
-  public static final double armPower = 0.2;
+  public static final double armPower = 0.4;
   public static final double armkf = 0.2;
   public static final double armOffset = 0.185;
   

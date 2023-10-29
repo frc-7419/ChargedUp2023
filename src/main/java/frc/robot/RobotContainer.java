@@ -58,12 +58,12 @@ public class RobotContainer {
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
+  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
   private final BalanceOnChargeStationNew balanceOnChargeStationNew = new BalanceOnChargeStationNew(driveBaseSubsystem, gyroSubsystem);
 
   private final LedSubsystem ledSubsystem = new LedSubsystem();
 
   // // Commands
-public DriveBaseSubsystem driveBaseSubsystem;
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem, ledSubsystem);
 
   private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog = new MoveElevatorWithJoystickAnalog(
@@ -189,6 +189,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     new JoystickButton(operatorJoystick, Button.kRightStick.value).onTrue(new InstantCommand(gyroSubsystem::zeroYaw));
     new JoystickButton(driverJoystick, Button.kBack.value).onTrue(new InstantCommand(driveBaseSubsystem::brake));
     new JoystickButton(driverJoystick, Button.kStart.value).onTrue(new InstantCommand(driveBaseSubsystem::coast));
+    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET));
     // new JoystickButton(operatorJoystick,
     // Button.kY.value).onTrue(elevatorToReset);
     // new JoystickButton(driverJoystick,
