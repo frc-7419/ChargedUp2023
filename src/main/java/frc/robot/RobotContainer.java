@@ -53,7 +53,6 @@ public class RobotContainer {
 
   // Subsystems
   private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
-  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(gyroSubsystem);
 
   private final WristSubsystem wristSubsystem = new WristSubsystem();
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
@@ -64,7 +63,7 @@ public class RobotContainer {
   private final LedSubsystem ledSubsystem = new LedSubsystem();
 
   // // Commands
-
+public DriveBaseSubsystem driveBaseSubsystem;
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem, ledSubsystem);
 
   private final MoveElevatorWithJoystickAnalog moveElevatorWithJoystickAnalog = new MoveElevatorWithJoystickAnalog(
@@ -149,6 +148,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
 //       NodeState.LOW);
   private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.HIGH);
   private final ScorePiece scorePieceMid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.LOW);
+  private final ScorePiece scorePieceHybrid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.GROUND);
   private final IntakePiece intakePieceSingle = new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SINGLE_SUBSTATION);
 
   private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem);
@@ -184,9 +184,11 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceSingleSub);
     new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceDoubleSub);
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
-    new JoystickButton(operatorJoystick, Button.kB.value).onTrue(balanceOnChargeStationNew);
+    new JoystickButton(operatorJoystick, Button.kLeftStick.value).onTrue(scorePieceHybrid);
     // new JoystickButton(operatorJoystick, Button.kStart.value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ).onTrue(intakePieceSingle);
-    new JoystickButton(driverJoystick, Button.kRightStick.value).onTrue(new InstantCommand(gyroSubsystem::zeroYaw));
+    new JoystickButton(operatorJoystick, Button.kRightStick.value).onTrue(new InstantCommand(gyroSubsystem::zeroYaw));
+    new JoystickButton(driverJoystick, Button.kBack.value).onTrue(new InstantCommand(driveBaseSubsystem::brake));
+    new JoystickButton(driverJoystick, Button.kStart.value).onTrue(new InstantCommand(driveBaseSubsystem::coast));
     // new JoystickButton(operatorJoystick,
     // Button.kY.value).onTrue(elevatorToReset);
     // new JoystickButton(driverJoystick,
