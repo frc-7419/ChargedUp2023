@@ -4,8 +4,8 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 public final class DriveConstants {
-  public static final double driveStraight = 0.9;
-  public static final double driveTurn = 0.7;
+  public static final double driveStraight = 1.0;
+  public static final double driveTurn = 0.85;
 
   public static final double slowStraight = 0.2;
   public static final double slowTurn = 0.2;
