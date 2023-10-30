@@ -225,5 +225,6 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ANGLE", getAngle());
     SmartDashboard.putNumber("Arm Relative Position in Rotations", getPositionInRotations());
     SmartDashboard.putNumber("Arm Relative Position in Degrees", getPositionInDegrees());
+    SmartDashboard.putNumber("Arm Encoder value", absoluteEncoder.getAbsolutePosition());
   }
 }

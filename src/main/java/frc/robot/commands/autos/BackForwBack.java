@@ -17,9 +17,9 @@ public class BackForwBack extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        // new RunDrive(driveBaseSubsystem, 0.4).withTimeout(0.5),
-        // new RunDrive(driveBaseSubsystem, -0.2).withTimeout(0.75),
-        new RunDrive(driveBaseSubsystem, -0.25).withTimeout(3.5));
+        new RunDrive(driveBaseSubsystem, 0.4).withTimeout(0.5),
+        new RunDrive(driveBaseSubsystem, -0.4).withTimeout(0.75),
+        new RunDrive(driveBaseSubsystem, 0.25).withTimeout(3.5));
          
   }
 }

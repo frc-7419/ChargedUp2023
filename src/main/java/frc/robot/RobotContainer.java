@@ -220,6 +220,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     // Button.kX.value).onTrue(wristToSetpointWithFeedforwardSubstation);
 
     new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder)));
+    new JoystickButton(operatorJoystick, XboxController.Button.kRightStick.value).onTrue(Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder)));
 
     new JoystickButton(driverJoystick, XboxController.Button.kB.value).onTrue(turnWithGyro180);
     // new JoystickButton(driverJoystick, XboxController.Button.kX.value).onTrue(new InstantCommand(driveBaseSubsystem::brake));
