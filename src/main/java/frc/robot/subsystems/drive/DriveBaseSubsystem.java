@@ -180,7 +180,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
   /**
    * Sets the Neutral Mode (used when the motor is not running) of the drivetrain.
    *
-   * @param mode Neutral Mode (Coast or Brake) to set
+   * @param mode Neutral Mode (Coast
+   *  or Brake) to set
    */
   public void setAllMode(NeutralMode mode) {
     rightLeader.setNeutralMode(mode);

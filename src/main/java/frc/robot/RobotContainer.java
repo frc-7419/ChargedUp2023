@@ -129,7 +129,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
   // private final ElevatorToSetpoint elevatorToHigh =
   // new ElevatorToSetpoint(elevatorSubsystem, NodeState.HIGH);
   private final MoveWristWithJoystick moveWristWithJoystick =
-  new MoveWristWithJoystick(wristSubsystem, driverJoystick);
+  new MoveWristWithJoystick(wristSubsystem, operatorJoystick);
   // private final SmartWrist smartWrist = new SmartWrist(wristSubsystem, 10000);
   private final RunGripperWithJoystick runGripperWithJoystick =
   new RunGripperWithJoystick(gripperSubsystem, operatorJoystick, ledSubsystem);
