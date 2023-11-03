@@ -31,10 +31,10 @@ public final class ArmConstants {
 
   
   
-  public static double withoutConeks = 0.172129;
-  public static double withoutConekg = 0.3;
-  public static double withoutConekv = 12.106;
-  public static double withoutConeka = 0.65188;
+  public static double withoutConeks = 0.078743;
+  public static double withoutConekg = 0.35614;
+  public static double withoutConekv = 0.035504;
+  public static double withoutConeka = 0.0022254;
   
   public static double ks = withoutConeks;
   public static double kg = withoutConekg;
@@ -42,7 +42,7 @@ public final class ArmConstants {
   public static double ka = withoutConeka;
 
   // ff with cone
-  public static final ArmFeedforward armFeedforward = new ArmFeedforward(ks, 3, kv);
+  public static final ArmFeedforward armFeedforward = new ArmFeedforward(ks, kg, kv);
   public static double withConeks = 0.19169;
   public static double withConekg = 0.32053;
   public static double withConekv = 12.345;

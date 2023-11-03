@@ -8,13 +8,20 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class RunDrive extends CommandBase {
   /** Creates a new RunDrive. */
-  private double power;
+  private double leftPower;
+  private double rightPower;
 
   private DriveBaseSubsystem driveBaseSubsystem;
 
   public RunDrive(DriveBaseSubsystem driveBaseSubsystem, double power) {
     this.driveBaseSubsystem = driveBaseSubsystem;
-    this.power = power;
+    this.leftPower = power;
+    this.rightPower = power;
+  }
+  public RunDrive(DriveBaseSubsystem driveBaseSubsystem, double leftPower, double rightPower) {
+    this.driveBaseSubsystem = driveBaseSubsystem;
+    this.leftPower = leftPower;
+    this.rightPower = rightPower;
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +31,8 @@ public class RunDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveBaseSubsystem.setAllPower(power);
+    driveBaseSubsystem.setLeftPower(leftPower);
+    driveBaseSubsystem.setLeftPower(rightPower);
   }
 
   // Called once the command ends or is interrupted.
