@@ -15,6 +15,7 @@ import frc.robot.commands.actions.IntakePieceDouble;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.autos.AutoHigh;
+import frc.robot.commands.autos.AutoTwoPieceHigh;
 import frc.robot.commands.autos.AutoHighBalance;
 import frc.robot.commands.autos.AutoHighStop;
 import frc.robot.commands.autos.Balance;
@@ -133,6 +134,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
   private void configureAutoSelector() {
     autonomousChooser.setDefaultOption("Auto High", new AutoHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH));
     autonomousChooser.addOption("Auto High + Balance", new AutoHighBalance(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH));
+    autonomousChooser.addOption("Auto Two Piece High", new AutoTwoPieceHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem));
     autonomousChooser.addOption("Hybrid", new Mobility(driveBaseSubsystem));
     autonomousChooser.addOption("Hybrid + Balance", new MobilityBalance(driveBaseSubsystem, gyroSubsystem));
     autonomousChooser.addOption("Auto High Stop", new AutoHighStop(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH));
@@ -141,7 +143,8 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
 
   public Command getAutonomousCommand() {
     // ledSubsystem.rainbowLED(0);
-    return autonomousChooser.getSelected();
+    // return autonomousChooser.getSelected();
+    return new AutoTwoPieceHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem);
     // return balance;
     // return new Mobility(driveBaseSubsystem);
     // return mobility;xxxxxxxxxxxxxxxxx

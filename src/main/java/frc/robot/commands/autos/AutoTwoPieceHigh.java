@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.actions.AutoIntakePiece;
+import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.actions.SmartRetract;
-import frc.robot.commands.actions.SmartRetractAuto;
+import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -34,14 +34,14 @@ public class AutoTwoPieceHigh extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH),
+      Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder)),
+        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH, GripperState.SCORE_CONE),
         new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
         // new RunDrive(driveBaseSubsystem, -0.35).withTimeout(3.2),
-        new AutoIntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.GROUND_INTAKE),
-        Commands.parallel(new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
-            new RunDrive(driveBaseSubsystem, 0).withTimeout(3.2)),
-        new RunDrive(driveBaseSubsystem, 0.05,-0.05).withTimeout(0.5),
-        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.LOW),
+        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.GROUND_INTAKE, GripperState.INTAKE_CUBE),
+        new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
+        new RunDrive(driveBaseSubsystem, -0.05,0.05).withTimeout(0.5),
+        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.LOW, GripperState.SCORE_CUBE),
         new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem));
   }
 }

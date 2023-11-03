@@ -10,12 +10,13 @@ import com.pathplanner.lib.commands.FollowPathWithEvents;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.actions.AutoIntakePiece;
+import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.autopaths.TwoPiecePath;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.constants.RobotConstants;
+import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -42,11 +43,11 @@ public class TwoPiece extends SequentialCommandGroup {
 
     eventMap.put(
         "Intake Piece",
-        new AutoIntakePiece(elevatorSubsystem, armSubsystem, gripperSubsystem, NodeState.GROUND));
+        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem,gripperSubsystem, NodeState.GROUND,GripperState.SCORE_CONE));
 
     eventMap.put(
         "Score Piece High",
-        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH));
+        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH,GripperState.SCORE_CONE));
 
     eventMap.put(
         "Retract Intake", new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem));

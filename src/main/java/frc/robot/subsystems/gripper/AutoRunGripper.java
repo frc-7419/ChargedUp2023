@@ -42,13 +42,13 @@ public class AutoRunGripper extends CommandBase {
   public void execute() {
     gripperSubsystem.isHolding = holdMode;
 
-    if (!isOuttaking && mode == GripperState.INTAKE && !holdMode) {
+    if (!isOuttaking && (mode == GripperState.INTAKE_CONE || mode == GripperState.INTAKE_CUBE) && !holdMode) {
       isIntaking = !isIntaking;
       if (isIntaking) {
         holdMode = false;
       }
     }
-    if (!isIntaking && mode == GripperState.SCORE) {
+    if (!isIntaking && (mode == GripperState.INTAKE_CONE || mode == GripperState.INTAKE_CUBE)) {
       isOuttaking = !isOuttaking;
       if (isOuttaking) {
         holdMode = false;

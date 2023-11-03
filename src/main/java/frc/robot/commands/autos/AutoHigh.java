@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.actions.SmartRetract;
-import frc.robot.commands.actions.SmartRetractAuto;
+import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
@@ -30,7 +30,7 @@ public class AutoHigh extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, scoreLocation),
+      new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, scoreLocation, GripperState.SCORE_CONE),
       new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
       new RunDrive(driveBaseSubsystem, -0.35).withTimeout(3.2));
         // // new RunDrive(driveBaseSubsystem, 0.28).withTimeout(2.8),

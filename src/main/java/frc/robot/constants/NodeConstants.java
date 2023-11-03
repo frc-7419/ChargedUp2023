@@ -6,9 +6,9 @@ public final class NodeConstants {
     GROUND(0.1, 20, 100),
     SUBSTATION(0.001, -60, 21),
     SINGLE_SUBSTATION(0.001, 50, 10.47),
-    GROUND_INTAKE(0.001, 30, 0),
-    LOW(0.046, -171.63, -63),
-    HIGH(0.54, -162.3, -59);
+    GROUND_INTAKE(0.001, 50, 30),
+    LOW(0.001, -141.71, -51),
+    HIGH(0.54, -136, -48);
 
     public final double elevatorSetpoint;
     public final double armSetpoint;

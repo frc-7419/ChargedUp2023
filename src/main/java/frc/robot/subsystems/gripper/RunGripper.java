@@ -28,10 +28,10 @@ public class RunGripper extends CommandBase {
   // Adjust direction based on if robot is intaking or scoring
   @Override
   public void initialize() {
-    if (mode == GripperState.INTAKE) {
+    if (mode == GripperState.INTAKE_CUBE || mode == GripperState.SCORE_CONE) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(1);
-    } else if (mode == GripperState.SCORE) {
+    } else if (mode == GripperState.INTAKE_CONE || mode == GripperState.SCORE_CUBE) {
       gripperSubsystem.coast();
       gripperSubsystem.setOuttakePower(0.5);
     } else if (mode == GripperState.HOLD) {

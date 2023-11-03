@@ -10,8 +10,10 @@ public final class GripperConstants {
 
   // for controlling the state of the gripper
   public static enum GripperState {
-    INTAKE,
-    SCORE,
+    INTAKE_CUBE,
+    INTAKE_CONE,
+    SCORE_CUBE,
+    SCORE_CONE,
     HOLD
   }
 }
