@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.actions.AutoScorePiece;
+import frc.robot.commands.actions.AutoScorePieceRetract;
 import frc.robot.commands.actions.IntakePiece;
 import frc.robot.commands.actions.IntakePieceDouble;
 import frc.robot.commands.actions.ScorePiece;
@@ -25,6 +27,7 @@ import frc.robot.commands.autos.MobilityBalance;
 import frc.robot.commands.paths.TurnToAngleFieldRelative;
 import frc.robot.commands.paths.TurnToAngleRobotRelative;
 import frc.robot.constants.NodeConstants;
+import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpointWithFeedforward;
@@ -97,6 +100,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
   private final RunGripperWithJoystick runGripperWithJoystick =
   new RunGripperWithJoystick(gripperSubsystem, operatorJoystick, ledSubsystem);
   private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.HIGH);
+  private final AutoScorePieceRetract autoScorePieceHighCube = new AutoScorePieceRetract(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH, GripperState.SCORE_CUBE);
   private final ScorePiece scorePieceMid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.LOW);
   private final IntakePiece intakePieceSingle = new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SINGLE_SUBSTATION);
 
@@ -126,6 +130,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceGround);
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
     new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
+    new JoystickButton(operatorJoystick, Button.kBack.value).onTrue(scorePieceHigh);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);                        
     new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem));
     new JoystickButton(operatorJoystick, XboxController.Button.kRightStick.value).onTrue(new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem));
