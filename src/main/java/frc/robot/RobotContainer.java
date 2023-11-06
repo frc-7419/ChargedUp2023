@@ -14,6 +14,7 @@ import frc.robot.commands.actions.IntakePiece;
 import frc.robot.commands.actions.IntakePieceDouble;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
+import frc.robot.commands.actions.ZeroSensors;
 import frc.robot.commands.autos.AutoHigh;
 import frc.robot.commands.autos.AutoTwoPieceHigh;
 import frc.robot.commands.autos.AutoHighBalance;
@@ -126,8 +127,8 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
     new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);                        
-    new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder),new InstantCommand(elevatorSubsystem::zeroEncoder)));
-    new JoystickButton(operatorJoystick, XboxController.Button.kRightStick.value).onTrue(Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder),new InstantCommand(elevatorSubsystem::zeroEncoder)));
+    new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem));
+    new JoystickButton(operatorJoystick, XboxController.Button.kRightStick.value).onTrue(new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem));
     new JoystickButton(driverJoystick, Button.kRightStick.value).onTrue(new InstantCommand(gyroSubsystem::zeroYaw));
   }
 
