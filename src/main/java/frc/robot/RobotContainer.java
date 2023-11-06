@@ -145,13 +145,6 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     // ledSubsystem.rainbowLED(0);
     // return autonomousChooser.getSelected();
     return new AutoTwoPieceHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem);
-    // return balance;
-    // return new Mobility(driveBaseSubsystem);
-    // return mobility;xxxxxxxxxxxxxxxxx
-    // return new MobilityBalance(driveBaseSubsystem, gyroSubsystem);
-    // return new AutoHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH);
-    // return new Balance(driveBaseSubsystem, gyroSubsystem);
-    // return new WaitCommand(5);
   }
 
   public void setDefaultCommands() {
