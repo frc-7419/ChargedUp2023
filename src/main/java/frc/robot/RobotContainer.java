@@ -126,8 +126,8 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
     new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);                        
-    new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder)));
-    new JoystickButton(operatorJoystick, XboxController.Button.kRightStick.value).onTrue(Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder)));
+    new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder),new InstantCommand(elevatorSubsystem::zeroEncoder)));
+    new JoystickButton(operatorJoystick, XboxController.Button.kRightStick.value).onTrue(Commands.parallel(new InstantCommand(armSubsystem::zeroEncoder), new InstantCommand(wristSubsystem::zeroEncoder),new InstantCommand(elevatorSubsystem::zeroEncoder)));
     new JoystickButton(driverJoystick, Button.kRightStick.value).onTrue(new InstantCommand(gyroSubsystem::zeroYaw));
   }
 

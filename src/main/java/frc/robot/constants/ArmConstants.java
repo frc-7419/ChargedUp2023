@@ -30,16 +30,17 @@ public final class ArmConstants {
   // ff without cone
 
   
-  
+  //TODO Outdated
   public static double withoutConeks = 0.078743;
   public static double withoutConekg = 0.35614;
   public static double withoutConekv = 0.035504;
   public static double withoutConeka = 0.0022254;
   
-  public static double ks = withoutConeks;
-  public static double kg = withoutConekg;
-  public static double kv = withoutConekv;
-  public static double ka = withoutConeka;
+  //Use this 11/6/2023 Period 2
+  public static double ks = 0.10462;
+  public static double kg = 0.36345;
+  public static double kv = 0.034634;
+  public static double ka = 0.0010338;
 
   // ff with cone
   public static final ArmFeedforward armFeedforward = new ArmFeedforward(ks, kg, kv);

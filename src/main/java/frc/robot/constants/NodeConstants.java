@@ -7,8 +7,8 @@ public final class NodeConstants {
     SUBSTATION(0.001, -60, 21),
     SINGLE_SUBSTATION(0.001, 50, 10.47),
     GROUND_INTAKE(0.001, 50, 30),
-    LOW(0.001, -141.71, -51),
-    HIGH(0.54, -136, -48);
+    LOW(0.001, -120, -51),
+    HIGH(0.54, -136, -50);
 
     public final double elevatorSetpoint;
     public final double armSetpoint;

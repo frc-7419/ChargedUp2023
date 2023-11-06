@@ -40,8 +40,8 @@ public class ScorePiece extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         Commands.parallel(
-        new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation).raceWith(new WaitCommand(2)),
-        new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation).raceWith(new WaitCommand(2.5)),
-        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, scoreLocation).raceWith(new WaitCommand(1))));
+        new ElevatorToSetpointWithFeedForward(elevatorSubsystem, scoreLocation).raceWith(new WaitCommand(10)),
+        new ArmToSetpointWithFeedforward(armSubsystem, scoreLocation).raceWith(new WaitCommand(10)),
+        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, scoreLocation).raceWith(new WaitCommand(3))));
   }
 }

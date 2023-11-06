@@ -40,7 +40,7 @@ public class AutoScorePiece extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, intakeLocation),
-      new RunGripper(gripperSubsystem, gripperDirection).withTimeout(1),
+      new RunGripper(gripperSubsystem, gripperDirection).withTimeout(0.3),
       new InstantCommand(gripperSubsystem::stop));
   }
 }
