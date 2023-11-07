@@ -89,13 +89,8 @@ public class RobotContainer {
                         gyroSubsystem);
         private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpointWithFeedforward(armSubsystem,
                         NodeState.SUBSTATION);
-        private final IntakePiece intakePieceSingleSub = new IntakePiece(elevatorSubsystem, armSubsystem,
-                        wristSubsystem,
-                        NodeState.SINGLE_SUBSTATION);
         private final IntakePieceDouble intakePieceDoubleSub = new IntakePieceDouble(elevatorSubsystem, armSubsystem,
                         wristSubsystem, gripperSubsystem, stateMachine, NodeState.SUBSTATION);
-        private final IntakePiece intakePieceGround = new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem,
-                        NodeState.GROUND_INTAKE);
         private final ElevatorToSetpointWithFeedForward elevatorToLow = new ElevatorToSetpointWithFeedForward(
                         elevatorSubsystem,
                         NodeConstants.NodeState.LOW);
@@ -114,8 +109,9 @@ public class RobotContainer {
                         armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH, GripperState.SCORE_CUBE);
         private final ScorePiece scorePieceMid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem,
                         NodeState.LOW);
-        private final IntakePiece intakePieceSingle = new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem,
-                        NodeState.SINGLE_SUBSTATION);
+
+        private final IntakePiece intakePieceSingleSub = new IntakePiece(elevatorSubsystem, stateMachine, armSubsystem,
+                        wristSubsystem);
 
         private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem);
 
@@ -141,8 +137,7 @@ public class RobotContainer {
 
         private void configureButtonBindings() {
                 new JoystickButton(operatorJoystick, Button.kX.value).onTrue(scorePieceHigh);
-                new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceSingleSub);
-                new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceGround);
+                new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceSingleSub);
                 new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
                 new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
                 new JoystickButton(operatorJoystick, Button.kBack.value).onTrue(scorePieceHigh);
