@@ -21,6 +21,7 @@ import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.gripper.GripperSubsystem;
+import frc.robot.subsystems.state.StateMachine;
 import frc.robot.subsystems.wrist.WristSubsystem;
 
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class OnePiece extends SequentialCommandGroup {
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
       GripperSubsystem gripperSubsystem,
-      WristSubsystem wristSubsystem) {
+      WristSubsystem wristSubsystem, StateMachine stateMachine) {
     HashMap<String, Command> eventMap = new HashMap<String, Command>();
 
     Alliance alliance = RobotConstants.currentAlliance;
@@ -44,12 +45,12 @@ public class OnePiece extends SequentialCommandGroup {
 
     eventMap.put(
         "Score Piece High",
-        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH, GripperState.SCORE_CONE));
+        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH, GripperState.SCORE_CONE, stateMachine));
     eventMap.put(
         "Retract Intake", new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem));
     eventMap.put(
         "Intake Piece",
-        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.GROUND, GripperState.SCORE_CONE));
+        new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.GROUND, GripperState.SCORE_CONE, stateMachine));
 
     PathPlannerTrajectory onePiece =
         PathPlanner.loadPath(pathName, PathPlanner.getConstraintsFromPath(pathName));

@@ -6,7 +6,7 @@ public final class GripperConstants {
   public static final double gripperOuttakeFastPower = 0.4;
   public static final double gripperFeedforward = 0.12;
   public static final double gripperDelaySeconds = 0.5; // 0.5s
-  public static final double stallVelocityThreshold = 500;
+  public static final double stallVelocityThreshold = 2300;
 
   // for controlling the state of the gripper
   public static enum GripperState {

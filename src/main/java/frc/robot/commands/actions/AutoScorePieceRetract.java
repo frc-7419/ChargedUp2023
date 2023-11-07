@@ -15,6 +15,7 @@ import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.subsystems.gripper.RunGripper;
+import frc.robot.subsystems.state.StateMachine;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -35,12 +36,12 @@ public class AutoScorePieceRetract extends SequentialCommandGroup {
       ArmSubsystem armSubsystem,
       WristSubsystem wristSubsystem,
       GripperSubsystem gripperSubsystem,
-      NodeState intakeLocation, GripperState gripperDirection) {
+      NodeState intakeLocation, GripperState gripperDirection, StateMachine stateMachine) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, intakeLocation),
-      new RunGripper(gripperSubsystem, gripperDirection).withTimeout(0.3),
+      new RunGripper(gripperSubsystem, gripperDirection, stateMachine).withTimeout(0.3),
       new InstantCommand(gripperSubsystem::stop),
       new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem));
   }

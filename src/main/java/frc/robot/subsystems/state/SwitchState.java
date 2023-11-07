@@ -34,6 +34,9 @@ public class SwitchState extends CommandBase {
     if (joystick.getPOV() == 180) {
       stateMachine.setPieceState(NodeConstants.PieceState.CUBE);
     }
+    if (joystick.getPOV() == 90) {
+      stateMachine.setIsHolding(false);
+    }
   }
 
   // Called once the command ends or is interrupted.

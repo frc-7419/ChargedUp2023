@@ -23,6 +23,7 @@ import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripper;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.SmartBalance;
+import frc.robot.subsystems.state.StateMachine;
 import frc.robot.subsystems.wrist.WristSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -32,24 +33,24 @@ public class AutoTwoPieceHigh extends SequentialCommandGroup {
   /** Creates a new AutoHigh. */
   public AutoTwoPieceHigh(DriveBaseSubsystem driveBaseSubsystem, ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, GripperSubsystem gripperSubsystem,
-      GyroSubsystem gyroSubsystem) {
+      GyroSubsystem gyroSubsystem, StateMachine stateMachine) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem),
         new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH,
-            GripperState.SCORE_CONE),
+            GripperState.SCORE_CONE, stateMachine),
         new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET),
         // new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
         // new RunDrive(driveBaseSubsystem, -0.35).withTimeout(3.2),
         // new RunDrive(driveBaseSubsystem, -0.1).withTimeout(3.2),
         new RunDrive(driveBaseSubsystem, -0.1).withTimeout(0.3),
         new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.GROUND_INTAKE,
-            GripperState.INTAKE_CUBE).withTimeout(4),
+            GripperState.INTAKE_CUBE, stateMachine).withTimeout(4),
         // new RunDrive(driveBaseSubsystem, 0.1).withTimeout(3.2),
         new RunDrive(driveBaseSubsystem, 0.12, -0.12).withTimeout(1),
         new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.LOW,
-            GripperState.SCORE_CUBE),
+            GripperState.SCORE_CUBE, stateMachine),
         // new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem));
         new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET));
   }

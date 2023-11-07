@@ -106,7 +106,7 @@ public class RobotContainer {
         private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem,
                         NodeState.HIGH);
         private final AutoScorePieceRetract autoScorePieceHighCube = new AutoScorePieceRetract(elevatorSubsystem,
-                        armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH, GripperState.SCORE_CUBE);
+                        armSubsystem, wristSubsystem, gripperSubsystem, NodeState.LOW, GripperState.SCORE_CUBE, stateMachine);
         private final ScorePiece scorePieceMid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem,
                         NodeState.LOW);
 
@@ -154,19 +154,19 @@ public class RobotContainer {
         private void configureAutoSelector() {
                 autonomousChooser.setDefaultOption("Auto High",
                                 new AutoHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem,
-                                                wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH));
+                                                wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH, stateMachine));
                 autonomousChooser.addOption("Auto High + Balance",
                                 new AutoHighBalance(driveBaseSubsystem, elevatorSubsystem,
                                                 armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem,
-                                                NodeState.HIGH));
+                                                NodeState.HIGH, stateMachine));
                 autonomousChooser.addOption("Auto Two Piece High",
                                 new AutoTwoPieceHigh(driveBaseSubsystem, elevatorSubsystem,
-                                                armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem));
+                                                armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, stateMachine));
                 autonomousChooser.addOption("Hybrid", new Mobility(driveBaseSubsystem));
                 autonomousChooser.addOption("Hybrid + Balance", new MobilityBalance(driveBaseSubsystem, gyroSubsystem));
                 autonomousChooser.addOption("Auto High Stop",
                                 new AutoHighStop(driveBaseSubsystem, elevatorSubsystem, armSubsystem,
-                                                wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH));
+                                                wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH, stateMachine));
                 SmartDashboard.putData(autonomousChooser);
         }
 
@@ -175,7 +175,7 @@ public class RobotContainer {
                 // return autonomousChooser.getSelected();
                 return new AutoTwoPieceHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
                                 gripperSubsystem,
-                                gyroSubsystem);
+                                gyroSubsystem, stateMachine);
                 // return balance;
                 // return new Mobility(driveBaseSubsystem);
                 // return mobility;xxxxxxxxxxxxxxxxx

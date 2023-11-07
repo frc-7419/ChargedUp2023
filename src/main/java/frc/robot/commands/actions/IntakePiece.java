@@ -46,10 +46,8 @@ public class IntakePiece extends SequentialCommandGroup {
     NodeState intakeLocation = (stateMachine.getPieceState() == PieceState.CONE) ? (NodeState.SINGLE_SUBSTATION)
         : NodeState.GROUND_INTAKE;
     addCommands(
-        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation)
-            .raceWith(new WaitCommand(0.6)),
+        new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.GROUND_INTAKE).raceWith(new WaitCommand(1)),
         new AutoRunGripper(gripperSubsystem, stateMachine),
-        new WristToSetpointWithFeedforward(
-            wristSubsystem, armSubsystem, NodeState.RESET));
+        new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET).raceWith(new WaitCommand(1)));
   }
 }

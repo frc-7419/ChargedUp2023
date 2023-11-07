@@ -7,6 +7,7 @@ package frc.robot.subsystems.state;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.NodeConstants;
+import frc.robot.constants.ElevatorConstants.NodeState;
 
 public class StateMachine extends SubsystemBase {
   /** Creates a new StateMachine. */
@@ -14,7 +15,7 @@ public class StateMachine extends SubsystemBase {
   private boolean isHolding;
 
   public StateMachine() {
-    this.pieceState = null;
+    this.pieceState = NodeConstants.PieceState.CONE;
     this.isHolding = false;
   }
 

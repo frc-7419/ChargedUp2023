@@ -19,6 +19,7 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.SmartBalance;
+import frc.robot.subsystems.state.StateMachine;
 import frc.robot.subsystems.wrist.WristSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -26,11 +27,11 @@ import frc.robot.subsystems.wrist.WristSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoHighBalance extends SequentialCommandGroup {
   /** Creates a new AutoHigh. */
-  public AutoHighBalance(DriveBaseSubsystem driveBaseSubsystem, ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, GripperSubsystem gripperSubsystem, GyroSubsystem gyroSubsystem, NodeState scoreLocation) {
+  public AutoHighBalance(DriveBaseSubsystem driveBaseSubsystem, ElevatorSubsystem elevatorSubsystem, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, GripperSubsystem gripperSubsystem, GyroSubsystem gyroSubsystem, NodeState scoreLocation, StateMachine stateMachine) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, scoreLocation,GripperState.SCORE_CONE),
+      new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, scoreLocation,GripperState.SCORE_CONE, stateMachine),
       new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
       new RunDrive(driveBaseSubsystem, -0.35).withTimeout(3.2),
         new RunDrive(driveBaseSubsystem, 0.28).withTimeout(2.8),

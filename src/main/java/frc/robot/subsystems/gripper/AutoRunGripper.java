@@ -20,6 +20,7 @@ public class AutoRunGripper extends CommandBase {
   public AutoRunGripper(
       GripperSubsystem gripperSubsystem, StateMachine stateMachine) {
     this.gripperSubsystem = gripperSubsystem;
+    this.stateMachine = stateMachine;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gripperSubsystem, stateMachine);
   }
@@ -27,7 +28,9 @@ public class AutoRunGripper extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    stateMachine.setIsHolding(false);
     gripperSubsystem.coast();
+    checkingHold = false;
     lastTimeStamp = Timer.getFPGATimestamp();
   }
 
@@ -36,7 +39,7 @@ public class AutoRunGripper extends CommandBase {
   public void execute() {
     if (stateMachine.getPieceState() == NodeConstants.PieceState.CUBE) {
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
-    } else if (stateMachine.getPieceState() == NodeConstants.PieceState.CONE) {
+    } else{
       gripperSubsystem.setIntakePower(-GripperConstants.gripperPower);
     }
     double timePassed = Timer.getFPGATimestamp() - lastTimeStamp;
@@ -44,7 +47,7 @@ public class AutoRunGripper extends CommandBase {
       checkingHold = true;
     }
     if (checkingHold) {
-      if (gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold) {
+      if (Math.abs(gripperSubsystem.getVelocity()) < GripperConstants.stallVelocityThreshold) {
         stateMachine.setIsHolding(true);
       }
     }
