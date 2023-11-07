@@ -39,11 +39,11 @@ public class RunGripperWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (joystick.getStartButtonPressed()){
+    if (joystick.getStartButtonPressed()) {
       isFast = !isFast;
     }
     double gripperOuttakePower = GripperConstants.gripperOuttakePower;
-    if (isFast){
+    if (isFast) {
       gripperOuttakePower = GripperConstants.gripperOuttakeFastPower;
     } else {
       gripperOuttakePower = GripperConstants.gripperOuttakePower;
@@ -51,26 +51,26 @@ public class RunGripperWithJoystick extends CommandBase {
     gripperSubsystem.isHolding = holdMode;
 
     // if (!isOuttaking && joystick.getRightBumperPressed() && !holdMode) {
-    //   isIntaking = !isIntaking;
-    //   if (isIntaking) {
-    //     holdMode = false;
-    //   }
+    // isIntaking = !isIntaking;
+    // if (isIntaking) {
+    // holdMode = false;
+    // }
     // }
     // if (!isIntaking && joystick.getLeftBumperPressed()) {
-    //   isOuttaking = !isOuttaking;
-    //   if (isOuttaking) {
-    //     holdMode = false;
-    //   }
+    // isOuttaking = !isOuttaking;
+    // if (isOuttaking) {
+    // holdMode = false;
+    // }
     // }
 
-    if (joystick.getRightTriggerAxis() > 0.05){
+    if (joystick.getRightTriggerAxis() > 0.05) {
       holdMode = false;
     }
-    if (joystick.getLeftBumper()){
+    if (joystick.getLeftBumper()) {
       isOuttaking = true;
       isIntaking = false;
       holdMode = false;
-    } else if (joystick.getRightBumper()){
+    } else if (joystick.getRightBumper()) {
       isOuttaking = false;
       isIntaking = true;
     } else {
@@ -90,7 +90,8 @@ public class RunGripperWithJoystick extends CommandBase {
       boolean isStalling = gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold;
       boolean didDelay = timePassed > GripperConstants.gripperDelaySeconds;
       if (isStalling && didDelay) {
-        // Hold mode won't be set to true unless we run it for 0.5 seconds to get the motor up to
+        // Hold mode won't be set to true unless we run it for 0.5 seconds to get the
+        // motor up to
         // speed
         holdMode = true;
         isIntaking = false;
@@ -108,7 +109,8 @@ public class RunGripperWithJoystick extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

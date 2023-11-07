@@ -7,7 +7,8 @@ import frc.robot.constants.DriveConstants;
 import frc.robot.subsystems.led.LedSubsystem;
 
 /**
- * Command to arcade drive the robot (left joystick corresponds to straight, right joystick
+ * Command to arcade drive the robot (left joystick corresponds to straight,
+ * right joystick
  * corresponds to turn)
  */
 public class ArcadeDrive extends CommandBase {
@@ -19,6 +20,7 @@ public class ArcadeDrive extends CommandBase {
 
   // Limits *acceleration* not max speed; basically kD
   private final SlewRateLimiter speedLimiter = new SlewRateLimiter(100);
+
   /**
    * Constructs the ArcadeDrive class
    *
@@ -32,6 +34,7 @@ public class ArcadeDrive extends CommandBase {
     this.ledSubsystem = ledSubsystem;
     addRequirements(driveBaseSubsystem);
   }
+
   /** Initializes the arcadedrive to reset all motors to default values */
   @Override
   public void initialize() {
@@ -39,6 +42,7 @@ public class ArcadeDrive extends CommandBase {
     driveBaseSubsystem.setAllDefaultInversions();
     driveBaseSubsystem.coast();
   }
+
   /** In the execute method, move the joystick to make the robot move. */
   @Override
   public void execute() {
@@ -74,7 +78,8 @@ public class ArcadeDrive extends CommandBase {
   }
 
   private double getTurnCoefficient(boolean slowModeOn) {
-    if (slowModeOn) return DriveConstants.slowTurn;
+    if (slowModeOn)
+      return DriveConstants.slowTurn;
     return DriveConstants.driveTurn;
   }
 
