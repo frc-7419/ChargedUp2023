@@ -30,7 +30,8 @@ public class SwitchState extends CommandBase {
   public void execute() {
     if (joystick.getPOV() == 0) {
       stateMachine.setPieceState(NodeConstants.PieceState.CONE);
-    } else if (joystick.getPOV() == 1) {
+    }
+    if (joystick.getPOV() == 180) {
       stateMachine.setPieceState(NodeConstants.PieceState.CUBE);
     }
   }

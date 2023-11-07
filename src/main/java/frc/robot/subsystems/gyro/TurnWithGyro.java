@@ -24,7 +24,7 @@ public class TurnWithGyro extends CommandBase {
     this.driveBaseSubsystem = driveBaseSubsystem;
     this.gyroSubsystem = gyroSubsystem;
     this.desiredAngle = desiredAngle;
-    this.tolerance = tolerance;
+    this.tolerance = 10;
     addRequirements(driveBaseSubsystem, gyroSubsystem);
   }
   
@@ -77,6 +77,6 @@ public class TurnWithGyro extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return pidController.atSetpoint();
   }
 }

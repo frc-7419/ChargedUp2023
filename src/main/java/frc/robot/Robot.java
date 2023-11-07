@@ -50,7 +50,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    robotContainer.zeroSensor(getAllianceColor(), allianceSide);
     robotContainer.getAutonomousCommand().schedule();
     allianceColor = DriverStation.getAlliance();
     Map<Integer, String> locationMap = new HashMap<Integer, String>();

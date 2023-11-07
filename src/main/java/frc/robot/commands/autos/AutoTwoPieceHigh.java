@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.actions.AutoScorePiece;
+import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.actions.ZeroSensors;
@@ -38,16 +39,18 @@ public class AutoTwoPieceHigh extends SequentialCommandGroup {
         new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem),
         new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH,
             GripperState.SCORE_CONE),
-        new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
+        new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET),
+        // new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
         // new RunDrive(driveBaseSubsystem, -0.35).withTimeout(3.2),
         // new RunDrive(driveBaseSubsystem, -0.1).withTimeout(3.2),
+        new RunDrive(driveBaseSubsystem, -0.1).withTimeout(0.3),
         new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.GROUND_INTAKE,
-            GripperState.INTAKE_CUBE),
+            GripperState.INTAKE_CUBE).withTimeout(4),
         // new RunDrive(driveBaseSubsystem, 0.1).withTimeout(3.2),
-        // new RunDrive(driveBaseSubsystem, 0.35).withTimeout(3),
-        // new RunDrive(driveBaseSubsystem, 0.1, -0.1).withTimeout(1),
+        new RunDrive(driveBaseSubsystem, 0.12, -0.12).withTimeout(1),
         new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.LOW,
             GripperState.SCORE_CUBE),
-        new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem));
+        // new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem));
+        new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET));
   }
 }
