@@ -5,12 +5,9 @@
 package frc.robot.subsystems.gripper;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.GripperConstants;
 import frc.robot.constants.NodeConstants;
-import frc.robot.constants.GripperConstants.GripperState;
-import frc.robot.subsystems.led.LedSubsystem;
 import frc.robot.subsystems.state.StateMachine;
 
 public class AutoRunGripper extends CommandBase {
@@ -42,14 +39,14 @@ public class AutoRunGripper extends CommandBase {
     } else if (stateMachine.getPieceState() == NodeConstants.PieceState.CONE) {
       gripperSubsystem.setIntakePower(-GripperConstants.gripperPower);
     }
+    double timePassed = Timer.getFPGATimestamp() - lastTimeStamp;
+    if (timePassed > GripperConstants.gripperDelaySeconds) {
+      checkingHold = true;
+    }
     if (checkingHold) {
       if (gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold) {
         stateMachine.setIsHolding(true);
       }
-    }
-    double timePassed = Timer.getFPGATimestamp() - lastTimeStamp;
-    if (timePassed > GripperConstants.gripperDelaySeconds) {
-      checkingHold = true;
     }
   }
 

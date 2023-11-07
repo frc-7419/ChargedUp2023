@@ -140,7 +140,8 @@ public class RobotContainer {
                 new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceSingleSub);
                 new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
                 new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
-                new JoystickButton(operatorJoystick, Button.kBack.value).onTrue(scorePieceHigh);
+                new JoystickButton(operatorJoystick, Button.kBack.value).onTrue(autoScorePieceHighCube);
+                new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceSingleSub);
                 new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
                 new JoystickButton(driverJoystick, XboxController.Button.kStart.value)
                                 .onTrue(new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem));
