@@ -36,7 +36,7 @@ public class ArmToSetpointWithFeedforward extends CommandBase {
     //       new ArmFeedforward(ArmConstants.withConeks, ArmConstants.withConekg, ArmConstants.withConekv, ArmConstants.withConeka);
     // }
     this.armPIDController =
-        new PIDController(0.03, 0, 0);
+        new PIDController(0.05, 0, 0);
     addRequirements(armSubsystem);
   }
 

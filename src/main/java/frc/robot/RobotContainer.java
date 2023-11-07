@@ -100,7 +100,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
   private final RunGripperWithJoystick runGripperWithJoystick =
   new RunGripperWithJoystick(gripperSubsystem, operatorJoystick, ledSubsystem);
   private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.HIGH);
-  private final AutoScorePieceRetract autoScorePieceHighCube = new AutoScorePieceRetract(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH, GripperState.SCORE_CUBE);
+  private final AutoScorePieceRetract autoScorePieceHighCube = new AutoScorePieceRetract(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.LOW, GripperState.SCORE_CUBE);
   private final ScorePiece scorePieceMid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.LOW);
   private final IntakePiece intakePieceSingle = new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SINGLE_SUBSTATION);
 
@@ -130,7 +130,7 @@ private final ArmToSetpointWithFeedforward armToTestSetpoint = new ArmToSetpoint
     new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceGround);
     new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
     new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
-    new JoystickButton(operatorJoystick, Button.kBack.value).onTrue(scorePieceHigh);
+    new JoystickButton(operatorJoystick, Button.kBack.value).onTrue(autoScorePieceHighCube);
     new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);                        
     new JoystickButton(driverJoystick, XboxController.Button.kStart.value).onTrue(new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem));
     new JoystickButton(operatorJoystick, XboxController.Button.kRightStick.value).onTrue(new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem));

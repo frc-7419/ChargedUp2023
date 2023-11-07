@@ -40,12 +40,14 @@ public class AutoTwoPieceHigh extends SequentialCommandGroup {
             GripperState.SCORE_CONE),
         new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem),
         // new RunDrive(driveBaseSubsystem, -0.35).withTimeout(3.2),
+        // new RunDrive(driveBaseSubsystem, -0.1).withTimeout(3.2),
         new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.GROUND_INTAKE,
-            GripperState.INTAKE_CUBE).withTimeout(5),
+            GripperState.INTAKE_CUBE),
+        // new RunDrive(driveBaseSubsystem, 0.1).withTimeout(3.2),
         // new RunDrive(driveBaseSubsystem, 0.35).withTimeout(3),
-        new RunDrive(driveBaseSubsystem, 0.1, -0.1).withTimeout(0.5),
+        // new RunDrive(driveBaseSubsystem, 0.1, -0.1).withTimeout(1),
         new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.LOW,
-            GripperState.SCORE_CUBE).withTimeout(5),
-        new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem).raceWith(new WaitCommand(3)));
+            GripperState.SCORE_CUBE),
+        new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem));
   }
 }
