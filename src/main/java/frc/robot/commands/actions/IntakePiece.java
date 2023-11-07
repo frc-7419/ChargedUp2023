@@ -14,6 +14,8 @@ import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpointWithFeedforward;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
+import frc.robot.subsystems.gripper.AutoRunGripper;
+import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.state.StateMachine;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.subsystems.wrist.WristToSetpointWithFeedforward;
@@ -37,6 +39,7 @@ public class IntakePiece extends SequentialCommandGroup {
       ElevatorSubsystem elevatorSubsystem,
       StateMachine stateMachine,
       ArmSubsystem armSubsystem,
+      GripperSubsystem gripperSubsystem,
       WristSubsystem wristSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
@@ -44,6 +47,9 @@ public class IntakePiece extends SequentialCommandGroup {
         : NodeState.GROUND_INTAKE;
     addCommands(
         new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation)
-            .raceWith(new WaitCommand(0.6)));
+            .raceWith(new WaitCommand(0.6)),
+        new AutoRunGripper(gripperSubsystem, stateMachine),
+        new WristToSetpointWithFeedforward(
+            wristSubsystem, armSubsystem, NodeState.RESET));
   }
 }

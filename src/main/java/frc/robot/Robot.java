@@ -20,13 +20,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Robot extends TimedRobot {
 
   private RobotContainer robotContainer;
   private static Alliance allianceColor;
   private static String allianceSide;
   public DoubleArrayLogEntry odometryLog;
+
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
@@ -43,10 +43,12 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
   @Override
   public void autonomousInit() {
@@ -77,7 +79,8 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+  }
 
   @Override
   public void teleopInit() {
@@ -87,7 +90,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     CommandScheduler.getInstance().run();
-    odometryLog.append(SmartDashboard.getNumberArray("Odometry", new double[]{0,0,0}));
+    odometryLog.append(SmartDashboard.getNumberArray("Odometry", new double[] { 0, 0, 0 }));
   }
 
   @Override
@@ -96,5 +99,6 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 }

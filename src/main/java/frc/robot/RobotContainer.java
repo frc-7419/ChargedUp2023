@@ -39,7 +39,7 @@ import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
-import frc.robot.subsystems.gripper.SmartIntake;
+import frc.robot.subsystems.gripper.AutoRunGripper;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.SmartBalance;
 import frc.robot.subsystems.gyro.TurnWithGyro;
@@ -95,7 +95,7 @@ public class RobotContainer {
                         elevatorSubsystem,
                         NodeConstants.NodeState.LOW);
 
-        private final SmartIntake smartIntake = new SmartIntake(gripperSubsystem, stateMachine);
+        private final AutoRunGripper AutoRunGripper = new AutoRunGripper(gripperSubsystem, stateMachine);
         private final ElevatorToSetpointWithFeedForward elevatorToHigh = new ElevatorToSetpointWithFeedForward(
                         elevatorSubsystem,
                         NodeConstants.NodeState.HIGH);
@@ -111,7 +111,7 @@ public class RobotContainer {
                         NodeState.LOW);
 
         private final IntakePiece intakePieceSingleSub = new IntakePiece(elevatorSubsystem, stateMachine, armSubsystem,
-                        wristSubsystem);
+                        gripperSubsystem, wristSubsystem);
 
         private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem);
 

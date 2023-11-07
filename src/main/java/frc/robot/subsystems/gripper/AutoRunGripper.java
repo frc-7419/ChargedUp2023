@@ -8,27 +8,23 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.GripperConstants;
+import frc.robot.constants.NodeConstants;
 import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.subsystems.led.LedSubsystem;
+import frc.robot.subsystems.state.StateMachine;
 
 public class AutoRunGripper extends CommandBase {
   /** Creates a new SmartRunGripper. */
-  GripperSubsystem gripperSubsystem;
-
-  GripperState mode;
-  LedSubsystem ledSubsystem;
+  private GripperSubsystem gripperSubsystem;
+  private StateMachine stateMachine;
+  private boolean checkingHold;
   private double lastTimeStamp;
-  private boolean holdMode = false;
-  private boolean isIntaking = false;
-  private boolean isOuttaking = false;
 
   public AutoRunGripper(
-      GripperSubsystem gripperSubsystem, GripperState mode, LedSubsystem ledSubsystem) {
-    this.mode = mode;
+      GripperSubsystem gripperSubsystem, StateMachine stateMachine) {
     this.gripperSubsystem = gripperSubsystem;
-    this.ledSubsystem = ledSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(gripperSubsystem);
+    addRequirements(gripperSubsystem, stateMachine);
   }
 
   // Called when the command is initially scheduled.
@@ -41,59 +37,33 @@ public class AutoRunGripper extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    gripperSubsystem.isHolding = holdMode;
-
-    if (!isOuttaking && (mode == GripperState.INTAKE_CONE || mode == GripperState.INTAKE_CUBE) && !holdMode) {
-      isIntaking = !isIntaking;
-      if (isIntaking) {
-        holdMode = false;
-      }
-    }
-    if (!isIntaking && (mode == GripperState.INTAKE_CONE || mode == GripperState.INTAKE_CUBE)) {
-      isOuttaking = !isOuttaking;
-      if (isOuttaking) {
-        holdMode = false;
-      }
-    }
-
-    if (holdMode) {
-      gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);
-      gripperSubsystem.brake();
-      ledSubsystem.setLEDGreen();
-    } else if (isIntaking) {
-      gripperSubsystem.coast();
+    if (stateMachine.getPieceState() == NodeConstants.PieceState.CUBE) {
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
-      ledSubsystem.setLEDRed();
-      double currentTimeStamp = Timer.getFPGATimestamp();
-      double timePassed = currentTimeStamp - lastTimeStamp;
-      boolean isStalling = gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold;
-      boolean didDelay = timePassed > GripperConstants.gripperDelaySeconds;
-      if (isStalling && didDelay) {
-        // Hold mode won't be set to true unless we run it for 0.5 seconds to get the
-        // motor up to
-        // speed
-        holdMode = true;
-        isIntaking = false;
+    } else if (stateMachine.getPieceState() == NodeConstants.PieceState.CONE) {
+      gripperSubsystem.setIntakePower(-GripperConstants.gripperPower);
+    }
+    if (checkingHold) {
+      if (gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold) {
+        stateMachine.setIsHolding(true);
       }
-    } else if (isOuttaking) {
-      gripperSubsystem.coast();
-      gripperSubsystem.setOuttakePower(GripperConstants.gripperPower);
-      ledSubsystem.setLEDBlue();
-    } else {
-      gripperSubsystem.setPower(0);
-      lastTimeStamp = Timer.getFPGATimestamp();
-      gripperSubsystem.brake();
+    }
+    double timePassed = Timer.getFPGATimestamp() - lastTimeStamp;
+    if (timePassed > GripperConstants.gripperDelaySeconds) {
+      checkingHold = true;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    gripperSubsystem.setPower(0);
+    gripperSubsystem.brake();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    boolean holdMode = stateMachine.getHoldingState();
+    return holdMode;
   }
 }

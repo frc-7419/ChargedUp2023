@@ -14,7 +14,7 @@ import frc.robot.subsystems.arm.ArmToSetpointWithFeedforward;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
 import frc.robot.subsystems.gripper.GripperSubsystem;
-import frc.robot.subsystems.gripper.SmartIntake;
+import frc.robot.subsystems.gripper.AutoRunGripper;
 import frc.robot.subsystems.state.StateMachine;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.subsystems.wrist.WristToSetpointWithFeedforward;
@@ -49,6 +49,6 @@ public class IntakePieceDouble extends SequentialCommandGroup {
             new ArmToSetpointWithFeedforward(armSubsystem, intakeLocation).raceWith(new WaitCommand(2)),
             new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation)
                 .raceWith(new WaitCommand(0.6)),
-            new SmartIntake(gripperSubsystem, stateMachine)));
+            new AutoRunGripper(gripperSubsystem, stateMachine)));
   }
 }
