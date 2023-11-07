@@ -9,10 +9,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.constants.ArmConstants;
 import frc.robot.constants.NodeConstants.NodeState;
+import frc.robot.constants.NodeConstants.PieceState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpointWithFeedforward;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
+import frc.robot.subsystems.state.StateMachine;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.subsystems.wrist.WristToSetpointWithFeedforward;
 
@@ -33,11 +35,13 @@ public class IntakePiece extends SequentialCommandGroup {
   public IntakePiece(
 
       ElevatorSubsystem elevatorSubsystem,
+      StateMachine stateMachine,
       ArmSubsystem armSubsystem,
-      WristSubsystem wristSubsystem,
-      NodeState intakeLocation) {
+      WristSubsystem wristSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    NodeState intakeLocation = (stateMachine.getPieceState() == PieceState.CONE) ? (NodeState.SINGLE_SUBSTATION)
+        : NodeState.GROUND_INTAKE;
     addCommands(
         new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation)
             .raceWith(new WaitCommand(0.6)));
