@@ -26,9 +26,9 @@ public class IntakePiece extends SequentialCommandGroup {
    * This command will intake a game piece.
    *
    * @param elevatorSubsystem for controlling position of the elevator.
-   * @param armSubsystem for controlling position of the arms.
-   * @param gripperSubsystem for controlling gripper power and direction.
-   * @param wristSubsystem for controlling the orientation of the gripper
+   * @param armSubsystem      for controlling position of the arms.
+   * @param gripperSubsystem  for controlling gripper power and direction.
+   * @param wristSubsystem    for controlling the orientation of the gripper
    */
   public IntakePiece(
 
@@ -39,6 +39,7 @@ public class IntakePiece extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation).raceWith(new WaitCommand(0.6)));
+        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation)
+            .raceWith(new WaitCommand(0.6)));
   }
 }

@@ -15,8 +15,7 @@ public class SmartWrist extends CommandBase {
   public SmartWrist(WristSubsystem wristSubsystem, double setpoint) {
     this.wristSubsystem = wristSubsystem;
     this.setpoint = setpoint;
-    wristController =
-        new PIDController(PIDConstants.wristkP, PIDConstants.wristkI, PIDConstants.wristkD);
+    wristController = new PIDController(PIDConstants.wristkP, PIDConstants.wristkI, PIDConstants.wristkD);
     addRequirements(wristSubsystem);
   }
 

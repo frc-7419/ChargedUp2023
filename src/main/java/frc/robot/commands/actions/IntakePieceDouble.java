@@ -13,6 +13,9 @@ import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpointWithFeedforward;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
+import frc.robot.subsystems.gripper.GripperSubsystem;
+import frc.robot.subsystems.gripper.SmartIntake;
+import frc.robot.subsystems.state.StateMachine;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.subsystems.wrist.WristToSetpointWithFeedforward;
 
@@ -26,22 +29,26 @@ public class IntakePieceDouble extends SequentialCommandGroup {
    * This command will intake a game piece.
    *
    * @param elevatorSubsystem for controlling position of the elevator.
-   * @param armSubsystem for controlling position of the arms.
-   * @param gripperSubsystem for controlling gripper power and direction.
-   * @param wristSubsystem for controlling the orientation of the gripper
+   * @param armSubsystem      for controlling position of the arms.
+   * @param gripperSubsystem  for controlling gripper power and direction.
+   * @param wristSubsystem    for controlling the orientation of the gripper
    */
   public IntakePieceDouble(
 
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem,
       WristSubsystem wristSubsystem,
+      GripperSubsystem gripperSubsystem,
+      StateMachine stateMachine,
       NodeState intakeLocation) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ElevatorToSetpointWithFeedForward(elevatorSubsystem, intakeLocation).raceWith(new WaitCommand(0.5)),
         Commands.sequence(
-        new ArmToSetpointWithFeedforward(armSubsystem, intakeLocation).raceWith(new WaitCommand(2)),
-        new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation).raceWith(new WaitCommand(0.6))));
+            new ArmToSetpointWithFeedforward(armSubsystem, intakeLocation).raceWith(new WaitCommand(2)),
+            new WristToSetpointWithFeedforward(wristSubsystem, armSubsystem, intakeLocation)
+                .raceWith(new WaitCommand(0.6)),
+            new SmartIntake(gripperSubsystem, stateMachine)));
   }
 }

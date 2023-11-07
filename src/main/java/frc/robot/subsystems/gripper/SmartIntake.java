@@ -21,7 +21,7 @@ public class SmartIntake extends CommandBase {
   private double lastTimeStamp;
 
   public SmartIntake(
-      GripperSubsystem gripperSubsystem, StateMachine stateMachine, GripperState mode, LedSubsystem ledSubsystem) {
+      GripperSubsystem gripperSubsystem, StateMachine stateMachine) {
     this.gripperSubsystem = gripperSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gripperSubsystem, stateMachine);
@@ -44,18 +44,20 @@ public class SmartIntake extends CommandBase {
     }
     if (checkingHold) {
       if (gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold) {
-        checkingHold = true;
+        stateMachine.setIsHolding(true);
       }
-      double timePassed = Timer.getFPGATimestamp() - lastTimeStamp;
-      if (timePassed > GripperConstants.gripperDelaySeconds) {
-        checkingHold = true;
-      }
+    }
+    double timePassed = Timer.getFPGATimestamp() - lastTimeStamp;
+    if (timePassed > GripperConstants.gripperDelaySeconds) {
+      checkingHold = true;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    gripperSubsystem.setPower(0);
+    gripperSubsystem.brake();
   }
 
   // Returns true when the command should end.
