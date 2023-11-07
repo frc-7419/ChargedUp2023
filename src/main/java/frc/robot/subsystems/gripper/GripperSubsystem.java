@@ -10,11 +10,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.DeviceIDs;
+import frc.robot.constants.GripperConstants;
 
 public class GripperSubsystem extends SubsystemBase {
   /** Creates a new gripper. */
   private CANSparkMax gripper;
-
+  private GripperConstants.GripperState pieceState;
   public boolean isHolding;
 
   public GripperSubsystem() {
@@ -34,7 +35,6 @@ public class GripperSubsystem extends SubsystemBase {
   public void stop() {
     gripper.set(0);
   }
-
 
   public void setIntakePower(double power) {
     gripper.set(power);
