@@ -53,8 +53,6 @@ public class MoveToSingleSubstation extends SequentialCommandGroup {
             driveBaseSubsystem,
             PathPlanner.loadPath(
                 teamColorAccordingToPath,
-                PathPlanner.getConstraintsFromPath(teamColorAccordingToPath))),
-        new WaitCommand(1),
-        new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.SUBSTATION));
+                PathPlanner.getConstraintsFromPath(teamColorAccordingToPath))));
   }
 }
