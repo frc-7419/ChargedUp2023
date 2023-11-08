@@ -5,6 +5,7 @@
 package frc.robot.subsystems.gripper;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.GripperConstants;
 import frc.robot.constants.NodeConstants;
@@ -46,8 +47,9 @@ public class AutoRunGripper extends CommandBase {
     if (timePassed > GripperConstants.gripperDelaySeconds) {
       checkingHold = true;
     }
+    double velocityThreshold = SmartDashboard.getString("Piece State", "CUBE").equals("CUBE") ? GripperConstants.cubeStallVelocityThreshold : GripperConstants.coneStallVelocityThreshold;
     if (checkingHold) {
-      if (Math.abs(gripperSubsystem.getVelocity()) < GripperConstants.stallVelocityThreshold) {
+      if (Math.abs(gripperSubsystem.getVelocity()) < velocityThreshold) {
         stateMachine.setIsHolding(true);
       }
     }

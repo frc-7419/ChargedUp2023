@@ -10,7 +10,7 @@ import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
-import frc.robot.commands.actions.IntakePiece;
+import frc.robot.commands.actions.AutoIntakePiece;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.constants.PathConstants;
 import frc.robot.constants.WaypointPositionConstants;

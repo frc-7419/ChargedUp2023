@@ -6,8 +6,10 @@ package frc.robot.subsystems.gripper;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.GripperConstants;
+import frc.robot.constants.NodeConstants.PieceState;
 import frc.robot.subsystems.led.LedSubsystem;
 
 public class RunGripperWithJoystick extends CommandBase {
@@ -48,58 +50,72 @@ public class RunGripperWithJoystick extends CommandBase {
     } else {
       gripperOuttakePower = GripperConstants.gripperOuttakePower;
     }
-    gripperSubsystem.isHolding = holdMode;
+    // gripperSubsystem.isHolding = holdMode;
 
-    // if (!isOuttaking && joystick.getRightBumperPressed() && !holdMode) {
-    // isIntaking = !isIntaking;
-    // if (isIntaking) {
+    // // if (!isOuttaking && joystick.getRightBumperPressed() && !holdMode) {
+    // // isIntaking = !isIntaking;
+    // // if (isIntaking) {
+    // // holdMode = false;
+    // // }
+    // // }
+    // // if (!isIntaking && joystick.getLeftBumperPressed()) {
+    // // isOuttaking = !isOuttaking;
+    // // if (isOuttaking) {
+    // // holdMode = false;
+    // // }
+    // // }
+
+    // if (joystick.getRightTriggerAxis() > 0.05) {
     // holdMode = false;
     // }
-    // }
-    // if (!isIntaking && joystick.getLeftBumperPressed()) {
-    // isOuttaking = !isOuttaking;
-    // if (isOuttaking) {
-    // holdMode = false;
-    // }
-    // }
-
-    if (joystick.getRightTriggerAxis() > 0.05) {
-      holdMode = false;
-    }
     if (joystick.getLeftBumper()) {
-      isOuttaking = true;
-      isIntaking = false;
-      holdMode = false;
+    isOuttaking = true;
+    isIntaking = false;
+    holdMode = false;
     } else if (joystick.getRightBumper()) {
-      isOuttaking = false;
-      isIntaking = true;
+    isOuttaking = false;
+    isIntaking = true;
     } else {
-      isOuttaking = false;
-      isIntaking = false;
+    isOuttaking = false;
+    isIntaking = false;
     }
-    if (holdMode) {
-      gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);
-      gripperSubsystem.brake();
-      ledSubsystem.setLEDGreen();
-    } else if (isIntaking) {
+    // if (holdMode) {
+    // gripperSubsystem.setIntakePower(GripperConstants.gripperFeedforward);
+    // gripperSubsystem.brake();
+    // ledSubsystem.setLEDGreen();
+    // } else if (isIntaking) {
+    // gripperSubsystem.coast();
+    // gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
+    // ledSubsystem.setLEDRed();
+    // double currentTimeStamp = Timer.getFPGATimestamp();
+    // double timePassed = currentTimeStamp - lastTimeStamp;
+    // double velocityThreshold = SmartDashboard.getString("Piece State",
+    // "CUBE").equals("CUBE") ? GripperConstants.cubeStallVelocityThreshold :
+    // GripperConstants.coneStallVelocityThreshold;
+    // boolean isStalling = gripperSubsystem.getVelocity() < velocityThreshold;
+    // boolean didDelay = timePassed > 1;
+    // if (isStalling && didDelay) {
+    // // Hold mode won't be set to true unless we run it for 0.5 seconds to get the
+    // // motor up to
+    // // speed
+    // holdMode = true;
+    // isIntaking = false;
+    // }
+    // } else if (isOuttaking) {
+    // gripperSubsystem.coast();
+    // gripperSubsystem.setOuttakePower(gripperOuttakePower);
+    // ledSubsystem.setLEDBlue();
+    // } else {
+    // gripperSubsystem.setPower(0);
+    // lastTimeStamp = Timer.getFPGATimestamp();
+    // gripperSubsystem.brake();
+    // }
+    if (isIntaking) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);
-      ledSubsystem.setLEDRed();
-      double currentTimeStamp = Timer.getFPGATimestamp();
-      double timePassed = currentTimeStamp - lastTimeStamp;
-      boolean isStalling = gripperSubsystem.getVelocity() < GripperConstants.stallVelocityThreshold;
-      boolean didDelay = timePassed > GripperConstants.gripperDelaySeconds;
-      if (isStalling && didDelay) {
-        // Hold mode won't be set to true unless we run it for 0.5 seconds to get the
-        // motor up to
-        // speed
-        holdMode = true;
-        isIntaking = false;
-      }
     } else if (isOuttaking) {
       gripperSubsystem.coast();
       gripperSubsystem.setOuttakePower(gripperOuttakePower);
-      ledSubsystem.setLEDBlue();
     } else {
       gripperSubsystem.setPower(0);
       lastTimeStamp = Timer.getFPGATimestamp();

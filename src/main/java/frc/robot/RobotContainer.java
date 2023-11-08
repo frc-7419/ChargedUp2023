@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.actions.AutoScorePiece;
 import frc.robot.commands.actions.AutoScorePieceRetract;
-import frc.robot.commands.actions.IntakePiece;
+import frc.robot.commands.actions.AutoIntakePiece;
 import frc.robot.commands.actions.IntakePieceDouble;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
@@ -110,7 +110,7 @@ public class RobotContainer {
         private final ScorePiece scorePieceMid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem,
                         NodeState.LOW);
 
-        private final IntakePiece intakePieceSingleSub = new IntakePiece(elevatorSubsystem, stateMachine, armSubsystem,
+        private final AutoIntakePiece intakePieceSingleSub = new AutoIntakePiece(elevatorSubsystem, stateMachine, armSubsystem,
                         gripperSubsystem, wristSubsystem);
 
         private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem);
@@ -141,7 +141,7 @@ public class RobotContainer {
                 new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
                 new JoystickButton(operatorJoystick, Button.kB.value).onTrue(smartRetract);
                 new JoystickButton(operatorJoystick, Button.kBack.value).onTrue(autoScorePieceHighCube);
-                new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceSingleSub);
+                new JoystickButton(operatorJoystick, Button.kStart.value).onTrue(intakePieceDoubleSub);
                 new JoystickButton(driverJoystick, Button.kY.value).whileTrue(smartBalance);
                 new JoystickButton(driverJoystick, XboxController.Button.kStart.value)
                                 .onTrue(new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem));

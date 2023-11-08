@@ -18,7 +18,9 @@ public class StateMachine extends SubsystemBase {
     this.pieceState = NodeConstants.PieceState.CONE;
     this.isHolding = false;
   }
-
+  public NodeConstants.NodeState getSingleSubState() {
+    return (pieceState == NodeConstants.PieceState.CONE) ? NodeConstants.NodeState.SINGLE_SUBSTATION : NodeConstants.NodeState.GROUND_INTAKE;
+  }
   public void setPieceState(NodeConstants.PieceState pieceState) {
     this.pieceState = pieceState;
   }
@@ -40,6 +42,7 @@ public class StateMachine extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putString("Piece State", pieceState + "");
     SmartDashboard.putBoolean("Holding State", isHolding);
+    SmartDashboard.putString("Single Sub State", getSingleSubState()+"");
 
   }
 }
