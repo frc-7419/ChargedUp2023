@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.NodeConstants;
 import frc.robot.constants.ElevatorConstants.NodeState;
+import frc.robot.constants.NodeConstants.PieceState;
 
 public class StateMachine extends SubsystemBase {
   /** Creates a new StateMachine. */
@@ -23,6 +24,14 @@ public class StateMachine extends SubsystemBase {
   }
   public void setPieceState(NodeConstants.PieceState pieceState) {
     this.pieceState = pieceState;
+  }
+
+  public void setPieceStateCube() {
+    this.pieceState = PieceState.CUBE;
+  }
+
+  public void setPieceStateCone() {
+    this.pieceState = PieceState.CONE;
   }
 
   public NodeConstants.PieceState getPieceState() {

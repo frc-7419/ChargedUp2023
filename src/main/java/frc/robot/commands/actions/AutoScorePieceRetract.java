@@ -41,7 +41,7 @@ public class AutoScorePieceRetract extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, intakeLocation),
-      new RunGripper(gripperSubsystem, gripperDirection, stateMachine).withTimeout(0.3),
+      new RunGripper(gripperSubsystem, false, stateMachine).withTimeout(0.3),
       new InstantCommand(gripperSubsystem::stop),
       new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem));
   }

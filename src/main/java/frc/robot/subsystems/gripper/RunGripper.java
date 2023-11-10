@@ -7,13 +7,15 @@ package frc.robot.subsystems.gripper;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.GripperConstants;
 import frc.robot.constants.GripperConstants.GripperState;
+import frc.robot.constants.NodeConstants.PieceState;
 import frc.robot.subsystems.state.StateMachine;
 
 public class RunGripper extends CommandBase {
 
   /** Creates a new RunGripper. */
   private GripperState mode;
-
+  private boolean isAuto = false;
+  private boolean isIntake = false;
   private GripperSubsystem gripperSubsystem;
   private StateMachine stateMachine;
 
@@ -28,10 +30,33 @@ public class RunGripper extends CommandBase {
     this.stateMachine = stateMachine;
     addRequirements(gripperSubsystem, stateMachine);
   }
+  public RunGripper(GripperSubsystem gripperSubsystem, boolean isIntake, StateMachine stateMachine) {
+    this.gripperSubsystem = gripperSubsystem;
+    this.isAuto = true;
+    this.isIntake = isIntake;
+    this.stateMachine = stateMachine;
+    addRequirements(gripperSubsystem, stateMachine);
+  }
 
   // Adjust direction based on if robot is intaking or scoring
   @Override
   public void initialize() {
+    if (isAuto){
+      PieceState pieceState = stateMachine.getPieceState();
+      if (isIntake){
+        if (pieceState == PieceState.CONE){
+          mode = GripperState.INTAKE_CONE;
+        } else {
+          mode = GripperState.INTAKE_CUBE;
+        }
+      } else {
+        if (pieceState == PieceState.CONE){
+          mode = GripperState.SCORE_CONE;
+        } else {
+          mode = GripperState.SCORE_CUBE;
+        }
+      }
+    }
     if (mode == GripperState.INTAKE_CUBE || mode == GripperState.SCORE_CONE) {
       gripperSubsystem.coast();
       gripperSubsystem.setIntakePower(GripperConstants.gripperPower);

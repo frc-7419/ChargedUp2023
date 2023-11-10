@@ -74,9 +74,9 @@ public class WristToSetpointWithFeedforward extends CommandBase {
 
     wristPIDController.setSetpoint(nextSetpoint.position);
 
-    double armPower = wristPIDController.calculate(currentPosition);
+    double wristPower = wristPIDController.calculate(currentPosition);
 
-    double pidFeedforwardPower = armPower + feedForwardPower;
+    double pidFeedforwardPower = wristPower + feedForwardPower;
 
     wristSubsystem.setPower(pidFeedforwardPower);
   }
