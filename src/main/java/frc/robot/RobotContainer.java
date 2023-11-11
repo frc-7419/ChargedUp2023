@@ -19,6 +19,7 @@ import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.actions.ZeroSensors;
 import frc.robot.commands.autos.AutoHigh;
 import frc.robot.commands.autos.AutoTwoPieceHigh;
+import frc.robot.commands.autos.AutoTwoPieceHighCube;
 import frc.robot.commands.autos.AutoHighBalance;
 import frc.robot.commands.autos.AutoHighStop;
 import frc.robot.commands.autos.Balance;
@@ -175,9 +176,12 @@ public class RobotContainer {
         public Command getAutonomousCommand() {
                 // ledSubsystem.rainbowLED(0);
                 // return autonomousChooser.getSelected();
-                return new AutoTwoPieceHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
-                                gripperSubsystem,
-                                gyroSubsystem, stateMachine);
+                // return new AutoTwoPieceHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
+                //                 gripperSubsystem,
+                //                 gyroSubsystem, stateMachine);
+                return new AutoTwoPieceHighCube(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
+                        gripperSubsystem,
+                        gyroSubsystem, stateMachine);
                 // return balance;
                 // return new Mobility(driveBaseSubsystem);
                 // return mobility;xxxxxxxxxxxxxxxxx

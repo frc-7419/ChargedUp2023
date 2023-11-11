@@ -33,19 +33,19 @@ import frc.robot.subsystems.wrist.WristSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoTwoPieceHigh extends SequentialCommandGroup {
+public class AutoTwoPieceHighCube extends SequentialCommandGroup {
   /** Creates a new AutoHigh. */
-  public AutoTwoPieceHigh(DriveBaseSubsystem driveBaseSubsystem, ElevatorSubsystem elevatorSubsystem,
+  public AutoTwoPieceHighCube(DriveBaseSubsystem driveBaseSubsystem, ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, GripperSubsystem gripperSubsystem,
       GyroSubsystem gyroSubsystem, StateMachine stateMachine) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ZeroSensors(elevatorSubsystem, armSubsystem, wristSubsystem),
-        new InstantCommand(stateMachine::setPieceStateCone),
+        new InstantCommand(stateMachine::setPieceStateCube),
         new InstantCommand(driveBaseSubsystem::coast),
         new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH,
-            GripperState.SCORE_CONE, stateMachine),
+            GripperState.SCORE_CUBE, stateMachine),
         Commands.parallel(
         new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET).withTimeout(3),
         new RunDrive(driveBaseSubsystem, -0.662, -0.662).beforeStarting(new WaitCommand(1.5)).withTimeout(3)),
@@ -54,7 +54,7 @@ public class AutoTwoPieceHigh extends SequentialCommandGroup {
         new RunDrive(driveBaseSubsystem, -0.14, -0.14).withTimeout(1.5),
         new AutoIntakePiece(elevatorSubsystem, stateMachine, armSubsystem, gripperSubsystem, wristSubsystem).withTimeout(2.7)),
         new RunDrive(driveBaseSubsystem, 0.65, 0.65).withTimeout(1.71),
-        new RunDrive(driveBaseSubsystem, -0.157, 0.157).withTimeout(0.4),
+        // new RunDrive(driveBaseSubsystem, -0.157, 0.157).withTimeout(0.4),
         Commands.parallel(
         new RunDrive(driveBaseSubsystem, 0.12, 0.12).withTimeout(0.6),
         new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.LOW).withTimeout(3)),
