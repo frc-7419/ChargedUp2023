@@ -60,6 +60,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
     rightLeader = new TalonFX(DeviceIDs.CanIds.rightFalcon1.id);
     rightFollower = new TalonFX(DeviceIDs.CanIds.rightFalcon2.id);
 
+    leftLeader.configMotionCruiseVelocity(currentTimeStamp);
+
     factoryResetAll();
     setAllDefaultInversions();
 
@@ -79,11 +81,20 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
     poseEstimation = new DrivetrainPoseEstimator(gyroSubsystem);
   }
+  
+  public void setPIDFConstants(int slot, TalonFX motor, double kP, double kI, double kD, double kF) {
+    motor.config_kP(slot, kP, 0);
+    motor.config_kI(slot, kI, 0);
+    motor.config_kD(slot, kD, 0);
+    motor.config_kF(slot, kF, 0);
+  }
+
   /**
    * Current limits so that our drivetrain doesn't have any electrical overloads.
    *
    * @param motorController
    */
+
   private void configCurrentLimits(TalonFX motorController) {
     motorController.configSupplyCurrentLimit(supplyCurrentLimitConfiguration, 5);
     motorController.configStatorCurrentLimit(statorCurrentLimitConfiguration, 5);

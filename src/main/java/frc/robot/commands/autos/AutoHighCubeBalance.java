@@ -34,9 +34,9 @@ import frc.robot.subsystems.wrist.WristSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoTwoPieceHighCube extends SequentialCommandGroup {
+public class AutoHighCubeBalance extends SequentialCommandGroup {
   /** Creates a new AutoHigh. */
-  public AutoTwoPieceHighCube(DriveBaseSubsystem driveBaseSubsystem, ElevatorSubsystem elevatorSubsystem,
+  public AutoHighCubeBalance(DriveBaseSubsystem driveBaseSubsystem, ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, GripperSubsystem gripperSubsystem,
       GyroSubsystem gyroSubsystem, StateMachine stateMachine) {
     // Add your commands in the addCommands() call, e.g.
@@ -48,19 +48,10 @@ public class AutoTwoPieceHighCube extends SequentialCommandGroup {
         new AutoScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, gripperSubsystem, NodeState.LOW,
             GripperState.SCORE_CUBE, stateMachine),
         Commands.parallel(
-        new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET).withTimeout(2),
-        new DriveWithMotionMagic(driveBaseSubsystem, -230)),
-        new InstantCommand(driveBaseSubsystem::coast),
-        new InstantCommand(stateMachine::setPieceStateCube),
-        Commands.parallel(
-        new RunDrive(driveBaseSubsystem, -0.19, -0.19).withTimeout(1.3),
-        new AutoIntakePiece(elevatorSubsystem, stateMachine, armSubsystem, gripperSubsystem, wristSubsystem).beforeStarting(new WaitCommand(0.5)).withTimeout(3.5)),
-        new RunDrive(driveBaseSubsystem, 0.65, 0.65).withTimeout(1.45),
-        // new RunDrive(driveBaseSubsystem, -0.157, 0.157).withTimeout(0.4),
-        Commands.parallel(
-        new RunDrive(driveBaseSubsystem, 0.12, 0.12).withTimeout(0.33),
-        new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.LOW).withTimeout(3)),
-        new RunGripper(gripperSubsystem, GripperState.SCORE_CUBE, stateMachine).withTimeout(0.5),
-        new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET));
+        new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET).withTimeout(2)),
+        new RunDrive(driveBaseSubsystem, 0.5, 0.5).withTimeout(2),
+        new RunDrive(driveBaseSubsystem, -0.35, -0.35).withTimeout(1),
+        new SmartBalance(driveBaseSubsystem, gyroSubsystem),
+        new InstantCommand(driveBaseSubsystem::brake));
   }
 }

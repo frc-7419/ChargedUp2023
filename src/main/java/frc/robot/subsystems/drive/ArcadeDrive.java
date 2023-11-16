@@ -46,6 +46,9 @@ public class ArcadeDrive extends CommandBase {
   /** In the execute method, move the joystick to make the robot move. */
   @Override
   public void execute() {
+    if (Math.abs(joystick.getLeftY())>0.05 || Math.abs(joystick.getRightX())>0.05){
+      driveBaseSubsystem.coast();
+    }
     if (joystick.getXButtonPressed()) {
       this.slowMode = !this.slowMode;
     }

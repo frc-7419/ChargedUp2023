@@ -21,6 +21,8 @@ import frc.robot.commands.autos.AutoHigh;
 import frc.robot.commands.autos.AutoTwoPieceHigh;
 import frc.robot.commands.autos.AutoTwoPieceHighCube;
 import frc.robot.commands.autos.AutoHighBalance;
+import frc.robot.commands.autos.AutoHighCube;
+import frc.robot.commands.autos.AutoHighCubeBalance;
 import frc.robot.commands.autos.AutoHighStop;
 import frc.robot.commands.autos.Balance;
 import frc.robot.commands.autos.Mobility;
@@ -32,9 +34,11 @@ import frc.robot.constants.GripperConstants.GripperState;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpointWithFeedforward;
+import frc.robot.subsystems.arm.ArmWithMotionMagic;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
+import frc.robot.subsystems.drive.DriveWithMotionMagic;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
@@ -113,6 +117,8 @@ public class RobotContainer {
         private final ScorePiece scorePieceMid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem,
                         NodeState.LOW);
 
+        private final ArmWithMotionMagic testArmWithMotionMagic = new ArmWithMotionMagic(armSubsystem, NodeState.HIGH.armSetpoint);
+
         private final AutoIntakePiece intakePieceSingleSub = new AutoIntakePiece(elevatorSubsystem, stateMachine, armSubsystem,
                         gripperSubsystem, wristSubsystem);
 
@@ -125,13 +131,14 @@ public class RobotContainer {
         private final TurnWithGyro turnWithGyro180 = new TurnWithGyro(driveBaseSubsystem, gyroSubsystem, 180, 0.5);
         // Path Planning Commands
 
-        // TODO will use when testing path planning
+        // TODO will use when testing path plannin
         // private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
         private final TurnToAngleRobotRelative turn180RobotRelative = new TurnToAngleRobotRelative(driveBaseSubsystem,
                         180);
         private final TurnToAngleFieldRelative turn180FieldRelative = new TurnToAngleFieldRelative(driveBaseSubsystem,
                         180);
         private final MobilityBalance mobilityBalance = new MobilityBalance(driveBaseSubsystem, gyroSubsystem);
+        private final DriveWithMotionMagic autoDriveTest = new DriveWithMotionMagic(driveBaseSubsystem, -205);
 
         public RobotContainer() {
                 configureButtonBindings();
@@ -139,6 +146,8 @@ public class RobotContainer {
         }
 
         private void configureButtonBindings() {
+                new JoystickButton(driverJoystick, Button.kB.value).onTrue(new InstantCommand(driveBaseSubsystem::brake));
+                new JoystickButton(driverJoystick, Button.kA.value).onTrue(new InstantCommand(driveBaseSubsystem::coast));
                 new JoystickButton(operatorJoystick, Button.kX.value).onTrue(scorePieceHigh);
                 new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceSingleSub);
                 new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
@@ -179,7 +188,10 @@ public class RobotContainer {
                 // return new AutoTwoPieceHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
                 //                 gripperSubsystem,
                 //                 gyroSubsystem, stateMachine);
-                return new AutoTwoPieceHighCube(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
+                // return new AutoTwoPieceHighCube(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
+                //         gripperSubsystem,
+                //         gyroSubsystem, stateMachine);
+                return new AutoHighCube(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
                         gripperSubsystem,
                         gyroSubsystem, stateMachine);
                 // return balance;

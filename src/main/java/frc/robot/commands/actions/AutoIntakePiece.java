@@ -47,7 +47,7 @@ public class AutoIntakePiece extends SequentialCommandGroup {
     addCommands(
       Commands.parallel(
         new IntakePiece(elevatorSubsystem, armSubsystem, wristSubsystem),
-        new AutoRunGripper(gripperSubsystem, stateMachine).beforeStarting(new WaitCommand(0.4))),
+        new AutoRunGripper(gripperSubsystem, stateMachine).beforeStarting(new WaitCommand(0.4)).raceWith(new WaitCommand(3))),
         new SmartRetract(armSubsystem, wristSubsystem).raceWith(new WaitCommand(0.4)));
         // new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem, NodeState.RESET).raceWith(new WaitCommand(0.5)));
   }

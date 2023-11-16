@@ -160,7 +160,18 @@ public class ArmSubsystem extends SubsystemBase {
   public void setPower(double power) {
     armMotor.set(ControlMode.PercentOutput, power);
   }
-
+  public TalonFX getArmMotor() {
+    return armMotor;
+  }
+  public void zeroMotor() {
+    armMotor.setSelectedSensorPosition(0);
+  }
+  public void setPIDFConstants(int slot, TalonFX motor, double kP, double kI, double kD, double kF) {
+    motor.config_kP(slot, kP, 0);
+    motor.config_kI(slot, kI, 0);
+    motor.config_kD(slot, kD, 0);
+    motor.config_kF(slot, kF, 0);
+  }
   /**
    * Returns the position of the main arm, relative to the arm's home position.
    *

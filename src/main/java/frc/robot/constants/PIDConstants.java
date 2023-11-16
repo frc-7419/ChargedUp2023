@@ -2,9 +2,13 @@ package frc.robot.constants;
 
 public final class PIDConstants {
   // drive
-  public static final double DriveBaseMotionMagickP = 0.5;
+  public static final double DriveBaseMotionMagickP = 0.7;
   public static final double DriveBaseMotionMagickI = 0;
   public static final double DriveBaseMotionMagickD = 0;
+
+  public static final double ArmMotionMagickP = 0.5;
+  public static final double ArmMotionMagickI = 0;
+  public static final double ArmMotionMagickD = 0;
 
   // elevator
   public static final double ElevatorKp = 0.0035;
