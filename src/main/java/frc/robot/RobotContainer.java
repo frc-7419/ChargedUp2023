@@ -1,36 +1,19 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.actions.AutoScorePiece;
-import frc.robot.commands.actions.AutoScorePieceRetract;
 import frc.robot.commands.actions.AutoIntakePiece;
+import frc.robot.commands.actions.AutoScorePieceRetract;
 import frc.robot.commands.actions.IntakePieceDouble;
 import frc.robot.commands.actions.ScorePiece;
 import frc.robot.commands.actions.SmartRetract;
 import frc.robot.commands.actions.ZeroSensors;
-import frc.robot.commands.autos.AutoHigh;
-import frc.robot.commands.autos.AutoTwoPieceHigh;
-import frc.robot.commands.autos.AutoTwoPieceHighCube;
-import frc.robot.commands.autos.AutoHighBalance;
-import frc.robot.commands.autos.AutoHighCube;
-import frc.robot.commands.autos.AutoHighCubeBalance;
-import frc.robot.commands.autos.AutoHighStop;
-import frc.robot.commands.autos.Balance;
-import frc.robot.commands.autos.Mobility;
-import frc.robot.commands.autos.MobilityBalance;
-import frc.robot.commands.paths.TurnToAngleFieldRelative;
-import frc.robot.commands.paths.TurnToAngleRobotRelative;
-import frc.robot.constants.NodeConstants;
 import frc.robot.constants.GripperConstants.GripperState;
+import frc.robot.constants.NodeConstants;
 import frc.robot.constants.NodeConstants.NodeState;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.arm.ArmToSetpointWithFeedforward;
@@ -38,18 +21,15 @@ import frc.robot.subsystems.arm.ArmWithMotionMagic;
 import frc.robot.subsystems.arm.MoveArmWithJoystickAnalog;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DriveBaseSubsystem;
-import frc.robot.subsystems.drive.DriveWithMotionMagic;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.ElevatorToSetpointWithFeedForward;
 import frc.robot.subsystems.elevator.MoveElevatorWithJoystickAnalog;
+import frc.robot.subsystems.gripper.AutoRunGripper;
 import frc.robot.subsystems.gripper.GripperSubsystem;
 import frc.robot.subsystems.gripper.RunGripperWithJoystick;
-import frc.robot.subsystems.gripper.AutoRunGripper;
 import frc.robot.subsystems.gyro.GyroSubsystem;
 import frc.robot.subsystems.gyro.SmartBalance;
-import frc.robot.subsystems.gyro.TurnWithGyro;
 import frc.robot.subsystems.led.LedSubsystem;
-import frc.robot.subsystems.led.RunLed;
 import frc.robot.subsystems.state.StateMachine;
 import frc.robot.subsystems.state.SwitchState;
 import frc.robot.subsystems.wrist.MoveWristWithJoystick;
@@ -71,7 +51,7 @@ public class RobotContainer {
         private final StateMachine stateMachine = new StateMachine();
         private final LedSubsystem ledSubsystem = new LedSubsystem();
 
-        // // Commands
+        // Commands
         private final SwitchState switchState = new SwitchState(stateMachine, operatorJoystick);
         private final ArcadeDrive arcadeDrive = new ArcadeDrive(driverJoystick, driveBaseSubsystem, ledSubsystem);
 
@@ -111,43 +91,32 @@ public class RobotContainer {
         private final ScorePiece scorePieceHigh = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem,
                         NodeState.HIGH);
         private final AutoScorePieceRetract autoScorePieceLow = new AutoScorePieceRetract(elevatorSubsystem,
-                        armSubsystem, wristSubsystem, gripperSubsystem, NodeState.LOW, GripperState.SCORE_CUBE, stateMachine);
+                        armSubsystem, wristSubsystem, gripperSubsystem, NodeState.LOW, GripperState.SCORE_CUBE,
+                        stateMachine);
         private final AutoScorePieceRetract autoScorePieceHigh = new AutoScorePieceRetract(elevatorSubsystem,
-                        armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH, GripperState.SCORE_CONE, stateMachine);
+                        armSubsystem, wristSubsystem, gripperSubsystem, NodeState.HIGH, GripperState.SCORE_CONE,
+                        stateMachine);
         private final ScorePiece scorePieceMid = new ScorePiece(elevatorSubsystem, armSubsystem, wristSubsystem,
                         NodeState.LOW);
 
-        private final ArmWithMotionMagic testArmWithMotionMagic = new ArmWithMotionMagic(armSubsystem, NodeState.HIGH.armSetpoint);
+        private final ArmWithMotionMagic testArmWithMotionMagic = new ArmWithMotionMagic(armSubsystem,
+                        NodeState.HIGH.armSetpoint);
 
-        private final AutoIntakePiece intakePieceSingleSub = new AutoIntakePiece(elevatorSubsystem, stateMachine, armSubsystem,
+        private final AutoIntakePiece intakePieceSingleSub = new AutoIntakePiece(elevatorSubsystem, stateMachine,
+                        armSubsystem,
                         gripperSubsystem, wristSubsystem);
 
         private final SmartRetract smartRetract = new SmartRetract(elevatorSubsystem, armSubsystem, wristSubsystem);
 
-        private final RunLed runLed = new RunLed(ledSubsystem, operatorJoystick);
-
-        // // Autonomous
-        private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
-        private final TurnWithGyro turnWithGyro180 = new TurnWithGyro(driveBaseSubsystem, gyroSubsystem, 180, 0.5);
-        // Path Planning Commands
-
-        // TODO will use when testing path plannin
-        // private final MoveToMid moveToPortal = new MoveToMid(driveBaseSubsystem);
-        private final TurnToAngleRobotRelative turn180RobotRelative = new TurnToAngleRobotRelative(driveBaseSubsystem,
-                        180);
-        private final TurnToAngleFieldRelative turn180FieldRelative = new TurnToAngleFieldRelative(driveBaseSubsystem,
-                        180);
-        private final MobilityBalance mobilityBalance = new MobilityBalance(driveBaseSubsystem, gyroSubsystem);
-        private final DriveWithMotionMagic autoDriveTest = new DriveWithMotionMagic(driveBaseSubsystem, -205);
-
         public RobotContainer() {
                 configureButtonBindings();
-                configureAutoSelector();
         }
 
         private void configureButtonBindings() {
-                new JoystickButton(driverJoystick, Button.kB.value).onTrue(new InstantCommand(driveBaseSubsystem::brake));
-                new JoystickButton(driverJoystick, Button.kA.value).onTrue(new InstantCommand(driveBaseSubsystem::coast));
+                new JoystickButton(driverJoystick, Button.kB.value)
+                                .onTrue(new InstantCommand(driveBaseSubsystem::brake));
+                new JoystickButton(driverJoystick, Button.kA.value)
+                                .onTrue(new InstantCommand(driveBaseSubsystem::coast));
                 new JoystickButton(operatorJoystick, Button.kX.value).onTrue(scorePieceHigh);
                 new JoystickButton(operatorJoystick, Button.kA.value).onTrue(intakePieceSingleSub);
                 new JoystickButton(operatorJoystick, Button.kY.value).onTrue(scorePieceMid);
@@ -163,45 +132,8 @@ public class RobotContainer {
                                 .onTrue(new InstantCommand(gyroSubsystem::zeroYaw));
         }
 
-        private void configureAutoSelector() {
-                autonomousChooser.setDefaultOption("Auto High",
-                                new AutoHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem,
-                                                wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH, stateMachine));
-                autonomousChooser.addOption("Auto High + Balance",
-                                new AutoHighBalance(driveBaseSubsystem, elevatorSubsystem,
-                                                armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem,
-                                                NodeState.HIGH, stateMachine));
-                autonomousChooser.addOption("Auto Two Piece High",
-                                new AutoTwoPieceHigh(driveBaseSubsystem, elevatorSubsystem,
-                                                armSubsystem, wristSubsystem, gripperSubsystem, gyroSubsystem, stateMachine));
-                autonomousChooser.addOption("Hybrid", new Mobility(driveBaseSubsystem));
-                autonomousChooser.addOption("Hybrid + Balance", new MobilityBalance(driveBaseSubsystem, gyroSubsystem));
-                autonomousChooser.addOption("Auto High Stop",
-                                new AutoHighStop(driveBaseSubsystem, elevatorSubsystem, armSubsystem,
-                                                wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH, stateMachine));
-                SmartDashboard.putData(autonomousChooser);
-        }
-
         public Command getAutonomousCommand() {
-                // ledSubsystem.rainbowLED(0);
-                // return autonomousChooser.getSelected();
-                // return new AutoTwoPieceHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
-                //                 gripperSubsystem,
-                //                 gyroSubsystem, stateMachine);
-                // return new AutoTwoPieceHighCube(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
-                //         gripperSubsystem,
-                //         gyroSubsystem, stateMachine);
-                return new AutoHighCube(driveBaseSubsystem, elevatorSubsystem, armSubsystem, wristSubsystem,
-                        gripperSubsystem,
-                        gyroSubsystem, stateMachine);
-                // return balance;
-                // return new Mobility(driveBaseSubsystem);
-                // return mobility;xxxxxxxxxxxxxxxxx
-                // return new MobilityBalance(driveBaseSubsystem, gyroSubsystem);
-                // return new AutoHigh(driveBaseSubsystem, elevatorSubsystem, armSubsystem,
-                // wristSubsystem, gripperSubsystem, gyroSubsystem, NodeState.HIGH);
-                // return new Balance(driveBaseSubsystem, gyroSubsystem);
-                // return new WaitCommand(5);
+                return new WaitCommand(0);
         }
 
         public void setDefaultCommands() {
@@ -210,7 +142,6 @@ public class RobotContainer {
                 wristSubsystem.setDefaultCommand(moveWristWithJoystick);
                 armSubsystem.setDefaultCommand(moveArmWithJoystickAnalog);
                 elevatorSubsystem.setDefaultCommand(moveElevatorWithJoystickAnalog);
-                ledSubsystem.setDefaultCommand(runLed);
                 stateMachine.setDefaultCommand(switchState);
         }
 
